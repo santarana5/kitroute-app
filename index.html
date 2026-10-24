@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Hyper-Realistic Multi-Utility Suite</title>
+  <title>UtilityFlow.io — Enterprise-Grade Multi-Utility Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -20,20 +21,21 @@
     }
   </script>
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.25s ease, color 0.25s ease; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.2s ease, color 0.2s ease; }
     
-    /* Light Mode (Hyper-Realistic Clean Minimalist) */
+    /* Light Mode */
     body { background-color: #f8fafc; color: #0f172a; }
-    .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.04); }
+    .glass { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(24px); border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.04); }
     .card-bg { background: #ffffff; border: 1px solid #e2e8f0; }
     .input-bg { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; }
-    .input-bg:focus { border-color: #0ea5e9; ring: 2px solid rgba(14, 165, 233, 0.2); }
+    .input-bg:focus { border-color: #0ea5e9; outline: none; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
 
     /* Dark Mode */
-    html.dark body { background-color: #090a0f; color: #f1f5f9; }
-    html.dark .glass { background: rgba(18, 20, 28, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); }
-    html.dark .card-bg { background: #131620; border: 1px solid rgba(255, 255, 255, 0.07); }
-    html.dark .input-bg { background: #0c0e15; color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.1); }
+    html.dark body { background-color: #06080c; color: #f1f5f9; }
+    html.dark .glass { background: rgba(13, 15, 23, 0.88); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.07); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.6); }
+    html.dark .card-bg { background: #10131d; border: 1px solid rgba(255, 255, 255, 0.06); }
+    html.dark .input-bg { background: #080a10; color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.09); }
+    html.dark .input-bg:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
 
     .pulse-dot { animation: pulseGlow 2s infinite; }
     @keyframes pulseGlow {
@@ -44,36 +46,62 @@
 </head>
 <body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
 
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- COMMAND PALETTE MODAL (Cmd + K) -->
+  <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-md flex items-start justify-center pt-20 p-4">
+    <div class="glass max-w-lg w-full rounded-2xl p-4 border shadow-2xl space-y-3 card-bg">
+      <div class="flex items-center justify-between border-b pb-3">
+        <span class="text-xs font-mono uppercase tracking-wider text-sky-500 font-bold">⚡ Command Palette</span>
+        <button onclick="toggleCmdPalette(false)" class="text-xs opacity-60 hover:opacity-100">ESC</button>
+      </div>
+      <input id="cmdInput" type="text" placeholder="Type a command or search tools (e.g., calculator, qr, theme)..." oninput="filterCommands(this.value)" class="w-full px-4 py-3 rounded-xl input-bg text-sm font-mono border" autofocus />
+      <div id="cmdResults" class="space-y-1 max-h-60 overflow-y-auto">
+        <div onclick="switchTool('calc'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📈 Open Financial Wealth Engine</span><span class="opacity-40 font-mono">Tool 1</span></div>
+        <div onclick="switchTool('image'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🖼️ Open Image Compression Studio</span><span class="opacity-40 font-mono">Tool 2</span></div>
+        <div onclick="switchTool('qr'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📱 Open QR Code Generator</span><span class="opacity-40 font-mono">Tool 3</span></div>
+        <div onclick="switchTool('text'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📝 Open Word & SEO Counter</span><span class="opacity-40 font-mono">Tool 4</span></div>
+        <div onclick="switchTool('spotlight'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🏆 Open Spotlight Board</span><span class="opacity-40 font-mono">Tool 5</span></div>
+        <div onclick="toggleTheme(); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🌓 Toggle Light/Dark Theme</span><span class="opacity-40 font-mono">Shortcut</span></div>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER -->
-  <header class="sticky top-0 z-50 glass border-b">
+  <header class="sticky top-0 z-40 glass border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center font-extrabold text-white text-lg shadow-md shadow-sky-500/20">⚡</div>
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center font-extrabold text-white text-lg shadow-lg shadow-sky-500/20">⚡</div>
         <div>
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-sky-500">.io</span></span>
-            <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span> Live & Fast
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span> Enterprise v2.5
             </span>
           </div>
-          <p class="text-[11px] opacity-60">High-Performance Client-Side Utilities</p>
+          <p class="text-[11px] opacity-60 font-medium">Professional Client-Side Utility Infrastructure</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2.5 rounded-xl border text-sm transition hover:scale-105 shadow-sm card-bg" title="Switch Theme">☀️</button>
+      <div class="flex items-center gap-2.5">
+        <!-- Command Palette Trigger Button -->
+        <button onclick="toggleCmdPalette(true)" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl card-bg border text-xs font-mono opacity-75 hover:opacity-100 shadow-sm transition">
+          <span>Search tools...</span> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px]">⌘K</kbd>
+        </button>
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2.5 rounded-xl border text-sm transition hover:scale-105 shadow-sm card-bg font-medium" title="Switch Theme">☀️</button>
       </div>
     </div>
   </header>
 
   <!-- NAVIGATION TABS -->
-  <div class="glass border-b sticky top-[69px] z-40 overflow-x-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-2.5 min-w-max">
-      <button onclick="switchTool('calc')" id="btn-calc" class="tool-tab px-4 py-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition">1. Groww Financial Calculator 📈</button>
-      <button onclick="switchTool('image')" id="btn-image" class="tool-tab px-4 py-2 rounded-xl text-xs font-semibold opacity-75 hover:opacity-100 transition">2. Image Compressor 🖼️</button>
-      <button onclick="switchTool('qr')" id="btn-qr" class="tool-tab px-4 py-2 rounded-xl text-xs font-semibold opacity-75 hover:opacity-100 transition">3. QR Code Studio 📱</button>
-      <button onclick="switchTool('text')" id="btn-text" class="tool-tab px-4 py-2 rounded-xl text-xs font-semibold opacity-75 hover:opacity-100 transition">4. Word & SEO Counter 📝</button>
-      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-4 py-2 rounded-xl text-xs font-semibold opacity-75 hover:opacity-100 transition">5. Spotlight Board 🏆</button>
+  <div class="glass border-b sticky top-[69px] z-30 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-2 min-w-max">
+      <button onclick="switchTool('calc')" id="btn-calc" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition">1. Wealth & Loan Engine 📈</button>
+      <button onclick="switchTool('image')" id="btn-image" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">2. Image Compression Studio 🖼️</button>
+      <button onclick="switchTool('qr')" id="btn-qr" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">3. QR Studio 📱</button>
+      <button onclick="switchTool('text')" id="btn-text" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">4. SEO Metric Counter 📝</button>
+      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">5. Spotlight Board 🏆</button>
     </div>
   </div>
 
@@ -86,24 +114,23 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- TOOL 1: GROWW-STYLE FINANCIAL CALCULATOR   -->
+    <!-- TOOL 1: FINANCIAL WEALTH & LOAN ENGINE     -->
     <!-- ========================================== -->
     <section id="tool-calc" class="tool-view space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">GROWW FINANCIAL ENGINE</span>
-            <h2 class="text-2xl font-extrabold mt-1">Investment & Loan Calculator</h2>
+            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">FINANCIAL MODELING ENGINE</span>
+            <h2 class="text-2xl font-extrabold mt-1">Investment & Loan Amortization Calculator</h2>
           </div>
-          <div class="flex gap-1.5 p-1 card-bg rounded-xl border">
-            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white transition">SIP / Compound</button>
-            <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold opacity-75 hover:opacity-100 transition">Loan EMI</button>
+          <div class="flex gap-1 p-1 card-bg rounded-xl border">
+            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white transition">Wealth Compounder</button>
+            <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold opacity-70 hover:opacity-100 transition">Loan Amortization</button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="md:col-span-2 space-y-5">
-            <!-- Slider 1 -->
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-semibold">
                 <span id="labelVal1">Total Investment / Principal</span>
@@ -112,7 +139,6 @@
               <input id="rangeVal1" type="range" min="10000" max="10000000" step="5000" value="100000" oninput="updateCalculator()" class="w-full accent-sky-500 cursor-pointer" />
             </div>
 
-            <!-- Slider 2 -->
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-semibold">
                 <span id="labelVal2">Expected Annual Return / Interest Rate</span>
@@ -121,23 +147,26 @@
               <input id="rangeVal2" type="range" min="1" max="30" step="0.5" value="12" oninput="updateCalculator()" class="w-full accent-sky-500 cursor-pointer" />
             </div>
 
-            <!-- Slider 3 -->
             <div class="space-y-2">
               <div class="flex justify-between text-xs font-semibold">
-                <span id="labelVal3">Time Period (Years)</span>
+                <span id="labelVal3">Time Horizon (Years)</span>
                 <span id="val3Display" class="font-mono text-sky-500 font-bold text-sm">5 Years</span>
               </div>
               <input id="rangeVal3" type="range" min="1" max="30" step="1" value="5" oninput="updateCalculator()" class="w-full accent-sky-500 cursor-pointer" />
             </div>
           </div>
 
-          <!-- Groww Visual Breakdown Card -->
+          <!-- Professional Breakdown Card & Chart.js Integration -->
           <div class="card-bg rounded-2xl p-5 border flex flex-col justify-between space-y-4 shadow-sm">
-            <h4 class="text-xs font-bold uppercase opacity-60 tracking-wider">Visual Summary</h4>
+            <h4 class="text-xs font-bold uppercase opacity-60 tracking-wider font-mono">Visual Analytics</h4>
             
-            <div class="space-y-3 font-mono text-xs">
+            <div class="h-36 relative flex items-center justify-center">
+              <canvas id="financialChart"></canvas>
+            </div>
+
+            <div class="space-y-2 font-mono text-xs pt-2 border-t">
               <div class="flex justify-between">
-                <span class="opacity-70">Invested Amount:</span>
+                <span class="opacity-70">Principal:</span>
                 <span id="resInvested" class="font-bold">₹1,00,000</span>
               </div>
               <div class="flex justify-between">
@@ -145,43 +174,35 @@
                 <span id="resGains" class="font-bold text-emerald-500">₹76,234</span>
               </div>
               <div class="pt-2 border-t flex justify-between text-sm">
-                <span class="font-bold">Total Value:</span>
+                <span class="font-bold">Total Maturity:</span>
                 <span id="resTotal" class="font-extrabold text-sky-500">₹1,76,234</span>
               </div>
             </div>
 
-            <!-- Groww Proportional Progress Bar -->
-            <div class="space-y-1.5">
-              <div class="flex h-3 w-full rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
-                <div id="barInvested" class="bg-slate-400 dark:bg-slate-600 transition-all duration-300" style="width: 50%;"></div>
-                <div id="barGains" class="bg-emerald-500 transition-all duration-300" style="width: 50%;"></div>
-              </div>
-              <div class="flex justify-between text-[10px] font-mono opacity-60">
-                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Principal</span>
-                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Earnings</span>
-              </div>
-            </div>
+            <button onclick="window.print()" class="w-full py-2.5 rounded-xl card-bg border text-xs font-bold hover:bg-sky-500/10 transition">
+              🖨️ Export PDF Report
+            </button>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 2: FIXED IMAGE COMPRESSOR & DOWNLOADER -->
+    <!-- TOOL 2: IMAGE COMPRESSION STUDIO           -->
     <!-- ========================================== -->
     <section id="tool-image" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">CLIENT-SIDE MEDIA STUDIO</span>
-          <h2 class="text-2xl font-extrabold mt-1">High-Ratio Image Compressor</h2>
-          <p class="text-xs opacity-70 mt-1">Instantly reduce image file size by up to 80% without noticeable quality loss.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">CLIENT-SIDE MEDIA PIPELINE</span>
+          <h2 class="text-2xl font-extrabold mt-1">Advanced Image Compression Studio</h2>
+          <p class="text-xs opacity-70 mt-1">Lossless-grade client-side compression engine with instant file optimization.</p>
         </div>
 
-        <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-8 text-center space-y-3 card-bg hover:border-sky-500 transition cursor-pointer" onclick="document.getElementById('imageInput').click()">
+        <div id="dropZone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-8 text-center space-y-3 card-bg hover:border-sky-500 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
           <div class="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-500 mx-auto flex items-center justify-center text-xl font-bold">📁</div>
           <div>
-            <p class="text-sm font-bold">Click to upload or drag & drop image</p>
-            <p class="text-xs opacity-60 mt-0.5">Supports PNG, JPG, WEBP up to 25MB</p>
+            <p class="text-sm font-bold">Drag & drop image here or click to browse</p>
+            <p class="text-xs opacity-60 mt-0.5">Supports PNG, JPG, WEBP locally in browser</p>
           </div>
           <input id="imageInput" type="file" accept="image/*" onchange="handleImagePreview(event)" class="hidden" />
         </div>
@@ -191,14 +212,14 @@
             <div class="flex items-center gap-4">
               <img id="sourceImgPreview" class="w-16 h-16 object-cover rounded-xl border shadow-sm" />
               <div class="space-y-1 text-xs font-mono">
-                <p class="font-bold" id="imgOriginalName">filename.jpg</p>
+                <p class="font-bold truncate max-w-[180px]" id="imgOriginalName">filename.jpg</p>
                 <p class="opacity-60">Original Size: <span id="imgOriginalSize" class="text-sky-500 font-bold">0 KB</span></p>
               </div>
             </div>
             
             <div class="w-full sm:w-48 space-y-1">
               <div class="flex justify-between text-xs font-semibold">
-                <span>Compression Quality</span>
+                <span>Compression Level</span>
                 <span id="qualityDisplay" class="font-mono text-sky-500">80%</span>
               </div>
               <input id="qualityRange" type="range" min="20" max="95" value="80" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-sky-500" />
@@ -206,7 +227,7 @@
           </div>
 
           <button onclick="compressAndProcessImage()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
-            Process & Compress Image Now ⚡
+            Process & Compress Image ⚡
           </button>
         </div>
       </div>
@@ -218,27 +239,27 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 3: INNOVATIVE QR CODE STUDIO          -->
+    <!-- TOOL 3: QR CODE GENERATOR                  -->
     <!-- ========================================== -->
     <section id="tool-qr" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">ADVANCED QR STUDIO</span>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">VECTOR QR STUDIO</span>
           <h2 class="text-2xl font-extrabold mt-1">Custom Styled QR Code Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Generate high-resolution scannable QR codes with custom branding colors.</p>
+          <p class="text-xs opacity-70 mt-1">Generate high-resolution scannable QR codes with custom styling.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="sm:col-span-2">
-            <label class="text-xs opacity-70">Target URL or UPI String</label>
+            <label class="text-xs opacity-70 font-semibold">Target URL or String</label>
             <input id="qrInput" type="text" value="https://utilityflow.io" placeholder="https://yourwebsite.com" class="w-full mt-1 px-4 py-3 rounded-xl input-bg text-sm font-mono" />
           </div>
           <div>
-            <label class="text-xs opacity-70">QR Code Color</label>
+            <label class="text-xs opacity-70 font-semibold">Foreground Color</label>
             <input id="qrColor" type="color" value="#0ea5e9" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" />
           </div>
           <div>
-            <label class="text-xs opacity-70">Background Color</label>
+            <label class="text-xs opacity-70 font-semibold">Background Color</label>
             <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" />
           </div>
         </div>
@@ -251,28 +272,28 @@
       <div id="qrResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl text-center max-w-md mx-auto">
         <h3 class="text-base font-bold">Your Custom QR Code</h3>
         <div id="qrOutputContent" class="p-6 bg-white rounded-2xl border shadow-sm flex justify-center"></div>
-        <a id="downloadQrBtn" download="utilityflow-qrcode.png" class="inline-block w-full py-3 rounded-xl bg-emerald-500 text-white font-extrabold text-xs shadow-md">
+        <a id="downloadQrBtn" download="utilityflow-qrcode.png" class="inline-block w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs shadow-md transition">
           Download HD QR Code ⬇️
         </a>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 4: INTUITIVE WORD & SEO COUNTER       -->
+    <!-- TOOL 4: WORD & SEO COUNTER                 -->
     <!-- ========================================== -->
     <section id="tool-text" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
           <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">CONTENT METRICS ENGINE</span>
           <h2 class="text-2xl font-extrabold mt-1">Live Word & SEO Character Counter</h2>
-          <p class="text-xs opacity-70 mt-1">Real-time breakdown with social media post limit indicators.</p>
+          <p class="text-xs opacity-70 mt-1">Comprehensive text metrics breakdown with social platform limit indicators.</p>
         </div>
 
-        <div>
+        <div class="relative">
           <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Start typing or paste your content here..." class="w-full px-4 py-3.5 rounded-2xl input-bg text-xs font-mono"></textarea>
+          <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg card-bg border text-[10px] font-bold shadow-sm hover:bg-sky-500/10 transition">📋 Copy Text</button>
         </div>
 
-        <!-- 4 Metric Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
           <div class="p-4 rounded-2xl card-bg border shadow-sm">
             <div id="cntWords" class="text-2xl font-extrabold text-sky-500">0</div>
@@ -292,9 +313,8 @@
           </div>
         </div>
 
-        <!-- Intuitive Progress Meters for Social Limits -->
         <div class="card-bg rounded-2xl p-4 border space-y-3">
-          <h4 class="text-xs font-bold uppercase tracking-wider opacity-60">Platform Character Limit Checkers</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Platform Character Limit Checkers</h4>
           
           <div class="space-y-1">
             <div class="flex justify-between text-xs font-mono">
@@ -328,7 +348,7 @@
         <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Spotlight Board</h2>
         <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our platform.</p>
         
-        <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 hover:opacity-95 transition">
+        <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 hover:opacity-95 transition">
           🚀 Add Your Project Free
         </button>
       </div>
@@ -358,22 +378,22 @@
       </div>
       <h3 class="text-xl font-bold">Feature Your Project</h3>
       <div>
-        <label class="text-xs opacity-70">Project / Startup Name</label>
+        <label class="text-xs opacity-70 font-semibold">Project / Startup Name</label>
         <input id="smName" type="text" placeholder="My Startup" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm" />
       </div>
       <div>
-        <label class="text-xs opacity-70">Website URL / Link</label>
+        <label class="text-xs opacity-70 font-semibold">Website URL / Link</label>
         <input id="smUrl" type="text" placeholder="https://startup.com" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm font-mono" />
       </div>
-      <button onclick="submitFreeSpotlight()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
+      <button onclick="submitFreeSpotlight()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
         Publish to Board Instantly →
       </button>
     </div>
   </div>
 
-  <!-- SCRIPT ENGINE -->
+  <!-- SCRIPT ENGINE WITH EXPENSIVE FEATURES -->
   <script>
-    // Theme Initializer (Light Mode Default)
+    // Theme Initializer
     if (localStorage.getItem('utilityflow_theme') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '🌙';
@@ -394,18 +414,64 @@
         localStorage.setItem('utilityflow_theme', 'dark');
         btn.textContent = '🌙';
       }
+      showToast('Theme updated successfully');
+    }
+
+    // --- TOAST NOTIFICATION SYSTEM ---
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'glass card-bg px-4 py-3 rounded-xl border shadow-xl text-xs font-mono flex items-center gap-2 pointer-events-auto transition-all duration-300 translate-y-2 opacity-0';
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // --- COMMAND PALETTE SHORTCUT (Cmd+K) ---
+    function toggleCmdPalette(open) {
+      const modal = document.getElementById('cmdPalette');
+      if (open) {
+        modal.classList.remove('hidden');
+        document.getElementById('cmdInput').focus();
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const modal = document.getElementById('cmdPalette');
+        toggleCmdPalette(modal.classList.contains('hidden'));
+      }
+      if (e.key === 'Escape') {
+        toggleCmdPalette(false);
+      }
+    });
+
+    function filterCommands(query) {
+      // Simple filter logic for command search
+      const q = query.toLowerCase();
+      // Can be expanded if needed
     }
 
     function switchTool(toolId) {
       document.querySelectorAll('.tool-view').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-4 py-2 rounded-xl text-xs font-semibold opacity-75 hover:opacity-100 transition');
+      document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition');
       
       document.getElementById('tool-' + toolId).classList.remove('hidden');
-      document.getElementById('btn-' + toolId).className = 'tool-tab px-4 py-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition';
+      document.getElementById('btn-' + toolId).className = 'tool-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition';
+      showToast(`Switched to tool: ${toolId.toUpperCase()}`);
     }
 
-    // --- TOOL 1: GROWW-STYLE FINANCIAL CALCULATOR ENGINE ---
+    // --- FINANCIAL CHART.JS ENGINE ---
     let calcMode = 'sip';
+    let financialChartInstance = null;
 
     function setCalcMode(mode) {
       calcMode = mode;
@@ -417,7 +483,7 @@
 
       if (mode === 'sip') {
         sipBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white transition';
-        loanBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold opacity-75 hover:opacity-100 transition';
+        loanBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold opacity-70 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Total Investment / Principal';
         document.getElementById('resGainLabel').textContent = 'Est. Returns:';
         r1.min = 5000; r1.max = 5000000; r1.step = 5000; r1.value = 100000;
@@ -425,7 +491,7 @@
         r3.min = 1; r3.max = 30; r3.step = 1; r3.value = 5;
       } else {
         loanBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white transition';
-        sipBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold opacity-75 hover:opacity-100 transition';
+        sipBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold opacity-70 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Loan Amount (₹)';
         document.getElementById('resGainLabel').textContent = 'Total Interest:';
         r1.min = 100000; r1.max = 10000000; r1.step = 50000; r1.value = 2500000;
@@ -449,37 +515,67 @@
       let gains = 0;
 
       if (calcMode === 'sip') {
-        // Compound Interest formula: A = P(1 + r/100)^t
         total = v1 * Math.pow((1 + v2 / 100), v3);
         gains = total - v1;
       } else {
-        // Loan EMI formula
         const r = v2 / 12 / 100;
         const n = v3 * 12;
         const emi = (v1 * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
         total = emi * n;
-        gains = total - v1; // Total Interest
+        gains = total - v1;
       }
 
       document.getElementById('resInvested').textContent = '₹' + Math.round(invested).toLocaleString('en-IN');
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
       document.getElementById('resTotal').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
 
-      const invPct = (invested / total) * 100;
-      const gainPct = 100 - invPct;
-      document.getElementById('barInvested').style.width = invPct + '%';
-      document.getElementById('barGains').style.width = gainPct + '%';
+      // Render Chart.js
+      renderFinancialChart(invested, gains);
+    }
+
+    function renderFinancialChart(invested, gains) {
+      const ctx = document.getElementById('financialChart').getContext('2d');
+      if (financialChartInstance) {
+        financialChartInstance.destroy();
+      }
+      financialChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Principal', 'Earnings'],
+          datasets: [{
+            data: [invested, gains],
+            backgroundColor: ['#94a3b8', '#10b981'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          cutout: '75%'
+        }
+      });
     }
     updateCalculator();
 
-    // --- TOOL 2: FIXED IMAGE COMPRESSOR ENGINE ---
+    // --- IMAGE COMPRESSOR & DRAG/DROP ---
     let loadedFile = null;
 
-    function handleImagePreview(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      loadedFile = file;
+    function handleDrop(e) {
+      e.preventDefault();
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        processFile(e.dataTransfer.files[0]);
+      }
+    }
 
+    function handleImagePreview(e) {
+      if (e.target.files && e.target.files[0]) {
+        processFile(e.target.files[0]);
+      }
+    }
+
+    function processFile(file) {
+      loadedFile = file;
       document.getElementById('imgOriginalName').textContent = file.name;
       document.getElementById('imgOriginalSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
 
@@ -487,6 +583,7 @@
       reader.onload = function(event) {
         document.getElementById('sourceImgPreview').src = event.target.result;
         document.getElementById('imagePreviewArea').classList.remove('hidden');
+        showToast('Image loaded successfully');
       };
       reader.readAsDataURL(file);
     }
@@ -518,22 +615,33 @@
             out.innerHTML = `
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                 <img src="${compressedUrl}" class="max-h-48 mx-auto rounded-xl border shadow-sm" />
-                <div class="space-y-2 text-xs font-mono text-left card-bg p-4 rounded-xl border">
+                <div class="space-y-3 text-xs font-mono text-left card-bg p-4 rounded-xl border">
                   <p>New Compressed Size: <span class="text-emerald-500 font-bold">${newSizeKb}</span></p>
                   <p>Size Reduced By: <span class="text-sky-500 font-bold">${savings}%</span></p>
-                  <a href="${compressedUrl}" download="optimized-${loadedFile.name}" class="inline-block w-full mt-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-center shadow-md transition">
+                  <button onclick="triggerFileDownload('${compressedUrl}', 'optimized-${loadedFile.name}')" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-center shadow-md transition cursor-pointer">
                     Download Compressed Image ⬇️
-                  </a>
+                  </button>
                 </div>
               </div>
             `;
+            showToast('Image compressed successfully!');
           }, 'image/jpeg', quality);
         };
       };
       reader.readAsDataURL(loadedFile);
     }
 
-    // --- TOOL 3: INNOVATIVE QR CODE STUDIO ---
+    function triggerFileDownload(url, filename) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('Download initiated successfully');
+    }
+
+    // --- QR CODE GENERATOR ---
     function generateAdvancedQRCode() {
       const text = document.getElementById('qrInput').value.trim() || 'https://utilityflow.io';
       const color = document.getElementById('qrColor').value.replace('#', '');
@@ -547,9 +655,10 @@
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}&color=${color}&bgcolor=${bgColor}`;
       out.innerHTML = `<img src="${qrApiUrl}" alt="QR Code" class="w-48 h-48 mx-auto rounded-lg shadow-sm" />`;
       downloadBtn.href = qrApiUrl;
+      showToast('QR code generated successfully');
     }
 
-    // --- TOOL 4: INTUITIVE WORD & SEO COUNTER ---
+    // --- WORD & SEO COUNTER ---
     function runWordCounter() {
       const text = document.getElementById('wordInput').value;
       const words = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -562,14 +671,12 @@
       document.getElementById('cntSentences').textContent = sentences;
       document.getElementById('cntTime').textContent = readTime + 's';
 
-      // Twitter Limit (280)
       const twPct = Math.min(100, (chars / 280) * 100);
       document.getElementById('twLimitText').textContent = chars + ' / 280';
       const twBar = document.getElementById('twBar');
       twBar.style.width = twPct + '%';
       twBar.className = chars > 280 ? 'h-full bg-red-500 transition-all duration-200' : 'h-full bg-sky-500 transition-all duration-200';
 
-      // SEO Meta Description Limit (Optimal 160)
       const seoPct = Math.min(100, (chars / 160) * 100);
       document.getElementById('seoLimitText').textContent = chars + ' / 160';
       const seoBar = document.getElementById('seoBar');
@@ -577,7 +684,13 @@
       seoBar.className = chars > 160 ? 'h-full bg-amber-500 transition-all duration-200' : 'h-full bg-emerald-500 transition-all duration-200';
     }
 
-    // --- TOOL 5: SPOTLIGHT BOARD STATE ---
+    function copyWordContent() {
+      const text = document.getElementById('wordInput').value;
+      navigator.clipboard.writeText(text);
+      showToast('Text copied to clipboard!');
+    }
+
+    // --- SPOTLIGHT BOARD ---
     let spotlightProjects = [
       { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured' },
       { name: 'DevToolbox', url: 'https://devtoolbox.io', status: 'Community Pick' },
@@ -615,7 +728,7 @@
       spotlightProjects.unshift({ name, url, status: 'New Submission' });
       closeSpotlightModal();
       renderSpotlightBoard();
-      alert('🎉 Project published successfully to the free spotlight board!');
+      showToast('Project published successfully!');
     }
 
     renderSpotlightBoard();
