@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Free Multi-Utility AI Suite & Spotlight Board</title>
+  <title>UtilityFlow.io — Free Multi-Utility Suite & Spotlight Board</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
@@ -51,18 +51,14 @@
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-cyan-400">.io</span></span>
             <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 100% FREE + AI POWERED
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 100% FREE UTILITY SUITE
             </span>
           </div>
-          <p class="text-[11px] opacity-60 hidden sm:block">Gemini-Backend Multi-Utility Suite</p>
+          <p class="text-[11px] opacity-60 hidden sm:block">Instant Multi-Tool Generator</p>
         </div>
       </div>
 
-      <!-- API Key Setup & Theme Toggle -->
       <div class="flex items-center gap-2">
-        <div class="hidden md:flex items-center gap-1.5 text-xs">
-          <input id="globalApiKey" type="password" placeholder="Gemini API Key (optional)" onchange="saveApiKey(this.value)" class="px-2.5 py-1.5 rounded-lg input-bg border text-xs w-48 font-mono" title="Enter free Gemini API key from AI Studio" />
-        </div>
         <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">🌙</button>
       </div>
     </div>
@@ -89,85 +85,84 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- TOOL 1: PAYPROMPT (AI Invoice Reminders)   -->
+    <!-- TOOL 1: PAYPROMPT (Invoice Reminders)      -->
     <!-- ========================================== -->
     <section id="tool-payprompt" class="tool-view space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • GEMINI AI GENERator</span>
-          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: AI Invoice & Payment Reminder Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Randomized, dynamic payment collection scripts generated live via Gemini AI.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • INVOICE REMINDER GENERATOR</span>
+          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: Payment Collection Script Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Instant, professional reminder emails and WhatsApp messages for overdue client invoices.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <div>
             <label class="text-xs opacity-70">Client Name / Company</label>
-            <input id="ppClient" type="text" placeholder="e.g., Acme Corp" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <input id="ppClient" type="text" placeholder="e.g., Oscorp" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
           <div>
             <label class="text-xs opacity-70">Overdue Amount (INR)</label>
-            <input id="ppAmount" type="number" placeholder="e.g., 15000" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+            <input id="ppAmount" type="number" placeholder="e.g., 584800" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
           </div>
         </div>
 
-        <button onclick="runGeminiTool('payprompt')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate Unique AI Scripts ⚡
+        <button onclick="runTool('payprompt')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate Professional Messages ⚡
         </button>
       </div>
 
-      <!-- AdSense In-Feed Ad Slot -->
       <div class="glass rounded-2xl p-3 text-center text-[11px] opacity-60 font-mono border border-dashed">
         <span>[ Google AdSense In-Feed Native Ad ]</span>
       </div>
 
       <div id="ppResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated AI Collection Scripts</h3>
+        <h3 class="text-base font-bold">Generated Collection Scripts</h3>
         <div id="ppOutputContent" class="space-y-4 text-xs font-mono"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 2: METAGEN (AI Meta Tag Generator)    -->
+    <!-- TOOL 2: METAGEN (Meta Tag Generator)       -->
     <!-- ========================================== -->
     <section id="tool-metagen" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • GEMINI AI GENERATOR</span>
-          <h2 class="text-2xl font-extrabold mt-2">MetaGen: AI HTML Meta & Open Graph Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Let Gemini write optimized meta tags tailored to your exact web page topic.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • SEO UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">MetaGen: HTML Meta & Open Graph Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Create perfectly formatted Google SEO tags and social sharing previews instantly.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <div>
             <label class="text-xs opacity-70">Page Subject / Title</label>
-            <input id="mgTitle" type="text" placeholder="e.g., Best Budget Coffee Maker in India" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <input id="mgTitle" type="text" placeholder="e.g., Enterprise Cloud Architecture" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
           <div>
             <label class="text-xs opacity-70">Target Keywords</label>
-            <input id="mgKeys" type="text" placeholder="coffee maker, kitchen appliances" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <input id="mgKeys" type="text" placeholder="cloud, enterprise, devops" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
         </div>
 
-        <button onclick="runGeminiTool('metagen')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate AI Meta Tags 🌐
+        <button onclick="runTool('metagen')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate HTML Head Tags 🌐
         </button>
       </div>
 
       <div id="mgResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">AI Generated HTML Snippet</h3>
+        <h3 class="text-base font-bold">Ready-to-Use HTML Snippet</h3>
         <pre id="mgOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 3: SLUGCRAFT (AI Slug & UTM Builder)  -->
+    <!-- TOOL 3: SLUGCRAFT (URL & UTM Builder)      -->
     <!-- ========================================== -->
     <section id="tool-slugcraft" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • GEMINI AI GENERATOR</span>
-          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: AI URL Slug & UTM Campaign Builder</h2>
-          <p class="text-xs opacity-70 mt-1">Generate SEO-optimized URL slugs and custom UTM tracking tags via AI.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • MARKETING UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: Clean URL Slug & UTM Builder</h2>
+          <p class="text-xs opacity-70 mt-1">Convert titles into clean SEO URLs and campaign tracking links instantly.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -177,30 +172,30 @@
           </div>
           <div>
             <label class="text-xs opacity-70">Article / Product Title</label>
-            <input id="scTitle" type="text" placeholder="10 Ways to Scale Your SaaS in 2026" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <input id="scTitle" type="text" placeholder="Quantum Computing Breakthrough in 2026" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
         </div>
 
-        <button onclick="runGeminiTool('slugcraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Craft AI Slug & URL 🔗
+        <button onclick="runTool('slugcraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Craft Clean Slug & URL 🔗
         </button>
       </div>
 
       <div id="scResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">AI Crafted Slug & URL</h3>
+        <h3 class="text-base font-bold">Generated Slug & URL</h3>
         <div id="scOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono space-y-2 border"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 4: POLICYDRAFT (AI Legal Generator)   -->
+    <!-- TOOL 4: POLICYDRAFT (Legal Docs Generator) -->
     <!-- ========================================== -->
     <section id="tool-policydraft" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • GEMINI AI GENERATOR</span>
-          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: AI Privacy Policy & Terms Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Dynamic custom legal policy generation powered by Gemini AI.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • LEGAL UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: Privacy Policy & Terms Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Generate standard compliance website legal documents in seconds.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -214,43 +209,43 @@
           </div>
         </div>
 
-        <button onclick="runGeminiTool('policydraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate AI Privacy Policy 📄
+        <button onclick="runTool('policydraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate Privacy Policy Template 📄
         </button>
       </div>
 
       <div id="pdResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">AI Generated Policy Markdown</h3>
+        <h3 class="text-base font-bold">Generated Policy Markdown</h3>
         <textarea id="pdOutputContent" rows="8" class="w-full p-4 rounded-xl input-bg text-xs font-mono border"></textarea>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 5: CASESWAP (AI Text & JSON Formatter)-->
+    <!-- TOOL 5: CASESWAP (Text & JSON Formatter)   -->
     <!-- ========================================== -->
     <section id="tool-caseswap" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • GEMINI AI UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: AI Text Refiner & JSON Formatter</h2>
-          <p class="text-xs opacity-70 mt-1">Clean text casing, fix typos, or format raw JSON instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • DEVELOPER UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: Text Casing & JSON Formatter</h2>
+          <p class="text-xs opacity-70 mt-1">Transform text casing (camelCase, UPPER, snake) or validate JSON instantly.</p>
         </div>
 
         <div>
-          <label class="text-xs opacity-70">Input Text or Raw Data</label>
-          <textarea id="csInput" rows="4" placeholder="enter messy text or broken json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
+          <label class="text-xs opacity-70">Input Text or JSON</label>
+          <textarea id="csInput" rows="4" placeholder="enter text or raw json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <button onclick="runCaseSwap('upper')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">UPPERCASE</button>
           <button onclick="runCaseSwap('lower')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">lowercase</button>
-          <button onclick="runGeminiTool('caseswap_ai')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">✨ AI Polish & Correct</button>
-          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">Format JSON</button>
+          <button onclick="runCaseSwap('camel')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">camelCase</button>
+          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">Format JSON</button>
         </div>
       </div>
 
       <div id="csResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Processed Output</h3>
+        <h3 class="text-base font-bold">Formatted Output</h3>
         <pre id="csOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
       </div>
     </section>
@@ -260,7 +255,7 @@
     <!-- ========================================== -->
     <section id="tool-spotlight" class="tool-view hidden space-y-6 max-w-3xl mx-auto">
       <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
-        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • FREE VISIBILITY BOARD</span>
+        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • COMMUNITY VISIBILITY BOARD</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Free Spotlight Board</h2>
         <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our multi-tool platform.</p>
         
@@ -295,11 +290,11 @@
       <h3 class="text-xl font-bold">Feature Your Project</h3>
       <div>
         <label class="text-xs opacity-70">Project / Startup Name</label>
-        <input id="smName" type="text" placeholder="My SaaS Startup" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
+        <input id="smName" type="text" placeholder="My Startup" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
       </div>
       <div>
         <label class="text-xs opacity-70">Website URL / Link</label>
-        <input id="smUrl" type="text" placeholder="https://mysaaS.com" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono" />
+        <input id="smUrl" type="text" placeholder="https://startup.com" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono" />
       </div>
       <button onclick="submitFreeSpotlight()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
         Publish to Board Instantly →
@@ -307,7 +302,7 @@
     </div>
   </div>
 
-  <!-- CORE SCRIPT LOGIC (GEMINI AI INTEGRATION) -->
+  <!-- CORE SCRIPT LOGIC (INSTANT DYNAMIC GENERATOR) -->
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -329,83 +324,66 @@
       document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition';
     }
 
-    function saveApiKey(val) {
-      localStorage.setItem('utilityflow_gemini_key', val.trim());
-      alert('✅ Gemini API Key saved locally!');
-    }
+    // Dynamic Randomized Generator Engine for All Tools
+    function runTool(type) {
+      const randSeed = Math.floor(Math.random() * 9000) + 1000;
 
-    // Universal Gemini API Caller (gemini-3.8-flash)
-    async function callGeminiAI(promptText) {
-      let apiKey = localStorage.getItem('utilityflow_gemini_key');
-      if (!apiKey) {
-        // Fallback demo mode if no API key is saved yet
-        return simulateAiRandomResponse(promptText);
-      }
-
-      const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: promptText }] }]
-          })
-        });
-        const data = await response.json();
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-          return data.candidates[0].content.parts[0].text;
-        } else {
-          throw new Error('Invalid AI response structure');
-        }
-      } catch (err) {
-        console.warn('Gemini API fetch error, falling back to dynamic generator:', err);
-        return simulateAiRandomResponse(promptText);
-      }
-    }
-
-    // Fallback randomized dynamic response generator if no key is entered yet
-    function simulateAiRandomResponse(prompt) {
-      const rand = Math.floor(Math.random() * 1000);
-      return `[AI Generated Response #${rand}]: Based on your input, here is your randomized, unique output optimized for maximum quality and fresh formatting.`;
-    }
-
-    // Tool 1: PayPrompt AI Generator
-    async function runGeminiTool(type) {
       if (type === 'payprompt') {
-        const client = document.getElementById('ppClient').value.trim() || 'Valued Client';
-        const amt = document.getElementById('ppAmount').value.trim() || '10,000';
+        const client = document.getElementById('ppClient').value.trim() || 'Client';
+        const amt = document.getElementById('ppAmount').value.trim() || '15,000';
         const box = document.getElementById('ppResultBox');
         const out = document.getElementById('ppOutputContent');
         box.classList.remove('hidden');
-        out.innerHTML = `<p class="opacity-60 animate-pulse">🤖 Gemini AI is generating randomized collection scripts...</p>`;
 
-        const prompt = `Write 3 unique, professional, and polite overdue payment follow-up email/WhatsApp variations for client "${client}" for an amount of INR ${amt}. Make them sound distinct and randomized (Variant A: Friendly Nudge, Variant B: Firm Professional, Variant C: Urgent Warning). Return them clean.`;
-        const res = await callGeminiAI(prompt);
-        out.innerHTML = `<div class="p-4 rounded-xl input-bg border whitespace-pre-line">${res}</div>`;
-      } 
+        // Randomized variation phrases to make every click unique
+        const openers = [
+          `Hope you're having a productive week at ${client}!`,
+          `Checking in to see how everything is progressing on your end at ${client}.`,
+          `Writing to touch base regarding our ongoing deliverables with ${client}.`
+        ];
+        const closers = [
+          `Please arrange settlement via wire transfer by Friday. Ref #${randSeed}.`,
+          `Kindly process this balance of ₹${amt} at your earliest convenience to maintain active service priority.`,
+          `Let us know if you need any supplementary billing paperwork to clear invoice #${randSeed}.`
+        ];
+
+        out.innerHTML = `
+          <div class="p-3.5 rounded-xl input-bg border space-y-1">
+            <p class="font-bold text-cyan-400">✉️ Email Variation 1 (Polite Nudge)</p>
+            <p class="opacity-80">Dear ${client} team, ${openers[0]} This is a friendly reminder that invoice #${randSeed} totaling ₹${amt} is now due. ${closers[0]} Best regards.</p>
+          </div>
+          <div class="p-3.5 rounded-xl input-bg border space-y-1">
+            <p class="font-bold text-emerald-400">💬 WhatsApp / SMS Script (Direct)</p>
+            <p class="opacity-80">Hi ${client}! ${openers[1]} Just reminding you about the pending invoice payment of ₹${amt}. ${closers[1]}</p>
+          </div>
+          <div class="p-3.5 rounded-xl input-bg border space-y-1">
+            <p class="font-bold text-amber-400">⚠️ Formal Notice (Firm Professional)</p>
+            <p class="opacity-80">Attention Accounts Dept (${client}), our records show that invoice #${randSeed} for ₹${amt} is currently overdue. ${closers[2]}</p>
+          </div>
+        `;
+      }
       else if (type === 'metagen') {
-        const title = document.getElementById('mgTitle').value.trim() || 'Website';
-        const keys = document.getElementById('mgKeys').value.trim() || 'utility, tools';
+        const title = document.getElementById('mgTitle').value.trim() || 'Professional Web Page';
+        const keys = document.getElementById('mgKeys').value.trim() || 'business, technology';
         const box = document.getElementById('mgResultBox');
         const out = document.getElementById('mgOutputContent');
         box.classList.remove('hidden');
-        out.textContent = '🤖 Generating meta tags...';
 
-        const prompt = `Generate clean HTML <title>, <meta name="description">, <meta name="keywords">, and Open Graph tags for a web page titled "${title}" with keywords "${keys}".`;
-        const res = await callGeminiAI(prompt);
-        out.textContent = res;
+        out.textContent = `<title>${title} | Official Portal</title>\n<meta name="description" content="Discover comprehensive resources and professional insights regarding ${title}. Optimized for performance and verified for ${keys}.">\n<meta name="keywords" content="${keys}, online portal, professional services">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="Explore verified details about ${title}.">\n<meta property="og:type" content="website">`;
       }
       else if (type === 'slugcraft') {
         const base = document.getElementById('scUrl').value.trim();
-        const title = document.getElementById('scTitle').value.trim() || 'New Post';
+        const title = document.getElementById('scTitle').value.trim() || 'New Article';
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') + '-' + randSeed;
+
         const box = document.getElementById('scResultBox');
         const out = document.getElementById('scOutputContent');
         box.classList.remove('hidden');
-        out.innerHTML = `<p class="opacity-60">🤖 Crafting slug...</p>`;
 
-        const prompt = `Convert the title "${title}" into a clean SEO URL slug and construct a full tracking URL starting with "${base}".`;
-        const res = await callGeminiAI(prompt);
-        out.innerHTML = `<div class="p-3 rounded-xl input-bg border whitespace-pre-line">${res}</div>`;
+        out.innerHTML = `
+          <div><span class="opacity-60">Generated Clean Slug:</span> <span class="text-cyan-400 font-bold">/${slug}</span></div>
+          <div><span class="opacity-60">Full Campaign URL:</span> <span class="text-emerald-400">${base}${slug}?utm_source=utilityflow&utm_medium=organic&utm_campaign=ref_${randSeed}</span></div>
+        `;
       }
       else if (type === 'policydraft') {
         const name = document.getElementById('pdName').value.trim() || 'UtilityFlow';
@@ -413,26 +391,12 @@
         const box = document.getElementById('pdResultBox');
         const out = document.getElementById('pdOutputContent');
         box.classList.remove('hidden');
-        out.value = '🤖 Generating custom privacy policy...';
 
-        const prompt = `Write a comprehensive, standard website privacy policy markdown for "${name}" with contact email "${email}".`;
-        const res = await callGeminiAI(prompt);
-        out.value = res;
-      }
-      else if (type === 'caseswap_ai') {
-        const text = document.getElementById('csInput').value;
-        const box = document.getElementById('csResultBox');
-        const out = document.getElementById('csOutputContent');
-        box.classList.remove('hidden');
-        out.textContent = '🤖 Polishing text via Gemini AI...';
-
-        const prompt = `Polish, correct grammar, and format the following text cleanly: "${text}"`;
-        const res = await callGeminiAI(prompt);
-        out.textContent = res;
+        out.value = `# Privacy Policy for ${name}\n\nEffective Date: January 1, 2026\n\nAt ${name}, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document (Ref #${randSeed}) outlines the types of data collected and recorded by ${name} and how we utilize it.\n\n## Information We Collect\nWe may collect standard technical browser logs, IP addresses, and user-submitted form details strictly to optimize service delivery.\n\n## Contact Us\nIf you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at ${email}.`;
       }
     }
 
-    // Tool 5: Standard CaseSwap Helpers
+    // Tool 5: CaseSwap Helpers
     function runCaseSwap(mode) {
       const text = document.getElementById('csInput').value;
       const box = document.getElementById('csResultBox');
@@ -441,6 +405,7 @@
 
       if (mode === 'upper') out.textContent = text.toUpperCase();
       else if (mode === 'lower') out.textContent = text.toLowerCase();
+      else if (mode === 'camel') out.textContent = text.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
       else if (mode === 'json') {
         try {
           const parsed = JSON.parse(text);
