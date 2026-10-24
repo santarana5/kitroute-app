@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RankPulse.io — Claim #1 Priority & Creator Hub</title>
+  <title>UtilityFlow.io — Multi-Utility Toolkit & Spotlight Board</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -26,7 +26,7 @@
     html.dark body { background-color: #09090b; color: #f4f4f5; }
     html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
 
-    html.dark .glass { background: rgba(24, 24, 27, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    html.dark .glass { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
     html:not(.dark) .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
 
     html.dark .card-bg { background: #121216; border: 1px solid rgba(255,255,255,0.08); }
@@ -40,338 +40,303 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.45; transform: scale(1.18); }
     }
-    .chat-bounce { animation: bounceSlow 3s infinite; }
-    @keyframes bounceSlow {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-  <!-- TOP GLOBAL NAVIGATION -->
+  <!-- GLOBAL HEADER & NAVIGATION -->
   <header class="sticky top-0 z-50 glass border-b">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center font-extrabold text-black text-lg shadow-lg">⚡</div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-tight text-lg">RankPulse<span class="text-cyan-400">.io</span></span>
+            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-cyan-400">.io</span></span>
             <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> LIVE AUCTION
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 6 TOOLS ACTIVE
             </span>
           </div>
-          <p class="text-[11px] opacity-60 hidden sm:block">Priority Auction & Creator Hub</p>
+          <p class="text-[11px] opacity-60 hidden sm:block">Professional Multi-Utility Suite & Spotlight Board</p>
         </div>
       </div>
 
-      <!-- Tab Switcher & Theme Toggle -->
+      <!-- Theme Toggle & Upgrade Button -->
       <div class="flex items-center gap-2">
-        <nav class="flex flex-wrap items-center gap-1 p-1 rounded-xl border bg-opacity-50">
-          <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition">1. Creator Profile</button>
-          <button onclick="switchTab('auction')" id="tab-auction" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">2. RankPulse Queue 🏆</button>
-          <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">3. Studio 🔐</button>
-          <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">4. Calculator</button>
-        </nav>
-        
+        <button onclick="openUpgradeModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-xs shadow-md hover:opacity-95 transition">
+          ⚡ Unlock All Pro (₹99)
+        </button>
         <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">🌙</button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-10">
+  <!-- SUB-NAV TAB BAR (6 TOOLS) -->
+  <div class="glass border-b sticky top-[61px] z-40 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2 min-w-max">
+      <button onclick="switchTool('payprompt')" id="btn-payprompt" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition">1. PayPrompt 💸</button>
+      <button onclick="switchTool('metagen')" id="btn-metagen" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">2. MetaGen 🌐</button>
+      <button onclick="switchTool('slugcraft')" id="btn-slugcraft" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">3. SlugCraft 🔗</button>
+      <button onclick="switchTool('policydraft')" id="btn-policydraft" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">4. PolicyDraft 📄</button>
+      <button onclick="switchTool('caseswap')" id="btn-caseswap" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">5. CaseSwap 🔤</button>
+      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">6. Spotlight Board 🏆</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
+
+    <!-- AD SENSE BANNER PLACEHOLDER (Top) -->
+    <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
+      <span>[ Google AdSense Display Banner • 728x90 ]</span>
+    </div>
 
     <!-- ========================================== -->
-    <!-- TAB 1: CREATOR PROFILE & WHY PAY SECTION   -->
+    <!-- TOOL 1: PAYPROMPT (Invoice Follow-Up)      -->
     <!-- ========================================== -->
-    <section id="view-profile" class="space-y-8">
-      
-      <!-- HERO BANNER -->
-      <div class="glass rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div class="flex items-center gap-5">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-xl">
-              <div class="w-full h-full card-bg rounded-[14px] flex items-center justify-center text-2xl font-black text-cyan-400">SR</div>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h1 class="text-2xl sm:text-3xl font-extrabold">SantaaR Moto & Travel</h1>
-                <span class="px-2 py-0.5 text-[10px] font-bold bg-cyan-500/15 text-cyan-500 border border-cyan-500/30 rounded-full">VERIFIED CREATOR</span>
-              </div>
-              <p class="text-sm opacity-80 mt-1 max-w-xl">Exploring scenic highways & cross-state road trips on 2 wheels 🏍️🎥 | Real Amazon affiliate gear, GPS road routes & priority auction queue.</p>
-              <div class="flex flex-wrap items-center gap-3 mt-3 text-xs font-mono opacity-70">
-                <span>📍 Odisha, India</span>
-                <span>•</span>
-                <span class="text-emerald-500">⚡ Guaranteed Reply &lt; 24h</span>
-              </div>
-            </div>
+    <section id="tool-payprompt" class="tool-view space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • FREELANCE UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: Invoice & Payment Reminder Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Generate polite, firm, or urgent payment follow-up messages for overdue client invoices instantly.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div>
+            <label class="text-xs opacity-70">Client Name / Company</label>
+            <input id="ppClient" type="text" placeholder="e.g., Acme Corp" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
-          <div class="w-full md:w-auto">
-            <button onclick="openPriorityModal()" class="w-full md:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
-              🏆 Outbid & Claim #1 Slot (₹199+)
-            </button>
+          <div>
+            <label class="text-xs opacity-70">Overdue Amount (INR)</label>
+            <input id="ppAmount" type="number" placeholder="e.g., 15000" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
           </div>
         </div>
+
+        <button onclick="runPayPrompt()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate Professional Follow-Up Scripts ⚡
+        </button>
       </div>
 
-      <!-- CRITICAL VALUE PROPOSITION: WHY PAY? -->
-      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 space-y-6">
-        <div class="text-center max-w-2xl mx-auto space-y-2">
-          <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">WHY USE RANKPULSE & PAY FOR PRIORITY?</span>
-          <h2 class="text-xl sm:text-2xl font-extrabold">Stop Getting Lost in Social Media DMs</h2>
-          <p class="text-xs opacity-70 leading-relaxed">Standard Instagram or YouTube DMs receive hundreds of spam messages daily. Creators ignore them. By backing your question with financial priority or outbidding competitors, you guarantee instant attention.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          <div class="card-bg rounded-2xl p-5 space-y-3 border">
-            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">🎯</div>
-            <h3 class="font-bold text-sm">Guaranteed 24-Hour Video/Voice Reply</h3>
-            <p class="text-xs opacity-70 leading-relaxed">Your question goes directly to the creator's personal dashboard inbox with financial priority attached.</p>
-          </div>
-          <div class="card-bg rounded-2xl p-5 space-y-3 border">
-            <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-sm">🔗</div>
-            <h3 class="font-bold text-sm">100% Real Amazon Affiliate Gear</h3>
-            <p class="text-xs opacity-70 leading-relaxed">No broken dummy links. Every camera, mic, and riding jacket links directly to official Amazon India store pages.</p>
-          </div>
-          <div class="card-bg rounded-2xl p-5 space-y-3 border">
-            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">🏆</div>
-            <h3 class="font-bold text-sm">Outbid Competitors for #1 Visibility</h3>
-            <p class="text-xs opacity-70 leading-relaxed">Brands and creators can outbid existing posts to secure the top-ranked spotlight on the public leaderboard.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- GEAR & ROUTES GRID -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold">🎒 Verified MotoVlog & Travel Kit</h2>
-            <span id="gearCountBadge" class="text-xs font-mono px-2 py-1 rounded border">0 Items</span>
-          </div>
-          <div id="publicGearGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold">🗺️ Verified Road Trip Itineraries</h2>
-          </div>
-          <div id="publicRoutesList" class="space-y-4"></div>
-        </div>
+      <div id="ppResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
+        <h3 class="text-base font-bold">Generated Collection Scripts</h3>
+        <div id="ppOutputContent" class="space-y-4 text-xs font-mono"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: RANKPULSE AUCTION LEADERBOARD       -->
+    <!-- TOOL 2: METAGEN (Meta Tag Generator)       -->
     <!-- ========================================== -->
-    <section id="view-auction" class="hidden space-y-8 max-w-4xl mx-auto">
-      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
-        <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">LIVE RANKPULSE AUCTION</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold">Claim #1 Priority Spot in @SantaaR's Inbox</h2>
-        <p class="text-xs opacity-70 max-w-lg mx-auto">Outbid current questions or brand requests to hold the #1 ranking position. Higher bids secure immediate video responses.</p>
-        
-        <div class="pt-2">
-          <button onclick="openPriorityModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
-            ⚡ Outbid & Submit New Question (₹199+)
-          </button>
+    <section id="tool-metagen" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • SEO UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">MetaGen: HTML Meta & Open Graph Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Create perfectly formatted Google SEO tags and social sharing previews in seconds.</p>
         </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div>
+            <label class="text-xs opacity-70">Page Title (Max 60 chars)</label>
+            <input id="mgTitle" type="text" placeholder="UtilityFlow — Multi-Tool Suite" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+          </div>
+          <div>
+            <label class="text-xs opacity-70">Target Keywords (Comma separated)</label>
+            <input id="mgKeys" type="text" placeholder="developer tools, invoice generator" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="text-xs opacity-70">Meta Description (Max 160 chars)</label>
+          <textarea id="mgDesc" rows="2" placeholder="Explore lightning-fast utility tools for developers and creators." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm"></textarea>
+        </div>
+
+        <button onclick="runMetaGen()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate HTML Head Tags 🌐
+        </button>
+      </div>
+
+      <div id="mgResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
+        <h3 class="text-base font-bold">Ready-to-Use HTML Snippet</h3>
+        <pre id="mgOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 3: SLUGCRAFT (URL & UTM Builder)      -->
+    <!-- ========================================== -->
+    <section id="tool-slugcraft" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • MARKETING UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: Clean URL Slug & UTM Builder</h2>
+          <p class="text-xs opacity-70 mt-1">Convert messy titles into clean SEO slugs and generate campaign tracking URLs instantly.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div>
+            <label class="text-xs opacity-70">Base URL</label>
+            <input id="scUrl" type="text" value="https://utilityflow.io/blog/" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+          </div>
+          <div>
+            <label class="text-xs opacity-70">Article / Product Title</label>
+            <input id="scTitle" type="text" placeholder="10 Ways to Make Money Online in 2026!" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+          </div>
+        </div>
+
+        <button onclick="runSlugCraft()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Craft Clean Slug & URL 🔗
+        </button>
+      </div>
+
+      <div id="scResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
+        <h3 class="text-base font-bold">Generated Slug & URL</h3>
+        <div id="scOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono space-y-2 border"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 4: POLICYDRAFT (Legal Docs Generator) -->
+    <!-- ========================================== -->
+    <section id="tool-policydraft" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • LEGAL UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: Privacy Policy & Terms Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Generate standard, compliance-ready website legal documents in seconds.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div>
+            <label class="text-xs opacity-70">Company / Website Name</label>
+            <input id="pdName" type="text" placeholder="UtilityFlow.io" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+          </div>
+          <div>
+            <label class="text-xs opacity-70">Contact Email</label>
+            <input id="pdEmail" type="text" placeholder="support@utilityflow.io" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+          </div>
+        </div>
+
+        <button onclick="runPolicyDraft()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate Privacy Policy Template 📄
+        </button>
+      </div>
+
+      <div id="pdResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
+        <h3 class="text-base font-bold">Generated Policy Markdown</h3>
+        <textarea id="pdOutputContent" rows="8" class="w-full p-4 rounded-xl input-bg text-xs font-mono border"></textarea>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 5: CASESWAP (Text & JSON Formatter)   -->
+    <!-- ========================================== -->
+    <section id="tool-caseswap" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • DEVELOPER UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: Text Casing & JSON Formatter</h2>
+          <p class="text-xs opacity-70 mt-1">Transform text casing (camelCase, UPPER, snake) or validate JSON instantly.</p>
+        </div>
+
+        <div>
+          <label class="text-xs opacity-70">Input Text or JSON</label>
+          <textarea id="csInput" rows="4" placeholder="enter text or raw json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button onclick="runCaseSwap('upper')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">UPPERCASE</button>
+          <button onclick="runCaseSwap('lower')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">lowercase</button>
+          <button onclick="runCaseSwap('camel')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">camelCase</button>
+          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">Format JSON</button>
+        </div>
+      </div>
+
+      <div id="csResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
+        <h3 class="text-base font-bold">Formatted Output</h3>
+        <pre id="csOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 6: SPOTLIGHT BOARD (Bidding Auction)  -->
+    <!-- ========================================== -->
+    <section id="tool-spotlight" class="tool-view hidden space-y-6 max-w-3xl mx-auto">
+      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
+        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • MONETIZATION BOARD</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Spotlight Board</h2>
+        <p class="text-xs opacity-70 max-w-md mx-auto">Outbid competitors to secure the #1 ranking slot for your product, startup, or link across our multi-tool platform.</p>
+        
+        <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+          🏆 Claim #1 Spotlight Slot (₹199+)
+        </button>
       </div>
 
       <div class="space-y-3">
         <div class="flex items-center justify-between px-2 text-xs opacity-70 font-mono">
-          <span>RANK & QUESTION / BRAND</span>
+          <span>RANK & PROJECT / BRAND</span>
           <span>BID AMOUNT</span>
         </div>
-        <div id="outbidLeaderboardList" class="space-y-3"></div>
+        <div id="spotlightLeaderboard" class="space-y-3"></div>
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 3: CREATOR STUDIO (AUTH SECURED)       -->
-    <!-- ========================================== -->
-    <section id="view-dashboard" class="hidden space-y-8">
-      <div id="dashboardAuthGate" class="glass rounded-3xl p-8 max-w-md mx-auto text-center space-y-4 border border-cyan-500/30 mt-12">
-        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔐</div>
-        <h3 class="text-xl font-bold">Creator Studio Login</h3>
-        <p class="text-xs opacity-70">Sign in with your Supabase creator credentials to manage your live database securely.</p>
-        <div class="space-y-3 pt-2 text-left">
-          <div>
-            <label class="text-xs opacity-70">Email Address</label>
-            <input id="authEmail" type="email" placeholder="santarana5@gmail.com" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Password</label>
-            <input id="authPassword" type="password" placeholder="••••••••" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
-        </div>
-        <button onclick="loginCreator()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition mt-2">
-          Secure Login →
-        </button>
-        <div id="authErrorMsg" class="text-xs text-rose-500 hidden"></div>
-      </div>
-
-      <div id="dashboardWorkspace" class="hidden space-y-8">
-        <div class="flex flex-wrap items-center justify-between gap-4 glass p-6 rounded-2xl">
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-2xl font-extrabold">Creator Studio & Cloud Manager</h2>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-500">SECURE RLS</span>
-            </div>
-            <p id="loggedInUserEmail" class="text-xs opacity-70 mt-1">Connected to Mumbai database.</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">🔄 Sync Default Data</button>
-            <button onclick="logoutCreator()" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold text-rose-400 border border-rose-500/30 transition">Sign Out ⎋</button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="text-lg font-bold">➕ Add Gear Item (Real Amazon Affiliate Link)</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="text-xs opacity-70">Gear Title</label>
-                <input id="gearTitleInput" type="text" placeholder="e.g., DJI Osmo Action 5 Pro" class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm" />
-              </div>
-              <div>
-                <label class="text-xs opacity-70">Category</label>
-                <select id="gearCatInput" class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm">
-                  <option value="Camera & Audio">Camera & Audio</option>
-                  <option value="Moto & Riding Gear">Moto & Riding Gear</option>
-                  <option value="Laptop & Editing">Laptop & Editing</option>
-                  <option value="Travel Backpack & EDC">Travel Backpack & EDC</option>
-                </select>
-              </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="text-xs opacity-70">Price / Spec Tag</label>
-                <input id="gearPriceInput" type="text" placeholder="e.g., ₹36,990 • 4K/120fps" class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm" />
-              </div>
-              <div>
-                <label class="text-xs opacity-70">Real Amazon Affiliate Link</label>
-                <input id="gearLinkInput" type="text" placeholder="https://www.amazon.in/dp/..." class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm" />
-              </div>
-            </div>
-            <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">Save Gear to Database</button>
-          </div>
-
-          <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="text-lg font-bold">📬 Manage RankPulse Priority Inbox</h3>
-            <div id="adminQueueList" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- TAB 4: FREE SEO SPONSORSHIP CALCULATOR     -->
-    <!-- ========================================== -->
-    <section id="view-calculator" class="hidden space-y-8">
-      <div class="glass rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto border border-cyan-500/30 space-y-6">
-        <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">ORGANIC TRAFFIC MAGNET</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold mt-3">YouTube & Vlog Sponsorship Rate Calculator (2026)</h2>
-          <p class="text-xs opacity-70 mt-1">Creators search Google daily for sponsorship pricing. This free tool drives organic traffic directly to RankPulse profiles.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs opacity-70">Avg Views per Video</label>
-            <input id="calcViews" type="number" value="25000" oninput="runSeoCalculator()" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border font-mono text-sm" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Audience Niche</label>
-            <select id="calcNiche" onchange="runSeoCalculator()" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm">
-              <option value="1.4">MotoVlogging & Automotive (1.4x)</option>
-              <option value="1.3">Travel & Gear Reviews (1.3x)</option>
-              <option value="1.8">Tech & Software / Coding (1.8x)</option>
-              <option value="1.0">Lifestyle & Entertainment (1.0x)</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Engagement Rate (%)</label>
-            <input id="calcEng" type="number" value="6.5" step="0.5" oninput="runSeoCalculator()" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border font-mono text-sm" />
-          </div>
-        </div>
-
-        <div class="p-5 rounded-2xl border grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <div class="text-xs opacity-70">Recommended 60s Integration Rate</div>
-            <div id="calcResultInr" class="text-2xl font-extrabold text-cyan-400 font-mono mt-1">₹29,250</div>
-          </div>
-          <div>
-            <div class="text-xs opacity-70">Dedicated Full Video Review Rate</div>
-            <div id="calcDedicatedInr" class="text-2xl font-extrabold text-emerald-400 font-mono mt-1">₹64,350</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- AD SENSE BANNER PLACEHOLDER (Bottom) -->
+    <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
+      <span>[ Google AdSense Display Banner • 728x90 ]</span>
+    </div>
 
   </main>
 
-  <!-- ANIMATED AI NAVIGATION CHATBOT WIDGET -->
-  <div class="fixed bottom-6 right-6 z-50">
-    <div id="aiChatPopup" class="glass rounded-3xl w-80 sm:w-96 shadow-2xl border border-cyan-500/30 hidden flex-col overflow-hidden mb-4 transition-all duration-300">
-      <div class="p-4 border-b flex items-center justify-between bg-cyan-500/10">
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-full bg-cyan-400 text-black font-bold flex items-center justify-center text-xs">AI</div>
-          <div>
-            <h4 class="text-xs font-bold">RankPulse Assistant</h4>
-            <p class="text-[10px] text-emerald-400 font-mono">● Online & Ready</p>
-          </div>
-        </div>
-        <button onclick="toggleAiChat()" class="text-xs opacity-70 hover:opacity-100">✕</button>
+  <!-- PAYWALL / LIMIT MODAL -->
+  <div id="paywallModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔒</div>
+      <h3 class="text-xl font-bold">Free Daily Limit Reached (3/3)</h3>
+      <p class="text-xs opacity-70">You've hit your free generation limit for this tool today. Unlock lifetime unlimited access across all 6 tools instantly!</p>
+      
+      <div class="p-4 rounded-2xl border bg-cyan-500/5 space-y-2 text-left text-xs font-mono">
+        <div class="flex justify-between"><span>All 6 Utility Tools:</span><span class="text-emerald-400 font-bold">UNLOCKED</span></div>
+        <div class="flex justify-between"><span>No Daily Wait Timer:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
+        <div class="flex justify-between"><span>One-Time Fee:</span><span class="text-cyan-400 font-bold">₹99 ONLY</span></div>
       </div>
-      <div id="aiChatMessages" class="p-4 space-y-3 max-h-60 overflow-y-auto text-xs">
-        <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
-          👋 Hi Santanu! I'm your RankPulse guide. Need help checking affiliate gear, testing auctions, or unlocking the studio? Ask me anything!
-        </div>
-      </div>
-      <div class="p-3 border-t flex gap-2">
-        <input id="aiChatInput" type="text" placeholder="Type a question..." onkeydown="if(event.key==='Enter') sendAiMessage()" class="flex-1 px-3 py-2 rounded-xl input-bg text-xs border" />
-        <button onclick="sendAiMessage()" class="px-4 py-2 rounded-xl bg-cyan-500 text-black font-bold text-xs hover:bg-cyan-400">Send</button>
-      </div>
-    </div>
 
-    <button onclick="toggleAiChat()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 to-emerald-400 text-black font-bold flex items-center justify-center shadow-2xl chat-bounce hover:scale-110 transition">
-      💬
-    </button>
+      <button onclick="payWithRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+        Unlock Lifetime Pass via Razorpay (₹99) →
+      </button>
+      <button onclick="closePaywallModal()" class="text-xs opacity-60 hover:opacity-100">Maybe Later</button>
+    </div>
   </div>
 
-  <!-- PRIORITY REQUEST CHECKOUT MODAL -->
-  <div id="priorityModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+  <!-- SPOTLIGHT BIDDING MODAL -->
+  <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🏆 RankPulse #1 Auction Bid</span>
-        <button onclick="closePriorityModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
+        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🏆 Spotlight #1 Auction</span>
+        <button onclick="closeSpotlightModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
       </div>
-      <h3 class="text-xl font-bold">Outbid the Current Leader</h3>
-      <p class="text-xs opacity-70">Secure your spot at the top of the leaderboard with instant priority video response.</p>
+      <h3 class="text-xl font-bold">Claim #1 Ranking Slot</h3>
       <div>
-        <label class="text-xs opacity-70">Your Name / Brand</label>
-        <input id="modalSenderName" type="text" placeholder="e.g., Rahul Vlogs / Rynox Gear" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
+        <label class="text-xs opacity-70">Project / Brand Name</label>
+        <input id="smName" type="text" placeholder="My SaaS Startup" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
       </div>
       <div>
-        <label class="text-xs opacity-70">Your Question or Collab Request</label>
-        <textarea id="modalQuestionText" rows="3" placeholder="e.g., Planning a 10-day Rajasthan ride—what camera mount do you recommend?" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm"></textarea>
+        <label class="text-xs opacity-70">Website URL / Link</label>
+        <input id="smUrl" type="text" placeholder="https://mysaaS.com" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono" />
       </div>
       <div>
         <label class="text-xs opacity-70">Bid Amount (INR)</label>
-        <select id="modalAmount" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono">
-          <option value="199">₹199 — Standard Priority Ask</option>
-          <option value="499">₹499 — Route & Channel Audit</option>
-          <option value="1499">₹1,499 — #1 Brand Sponsorship Fast-Track</option>
+        <select id="smAmount" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono">
+          <option value="199">₹199 — Spotlight Slot</option>
+          <option value="499">₹499 — Priority Featured Spot</option>
+          <option value="1499">₹1,499 — #1 Permanent Leaderboard</option>
         </select>
       </div>
-      <button onclick="payWithRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+      <button onclick="paySpotlightRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
         Pay & Outbid for #1 Slot →
       </button>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC -->
+  <!-- CORE SCRIPT LOGIC -->
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -385,329 +350,196 @@
       }
     }
 
-    function toggleAiChat() {
-      const popup = document.getElementById('aiChatPopup');
-      popup.classList.toggle('hidden');
-      popup.classList.toggle('flex');
-    }
-
-    function sendAiMessage() {
-      const input = document.getElementById('aiChatInput');
-      const container = document.getElementById('aiChatMessages');
-      const text = input.value.trim();
-      if (!text) return;
-
-      container.innerHTML += `<div class="p-3 rounded-2xl bg-white/10 text-right ml-6">${text}</div>`;
-      input.value = '';
-      container.scrollTop = container.scrollHeight;
-
-      setTimeout(() => {
-        let reply = "I'm your RankPulse guide! Explore Tab 1 for verified Amazon affiliate gear and why creators use us, Tab 2 for the live auction leaderboard, or Tab 3 for the studio.";
-        const lower = text.toLowerCase();
-        if (lower.includes('gear') || lower.includes('affiliate')) {
-          reply = "Tab 1 features verified Amazon India affiliate links for cameras, touring backpacks, and bikes.";
-        } else if (lower.includes('auction') || lower.includes('queue')) {
-          reply = "Tab 2 features our RankPulse live auction leaderboard where sponsors and fans bid to hold the #1 priority spot!";
-        } else if (lower.includes('studio') || lower.includes('login')) {
-          reply = "Tab 3 is the secure Supabase-authenticated Creator Studio.";
-        }
-        container.innerHTML += `<div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 mr-6">${reply}</div>`;
-        container.scrollTop = container.scrollHeight;
-      }, 600);
-    }
-
-    function switchTab(tab) {
-      ['profile', 'auction', 'dashboard', 'calculator'].forEach(t => {
-        const el = document.getElementById('view-' + t);
-        if (el) el.classList.add('hidden');
-        const btn = document.getElementById('tab-' + t);
-        if (btn) btn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition';
-      });
-      const targetView = document.getElementById('view-' + tab);
-      if (targetView) targetView.classList.remove('hidden');
-      const activeBtn = document.getElementById('tab-' + tab);
-      if (activeBtn) activeBtn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition';
+    function switchTool(toolId) {
+      document.querySelectorAll('.tool-view').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition');
       
-      if (tab === 'dashboard') checkAuthSession();
+      document.getElementById('tool-' + toolId).classList.remove('hidden');
+      document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition';
     }
 
-    let sb = null;
-    let currentSessionUser = null;
+    // 3-Free Limit Tracker
+    function checkAndIncrementLimit(toolKey) {
+      const isPro = localStorage.getItem('utilityflow_pro') === 'true';
+      if (isPro) return true;
 
-    const DEFAULT_GEAR = [
-      { title: 'DJI Osmo Action 5 Pro Camera Setup', category: 'Camera & Audio', price_spec: '₹36,990 • 4K/120fps', affiliate_url: 'https://www.amazon.in/dp/B0DGQ9M37R' },
-      { title: 'Honda SP125 Touring & Commuter Setup', category: 'Moto & Riding Gear', price_spec: '65 kmpl • Highway Ready', affiliate_url: 'https://www.amazon.in/s?k=motorcycle+riding+gear' },
-      { title: 'Safari 45L Expandable Travel Backpack', category: 'Travel Backpack & EDC', price_spec: '₹2,499 • Rainproof', affiliate_url: 'https://www.amazon.in/dp/B0B5HSJ78L' },
-      { title: 'ASUS Vivobook S 16 OLED Creator Laptop', category: 'Laptop & Editing', price_spec: '16GB RAM • 1TB SSD', affiliate_url: 'https://www.amazon.in/s?k=asus+vivobook+oled' }
-    ];
+      const usageKey = 'uf_usage_' + toolKey;
+      let data = JSON.parse(localStorage.getItem(usageKey) || '{"count": 0, "date": ""}') ;
+      const today = new Date().toDateString();
 
-    const DEFAULT_ROUTES = [
-      { title: 'Golden Dunes & Fort Circuit: Jaipur → Jaisalmer', duration_days: '12 Days • Remote Work Friendly', stops_summary: 'Kolkata → Mathura → Jaipur → Jaisalmer (Sam Sand Dunes)', budget_est: '₹22,500 Total Est.' },
-      { title: 'Eastern Ghats Waterfall Trail: Cuttack → Chitrakote', duration_days: '4 Days • Scenic Ghat Roads', stops_summary: 'Cuttack → Daringbadi → Koraput → Chitrakote Falls', budget_est: '₹7,800 Total Est.' }
-    ];
-
-    const DEFAULT_QUEUE = [
-      { sender_name: 'Arjun MotoVlogs', question_text: 'How do you manage afternoon remote work shifts while riding across Rajasthan?', amount_inr: 1499, status: 'pending' },
-      { sender_name: 'Vikram Rides', question_text: 'Best wind-noise cancellation mic placement inside a full-face helmet?', amount_inr: 499, status: 'pending' },
-      { sender_name: 'Rynox Gears', question_text: 'Sponsorship collaboration proposal for upcoming Ladakh expedition.', amount_inr: 199, status: 'pending' }
-    ];
-
-    let stateGear = [...DEFAULT_GEAR];
-    let stateRoutes = [...DEFAULT_ROUTES];
-    let stateQueue = [...DEFAULT_QUEUE];
-
-    try {
-      if (window.supabase) {
-        sb = window.supabase.createClient('https://baujahjqbkakkeemwxql.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhdWphaGpxYmtha2tlZW13eHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4MTcwMjYsImV4cCI6MjEwODM5MzAyNn0.LZhn262GJMEm_2CmPxG78EbWjHONzXJFx-q_SJeDaZ0');
+      if (data.date !== today) {
+        data = { count: 0, date: today };
       }
-    } catch(e) {}
 
-    async function checkAuthSession() {
-      if (!sb) return;
-      const { data: { session } } = await sb.auth.getSession();
-      if (session && session.user) {
-        currentSessionUser = session.user;
-        document.getElementById('dashboardAuthGate').classList.add('hidden');
-        document.getElementById('dashboardWorkspace').classList.remove('hidden');
-        document.getElementById('loggedInUserEmail').textContent = `Logged in as: ${session.user.email}`;
-      } else {
-        document.getElementById('dashboardAuthGate').classList.remove('hidden');
-        document.getElementById('dashboardWorkspace').classList.add('hidden');
+      if (data.count >= 3) {
+        openPaywallModal();
+        return false;
       }
+
+      data.count++;
+      localStorage.setItem(usageKey, JSON.stringify(data));
+      return true;
     }
 
-    async function loginCreator() {
-      const email = document.getElementById('authEmail').value.trim();
-      const password = document.getElementById('authPassword').value.trim();
-      const errBox = document.getElementById('authErrorMsg');
-      errBox.classList.add('hidden');
+    function openPaywallModal() { document.getElementById('paywallModal').classList.remove('hidden'); }
+    function closePaywallModal() { document.getElementById('paywallModal').classList.add('hidden'); }
+    function openUpgradeModal() { openPaywallModal(); }
 
-      if (!email || !password) {
-        errBox.textContent = 'Please enter both email and password.';
-        errBox.classList.remove('hidden');
-        return;
-      }
-
-      const { error } = await sb.auth.signInWithPassword({ email, password });
-      if (error) {
-        errBox.textContent = error.message;
-        errBox.classList.remove('hidden');
-      } else {
-        checkAuthSession();
-        initCloudConnection();
-      }
-    }
-
-    async function logoutCreator() {
-      if (sb) await sb.auth.signOut();
-      currentSessionUser = null;
-      document.getElementById('dashboardAuthGate').classList.remove('hidden');
-      document.getElementById('dashboardWorkspace').classList.add('hidden');
-    }
-
-    async function initCloudConnection() {
-      if (!sb) { renderAll(); return; }
-      try {
-        const { data: gearData } = await sb.from('gear_items').select('*').order('id', { ascending: false });
-        if (gearData && gearData.length > 0) stateGear = gearData;
-        
-        const { data: routeData } = await sb.from('travel_routes').select('*').order('id', { ascending: true });
-        if (routeData && routeData.length > 0) stateRoutes = routeData;
-
-        const { data: queueData } = await sb.from('priority_inbox').select('*').order('amount_inr', { ascending: false });
-        if (queueData && queueData.length > 0) stateQueue = queueData;
-
-        renderAll();
-      } catch (err) {
-        renderAll();
-      }
-    }
-
-    async function seedCloudDatabase(silent = false) {
-      if (!sb || !currentSessionUser) return alert('Please log into Studio first.');
-      try {
-        const uidData = { user_id: currentSessionUser.id };
-        await sb.from('gear_items').insert(DEFAULT_GEAR.map(g => ({ ...g, ...uidData })));
-        await sb.from('travel_routes').insert(DEFAULT_ROUTES.map(r => ({ ...r, ...uidData })));
-        await sb.from('priority_inbox').insert(DEFAULT_QUEUE.map(q => ({ ...q, ...uidData })));
-        if (!silent) alert('✅ Default data synced successfully!');
-        initCloudConnection();
-      } catch (e) {
-        alert('Sync error: ' + e.message);
-      }
-    }
-
-    function renderAll() {
-      const gearBadge = document.getElementById('gearCountBadge');
-      if (gearBadge) gearBadge.textContent = `${stateGear.length} Items`;
-
-      const gearGrid = document.getElementById('publicGearGrid');
-      if (gearGrid) {
-        gearGrid.innerHTML = stateGear.map(item => `
-          <a href="${item.affiliate_url || '#'}" target="_blank" class="glass card-bg rounded-2xl p-4 flex flex-col justify-between transition group hover:border-cyan-400">
-            <div>
-              <div class="flex items-center justify-between text-[11px] font-mono text-cyan-400 mb-1.5">
-                <span>${item.category}</span>
-                <span class="text-emerald-500 group-hover:translate-x-0.5 transition">Amazon ↗</span>
-              </div>
-              <h4 class="font-bold text-sm">${item.title}</h4>
-            </div>
-            <div class="mt-3 pt-2.5 border-t border-opacity-10 flex items-center justify-between text-xs font-mono opacity-80">
-              <span>${item.price_spec}</span>
-              <span class="text-[10px] px-2 py-0.5 rounded border">Affiliate Verified</span>
-            </div>
-          </a>
-        `).join('');
-      }
-
-      const routesList = document.getElementById('publicRoutesList');
-      if (routesList) {
-        routesList.innerHTML = stateRoutes.map(r => `
-          <div class="glass card-bg rounded-2xl p-4 transition hover:border-cyan-400">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-semibold">${r.duration_days}</span>
-              <span class="text-[11px] font-mono text-emerald-500 font-bold">${r.budget_est}</span>
-            </div>
-            <h4 class="text-sm font-bold mt-2">${r.title}</h4>
-            <p class="text-xs opacity-70 mt-1 font-mono">🛣️ ${r.stops_summary}</p>
-          </div>
-        `).join('');
-      }
-
-      stateQueue.sort((a, b) => b.amount_inr - a.amount_inr);
-
-      const outbidList = document.getElementById('outbidLeaderboardList');
-      if (outbidList) {
-        outbidList.innerHTML = stateQueue.map((q, idx) => `
-          <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4 transition hover:border-cyan-400">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h4 class="font-bold text-sm">${q.sender_name}</h4>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded ${q.status === 'replied' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'}">${q.status}</span>
-                </div>
-                <p class="text-xs opacity-70 mt-0.5">${q.question_text}</p>
-              </div>
-            </div>
-            <div class="text-right shrink-0">
-              <div class="text-base font-extrabold text-emerald-500 font-mono">₹${q.amount_inr}</div>
-              <button onclick="openPriorityModal()" class="text-[10px] text-cyan-400 hover:underline">Outbid ↗</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      const adminQueue = document.getElementById('adminQueueList');
-      if (adminQueue) {
-        adminQueue.innerHTML = stateQueue.map((q, i) => `
-          <div class="p-3.5 rounded-xl border border-opacity-10 card-bg flex items-center justify-between gap-3">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold">${q.sender_name}</span>
-                <span class="text-xs font-mono text-emerald-500 font-bold">₹${q.amount_inr}</span>
-                <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded ${q.status === 'replied' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'}">${q.status}</span>
-              </div>
-              <p class="text-xs opacity-70 mt-1">${q.question_text}</p>
-            </div>
-            ${q.status === 'pending' ? `<button onclick="markReplied(${q.id || i})" class="px-3 py-1.5 rounded-lg bg-emerald-400 text-black font-bold text-xs shrink-0 hover:bg-emerald-300">Mark Replied</button>` : ''}
-          </div>
-        `).join('');
-      }
-    }
-
-    async function addGearItem() {
-      if (!currentSessionUser) return alert('Please log into Studio first.');
-      const title = document.getElementById('gearTitleInput').value.trim();
-      const category = document.getElementById('gearCatInput').value;
-      const price_spec = document.getElementById('gearPriceInput').value.trim() || 'Verified Gear';
-      const affiliate_url = document.getElementById('gearLinkInput').value.trim() || 'https://www.amazon.in';
-      if (!title) return alert('Please enter a gear title');
-
-      const newItem = { title, category, price_spec, affiliate_url, user_id: currentSessionUser.id };
-      stateGear.unshift(newItem);
-      renderAll();
-
-      document.getElementById('gearTitleInput').value = '';
-      document.getElementById('gearPriceInput').value = '';
-      document.getElementById('gearLinkInput').value = '';
-
-      if (sb) {
-        await sb.from('gear_items').insert([newItem]);
-        initCloudConnection();
-      }
-    }
-
-    function openPriorityModal() { const m = document.getElementById('priorityModal'); if(m) m.classList.remove('hidden'); }
-    function closePriorityModal() { const m = document.getElementById('priorityModal'); if(m) m.classList.add('hidden'); }
-
-    async function payWithRazorpay() {
-      const sender_name = document.getElementById('modalSenderName').value.trim();
-      const question_text = document.getElementById('modalQuestionText').value.trim();
-      const amount_inr = parseInt(document.getElementById('modalAmount').value, 10);
-      
-      if (!sender_name || !question_text) return alert('Please enter your name and question.');
-
+    function payWithRazorpay() {
       var options = {
-        "key": "rzp_test_yourkeyid", 
-        "amount": amount_inr * 100,
+        "key": "rzp_test_yourkeyid",
+        "amount": 9900,
         "currency": "INR",
-        "name": "RankPulse #1 Auction",
-        "description": "Claim Ranking Position with @SantaaR",
-        "handler": async function (response) {
-          const newReq = { sender_name, question_text, amount_inr, status: 'pending' };
-          stateQueue.unshift(newReq);
-          closePriorityModal();
-          renderAll();
-
-          if (sb) {
-            await sb.from('priority_inbox').insert([newReq]);
-            initCloudConnection();
-          }
-          alert('🎉 Outbid successful! Transaction ID: ' + response.razorpay_payment_id + '\nYou are now ranked #1 on the leaderboard.');
+        "name": "UtilityFlow.io Lifetime Pro",
+        "description": "Unlock All 6 Tools Unlimited Access",
+        "handler": function (response) {
+          localStorage.setItem('utilityflow_pro', 'true');
+          closePaywallModal();
+          alert('🎉 Payment successful! All 6 tools are now unlocked permanently.');
         },
-        "prefill": { "name": sender_name, "email": "creator@rankpulse.io" },
         "theme": { "color": "#06b6d4" }
       };
-
       try {
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-      } catch (err) {
-        const newReq = { sender_name, question_text, amount_inr, status: 'pending' };
-        stateQueue.unshift(newReq);
-        closePriorityModal();
-        renderAll();
-        if (sb) {
-          await sb.from('priority_inbox').insert([newReq]);
-          initCloudConnection();
+        var rzp = new Razorpay(options);
+        rzp.open();
+      } catch(e) {
+        localStorage.setItem('utilityflow_pro', 'true');
+        closePaywallModal();
+        alert('✅ Pro unlocked successfully (Test Mode)');
+      }
+    }
+
+    // Tool 1: PayPrompt Logic
+    function runPayPrompt() {
+      if (!checkAndIncrementLimit('payprompt')) return;
+      const client = document.getElementById('ppClient').value.trim() || 'Client';
+      const amt = document.getElementById('ppAmount').value.trim() || '10,000';
+      
+      const box = document.getElementById('ppResultBox');
+      const out = document.getElementById('ppOutputContent');
+      box.classList.remove('hidden');
+
+      out.innerHTML = `
+        <div class="p-3 rounded-xl input-bg border">
+          <p class="font-bold text-cyan-400 mb-1">Tone 1: Friendly Nudge</p>
+          <p class="opacity-80">Hi ${client}, hope you're having a great week! Just wanted to drop a quick reminder regarding invoice #2026 for ₹${amt} which was due recently. Let me know if you need any clarification!</p>
+        </div>
+        <div class="p-3 rounded-xl input-bg border">
+          <p class="font-bold text-emerald-400 mb-1">Tone 2: Firm Professional</p>
+          <p class="opacity-80">Hello ${client}, our records show invoice #2026 for ₹${amt} is now past due. Please process this payment at your earliest convenience so we can keep our project timeline on track.</p>
+        </div>
+      `;
+    }
+
+    // Tool 2: MetaGen Logic
+    function runMetaGen() {
+      if (!checkAndIncrementLimit('metagen')) return;
+      const title = document.getElementById('mgTitle').value.trim() || 'My Page';
+      const desc = document.getElementById('mgDesc').value.trim() || 'Description';
+      const keys = document.getElementById('mgKeys').value.trim() || 'tools, software';
+
+      const box = document.getElementById('mgResultBox');
+      const out = document.getElementById('mgOutputContent');
+      box.classList.remove('hidden');
+
+      out.textContent = `<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta name="keywords" content="${keys}">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="${desc}">`;
+    }
+
+    // Tool 3: SlugCraft Logic
+    function runSlugCraft() {
+      if (!checkAndIncrementLimit('slugcraft')) return;
+      const base = document.getElementById('scUrl').value.trim();
+      const title = document.getElementById('scTitle').value.trim() || 'new article';
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+      const box = document.getElementById('scResultBox');
+      const out = document.getElementById('scOutputContent');
+      box.classList.remove('hidden');
+
+      out.innerHTML = `
+        <div><span class="opacity-60">Clean Slug:</span> <span class="text-cyan-400 font-bold">${slug}</span></div>
+        <div><span class="opacity-60">Full URL:</span> <span class="text-emerald-400">${base}${slug}?utm_source=utilityflow&utm_medium=web</span></div>
+      `;
+    }
+
+    // Tool 4: PolicyDraft Logic
+    function runPolicyDraft() {
+      if (!checkAndIncrementLimit('policydraft')) return;
+      const name = document.getElementById('pdName').value.trim() || 'UtilityFlow';
+      const email = document.getElementById('pdEmail').value.trim() || 'support@utilityflow.io';
+
+      const box = document.getElementById('pdResultBox');
+      const out = document.getElementById('pdOutputContent');
+      box.classList.remove('hidden');
+
+      out.value = `Privacy Policy for ${name}\n\nLast updated: 2026\n\nAt ${name}, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by ${name} and how we use it.\n\nContact us at ${email} for any questions regarding our data policies.`;
+    }
+
+    // Tool 5: CaseSwap Logic
+    function runCaseSwap(mode) {
+      if (!checkAndIncrementLimit('caseswap')) return;
+      const text = document.getElementById('csInput').value;
+      const box = document.getElementById('csResultBox');
+      const out = document.getElementById('csOutputContent');
+      box.classList.remove('hidden');
+
+      if (mode === 'upper') out.textContent = text.toUpperCase();
+      else if (mode === 'lower') out.textContent = text.toLowerCase();
+      else if (mode === 'camel') out.textContent = text.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
+      else if (mode === 'json') {
+        try {
+          const parsed = JSON.parse(text);
+          out.textContent = JSON.stringify(parsed, null, 2);
+        } catch(e) {
+          out.textContent = '❌ Invalid JSON format: ' + e.message;
         }
-        alert('✅ Priority outbid request submitted successfully!');
       }
     }
 
-    async function markReplied(idOrIndex) {
-      const item = stateQueue.find(q => q.id === idOrIndex) || stateQueue[idOrIndex];
-      if (item) item.status = 'replied';
-      renderAll();
-      if (sb && item && item.id) {
-        await sb.from('priority_inbox').update({ status: 'replied' }).eq('id', item.id);
-      }
+    // Tool 6: Spotlight Board State
+    let spotlightBids = [
+      { name: 'Rynox Moto Gear', url: 'https://rynox.in', amount: 1499 },
+      { name: 'DevToolbox', url: 'https://devtoolbox.io', amount: 499 },
+      { name: 'Indie Launch', url: 'https://indielaunch.co', amount: 199 }
+    ];
+
+    function renderSpotlightBoard() {
+      spotlightBids.sort((a,b) => b.amount - a.amount);
+      const list = document.getElementById('spotlightLeaderboard');
+      if (!list) return;
+
+      list.innerHTML = spotlightBids.map((b, idx) => `
+        <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
+            <div>
+              <h4 class="font-bold text-sm"><a href="${b.url}" target="_blank" class="hover:underline text-cyan-400">${b.name} ↗</a></h4>
+              <p class="text-[11px] opacity-60 font-mono">${b.url}</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <div class="text-base font-extrabold text-emerald-500 font-mono">₹${b.amount}</div>
+          </div>
+        </div>
+      `).join('');
     }
 
-    function runSeoCalculator() {
-      const views = parseFloat(document.getElementById('calcViews')?.value) || 0;
-      const mult = parseFloat(document.getElementById('calcNiche')?.value) || 1;
-      const eng = parseFloat(document.getElementById('calcEng')?.value) || 5;
-      const baseInr = (views / 1000) * 750 * mult * (1 + (eng / 25));
-      const resInr = document.getElementById('calcResultInr');
-      const dedInr = document.getElementById('calcDedicatedInr');
-      if (resInr) resInr.textContent = '₹' + Math.round(baseInr).toLocaleString('en-IN');
-      if (dedInr) dedInr.textContent = '₹' + Math.round(baseInr * 2.2).toLocaleString('en-IN');
+    function openSpotlightModal() { document.getElementById('spotlightModal').classList.remove('hidden'); }
+    function closeSpotlightModal() { document.getElementById('spotlightModal').classList.add('hidden'); }
+
+    function paySpotlightRazorpay() {
+      const name = document.getElementById('smName').value.trim();
+      const url = document.getElementById('smUrl').value.trim();
+      const amount = parseInt(document.getElementById('smAmount').value, 10);
+      if (!name || !url) return alert('Please fill in all fields');
+
+      spotlightBids.unshift({ name, url, amount });
+      closeSpotlightModal();
+      renderSpotlightBoard();
+      alert('🎉 Spotlight bid successful! You are now ranked on the leaderboard.');
     }
 
-    initCloudConnection();
-    runSeoCalculator();
+    renderSpotlightBoard();
   </script>
 </body>
 </html>
