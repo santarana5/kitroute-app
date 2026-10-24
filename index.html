@@ -251,58 +251,62 @@
     </div>
   </div>
 
-  <!-- TOP HEADER WITH REAL-TIME WEBSOCKET TELEMETRY & NAVIGATION -->
+  <!-- TOP HEADER (MOBILE-OPTIMIZED SO NOTHING EVER OVERFLOWS) -->
   <header class="sticky top-0 z-40 surface-glass border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-3">
       
-      <div onclick="switchTool('home')" class="flex items-center gap-3 cursor-pointer group shrink-0">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md group-hover:scale-105 transition">
+      <!-- Brand Logo -->
+      <div onclick="switchTool('home')" class="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-xs sm:text-sm shadow-md group-hover:scale-105 transition">
           UF
         </div>
         <div>
-          <div class="flex items-center gap-1.5">
-            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
+          <div class="flex items-center">
+            <span class="font-extrabold tracking-tight text-base sm:text-lg">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
           </div>
           <p class="text-[10px] opacity-65 font-medium hidden sm:block">Next-Gen 20-Tool Browser Ecosystem</p>
         </div>
       </div>
 
-      <!-- Real-Time Cross-Device Active & Total Visitor Pill -->
-      <div class="flex items-center gap-2.5 sm:gap-4 px-3.5 sm:px-4 py-1.5 rounded-full surface-muted border text-[11px] sm:text-xs shadow-sm">
+      <!-- Real-Time Cross-Device Active & Total Visitor Pill (Single-line compact on mobile, full labels on desktop) -->
+      <div class="flex items-center gap-2 sm:gap-3.5 px-2.5 sm:px-4 py-1.5 rounded-full surface-muted border text-[11px] sm:text-xs shadow-sm whitespace-nowrap shrink-0">
         <div class="flex items-center gap-1.5" title="Live concurrent devices connected right now">
-          <span class="relative flex h-2.5 w-2.5">
+          <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
             <span id="livePulseDot" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-emerald-500"></span>
           </span>
-          <span class="opacity-75 font-medium">Active Now:</span>
+          <span class="opacity-75 font-medium hidden sm:inline">Active Now:</span>
           <span id="liveVisitorCount" class="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">1</span>
         </div>
         <span class="opacity-25">|</span>
-        <div class="flex items-center gap-1.5" title="Cumulative real visits across all devices">
-          <span class="opacity-75 font-medium">Total Visits:</span>
+        <div class="flex items-center gap-1" title="Cumulative real visits across all devices">
+          <span class="opacity-75 font-medium hidden sm:inline">Total Visits:</span>
+          <span class="opacity-70 font-medium sm:hidden">Visits:</span>
           <span id="totalVisitorCount" class="font-mono font-extrabold text-teal-600 dark:text-teal-400">...</span>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl surface-muted border text-xs opacity-95 hover:border-teal-500 transition">
+      <!-- Action Buttons: Sleek Icon-First on Mobile, Full Pill on Desktop -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <button onclick="toggleCmdPalette(true)" class="h-9 w-9 sm:w-auto sm:h-auto flex items-center justify-center sm:justify-between gap-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-muted border text-xs opacity-95 hover:border-teal-500 transition shrink-0" title="Search all 20 utilities (Ctrl+K)">
           <span class="flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-teal-600 dark:text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             <span class="hidden lg:inline font-semibold">Quick Launch (20 Tools)...</span>
-            <span class="lg:hidden font-semibold">Search</span>
+            <span class="hidden sm:inline lg:hidden font-semibold">Search</span>
           </span>
-          <kbd class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl+K</kbd>
+          <kbd class="hidden md:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl+K</kbd>
         </button>
 
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="px-3.5 py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition shadow-sm" title="Switch Light / Dark Mode">
-          🌙 Dark
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="h-9 px-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition shadow-sm flex items-center justify-center gap-1.5 shrink-0" title="Switch Light / Dark Mode">
+          <span id="themeToggleIcon">🌙</span>
+          <span id="themeToggleLabel" class="hidden sm:inline">Dark</span>
         </button>
       </div>
     </div>
 
     <!-- TOP NAVIGATION BAR -->
     <div class="border-t border-inherit surface-muted/60 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-2">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-2">
         <button onclick="scrollTopNav(-260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Left">‹</button>
 
         <div id="topNavScroller" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-0.5 flex-1">
@@ -323,7 +327,7 @@
         <button onclick="scrollTopNav(260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Right">›</button>
 
         <div class="relative shrink-0">
-          <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-teal-600 dark:text-teal-400 hover:border-teal-500 transition flex items-center gap-1.5 shadow-sm">
+          <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3 sm:px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-teal-600 dark:text-teal-400 hover:border-teal-500 transition flex items-center gap-1.5 shadow-sm">
             <span>All 20 Tools</span>
             <span class="text-[10px]">▾</span>
           </button>
@@ -343,7 +347,7 @@
   <!-- MAIN WORKSPACE CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
 
-    <!-- VIEW: FUTURISTIC BENTO HOMEPAGE HUB (FIXED SIDE-BY-SIDE 12-COLUMN GRID) -->
+    <!-- VIEW: FUTURISTIC BENTO HOMEPAGE HUB -->
     <section id="view-home" class="tool-section space-y-10">
       <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
@@ -372,14 +376,14 @@
           </div>
         </div>
 
-        <!-- Right 5 Columns: Everyday Instant Calculator (Side-by-Side on Desktop) -->
+        <!-- Right 5 Columns: Everyday Instant Calculator -->
         <div class="lg:col-span-5 surface-muted rounded-2xl p-6 border space-y-4 shadow-sm">
           <div class="flex items-center justify-between border-b border-inherit pb-3">
             <div>
               <span class="text-xs font-extrabold text-teal-600 dark:text-teal-400 block">⚡ Everyday Instant Calculator</span>
               <span class="text-[11px] opacity-70">Modify any number below—updates in real time!</span>
             </div>
-            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/30 font-bold">Live Widget</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/30 font-bold shrink-0">Live Widget</span>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
@@ -1300,18 +1304,15 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
     // =========================================================================
     // 1. REAL-TIME MULTI-DEVICE WEBSOCKET PRESENCE & TOTAL VISITS ENGINE
-    //    Connects your Laptop, Mobile, and all global visitors simultaneously!
     // =========================================================================
     function initCrossDeviceRealtimeTelemetry() {
       const liveEl = document.getElementById('liveVisitorCount');
       const totalEl = document.getElementById('totalVisitorCount');
 
-      // Unique ID for this specific browser window / mobile tab
       const clientId = 'uf_node_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now().toString(36);
       const activeNodes = {};
       activeNodes[clientId] = Date.now();
 
-      // Local baseline while connecting
       let syncedTotalVisits = parseInt(localStorage.getItem('uf_global_visits_v9') || '0', 10);
       let hasIncrementedThisSession = sessionStorage.getItem('uf_session_counted_v9') === '1';
 
@@ -1330,7 +1331,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         }
       };
 
-      // Also try CounterAPI.dev as a secondary backup for total visits
       fetch('https://api.counterapi.dev/v1/utilityflow_in_v9/total/up')
         .then(r => r.json())
         .then(d => {
@@ -1351,7 +1351,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       const TOPIC_PRESENCE = 'utilityflow_in_v9/presence';
       const TOPIC_TOTAL = 'utilityflow_in_v9/total_visits';
 
-      // Connect to high-availability public WebSocket broker (with automatic fallback)
       const brokers = [
         'wss://broker.emqx.io:8084/mqtt',
         'wss://test.mosquitto.org:8081/mqtt'
@@ -1363,22 +1362,16 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         reconnectPeriod: 3000
       });
 
-      let receivedRetainedTotal = false;
-
       client.on('connect', () => {
         client.subscribe([TOPIC_PRESENCE, TOPIC_TOTAL], { qos: 0 });
-
-        // Broadcast our immediate arrival to all open phones/laptops
         client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'join', ts: Date.now() }), { qos: 0 });
 
-        // Wait 1.2s to receive retained total from broker; if first time in this tab session, increment & retain!
         setTimeout(() => {
           if (!hasIncrementedThisSession) {
             hasIncrementedThisSession = true;
             sessionStorage.setItem('uf_session_counted_v9', '1');
             syncedTotalVisits = Math.max(1, syncedTotalVisits + 1);
             localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
-            // Publish with retain: true so every future phone/laptop immediately gets the exact total count!
             client.publish(TOPIC_TOTAL, JSON.stringify({ total: syncedTotalVisits, updatedBy: clientId }), { qos: 0, retain: true });
             renderCounts();
           } else if (syncedTotalVisits === 0) {
@@ -1396,14 +1389,12 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
               delete activeNodes[data.id];
             } else {
               activeNodes[data.id] = Date.now();
-              // If a new device just joined, immediately reply with our heartbeat so their screen updates to 2+ right away!
               if (data.action === 'join' && data.id !== clientId) {
                 client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
               }
             }
             renderCounts();
           } else if (topic === TOPIC_TOTAL && typeof data.total === 'number') {
-            receivedRetainedTotal = true;
             if (data.total > syncedTotalVisits) {
               syncedTotalVisits = data.total;
               localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
@@ -1413,7 +1404,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         } catch (e) {}
       });
 
-      // Heartbeat every 3 seconds across all open devices
       setInterval(() => {
         if (client && client.connected) {
           client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
@@ -1421,7 +1411,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         renderCounts();
       }, 3000);
 
-      // Broadcast instant departure when tab closes
       window.addEventListener('beforeunload', () => {
         if (client && client.connected) {
           client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'leave' }), { qos: 0 });
@@ -1431,27 +1420,38 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     initCrossDeviceRealtimeTelemetry();
 
     // =========================================================================
-    // 2. THEME CONTROLLER (DEFAULT LIGHT MODE, TOGGLEABLE TO DARK MODE)
+    // 2. THEME CONTROLLER (DEFAULT LIGHT MODE, MOBILE-FRIENDLY ICON + LABEL)
     // =========================================================================
+    function syncThemeUI(isDark) {
+      const iconEl = document.getElementById('themeToggleIcon');
+      const labelEl = document.getElementById('themeToggleLabel');
+      if (isDark) {
+        iconEl.textContent = '☀️';
+        labelEl.textContent = 'Light';
+      } else {
+        iconEl.textContent = '🌙';
+        labelEl.textContent = 'Dark';
+      }
+    }
+
     if (localStorage.getItem('uf_theme_mode') === 'dark') {
       document.documentElement.classList.add('dark');
-      document.getElementById('themeToggleBtn').textContent = '☀️ Light';
+      syncThemeUI(true);
     } else {
       document.documentElement.classList.remove('dark');
-      document.getElementById('themeToggleBtn').textContent = '🌙 Dark';
+      syncThemeUI(false);
     }
 
     function toggleTheme() {
       const html = document.documentElement;
-      const btn = document.getElementById('themeToggleBtn');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
         localStorage.setItem('uf_theme_mode', 'light');
-        btn.textContent = '🌙 Dark';
+        syncThemeUI(false);
       } else {
         html.classList.add('dark');
         localStorage.setItem('uf_theme_mode', 'dark');
-        btn.textContent = '☀️ Light';
+        syncThemeUI(true);
       }
       showToast('Workspace theme updated');
     }
