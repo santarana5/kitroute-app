@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.in — Next-Gen 21-Tool Browser Ecosystem</title>
-  <meta name="description" content="21 instant, privacy-first browser utilities across Finance, PDF Documents, Developer Code, SEO, and Media. Zero sign-up required." />
+  <title>UtilityFlow.in — Next-Gen 20-Tool Browser Ecosystem</title>
+  <meta name="description" content="20 instant, privacy-first browser utilities across Finance, PDF Documents, Developer Code, SEO, and Media. Zero sign-up required." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -34,7 +34,6 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.25s ease; }
     
-    /* Warm Creamy Alabaster Light Mode */
     body {
       background-color: #f6f4ef;
       color: #1c2430;
@@ -69,7 +68,6 @@
       box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14);
     }
 
-    /* Subtle Eye-Pleasing Nordic Slate Dark Mode */
     html.dark body {
       background-color: #141923;
       color: #e6edf5;
@@ -101,11 +99,9 @@
       box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
     }
 
-    /* Futuristic Bento Grid Accent Border Hover */
     .bento-card { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease; }
     .bento-card:hover { transform: translateY(-2px); border-color: #0d9488; }
 
-    /* Diffchecker Split View */
     .diff-row { display: grid; grid-template-columns: 42px 1fr; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.65; }
     .diff-num { user-select: none; text-align: right; padding-right: 10px; opacity: 0.45; border-right: 1px solid rgba(148, 163, 184, 0.2); }
     .diff-code { padding-left: 12px; white-space: pre-wrap; word-break: break-all; }
@@ -126,21 +122,19 @@
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toastContainer" class="fixed top-20 right-5 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- ========================================================= -->
-  <!-- COMMAND PALETTE SEARCH MODAL                              -->
-  <!-- ========================================================= -->
+  <!-- COMMAND PALETTE SEARCH MODAL -->
   <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-start justify-center pt-14 p-4">
     <div class="surface-card max-w-3xl w-full rounded-3xl border shadow-2xl overflow-hidden">
       <div class="p-4 border-b border-inherit flex items-center gap-3">
         <svg class="w-5 h-5 text-accent-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <input id="cmdInput" type="text" placeholder="Search all 21 utilities by name, category, or task..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
-        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-accent-500/10 text-accent-600 font-bold shrink-0">Showing 10 of 21</span>
+        <input id="cmdInput" type="text" placeholder="Search all 20 utilities by name, category, or task..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
+        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-accent-500/10 text-accent-600 font-bold shrink-0">Showing 9 of 20</span>
         <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2.5 py-1 rounded-lg surface-muted border opacity-75 hover:opacity-100">ESC</button>
       </div>
       <div class="px-4 py-2 surface-muted border-b border-inherit flex items-center justify-between gap-2 overflow-x-auto no-scrollbar text-[11px]">
         <div class="flex items-center gap-1.5">
-          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">Top 10 Initial</button>
-          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">View All 21</button>
+          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">Top 9 Initial</button>
+          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">View All 20</button>
           <button onclick="renderCmdList('Document')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">📄 PDF & Docs</button>
           <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">👨‍💻 Dev & Sandbox</button>
           <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">🏦 Finance & IBAN</button>
@@ -150,9 +144,7 @@
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- TOP HEADER WITH LIVE TELEMETRY & NAVIGATION               -->
-  <!-- ========================================================= -->
+  <!-- TOP HEADER WITH TELEMETRY & NAVIGATION -->
   <header class="sticky top-0 z-40 surface-glass border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       
@@ -164,11 +156,10 @@
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-accent-600">.in</span></span>
           </div>
-          <p class="text-[10px] opacity-60 font-medium hidden sm:block">Futuristic 21-Tool Browser Workspace</p>
+          <p class="text-[10px] opacity-60 font-medium hidden sm:block">Futuristic 20-Tool Browser Workspace</p>
         </div>
       </div>
 
-      <!-- Real Telemetry Container -->
       <div class="hidden xl:flex items-center gap-4 px-4 py-1.5 rounded-full surface-muted border text-xs">
         <div class="flex items-center gap-2">
           <span class="relative flex h-2 w-2">
@@ -189,7 +180,7 @@
         <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-4 px-3.5 py-2 rounded-xl surface-muted border text-xs opacity-90 hover:opacity-100 hover:border-accent-500 transition">
           <span class="flex items-center gap-2">
             <svg class="w-3.5 h-3.5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <span class="hidden sm:inline font-medium">Quick Launch (21 Tools)...</span>
+            <span class="hidden sm:inline font-medium">Quick Launch (20 Tools)...</span>
             <span class="sm:hidden">Search...</span>
           </span>
           <kbd class="px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl + K</kbd>
@@ -210,7 +201,6 @@
           </button>
           <button onclick="switchTool('pdf')" id="topTab-pdf" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">📄 PDF & Doc Suite</button>
           <button onclick="switchTool('sandbox')" id="topTab-sandbox" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">💻 Live HTML/JS Sandbox</button>
-          <button onclick="switchTool('youtube')" id="topTab-youtube" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🎬 YouTube Transcript</button>
           <button onclick="switchTool('iban')" id="topTab-iban" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🏦 IBAN Validator</button>
           <button onclick="switchTool('passgen')" id="topTab-passgen" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🔐 Password Studio</button>
           <button onclick="switchTool('diff')" id="topTab-diff" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">⚖️ Split Code Diff</button>
@@ -222,12 +212,12 @@
 
         <div class="relative shrink-0">
           <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-accent-600 hover:border-accent-500 transition flex items-center gap-1.5 shadow-sm">
-            <span>All 21 Tools</span>
+            <span>All 20 Tools</span>
             <span class="text-[10px]">▾</span>
           </button>
           <div id="moreDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 surface-card rounded-2xl border shadow-2xl p-4 z-50 space-y-3 text-xs max-h-[75vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-inherit pb-2">
-              <span class="font-bold text-accent-600 font-mono uppercase text-[11px]">Complete 21-Utility Directory</span>
+              <span class="font-bold text-accent-600 font-mono uppercase text-[11px]">Complete 20-Utility Directory</span>
               <button onclick="toggleMoreDropdown()" class="opacity-60 hover:opacity-100">✕</button>
             </div>
             <div id="dropdownDynamicList" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5"></div>
@@ -248,20 +238,20 @@
         <div class="lg:col-span-7 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-500 border border-accent-500/20 text-xs font-semibold">
             <span class="w-2 h-2 rounded-full bg-accent-600 animate-pulse"></span>
-            <span>21 Browser-Native Modules • Zero Cloud Uploads</span>
+            <span>20 Browser-Native Modules • Zero Cloud Uploads</span>
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.15]">
             Precision tools for <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-600 to-sky-500">work, finance & creation.</span>
           </h1>
           <p class="text-sm sm:text-base opacity-75 leading-relaxed max-w-xl">
-            Designed with the speed of a local desktop app. Merge PDFs, validate international IBANs, extract YouTube transcripts, model wealth, or run live code—100% free and private inside your browser.
+            Designed with the speed of a local desktop app. Merge PDFs, validate international IBANs, model wealth, or run live code—100% free and private inside your browser.
           </p>
 
           <div class="pt-1 space-y-2">
             <div class="text-[11px] font-bold uppercase tracking-wider opacity-55 font-mono">Filter Workspace by Discipline:</div>
             <div class="flex flex-wrap gap-2">
-              <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition">✦ All Modules (21)</button>
-              <button onclick="selectPersona('Document & Media')" id="pBtn-Document & Media" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">📄 PDF, YT & Media (5)</button>
+              <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition">✦ All Modules (20)</button>
+              <button onclick="selectPersona('Document & Media')" id="pBtn-Document & Media" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">📄 PDF & Media (4)</button>
               <button onclick="selectPersona('Finance & Business')" id="pBtn-Finance & Business" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">🏦 Finance & IBAN (5)</button>
               <button onclick="selectPersona('Developer & Data')" id="pBtn-Developer & Data" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">💻 Dev & Sandbox (8)</button>
               <button onclick="selectPersona('SEO & Content')" id="pBtn-SEO & Content" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">🚀 SEO & Marketing (3)</button>
@@ -315,45 +305,17 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 id="dirHeading" class="text-xl font-extrabold">Featured Workspace Utilities</h2>
-            <p id="dirSubheading" class="text-xs opacity-65">Showing 10 core utilities initially. Click "Explore All 21 Utilities" or search above.</p>
+            <p id="dirSubheading" class="text-xs opacity-65">Showing 9 core utilities initially. Click "Explore All 20 Utilities" or search above.</p>
           </div>
-          <input id="dirSearchInput" type="text" placeholder="Search 21 utilities (e.g., pdf, iban, youtube, diff)..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-80" />
+          <input id="dirSearchInput" type="text" placeholder="Search 20 utilities (e.g., pdf, iban, diff)..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-80" />
         </div>
 
         <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
         <div id="expandDirectoryWrapper" class="text-center pt-2">
           <button onclick="toggleExpandDirectory()" id="expandDirBtn" class="px-6 py-3 rounded-xl surface-card border text-xs font-extrabold text-accent-600 hover:border-accent-500 transition shadow-sm">
-            Explore All 21 Utilities ↓
+            Explore All 20 Utilities ↓
           </button>
-        </div>
-      </div>
-
-      <div class="surface-card rounded-3xl p-6 sm:p-8 border relative overflow-hidden">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div class="space-y-2 max-w-xl">
-            <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">
-              <span>🚀 UtilityFlow Future Labs • Q4 2026 Roadmap</span>
-            </div>
-            <h3 class="text-xl font-extrabold">More Next-Gen Browser Utilities in Development</h3>
-            <p class="text-xs opacity-75 leading-relaxed">
-              We are continuously expanding UtilityFlow with zero-server WebAssembly modules. Have a specific utility request? Reach out directly in the footer below.
-            </p>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs shrink-0">
-            <div class="p-3.5 rounded-2xl surface-muted border space-y-1">
-              <div class="font-bold flex items-center gap-1.5"><span>🎙️</span> <span>Audio Stem Splitter</span></div>
-              <div class="text-[11px] opacity-60 font-mono">Coming Soon</div>
-            </div>
-            <div class="p-3.5 rounded-2xl surface-muted border space-y-1">
-              <div class="font-bold flex items-center gap-1.5"><span>📊</span> <span>CSV to SQL Studio</span></div>
-              <div class="text-[11px] opacity-60 font-mono">In Beta Testing</div>
-            </div>
-            <div class="p-3.5 rounded-2xl surface-muted border space-y-1">
-              <div class="font-bold flex items-center gap-1.5"><span>🖼️</span> <span>SVG Vector Tracer</span></div>
-              <div class="text-[11px] opacity-60 font-mono">Pipeline Queued</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -362,14 +324,14 @@
       <div class="flex flex-wrap items-center justify-between gap-2">
         <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-accent-500/10 text-accent-600 dark:text-accent-400 font-bold">Category</span>
         <button onclick="switchTool('home')" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-bold hover:border-accent-500 transition">
-          ← Back to All 21 Tools
+          ← Back to All 20 Tools
         </button>
       </div>
       <h1 id="ctxTitle" class="text-2xl font-extrabold tracking-tight pt-1">Tool Title</h1>
       <p id="ctxPurpose" class="text-xs sm:text-sm opacity-75 leading-relaxed">Detailed explanation of what this utility is specifically used for.</p>
     </div>
 
-    <!-- TOOL 17: PDF -->
+    <!-- TOOL: PDF -->
     <section id="view-pdf" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap gap-2 border-b border-inherit pb-4">
@@ -397,34 +359,28 @@
               <input id="pdfDocFilename" type="text" value="utilityflow-document.pdf" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" />
             </div>
           </div>
-          <textarea id="pdfDocBody" rows="6" placeholder="Paste or write document content here to export directly to a formatted PDF..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">1. OVERVIEW
-This document was compiled client-side via UtilityFlow PDF Command Suite.
-
-2. KEY DELIVERABLES
-- Zero external cloud uploads
-- Instant local PDF generation</textarea>
+          <textarea id="pdfDocBody" rows="6" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">1. OVERVIEW
+This document was compiled client-side via UtilityFlow PDF Command Suite.</textarea>
           <button onclick="exportTextToPdf()" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
             Generate & Download PDF ⬇️
           </button>
         </div>
 
         <div id="pdfPane-inspect" class="hidden space-y-4">
-          <p class="text-xs opacity-75">Select any `.pdf` file from your device to inspect its exact byte size, estimated page count, and PDF specification version without uploading.</p>
+          <p class="text-xs opacity-75">Select any `.pdf` file from your device to inspect its exact byte size and page count.</p>
           <input type="file" accept="application/pdf" onchange="inspectPdfFile(event)" class="w-full p-3 rounded-xl input-ui text-xs" />
-          <div id="pdfInspectOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1.5">
-            Select a PDF file above to view structural metadata.
-          </div>
+          <div id="pdfInspectOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1.5">Select a PDF file above.</div>
         </div>
       </div>
     </section>
 
-    <!-- TOOL 18: IBAN -->
+    <!-- TOOL: IBAN -->
     <section id="view-iban" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex flex-wrap items-end gap-3">
           <div class="flex-1 min-w-[240px]">
             <label class="text-xs font-semibold opacity-75">Enter International Bank Account Number (IBAN)</label>
-            <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" placeholder="e.g., GB29 NWBK 6016 1331 9268 19" class="w-full mt-1.5 px-4 py-2.5 rounded-xl input-ui text-sm font-mono uppercase" />
+            <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" class="w-full mt-1.5 px-4 py-2.5 rounded-xl input-ui text-sm font-mono uppercase" />
           </div>
           <button onclick="validateAndParseIban()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm">
             Validate MOD-97 & Parse IBAN 🏦
@@ -434,35 +390,7 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       </div>
     </section>
 
-    <!-- TOOL 19: YOUTUBE -->
-    <section id="view-youtube" class="tool-section hidden space-y-6">
-      <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input id="ytUrlInput" type="text" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="flex-1 px-4 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          <button onclick="inspectYouTubeVideo()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shrink-0">
-            Extract Video Info & Transcript Builder 🎬
-          </button>
-        </div>
-        <div id="ytResultArea" class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
-          <div id="ytMetaCard" class="surface-muted rounded-2xl p-4 border space-y-3 text-xs">
-            <p class="opacity-65">Click extract above to load live video metadata, thumbnail assets, and transcript formatting tools.</p>
-          </div>
-          <div class="lg:col-span-2 space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <label class="text-xs font-bold font-mono">Transcript / Captions Text Workbench</label>
-              <div class="flex gap-2">
-                <button onclick="cleanTranscriptTimestamps()" class="px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold hover:border-accent-500">Strip Timestamps</button>
-                <button onclick="downloadTranscriptFile('txt')" class="px-3 py-1 rounded-lg bg-accent-600 text-white text-[11px] font-bold">Download .TXT ⬇️</button>
-                <button onclick="downloadTranscriptFile('srt')" class="px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold hover:border-accent-500">Download .SRT ⬇️</button>
-              </div>
-            </div>
-            <textarea id="ytTranscriptBox" rows="8" class="w-full p-4 rounded-xl input-ui text-xs font-mono">[00:00] Welcome to the UtilityFlow YouTube Transcript & Note Workbench.</textarea>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOOL 20: PASSWORD -->
+    <!-- TOOL: PASSWORD -->
     <section id="view-passgen" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -484,7 +412,7 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       </div>
     </section>
 
-    <!-- TOOL 21: SANDBOX -->
+    <!-- TOOL: SANDBOX -->
     <section id="view-sandbox" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 border space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -747,15 +675,15 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
           <span class="w-7 h-7 rounded-lg bg-accent-600 text-white font-extrabold flex items-center justify-center text-xs">UF</span>
           <span class="font-extrabold text-sm">UtilityFlow.in</span>
         </div>
-        <p class="opacity-70 leading-relaxed">An enterprise-grade ecosystem of 21 client-side web utilities.</p>
+        <p class="opacity-70 leading-relaxed">An enterprise-grade ecosystem of 20 client-side web utilities.</p>
       </div>
       <div class="space-y-2">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Core Suites</div>
         <div class="grid grid-cols-2 gap-1.5 opacity-80">
           <button onclick="switchTool('pdf')" class="text-left hover:text-accent-600">📄 PDF Suite</button>
           <button onclick="switchTool('iban')" class="text-left hover:text-accent-600">🏦 IBAN Validator</button>
-          <button onclick="switchTool('youtube')" class="text-left hover:text-accent-600">🎬 YouTube Transcript</button>
           <button onclick="switchTool('sandbox')" class="text-left hover:text-accent-600">💻 Code Sandbox</button>
+          <button onclick="switchTool('calc')" class="text-left hover:text-accent-600">📈 Wealth Engine</button>
         </div>
       </div>
       <div class="space-y-2.5">
@@ -782,7 +710,6 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
     const TOOLS_REGISTRY = [
       { id: 'pdf', title: 'PDF & Document Command Suite', category: 'Document & Media', icon: '📄', keywords: ['pdf', 'merge', 'convert'], purpose: 'Compile multiple images into a single PDF or inspect PDF metadata.' },
       { id: 'sandbox', title: 'Live HTML / CSS / JS Sandbox', category: 'Developer & Data', icon: '💻', keywords: ['sandbox', 'html', 'code'], purpose: 'Write and test HTML, CSS, and JS in real time with live preview.' },
-      { id: 'youtube', title: 'YouTube Transcript & Info Workbench', category: 'Document & Media', icon: '🎬', keywords: ['youtube', 'transcript'], purpose: 'Extract video metadata and clean transcripts.' },
       { id: 'iban', title: 'IBAN Validator & Bank Parser', category: 'Finance & Business', icon: '🏦', keywords: ['iban', 'bank'], purpose: 'Verify international bank account numbers using MOD-97.' },
       { id: 'passgen', title: 'Entropy Password & Passphrase Studio', category: 'Developer & Data', icon: '🔐', keywords: ['password', 'security'], purpose: 'Generate high-entropy cryptographic passwords.' },
       { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: ['diff', 'compare'], purpose: 'Compare code side-by-side.' },
@@ -920,12 +847,12 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       const expandWrap = document.getElementById('expandDirectoryWrapper');
       let displayList = filtered;
       if (!q && activeCategory === 'all' && !showAllDirectory) {
-        displayList = filtered.slice(0, 10);
+        displayList = filtered.slice(0, 9);
         expandWrap.classList.remove('hidden');
         document.getElementById('expandDirBtn').textContent = `Explore All ${filtered.length} Utilities ↓`;
       } else if (!q && activeCategory === 'all' && showAllDirectory) {
         expandWrap.classList.remove('hidden');
-        document.getElementById('expandDirBtn').textContent = `Show Initial 10 Utilities ↑`;
+        document.getElementById('expandDirBtn').textContent = `Show Initial 9 Utilities ↑`;
       } else {
         expandWrap.classList.add('hidden');
       }
@@ -956,7 +883,7 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       let matches = TOOLS_REGISTRY;
       if (query && query !== 'all') {
         matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.category.toLowerCase().includes(query));
-      } else if (!query) { matches = TOOLS_REGISTRY.slice(0, 10); }
+      } else if (!query) { matches = TOOLS_REGISTRY.slice(0, 9); }
       document.getElementById('cmdCountBadge').textContent = `Showing ${matches.length} of ${TOOLS_REGISTRY.length}`;
       document.getElementById('cmdResults').innerHTML = matches.map(t => `
         <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-3 rounded-2xl surface-muted border hover:border-accent-500 cursor-pointer flex items-start gap-3 text-xs transition">
@@ -1011,23 +938,6 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       const out = document.getElementById('ibanOutput');
       out.innerHTML = `<div class="p-4 rounded-xl surface-muted border sm:col-span-4"><strong>IBAN Parsed Successfully:</strong> ${escapeHtml(raw)}</div>`;
       showToast('IBAN Verified');
-    }
-
-    async function inspectYouTubeVideo() {
-      const url = document.getElementById('ytUrlInput').value.trim();
-      const match = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
-      const videoId = match ? match[1] : 'dQw4w9WgXcQ';
-      document.getElementById('ytMetaCard').innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" class="w-full rounded-xl border" /><div class="font-bold text-xs pt-1">Video ID: ${videoId}</div>`;
-      showToast('Video loaded');
-    }
-    function cleanTranscriptTimestamps() {
-      const box = document.getElementById('ytTranscriptBox');
-      box.value = box.value.replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/g, '');
-      showToast('Timestamps stripped');
-    }
-    function downloadTranscriptFile(ext) {
-      const blob = new Blob([document.getElementById('ytTranscriptBox').value], { type: 'text/plain' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `transcript.${ext}`; a.click();
     }
 
     function generateSecurePasswords() {
