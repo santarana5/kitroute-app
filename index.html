@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Free Multi-Utility Suite & Spotlight Board</title>
+  <title>UtilityFlow.io — Free Practical Multi-Utility Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
@@ -21,17 +21,18 @@
   </script>
   <style>
     body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+    
+    /* Light Mode Default Styling */
+    body { background-color: #f8fafc; color: #0f172a; }
+    .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+    .card-bg { background: #ffffff; border: 1px solid #e2e8f0; }
+    .input-bg { background: #f1f5f9; color: #0f172a; border-color: #cbd5e1; }
+
+    /* Dark Mode Styling */
     html.dark body { background-color: #09090b; color: #f4f4f5; }
-    html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
-
-    html.dark .glass { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    html:not(.dark) .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
-
+    html.dark .glass { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: none; }
     html.dark .card-bg { background: #121216; border: 1px solid rgba(255,255,255,0.08); }
-    html:not(.dark) .card-bg { background: #ffffff; border: 1px solid #e2e8f0; }
-
     html.dark .input-bg { background: #18181b; color: #ffffff; border-color: rgba(255,255,255,0.1); }
-    html:not(.dark) .input-bg { background: #f1f5f9; color: #0f172a; border-color: #cbd5e1; }
 
     .pulse-dot { animation: pulseGlow 2s infinite; }
     @keyframes pulseGlow {
@@ -49,215 +50,184 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center font-extrabold text-black text-lg shadow-lg">⚡</div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-cyan-400">.io</span></span>
-            <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 100% FREE UTILITY SUITE
+            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-cyan-500">.io</span></span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span> 100% FREE UTILITIES
             </span>
           </div>
-          <p class="text-[11px] opacity-60 hidden sm:block">Instant Multi-Tool Generator</p>
+          <p class="text-[11px] opacity-60 hidden sm:block">Instant Client-Side Browser Suite</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">🌙</button>
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105 shadow-sm" title="Switch Theme">☀️</button>
       </div>
     </div>
   </header>
 
-  <!-- SUB-NAV TAB BAR (6 TOOLS) -->
+  <!-- SUB-NAV TAB BAR (5 UTILITY TOOLS) -->
   <div class="glass border-b sticky top-[61px] z-40 overflow-x-auto">
     <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2 min-w-max">
-      <button onclick="switchTool('payprompt')" id="btn-payprompt" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition">1. PayPrompt 💸</button>
-      <button onclick="switchTool('metagen')" id="btn-metagen" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">2. MetaGen 🌐</button>
-      <button onclick="switchTool('slugcraft')" id="btn-slugcraft" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">3. SlugCraft 🔗</button>
-      <button onclick="switchTool('policydraft')" id="btn-policydraft" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">4. PolicyDraft 📄</button>
-      <button onclick="switchTool('caseswap')" id="btn-caseswap" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">5. CaseSwap 🔤</button>
-      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">6. Spotlight Board 🏆</button>
+      <button onclick="switchTool('calc')" id="btn-calc" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition">1. Financial Calculator 💰</button>
+      <button onclick="switchTool('image')" id="btn-image" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">2. Image Compressor 🖼️</button>
+      <button onclick="switchTool('qr')" id="btn-qr" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">3. QR Code Generator 📱</button>
+      <button onclick="switchTool('text')" id="btn-text" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">4. Word & Char Counter 📝</button>
+      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition">5. Spotlight Board 🏆</button>
     </div>
   </div>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 space-y-8">
 
     <!-- AD SENSE BANNER PLACEHOLDER (Top) -->
-    <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
+    <div class="glass rounded-2xl p-4 border border-cyan-500/20 text-center text-xs opacity-70 font-mono">
       <span>[ Google AdSense Display Banner Ad • 728x90 ]</span>
     </div>
 
     <!-- ========================================== -->
-    <!-- TOOL 1: PAYPROMPT (Invoice Reminders)      -->
+    <!-- TOOL 1: FINANCIAL & LOAN CALCULATOR        -->
     <!-- ========================================== -->
-    <section id="tool-payprompt" class="tool-view space-y-6">
-      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+    <section id="tool-calc" class="tool-view space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • INVOICE REMINDER GENERATOR</span>
-          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: Payment Collection Script Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Instant, professional reminder emails and WhatsApp messages for overdue client invoices.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold">TOOL 01 • FINANCIAL UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">Loan EMI & Compound Interest Calculator</h2>
+          <p class="text-xs opacity-70 mt-1">Instantly calculate monthly loan payments or long-term investment growth.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
           <div>
-            <label class="text-xs opacity-70">Client Name / Company</label>
-            <input id="ppClient" type="text" placeholder="e.g., Oscorp" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <label class="text-xs opacity-70">Principal Amount (₹)</label>
+            <input id="calcPrincipal" type="number" value="500000" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
           </div>
           <div>
-            <label class="text-xs opacity-70">Overdue Amount (INR)</label>
-            <input id="ppAmount" type="number" placeholder="e.g., 584800" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+            <label class="text-xs opacity-70">Interest Rate (% p.a)</label>
+            <input id="calcRate" type="number" value="8.5" step="0.1" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+          </div>
+          <div>
+            <label class="text-xs opacity-70">Duration (Years)</label>
+            <input id="calcYears" type="number" value="5" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
           </div>
         </div>
 
-        <button onclick="runTool('payprompt')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate Professional Messages ⚡
+        <button onclick="runCalculator()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm shadow-md transition">
+          Calculate Instantly 🧮
         </button>
       </div>
 
-      <div class="glass rounded-2xl p-3 text-center text-[11px] opacity-60 font-mono border border-dashed">
-        <span>[ Google AdSense In-Feed Native Ad ]</span>
-      </div>
-
-      <div id="ppResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Collection Scripts</h3>
-        <div id="ppOutputContent" class="space-y-4 text-xs font-mono"></div>
+      <div id="calcResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl">
+        <h3 class="text-base font-bold">Calculation Breakdown</h3>
+        <div id="calcOutputContent" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 2: METAGEN (Meta Tag Generator)       -->
+    <!-- TOOL 2: IMAGE COMPRESSOR & RESIZER         -->
     <!-- ========================================== -->
-    <section id="tool-metagen" class="tool-view hidden space-y-6">
-      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+    <section id="tool-image" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • SEO UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">MetaGen: HTML Meta & Open Graph Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Create perfectly formatted Google SEO tags and social sharing previews instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold">TOOL 02 • MEDIA UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">Instant Image Resizer & Compressor</h2>
+          <p class="text-xs opacity-70 mt-1">Upload any image to compress its file size or convert format locally in browser.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div>
-            <label class="text-xs opacity-70">Page Subject / Title</label>
-            <input id="mgTitle" type="text" placeholder="e.g., Enterprise Cloud Architecture" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Target Keywords</label>
-            <input id="mgKeys" type="text" placeholder="cloud, enterprise, devops" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
+        <div>
+          <label class="text-xs opacity-70">Select Image File</label>
+          <input id="imageInput" type="file" accept="image/*" onchange="handleImagePreview(event)" class="w-full mt-1 px-3 py-3 rounded-xl input-bg border text-xs file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-cyan-500 file:text-black cursor-pointer" />
         </div>
 
-        <button onclick="runTool('metagen')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate HTML Head Tags 🌐
+        <div id="imagePreviewArea" class="hidden space-y-4 pt-2">
+          <div class="flex items-center gap-4">
+            <img id="sourceImgPreview" class="w-24 h-24 object-cover rounded-xl border" />
+            <div class="space-y-1 text-xs font-mono">
+              <p>Original Name: <span id="imgOriginalName" class="text-cyan-500"></span></p>
+              <p>Original Size: <span id="imgOriginalSize" class="text-cyan-500"></span></p>
+            </div>
+          </div>
+          <button onclick="compressImage()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm shadow-md transition">
+            Compress & Optimize Image 🖼️
+          </button>
+        </div>
+      </div>
+
+      <div id="imageResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl text-center">
+        <h3 class="text-base font-bold text-left">Optimized Image Ready</h3>
+        <div id="imageOutputContent" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 3: QR CODE GENERATOR                  -->
+    <!-- ========================================== -->
+    <section id="tool-qr" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold">TOOL 03 • MARKETING UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">High-Resolution QR Code Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Convert any website URL, Wi-Fi login, or text into a scannable QR code.</p>
+        </div>
+
+        <div>
+          <label class="text-xs opacity-70">Website URL or Text</label>
+          <input id="qrInput" type="text" placeholder="https://utilityflow.io" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
+        </div>
+
+        <button onclick="generateQRCode()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm shadow-md transition">
+          Generate QR Code 📱
         </button>
       </div>
 
-      <div id="mgResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Ready-to-Use HTML Snippet</h3>
-        <pre id="mgOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
+      <div id="qrResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl text-center">
+        <h3 class="text-base font-bold">Your Scannable QR Code</h3>
+        <div id="qrOutputContent" class="flex justify-center p-4 bg-white rounded-2xl border max-w-xs mx-auto"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 3: SLUGCRAFT (URL & UTM Builder)      -->
+    <!-- TOOL 4: WORD & CHARACTER COUNTER           -->
     <!-- ========================================== -->
-    <section id="tool-slugcraft" class="tool-view hidden space-y-6">
-      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+    <section id="tool-text" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • MARKETING UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: Clean URL Slug & UTM Builder</h2>
-          <p class="text-xs opacity-70 mt-1">Convert titles into clean SEO URLs and campaign tracking links instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold">TOOL 04 • CONTENT UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">Live Word, Character & Readability Counter</h2>
+          <p class="text-xs opacity-70 mt-1">Paste or type text below to get instant word counts, character limits, and reading time.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div>
-            <label class="text-xs opacity-70">Base URL</label>
-            <input id="scUrl" type="text" value="https://utilityflow.io/blog/" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Article / Product Title</label>
-            <input id="scTitle" type="text" placeholder="Quantum Computing Breakthrough in 2026" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
+        <div>
+          <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Start typing or paste your text here..." class="w-full px-4 py-3 rounded-xl input-bg border text-xs font-mono"></textarea>
         </div>
 
-        <button onclick="runTool('slugcraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Craft Clean Slug & URL 🔗
-        </button>
-      </div>
-
-      <div id="scResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Slug & URL</h3>
-        <div id="scOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono space-y-2 border"></div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+          <div class="p-3 rounded-2xl card-bg border shadow-sm">
+            <div id="cntWords" class="text-xl font-extrabold text-cyan-500">0</div>
+            <div class="text-[10px] opacity-60 uppercase mt-0.5">Words</div>
+          </div>
+          <div class="p-3 rounded-2xl card-bg border shadow-sm">
+            <div id="cntChars" class="text-xl font-extrabold text-emerald-500">0</div>
+            <div class="text-[10px] opacity-60 uppercase mt-0.5">Characters</div>
+          </div>
+          <div class="p-3 rounded-2xl card-bg border shadow-sm">
+            <div id="cntSentences" class="text-xl font-extrabold text-amber-500">0</div>
+            <div class="text-[10px] opacity-60 uppercase mt-0.5">Sentences</div>
+          </div>
+          <div class="p-3 rounded-2xl card-bg border shadow-sm">
+            <div id="cntTime" class="text-xl font-extrabold text-purple-500">0s</div>
+            <div class="text-[10px] opacity-60 uppercase mt-0.5">Read Time</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 4: POLICYDRAFT (Legal Docs Generator) -->
-    <!-- ========================================== -->
-    <section id="tool-policydraft" class="tool-view hidden space-y-6">
-      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
-        <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • LEGAL UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: Privacy Policy & Terms Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Generate standard compliance website legal documents in seconds.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div>
-            <label class="text-xs opacity-70">Company / Website Name</label>
-            <input id="pdName" type="text" placeholder="UtilityFlow.io" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70">Contact Email</label>
-            <input id="pdEmail" type="text" placeholder="support@utilityflow.io" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm font-mono" />
-          </div>
-        </div>
-
-        <button onclick="runTool('policydraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate Privacy Policy Template 📄
-        </button>
-      </div>
-
-      <div id="pdResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Policy Markdown</h3>
-        <textarea id="pdOutputContent" rows="8" class="w-full p-4 rounded-xl input-bg text-xs font-mono border"></textarea>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- TOOL 5: CASESWAP (Text & JSON Formatter)   -->
-    <!-- ========================================== -->
-    <section id="tool-caseswap" class="tool-view hidden space-y-6">
-      <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
-        <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • DEVELOPER UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: Text Casing & JSON Formatter</h2>
-          <p class="text-xs opacity-70 mt-1">Transform text casing (camelCase, UPPER, snake) or validate JSON instantly.</p>
-        </div>
-
-        <div>
-          <label class="text-xs opacity-70">Input Text or JSON</label>
-          <textarea id="csInput" rows="4" placeholder="enter text or raw json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <button onclick="runCaseSwap('upper')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">UPPERCASE</button>
-          <button onclick="runCaseSwap('lower')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">lowercase</button>
-          <button onclick="runCaseSwap('camel')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">camelCase</button>
-          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">Format JSON</button>
-        </div>
-      </div>
-
-      <div id="csResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Formatted Output</h3>
-        <pre id="csOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- TOOL 6: SPOTLIGHT BOARD (Free Bidding)     -->
+    <!-- TOOL 5: SPOTLIGHT BOARD                    -->
     <!-- ========================================== -->
     <section id="tool-spotlight" class="tool-view hidden space-y-6 max-w-3xl mx-auto">
-      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
-        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • COMMUNITY VISIBILITY BOARD</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Free Spotlight Board</h2>
-        <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our multi-tool platform.</p>
+      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4 shadow-xl">
+        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold">TOOL 05 • COMMUNITY SPOTLIGHT</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Spotlight Board</h2>
+        <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our platform.</p>
         
         <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
           🚀 Add Your Project Free
@@ -274,17 +244,17 @@
     </section>
 
     <!-- AD SENSE BANNER PLACEHOLDER (Bottom) -->
-    <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
+    <div class="glass rounded-2xl p-4 border border-cyan-500/20 text-center text-xs opacity-70 font-mono">
       <span>[ Google AdSense Display Banner Ad • 728x90 ]</span>
     </div>
 
   </main>
 
   <!-- SPOTLIGHT SUBMISSION MODAL -->
-  <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4">
+  <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🚀 Free Spotlight Submission</span>
+        <span class="text-xs font-mono uppercase text-cyan-600 dark:text-cyan-400 font-bold">🚀 Free Spotlight Submission</span>
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
       </div>
       <h3 class="text-xl font-bold">Feature Your Project</h3>
@@ -302,16 +272,27 @@
     </div>
   </div>
 
-  <!-- CORE SCRIPT LOGIC (INSTANT DYNAMIC GENERATOR) -->
+  <!-- CORE UTILITY SCRIPT LOGIC -->
   <script>
+    // Light Mode Default by ensuring 'dark' class is absent initially unless saved
+    if (localStorage.getItem('utilityflow_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeToggleBtn').textContent = '🌙';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeToggleBtn').textContent = '☀️';
+    }
+
     function toggleTheme() {
       const html = document.documentElement;
       const btn = document.getElementById('themeToggleBtn');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
+        localStorage.setItem('utilityflow_theme', 'light');
         btn.textContent = '☀️';
       } else {
         html.classList.add('dark');
+        localStorage.setItem('utilityflow_theme', 'dark');
         btn.textContent = '🌙';
       }
     }
@@ -321,102 +302,114 @@
       document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-80 hover:opacity-100 transition');
       
       document.getElementById('tool-' + toolId).classList.remove('hidden');
-      document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition';
+      document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition';
     }
 
-    // Dynamic Randomized Generator Engine for All Tools
-    function runTool(type) {
-      const randSeed = Math.floor(Math.random() * 9000) + 1000;
+    // Tool 1: Financial Calculator Logic
+    function runCalculator() {
+      const p = parseFloat(document.getElementById('calcPrincipal').value) || 0;
+      const r = (parseFloat(document.getElementById('calcRate').value) || 0) / 12 / 100;
+      const n = (parseFloat(document.getElementById('calcYears').value) || 0) * 12;
 
-      if (type === 'payprompt') {
-        const client = document.getElementById('ppClient').value.trim() || 'Client';
-        const amt = document.getElementById('ppAmount').value.trim() || '15,000';
-        const box = document.getElementById('ppResultBox');
-        const out = document.getElementById('ppOutputContent');
-        box.classList.remove('hidden');
+      let emi = 0;
+      let totalPayment = 0;
+      let totalInterest = 0;
 
-        // Randomized variation phrases to make every click unique
-        const openers = [
-          `Hope you're having a productive week at ${client}!`,
-          `Checking in to see how everything is progressing on your end at ${client}.`,
-          `Writing to touch base regarding our ongoing deliverables with ${client}.`
-        ];
-        const closers = [
-          `Please arrange settlement via wire transfer by Friday. Ref #${randSeed}.`,
-          `Kindly process this balance of ₹${amt} at your earliest convenience to maintain active service priority.`,
-          `Let us know if you need any supplementary billing paperwork to clear invoice #${randSeed}.`
-        ];
-
-        out.innerHTML = `
-          <div class="p-3.5 rounded-xl input-bg border space-y-1">
-            <p class="font-bold text-cyan-400">✉️ Email Variation 1 (Polite Nudge)</p>
-            <p class="opacity-80">Dear ${client} team, ${openers[0]} This is a friendly reminder that invoice #${randSeed} totaling ₹${amt} is now due. ${closers[0]} Best regards.</p>
-          </div>
-          <div class="p-3.5 rounded-xl input-bg border space-y-1">
-            <p class="font-bold text-emerald-400">💬 WhatsApp / SMS Script (Direct)</p>
-            <p class="opacity-80">Hi ${client}! ${openers[1]} Just reminding you about the pending invoice payment of ₹${amt}. ${closers[1]}</p>
-          </div>
-          <div class="p-3.5 rounded-xl input-bg border space-y-1">
-            <p class="font-bold text-amber-400">⚠️ Formal Notice (Firm Professional)</p>
-            <p class="opacity-80">Attention Accounts Dept (${client}), our records show that invoice #${randSeed} for ₹${amt} is currently overdue. ${closers[2]}</p>
-          </div>
-        `;
+      if (r > 0 && n > 0) {
+        emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        totalPayment = emi * n;
+        totalInterest = totalPayment - p;
       }
-      else if (type === 'metagen') {
-        const title = document.getElementById('mgTitle').value.trim() || 'Professional Web Page';
-        const keys = document.getElementById('mgKeys').value.trim() || 'business, technology';
-        const box = document.getElementById('mgResultBox');
-        const out = document.getElementById('mgOutputContent');
-        box.classList.remove('hidden');
 
-        out.textContent = `<title>${title} | Official Portal</title>\n<meta name="description" content="Discover comprehensive resources and professional insights regarding ${title}. Optimized for performance and verified for ${keys}.">\n<meta name="keywords" content="${keys}, online portal, professional services">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="Explore verified details about ${title}.">\n<meta property="og:type" content="website">`;
-      }
-      else if (type === 'slugcraft') {
-        const base = document.getElementById('scUrl').value.trim();
-        const title = document.getElementById('scTitle').value.trim() || 'New Article';
-        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') + '-' + randSeed;
-
-        const box = document.getElementById('scResultBox');
-        const out = document.getElementById('scOutputContent');
-        box.classList.remove('hidden');
-
-        out.innerHTML = `
-          <div><span class="opacity-60">Generated Clean Slug:</span> <span class="text-cyan-400 font-bold">/${slug}</span></div>
-          <div><span class="opacity-60">Full Campaign URL:</span> <span class="text-emerald-400">${base}${slug}?utm_source=utilityflow&utm_medium=organic&utm_campaign=ref_${randSeed}</span></div>
-        `;
-      }
-      else if (type === 'policydraft') {
-        const name = document.getElementById('pdName').value.trim() || 'UtilityFlow';
-        const email = document.getElementById('pdEmail').value.trim() || 'support@utilityflow.io';
-        const box = document.getElementById('pdResultBox');
-        const out = document.getElementById('pdOutputContent');
-        box.classList.remove('hidden');
-
-        out.value = `# Privacy Policy for ${name}\n\nEffective Date: January 1, 2026\n\nAt ${name}, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document (Ref #${randSeed}) outlines the types of data collected and recorded by ${name} and how we utilize it.\n\n## Information We Collect\nWe may collect standard technical browser logs, IP addresses, and user-submitted form details strictly to optimize service delivery.\n\n## Contact Us\nIf you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at ${email}.`;
-      }
-    }
-
-    // Tool 5: CaseSwap Helpers
-    function runCaseSwap(mode) {
-      const text = document.getElementById('csInput').value;
-      const box = document.getElementById('csResultBox');
-      const out = document.getElementById('csOutputContent');
+      const box = document.getElementById('calcResultBox');
+      const out = document.getElementById('calcOutputContent');
       box.classList.remove('hidden');
 
-      if (mode === 'upper') out.textContent = text.toUpperCase();
-      else if (mode === 'lower') out.textContent = text.toLowerCase();
-      else if (mode === 'camel') out.textContent = text.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
-      else if (mode === 'json') {
-        try {
-          const parsed = JSON.parse(text);
-          out.textContent = JSON.stringify(parsed, null, 2);
-        } catch(e) {
-          out.textContent = '❌ Invalid JSON format: ' + e.message;
-        }
-      }
+      out.innerHTML = `
+        <div class="p-4 rounded-2xl card-bg border">
+          <p class="text-xs opacity-60">Monthly EMI Payment</p>
+          <p class="text-lg font-extrabold text-cyan-500 mt-1">₹${Math.round(emi).toLocaleString('en-IN')}</p>
+        </div>
+        <div class="p-4 rounded-2xl card-bg border">
+          <p class="text-xs opacity-60">Total Interest Payable</p>
+          <p class="text-lg font-extrabold text-amber-500 mt-1">₹${Math.round(totalInterest).toLocaleString('en-IN')}</p>
+        </div>
+      `;
     }
 
-    // Tool 6: Spotlight Board State
+    // Tool 2: Image Compressor Logic
+    let selectedImageFile = null;
+    function handleImagePreview(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      selectedImageFile = file;
+
+      document.getElementById('imgOriginalName').textContent = file.name;
+      document.getElementById('imgOriginalSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('sourceImgPreview').src = e.target.result;
+        document.getElementById('imagePreviewArea').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function compressImage() {
+      if (!selectedImageFile) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width * 0.75;
+          canvas.height = img.height * 0.75;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+          const box = document.getElementById('imageResultBox');
+          const out = document.getElementById('imageOutputContent');
+          box.classList.remove('hidden');
+
+          out.innerHTML = `
+            <img src="${compressedDataUrl}" class="max-h-48 mx-auto rounded-xl border shadow-sm" />
+            <a href="${compressedDataUrl}" download="optimized-${selectedImageFile.name}" class="inline-block mt-3 px-6 py-2.5 rounded-xl bg-emerald-500 text-black font-extrabold text-xs shadow-md">
+              Download Compressed Image ⬇️
+            </a>
+          `;
+        };
+      };
+      reader.readAsDataURL(selectedImageFile);
+    }
+
+    // Tool 3: QR Code Generator Logic
+    function generateQRCode() {
+      const text = document.getElementById('qrInput').value.trim() || 'https://utilityflow.io';
+      const box = document.getElementById('qrResultBox');
+      const out = document.getElementById('qrOutputContent');
+      box.classList.remove('hidden');
+
+      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+      out.innerHTML = `<img src="${qrApi}" alt="QR Code" class="w-48 h-48 rounded-lg shadow-sm" />`;
+    }
+
+    // Tool 4: Word Counter Logic
+    function runWordCounter() {
+      const text = document.getElementById('wordInput').value;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      const chars = text.length;
+      const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+      const readTime = Math.ceil(words / 200 * 60);
+
+      document.getElementById('cntWords').textContent = words;
+      document.getElementById('cntChars').textContent = chars;
+      document.getElementById('cntSentences').textContent = sentences;
+      document.getElementById('cntTime').textContent = readTime + 's';
+    }
+
+    // Tool 5: Spotlight Board State
     let spotlightProjects = [
       { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured' },
       { name: 'DevToolbox', url: 'https://devtoolbox.io', status: 'Community Pick' },
@@ -428,16 +421,16 @@
       if (!list) return;
 
       list.innerHTML = spotlightProjects.map((p, idx) => `
-        <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4">
+        <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4 shadow-sm">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
+            <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
             <div>
-              <h4 class="font-bold text-sm"><a href="${p.url}" target="_blank" class="hover:underline text-cyan-400">${p.name} ↗</a></h4>
+              <h4 class="font-bold text-sm"><a href="${p.url}" target="_blank" class="hover:underline text-cyan-600 dark:text-cyan-400">${p.name} ↗</a></h4>
               <p class="text-[11px] opacity-60 font-mono">${p.url}</p>
             </div>
           </div>
           <div class="text-right shrink-0">
-            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-500">${p.status}</span>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">${p.status}</span>
           </div>
         </div>
       `).join('');
