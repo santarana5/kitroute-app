@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KitRoute.io — The Ultimate Creator Gear, Route & Priority Hub</title>
+  <title>RankPulse.io — Claim #1 Priority & Creator Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -22,15 +22,14 @@
     }
   </script>
   <style>
-    /* Dynamic Theme Styles */
     body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
     html.dark body { background-color: #09090b; color: #f4f4f5; }
     html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
 
-    html.dark .glass { background: rgba(24, 24, 27, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.09); }
-    html:not(.dark) .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+    html.dark .glass { background: rgba(24, 24, 27, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    html:not(.dark) .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
 
-    html.dark .card-bg { background: rgba(18, 18, 22, 0.8); }
+    html.dark .card-bg { background: #121216; border: 1px solid rgba(255,255,255,0.08); }
     html:not(.dark) .card-bg { background: #ffffff; border: 1px solid #e2e8f0; }
 
     html.dark .input-bg { background: #18181b; color: #ffffff; border-color: rgba(255,255,255,0.1); }
@@ -54,30 +53,28 @@
   <header class="sticky top-0 z-50 glass border-b">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center font-extrabold text-black text-lg shadow-lg shadow-cyan-500/20">⚡</div>
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center font-extrabold text-black text-lg shadow-lg">⚡</div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-tight text-lg">KitRoute<span class="text-cyan-400">.io</span></span>
-            <span id="dbStatusBadge" class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> LIVE DB
+            <span class="font-extrabold tracking-tight text-lg">RankPulse<span class="text-cyan-400">.io</span></span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> LIVE AUCTION
             </span>
           </div>
-          <p class="text-[11px] opacity-60 hidden sm:block">Production Creator Hub (Mumbai ap-south-1)</p>
+          <p class="text-[11px] opacity-60 hidden sm:block">Priority Auction & Creator Hub</p>
         </div>
       </div>
 
-      <!-- Navigation Switcher & Theme Toggle -->
+      <!-- Tab Switcher & Theme Toggle -->
       <div class="flex items-center gap-2">
         <nav class="flex flex-wrap items-center gap-1 p-1 rounded-xl border bg-opacity-50">
-          <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition">1. Profile</button>
-          <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">2. Studio 🔐</button>
-          <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">3. Rate Calculator</button>
+          <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition">1. Creator Profile</button>
+          <button onclick="switchTab('auction')" id="tab-auction" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">2. RankPulse Queue 🏆</button>
+          <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">3. Studio 🔐</button>
+          <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition">4. Calculator</button>
         </nav>
         
-        <!-- Theme Toggle Button -->
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">
-          🌙
-        </button>
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">🌙</button>
       </div>
     </div>
   </header>
@@ -86,16 +83,16 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-10">
 
     <!-- ========================================== -->
-    <!-- TAB 1: PUBLIC CREATOR PROFILE (@SantaaR)   -->
+    <!-- TAB 1: CREATOR PROFILE & WHY PAY SECTION   -->
     <!-- ========================================== -->
     <section id="view-profile" class="space-y-8">
       
-      <!-- HERO PROFILE BANNER (Outbid.lol Style Minimal Clean) -->
+      <!-- HERO BANNER -->
       <div class="glass rounded-3xl p-6 sm:p-8 relative overflow-hidden">
         <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div class="flex items-center gap-5">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-xl shadow-cyan-500/20">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-xl">
               <div class="w-full h-full card-bg rounded-[14px] flex items-center justify-center text-2xl font-black text-cyan-400">SR</div>
             </div>
             <div>
@@ -103,7 +100,7 @@
                 <h1 class="text-2xl sm:text-3xl font-extrabold">SantaaR Moto & Travel</h1>
                 <span class="px-2 py-0.5 text-[10px] font-bold bg-cyan-500/15 text-cyan-500 border border-cyan-500/30 rounded-full">VERIFIED CREATOR</span>
               </div>
-              <p class="text-sm opacity-80 mt-1 max-w-xl">Exploring scenic highways, Ghats & cross-state road trips on 2 wheels 🏍️🎥 | Official gear lists, GPS itineraries & direct priority collabs.</p>
+              <p class="text-sm opacity-80 mt-1 max-w-xl">Exploring scenic highways & cross-state road trips on 2 wheels 🏍️🎥 | Real Amazon affiliate gear, GPS road routes & priority auction queue.</p>
               <div class="flex flex-wrap items-center gap-3 mt-3 text-xs font-mono opacity-70">
                 <span>📍 Odisha, India</span>
                 <span>•</span>
@@ -113,102 +110,85 @@
           </div>
           <div class="w-full md:w-auto">
             <button onclick="openPriorityModal()" class="w-full md:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
-              ⚡ Skip the Line — Priority Ask (₹199)
+              🏆 Outbid & Claim #1 Slot (₹199+)
             </button>
           </div>
         </div>
       </div>
 
-      <!-- VALUE PROPOSITION SECTION (Why Creators & Fans Need This) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="glass rounded-2xl p-5 border border-cyan-500/20 space-y-2">
-          <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">01</div>
-          <h3 class="font-bold text-base">Zero Inbox Noise</h3>
-          <p class="text-xs opacity-70 leading-relaxed">Standard DMs get lost in spam folders. Priority Queuing ensures your collaboration or gear question is reviewed within 24 hours.</p>
+      <!-- CRITICAL VALUE PROPOSITION: WHY PAY? -->
+      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">WHY USE RANKPULSE & PAY FOR PRIORITY?</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold">Stop Getting Lost in Social Media DMs</h2>
+          <p class="text-xs opacity-70 leading-relaxed">Standard Instagram or YouTube DMs receive hundreds of spam messages daily. Creators ignore them. By backing your question with financial priority or outbidding competitors, you guarantee instant attention.</p>
         </div>
-        <div class="glass rounded-2xl p-5 border border-emerald-500/20 space-y-2">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-sm">02</div>
-          <h3 class="font-bold text-base">100% Real Affiliate Links</h3>
-          <p class="text-xs opacity-70 leading-relaxed">No broken or dummy links. Every camera, mount, and touring gear item points directly to verified official Amazon India storefronts.</p>
-        </div>
-        <div class="glass rounded-2xl p-5 border border-cyan-500/20 space-y-2">
-          <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">03</div>
-          <h3 class="font-bold text-base">Clonable Route Budgets</h3>
-          <p class="text-xs opacity-70 leading-relaxed">Stop guessing fuel and stay expenses. Access precise multi-day GPS routes, pitstops, and total estimated travel budgets instantly.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          <div class="card-bg rounded-2xl p-5 space-y-3 border">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">🎯</div>
+            <h3 class="font-bold text-sm">Guaranteed 24-Hour Video/Voice Reply</h3>
+            <p class="text-xs opacity-70 leading-relaxed">Your question goes directly to the creator's personal dashboard inbox with financial priority attached.</p>
+          </div>
+          <div class="card-bg rounded-2xl p-5 space-y-3 border">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-sm">🔗</div>
+            <h3 class="font-bold text-sm">100% Real Amazon Affiliate Gear</h3>
+            <p class="text-xs opacity-70 leading-relaxed">No broken dummy links. Every camera, mic, and riding jacket links directly to official Amazon India store pages.</p>
+          </div>
+          <div class="card-bg rounded-2xl p-5 space-y-3 border">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center font-bold text-sm">🏆</div>
+            <h3 class="font-bold text-sm">Outbid Competitors for #1 Visibility</h3>
+            <p class="text-xs opacity-70 leading-relaxed">Brands and creators can outbid existing posts to secure the top-ranked spotlight on the public leaderboard.</p>
+          </div>
         </div>
       </div>
 
-      <!-- MAIN 2-COLUMN GRID (Gear & Routes vs Priority Inbox) -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Left 2 Columns: Gear & Itineraries -->
-        <div class="lg:col-span-2 space-y-8">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div>
-                <h2 class="text-xl font-bold flex items-center gap-2">🎒 Complete MotoVlog & Travel Kit</h2>
-                <p class="text-xs opacity-70">Verified gear items used on cross-country road trips.</p>
-              </div>
-              <span id="gearCountBadge" class="text-xs font-mono px-2.5 py-1 rounded-lg border opacity-80">0 Items</span>
-            </div>
-            <div id="publicGearGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      <!-- GEAR & ROUTES GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold">🎒 Verified MotoVlog & Travel Kit</h2>
+            <span id="gearCountBadge" class="text-xs font-mono px-2 py-1 rounded border">0 Items</span>
           </div>
-
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div>
-                <h2 class="text-xl font-bold flex items-center gap-2">🗺️ Verified Road Trip Itineraries & Routes</h2>
-                <p class="text-xs opacity-70">Clone precise stops, Ghat roads, and total budget estimates.</p>
-              </div>
-            </div>
-            <div id="publicRoutesList" class="space-y-4"></div>
-          </div>
+          <div id="publicGearGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
-        <!-- Right 1 Column: Live Priority Inbox Widget -->
-        <div class="space-y-6">
-          <div class="glass rounded-2xl p-6 border border-cyan-500/20 space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">🔥 Live Priority Inbox</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-500">SYNCED</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold">Have a Route Question or Collab Offer?</h3>
-              <p class="text-xs opacity-70 mt-1 leading-relaxed">Bypass social media noise. Pay a small priority fee to guarantee direct answers and support the channel.</p>
-            </div>
-
-            <button onclick="openPriorityModal()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition shadow-lg shadow-cyan-500/20">
-              + Submit Priority Request (₹199)
-            </button>
-
-            <div class="pt-4 border-t border-opacity-10">
-              <div class="flex items-center justify-between text-xs opacity-70 mb-3">
-                <span>Active Queue</span>
-                <span id="queueCountBadge" class="font-mono font-bold">0 Pending</span>
-              </div>
-              <div id="publicQueueList" class="space-y-2.5"></div>
-            </div>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold">🗺️ Verified Road Trip Itineraries</h2>
           </div>
-
-          <!-- Viral Creator Loop Box -->
-          <div class="glass rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-500 font-bold">SAAS CREATOR TOOL</span>
-              <span class="text-xs opacity-70">₹0 Hosting</span>
-            </div>
-            <p class="text-sm font-bold">⚡ Powered by KitRoute.io</p>
-            <p class="text-xs opacity-70">Are you a creator or vlogger? Build your own database-backed gear and priority inbox page in 60 seconds.</p>
-            <button onclick="switchTab('dashboard')" class="w-full py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold border transition">
-              Creator Dashboard Login →
-            </button>
-          </div>
+          <div id="publicRoutesList" class="space-y-4"></div>
         </div>
-
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: CREATOR STUDIO (AUTH SECURED)       -->
+    <!-- TAB 2: RANKPULSE AUCTION LEADERBOARD       -->
+    <!-- ========================================== -->
+    <section id="view-auction" class="hidden space-y-8 max-w-4xl mx-auto">
+      <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
+        <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">LIVE RANKPULSE AUCTION</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Claim #1 Priority Spot in @SantaaR's Inbox</h2>
+        <p class="text-xs opacity-70 max-w-lg mx-auto">Outbid current questions or brand requests to hold the #1 ranking position. Higher bids secure immediate video responses.</p>
+        
+        <div class="pt-2">
+          <button onclick="openPriorityModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+            ⚡ Outbid & Submit New Question (₹199+)
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-2 text-xs opacity-70 font-mono">
+          <span>RANK & QUESTION / BRAND</span>
+          <span>BID AMOUNT</span>
+        </div>
+        <div id="outbidLeaderboardList" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: CREATOR STUDIO (AUTH SECURED)       -->
     <!-- ========================================== -->
     <section id="view-dashboard" class="hidden space-y-8">
       <div id="dashboardAuthGate" class="glass rounded-3xl p-8 max-w-md mx-auto text-center space-y-4 border border-cyan-500/30 mt-12">
@@ -241,18 +221,14 @@
             <p id="loggedInUserEmail" class="text-xs opacity-70 mt-1">Connected to Mumbai database.</p>
           </div>
           <div class="flex items-center gap-3">
-            <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">
-              🔄 Sync Default Data
-            </button>
-            <button onclick="logoutCreator()" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold text-rose-400 border border-rose-500/30 transition">
-              Sign Out ⎋
-            </button>
+            <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">🔄 Sync Default Data</button>
+            <button onclick="logoutCreator()" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold text-rose-400 border border-rose-500/30 transition">Sign Out ⎋</button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="text-lg font-bold">➕ Add Gear Item (Real Affiliate Link)</h3>
+            <h3 class="text-lg font-bold">➕ Add Gear Item (Real Amazon Affiliate Link)</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="text-xs opacity-70">Gear Title</label>
@@ -275,16 +251,14 @@
               </div>
               <div>
                 <label class="text-xs opacity-70">Real Amazon Affiliate Link</label>
-                <input id="gearLinkInput" type="text" placeholder="https://amzn.in/d/..." class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm" />
+                <input id="gearLinkInput" type="text" placeholder="https://www.amazon.in/dp/..." class="w-full mt-1 px-3 py-2 rounded-lg input-bg border text-sm" />
               </div>
             </div>
-            <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">
-              Save Gear to Database
-            </button>
+            <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">Save Gear to Database</button>
           </div>
 
           <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="text-lg font-bold">📬 Manage Priority Inbox</h3>
+            <h3 class="text-lg font-bold">📬 Manage RankPulse Priority Inbox</h3>
             <div id="adminQueueList" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
           </div>
         </div>
@@ -292,14 +266,14 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 3: FREE SEO SPONSORSHIP CALCULATOR     -->
+    <!-- TAB 4: FREE SEO SPONSORSHIP CALCULATOR     -->
     <!-- ========================================== -->
     <section id="view-calculator" class="hidden space-y-8">
       <div class="glass rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto border border-cyan-500/30 space-y-6">
         <div>
           <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">ORGANIC TRAFFIC MAGNET</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold mt-3">YouTube & Vlog Sponsorship Rate Calculator (2026)</h2>
-          <p class="text-xs opacity-70 mt-1">Creators search Google daily for sponsorship pricing. This free tool drives organic traffic directly to KitRoute profiles.</p>
+          <p class="text-xs opacity-70 mt-1">Creators search Google daily for sponsorship pricing. This free tool drives organic traffic directly to RankPulse profiles.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -337,17 +311,14 @@
 
   </main>
 
-  <!-- ========================================== -->
-  <!-- ANIMATED AI NAVIGATION CHATBOT WIDGET      -->
-  <!-- ========================================== -->
+  <!-- ANIMATED AI NAVIGATION CHATBOT WIDGET -->
   <div class="fixed bottom-6 right-6 z-50">
-    <!-- Chat Popup Drawer -->
     <div id="aiChatPopup" class="glass rounded-3xl w-80 sm:w-96 shadow-2xl border border-cyan-500/30 hidden flex-col overflow-hidden mb-4 transition-all duration-300">
       <div class="p-4 border-b flex items-center justify-between bg-cyan-500/10">
         <div class="flex items-center gap-2">
           <div class="w-7 h-7 rounded-full bg-cyan-400 text-black font-bold flex items-center justify-center text-xs">AI</div>
           <div>
-            <h4 class="text-xs font-bold">KitRoute Assistant</h4>
+            <h4 class="text-xs font-bold">RankPulse Assistant</h4>
             <p class="text-[10px] text-emerald-400 font-mono">● Online & Ready</p>
           </div>
         </div>
@@ -355,7 +326,7 @@
       </div>
       <div id="aiChatMessages" class="p-4 space-y-3 max-h-60 overflow-y-auto text-xs">
         <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
-          👋 Hi Santanu! I'm your AI navigation guide. Need help checking affiliate links, testing priority checkout, or unlocking the studio? Ask me anything!
+          👋 Hi Santanu! I'm your RankPulse guide. Need help checking affiliate gear, testing auctions, or unlocking the studio? Ask me anything!
         </div>
       </div>
       <div class="p-3 border-t flex gap-2">
@@ -364,7 +335,6 @@
       </div>
     </div>
 
-    <!-- Animated Floating Button -->
     <button onclick="toggleAiChat()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 to-emerald-400 text-black font-bold flex items-center justify-center shadow-2xl chat-bounce hover:scale-110 transition">
       💬
     </button>
@@ -374,11 +344,11 @@
   <div id="priorityModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">⚡ Priority Queue Checkout</span>
+        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🏆 RankPulse #1 Auction Bid</span>
         <button onclick="closePriorityModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
       </div>
-      <h3 class="text-xl font-bold">Jump to #1 in @SantaaR's Inbox</h3>
-      <p class="text-xs opacity-70">Secure payment via UPI or Cards. Your question goes straight to the top queue upon payment verification.</p>
+      <h3 class="text-xl font-bold">Outbid the Current Leader</h3>
+      <p class="text-xs opacity-70">Secure your spot at the top of the leaderboard with instant priority video response.</p>
       <div>
         <label class="text-xs opacity-70">Your Name / Brand</label>
         <input id="modalSenderName" type="text" placeholder="e.g., Rahul Vlogs / Rynox Gear" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
@@ -388,22 +358,21 @@
         <textarea id="modalQuestionText" rows="3" placeholder="e.g., Planning a 10-day Rajasthan ride—what camera mount do you recommend?" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm"></textarea>
       </div>
       <div>
-        <label class="text-xs opacity-70">Priority Tier & Price</label>
+        <label class="text-xs opacity-70">Bid Amount (INR)</label>
         <select id="modalAmount" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono">
-          <option value="199">₹199 — Standard Priority Question (24h Reply)</option>
-          <option value="499">₹499 — Full Route / Channel Audit</option>
-          <option value="1499">₹1,499 — Brand Sponsorship Fast-Track</option>
+          <option value="199">₹199 — Standard Priority Ask</option>
+          <option value="499">₹499 — Route & Channel Audit</option>
+          <option value="1499">₹1,499 — #1 Brand Sponsorship Fast-Track</option>
         </select>
       </div>
-      <button onclick="payWithRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
-        Pay via UPI / Card & Submit →
+      <button onclick="payWithRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+        Pay & Outbid for #1 Slot →
       </button>
     </div>
   </div>
 
   <!-- SCRIPT LOGIC -->
   <script>
-    // Theme Toggle Functionality
     function toggleTheme() {
       const html = document.documentElement;
       const btn = document.getElementById('themeToggleBtn');
@@ -416,7 +385,6 @@
       }
     }
 
-    // AI Chatbot Toggle & Interactive Responses
     function toggleAiChat() {
       const popup = document.getElementById('aiChatPopup');
       popup.classList.toggle('hidden');
@@ -429,21 +397,19 @@
       const text = input.value.trim();
       if (!text) return;
 
-      // Append User Message
       container.innerHTML += `<div class="p-3 rounded-2xl bg-white/10 text-right ml-6">${text}</div>`;
       input.value = '';
       container.scrollTop = container.scrollHeight;
 
-      // Simulated Intelligent AI Response
       setTimeout(() => {
-        let reply = "I can help you navigate KitRoute! You can check Tab 1 for real Amazon affiliate gear links, Tab 2 to log into the Creator Studio, or Tab 3 for our SEO rate calculator.";
+        let reply = "I'm your RankPulse guide! Explore Tab 1 for verified Amazon affiliate gear and why creators use us, Tab 2 for the live auction leaderboard, or Tab 3 for the studio.";
         const lower = text.toLowerCase();
         if (lower.includes('gear') || lower.includes('affiliate')) {
-          reply = "All gear items on Tab 1 link directly to verified Amazon India stores with real affiliate URLs!";
-        } else if (lower.includes('pay') || lower.includes('razorpay')) {
-          reply = "The priority queue checkout uses Razorpay for secure UPI and card payments.";
+          reply = "Tab 1 features verified Amazon India affiliate links for cameras, touring backpacks, and bikes.";
+        } else if (lower.includes('auction') || lower.includes('queue')) {
+          reply = "Tab 2 features our RankPulse live auction leaderboard where sponsors and fans bid to hold the #1 priority spot!";
         } else if (lower.includes('studio') || lower.includes('login')) {
-          reply = "Click Tab 2 (Studio 🔐) and log in with your Supabase credentials to manage your database securely.";
+          reply = "Tab 3 is the secure Supabase-authenticated Creator Studio.";
         }
         container.innerHTML += `<div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 mr-6">${reply}</div>`;
         container.scrollTop = container.scrollHeight;
@@ -451,7 +417,7 @@
     }
 
     function switchTab(tab) {
-      ['profile', 'dashboard', 'calculator'].forEach(t => {
+      ['profile', 'auction', 'dashboard', 'calculator'].forEach(t => {
         const el = document.getElementById('view-' + t);
         if (el) el.classList.add('hidden');
         const btn = document.getElementById('tab-' + t);
@@ -468,7 +434,6 @@
     let sb = null;
     let currentSessionUser = null;
 
-    // Real Affiliate Gear Data pointing to actual Amazon India storefronts
     const DEFAULT_GEAR = [
       { title: 'DJI Osmo Action 5 Pro Camera Setup', category: 'Camera & Audio', price_spec: '₹36,990 • 4K/120fps', affiliate_url: 'https://www.amazon.in/dp/B0DGQ9M37R' },
       { title: 'Honda SP125 Touring & Commuter Setup', category: 'Moto & Riding Gear', price_spec: '65 kmpl • Highway Ready', affiliate_url: 'https://www.amazon.in/s?k=motorcycle+riding+gear' },
@@ -477,13 +442,14 @@
     ];
 
     const DEFAULT_ROUTES = [
-      { title: 'Golden Dunes & Fort Circuit: Jaipur → Jaisalmer', duration_days: '12 Days • Remote Work Friendly', stops_summary: 'Kolkata → Mathura → Jaipur (Amer/Nahargarh) → Jaisalmer (Sam Sand Dunes & Gadisar Lake)', budget_est: '₹22,500 Total Est.' },
-      { title: 'Eastern Ghats Waterfall Trail: Cuttack → Chitrakote & Deomali', duration_days: '4 Days • Scenic Ghat Roads', stops_summary: 'Cuttack → Daringbadi → Koraput → Deomali Peak → Chitrakote Falls', budget_est: '₹7,800 Total Est.' }
+      { title: 'Golden Dunes & Fort Circuit: Jaipur → Jaisalmer', duration_days: '12 Days • Remote Work Friendly', stops_summary: 'Kolkata → Mathura → Jaipur → Jaisalmer (Sam Sand Dunes)', budget_est: '₹22,500 Total Est.' },
+      { title: 'Eastern Ghats Waterfall Trail: Cuttack → Chitrakote', duration_days: '4 Days • Scenic Ghat Roads', stops_summary: 'Cuttack → Daringbadi → Koraput → Chitrakote Falls', budget_est: '₹7,800 Total Est.' }
     ];
 
     const DEFAULT_QUEUE = [
-      { sender_name: 'Arjun MotoVlogs', question_text: 'How do you manage afternoon remote work shifts while riding across Rajasthan?', amount_inr: 499, status: 'pending' },
-      { sender_name: 'Vikram Rides', question_text: 'Best wind-noise cancellation mic placement inside a full-face helmet?', amount_inr: 199, status: 'pending' }
+      { sender_name: 'Arjun MotoVlogs', question_text: 'How do you manage afternoon remote work shifts while riding across Rajasthan?', amount_inr: 1499, status: 'pending' },
+      { sender_name: 'Vikram Rides', question_text: 'Best wind-noise cancellation mic placement inside a full-face helmet?', amount_inr: 499, status: 'pending' },
+      { sender_name: 'Rynox Gears', question_text: 'Sponsorship collaboration proposal for upcoming Ladakh expedition.', amount_inr: 199, status: 'pending' }
     ];
 
     let stateGear = [...DEFAULT_GEAR];
@@ -494,7 +460,7 @@
       if (window.supabase) {
         sb = window.supabase.createClient('https://baujahjqbkakkeemwxql.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhdWphaGpxYmtha2tlZW13eHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4MTcwMjYsImV4cCI6MjEwODM5MzAyNn0.LZhn262GJMEm_2CmPxG78EbWjHONzXJFx-q_SJeDaZ0');
       }
-    } catch(e) { console.log('Supabase init:', e); }
+    } catch(e) {}
 
     async function checkAuthSession() {
       if (!sb) return;
@@ -522,7 +488,7 @@
         return;
       }
 
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) {
         errBox.textContent = error.message;
         errBox.classList.remove('hidden');
@@ -561,14 +527,10 @@
       if (!sb || !currentSessionUser) return alert('Please log into Studio first.');
       try {
         const uidData = { user_id: currentSessionUser.id };
-        const gearWithUser = DEFAULT_GEAR.map(g => ({ ...g, ...uidData }));
-        const routesWithUser = DEFAULT_ROUTES.map(r => ({ ...r, ...uidData }));
-        const queueWithUser = DEFAULT_QUEUE.map(q => ({ ...q, ...uidData }));
-
-        await sb.from('gear_items').insert(gearWithUser);
-        await sb.from('travel_routes').insert(routesWithUser);
-        await sb.from('priority_inbox').insert(queueWithUser);
-        if (!silent) alert('✅ Default data successfully synced with your account ID!');
+        await sb.from('gear_items').insert(DEFAULT_GEAR.map(g => ({ ...g, ...uidData })));
+        await sb.from('travel_routes').insert(DEFAULT_ROUTES.map(r => ({ ...r, ...uidData })));
+        await sb.from('priority_inbox').insert(DEFAULT_QUEUE.map(q => ({ ...q, ...uidData })));
+        if (!silent) alert('✅ Default data synced successfully!');
         initCloudConnection();
       } catch (e) {
         alert('Sync error: ' + e.message);
@@ -586,7 +548,7 @@
             <div>
               <div class="flex items-center justify-between text-[11px] font-mono text-cyan-400 mb-1.5">
                 <span>${item.category}</span>
-                <span class="text-emerald-500 group-hover:translate-x-0.5 transition">Amazon Store ↗</span>
+                <span class="text-emerald-500 group-hover:translate-x-0.5 transition">Amazon ↗</span>
               </div>
               <h4 class="font-bold text-sm">${item.title}</h4>
             </div>
@@ -601,33 +563,37 @@
       const routesList = document.getElementById('publicRoutesList');
       if (routesList) {
         routesList.innerHTML = stateRoutes.map(r => `
-          <div class="glass card-bg rounded-2xl p-5 transition hover:border-cyan-400">
+          <div class="glass card-bg rounded-2xl p-4 transition hover:border-cyan-400">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-semibold">${r.duration_days}</span>
-              <span class="text-xs font-mono text-emerald-500 font-bold">${r.budget_est}</span>
+              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 font-semibold">${r.duration_days}</span>
+              <span class="text-[11px] font-mono text-emerald-500 font-bold">${r.budget_est}</span>
             </div>
-            <h4 class="text-base font-bold mt-2">${r.title}</h4>
+            <h4 class="text-sm font-bold mt-2">${r.title}</h4>
             <p class="text-xs opacity-70 mt-1 font-mono">🛣️ ${r.stops_summary}</p>
           </div>
         `).join('');
       }
 
-      const pendingQueue = stateQueue.filter(q => q.status === 'pending');
-      const queueCount = document.getElementById('queueCountBadge');
-      if (queueCount) queueCount.textContent = `${pendingQueue.length} Pending`;
+      stateQueue.sort((a, b) => b.amount_inr - a.amount_inr);
 
-      const publicQueueList = document.getElementById('publicQueueList');
-      if (publicQueueList) {
-        publicQueueList.innerHTML = pendingQueue.map((q, idx) => `
-          <div class="p-3 rounded-xl border border-opacity-10 card-bg flex items-start justify-between gap-3">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400">#${idx + 1}</span>
-                <span class="text-xs font-bold">${q.sender_name}</span>
+      const outbidList = document.getElementById('outbidLeaderboardList');
+      if (outbidList) {
+        outbidList.innerHTML = stateQueue.map((q, idx) => `
+          <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4 transition hover:border-cyan-400">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-bold text-sm">${q.sender_name}</h4>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded ${q.status === 'replied' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'}">${q.status}</span>
+                </div>
+                <p class="text-xs opacity-70 mt-0.5">${q.question_text}</p>
               </div>
-              <p class="text-xs opacity-70 mt-1 line-clamp-2">${q.question_text}</p>
             </div>
-            <span class="text-xs font-mono font-bold text-emerald-500 shrink-0">₹${q.amount_inr}</span>
+            <div class="text-right shrink-0">
+              <div class="text-base font-extrabold text-emerald-500 font-mono">₹${q.amount_inr}</div>
+              <button onclick="openPriorityModal()" class="text-[10px] text-cyan-400 hover:underline">Outbid ↗</button>
+            </div>
           </div>
         `).join('');
       }
@@ -686,8 +652,8 @@
         "key": "rzp_test_yourkeyid", 
         "amount": amount_inr * 100,
         "currency": "INR",
-        "name": "KitRoute.io Priority Ask",
-        "description": "Direct Priority Queue Slot with @SantaaR",
+        "name": "RankPulse #1 Auction",
+        "description": "Claim Ranking Position with @SantaaR",
         "handler": async function (response) {
           const newReq = { sender_name, question_text, amount_inr, status: 'pending' };
           stateQueue.unshift(newReq);
@@ -698,9 +664,9 @@
             await sb.from('priority_inbox').insert([newReq]);
             initCloudConnection();
           }
-          alert('🎉 Payment successful! Transaction ID: ' + response.razorpay_payment_id + '\nYour question is pinned to #1.');
+          alert('🎉 Outbid successful! Transaction ID: ' + response.razorpay_payment_id + '\nYou are now ranked #1 on the leaderboard.');
         },
-        "prefill": { "name": sender_name, "email": "creator@kitroute.io" },
+        "prefill": { "name": sender_name, "email": "creator@rankpulse.io" },
         "theme": { "color": "#06b6d4" }
       };
 
@@ -716,7 +682,7 @@
           await sb.from('priority_inbox').insert([newReq]);
           initCloudConnection();
         }
-        alert('✅ Priority request submitted successfully!');
+        alert('✅ Priority outbid request submitted successfully!');
       }
     }
 
