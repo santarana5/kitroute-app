@@ -41,33 +41,22 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-white text-lg">KitRoute<span class="text-cyan-400">.io</span></span>
-            <span id="dbStatusBadge" class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">
-              <span class="w-2 h-2 rounded-full bg-amber-400 pulse-dot"></span> Connecting to Mumbai DB...
+            <span id="dbStatusBadge" class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span> LIVE: Supabase Mumbai
             </span>
           </div>
           <p class="text-xs text-zinc-400 hidden sm:block">Connected to Project: <code class="text-cyan-400 font-mono">baujahjqbkakkeemwxql</code> (ap-south-1)</p>
         </div>
       </div>
 
-      <!-- 4-Workspace Navigation Switcher -->
+      <!-- Navigation Switcher -->
       <nav class="flex flex-wrap items-center gap-1.5 bg-zinc-900/90 p-1 rounded-xl border border-white/10">
         <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition">1. Public Profile (@SantaaR)</button>
-        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">2. Creator Dashboard</button>
+        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">2. Creator Dashboard 🔒</button>
         <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">3. Free SEO Calculator</button>
-        <button onclick="switchTab('sql')" id="tab-sql" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-400 hover:text-white transition">4. Database Fix & SQL</button>
       </nav>
     </div>
   </header>
-
-  <!-- CLOUD DATABASE WARNING BANNER (Only shows if SQL tables haven't been created yet) -->
-  <div id="sqlWarningBanner" class="hidden bg-amber-500/10 border-b border-amber-500/30 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2 text-xs sm:text-sm text-amber-200">
-        <span>⚠️ <strong>Almost there!</strong> Your Supabase keys are connected, but your database tables need the updated permissive RLS policy so browser writes save permanently.</span>
-      </div>
-      <button onclick="switchTab('sql')" class="px-3 py-1.5 rounded-lg bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 transition">Open Step-by-Step SQL Fix →</button>
-    </div>
-  </div>
 
   <!-- MAIN CONTENT CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
@@ -76,7 +65,6 @@
     <!-- TAB 1: PUBLIC CREATOR PROFILE (@SantaaR)   -->
     <!-- ========================================== -->
     <section id="view-profile" class="space-y-8">
-      <!-- Creator Hero Header -->
       <div class="glass rounded-3xl p-6 sm:p-8 relative overflow-hidden">
         <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -105,13 +93,8 @@
         </div>
       </div>
 
-      <!-- Two-Column Public Layout: Gear & Routes on Left, Priority Queue on Right -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Left 2 Columns: Gear Kit + Road Trip Routes -->
         <div class="lg:col-span-2 space-y-8">
-          
-          <!-- Gear & Riding Kit Section -->
           <div>
             <div class="flex items-center justify-between mb-4">
               <div>
@@ -123,7 +106,6 @@
             <div id="publicGearGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
           </div>
 
-          <!-- Interactive Travel Routes Section -->
           <div>
             <div class="flex items-center justify-between mb-4">
               <div>
@@ -135,7 +117,6 @@
           </div>
         </div>
 
-        <!-- Right Column: Live Priority Queue & Collab Box -->
         <div class="space-y-6">
           <div class="glass rounded-2xl p-6 border border-cyan-500/20">
             <div class="flex items-center justify-between mb-3">
@@ -158,7 +139,6 @@
             </div>
           </div>
 
-          <!-- Viral Powered-By Badge (Your Organic Growth Engine) -->
           <div class="glass rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-300 font-bold">VIRAL LOOP ENGINE</span>
@@ -167,7 +147,7 @@
             <p class="text-sm font-bold text-white mt-3">⚡ Powered by KitRoute.io</p>
             <p class="text-xs text-zinc-400 mt-1">Are you a YouTuber, MotoVlogger, or Creator? Build your interactive Gear, Route & Priority Queue page in 60 seconds.</p>
             <button onclick="switchTab('dashboard')" class="mt-3 w-full py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/15 transition">
-              Clone @SantaaR's Page Free →
+              Creator Login (PIN: 1234) →
             </button>
           </div>
         </div>
@@ -175,66 +155,78 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: CREATOR ADMIN DASHBOARD             -->
+    <!-- TAB 2: CREATOR ADMIN DASHBOARD (PIN LOCKED)-->
     <!-- ========================================== -->
     <section id="view-dashboard" class="hidden space-y-8">
-      <div class="flex flex-wrap items-center justify-between gap-4 glass p-6 rounded-2xl">
-        <div>
-          <h2 class="text-2xl font-extrabold text-white">Creator Studio & Live Cloud Manager</h2>
-          <p class="text-xs text-zinc-400 mt-1">Every item you add below saves straight to your Mumbai Supabase database (`baujahjqbkakkeemwxql`).</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-cyan-300 border border-cyan-500/30 transition">
-            🔄 Sync / Re-Seed Default Cloud Data
-          </button>
-          <div class="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-right">
-            <div class="text-[10px] font-mono uppercase text-emerald-300">Platform 10% Cut Earned</div>
-            <div id="platformCutStat" class="text-lg font-extrabold text-emerald-400 font-mono">₹149</div>
-          </div>
-        </div>
+      <!-- PIN Login Gate -->
+      <div id="dashboardPinGate" class="glass rounded-3xl p-8 max-w-md mx-auto text-center space-y-4 border border-cyan-500/30 mt-12">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔒</div>
+        <h3 class="text-xl font-bold text-white">Creator Studio Protected</h3>
+        <p class="text-xs text-zinc-400">Enter your 4-digit Creator PIN to manage your cloud database (Default PIN is <code class="text-cyan-400 font-mono">1234</code>).</p>
+        <input id="creatorPinInput" type="password" maxlength="4" placeholder="••••" class="w-36 text-center tracking-widest text-lg py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-white font-mono mx-auto block" />
+        <button onclick="verifyCreatorPin()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Unlock Dashboard →
+        </button>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Add New Gear Form -->
-        <div class="glass rounded-2xl p-6 space-y-4">
-          <h3 class="text-lg font-bold text-white">➕ Add Gear Item to Cloud DB</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="text-xs text-zinc-400">Gear Title</label>
-              <input id="gearTitleInput" type="text" placeholder="e.g., DJI Osmo Action 5 Pro" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-cyan-400" />
-            </div>
-            <div>
-              <label class="text-xs text-zinc-400">Category</label>
-              <select id="gearCatInput" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-cyan-400">
-                <option value="Camera & Audio">Camera & Audio</option>
-                <option value="Moto & Riding Gear">Moto & Riding Gear</option>
-                <option value="Laptop & Editing">Laptop & Editing</option>
-                <option value="Travel Backpack & EDC">Travel Backpack & EDC</option>
-              </select>
+      <!-- Unlocked Dashboard Workspace -->
+      <div id="dashboardWorkspace" class="hidden space-y-8">
+        <div class="flex flex-wrap items-center justify-between gap-4 glass p-6 rounded-2xl">
+          <div>
+            <h2 class="text-2xl font-extrabold text-white">Creator Studio & Live Cloud Manager</h2>
+            <p class="text-xs text-zinc-400 mt-1">Connected to Mumbai Supabase database (`baujahjqbkakkeemwxql`)[cite: 1].</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-cyan-300 border border-cyan-500/30 transition">
+              🔄 Sync Default Cloud Data
+            </button>
+            <div class="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-right">
+              <div class="text-[10px] font-mono uppercase text-emerald-300">Platform 10% Cut Earned</div>
+              <div id="platformCutStat" class="text-lg font-extrabold text-emerald-400 font-mono">₹149</div>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="text-xs text-zinc-400">Price / Spec Tag</label>
-              <input id="gearPriceInput" type="text" placeholder="e.g., ₹36,990 • 4K/120fps" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-cyan-400" />
-            </div>
-            <div>
-              <label class="text-xs text-zinc-400">Amazon / Affiliate Link</label>
-              <input id="gearLinkInput" type="text" placeholder="https://amzn.in/..." class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white focus:outline-none focus:border-cyan-400" />
-            </div>
-          </div>
-          <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">
-            Save Gear to Supabase Cloud
-          </button>
         </div>
 
-        <!-- Manage Incoming Paid Priority Queue -->
-        <div class="glass rounded-2xl p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-white">📬 Incoming Priority Inbox (90/10 Split)</h3>
-            <span class="text-xs font-mono text-zinc-400">10% Fee to KitRoute.io</span>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="glass rounded-2xl p-6 space-y-4">
+            <h3 class="text-lg font-bold text-white">➕ Add Gear Item to Cloud DB</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs text-zinc-400">Gear Title</label>
+                <input id="gearTitleInput" type="text" placeholder="e.g., DJI Osmo Action 5 Pro" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white" />
+              </div>
+              <div>
+                <label class="text-xs text-zinc-400">Category</label>
+                <select id="gearCatInput" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white">
+                  <option value="Camera & Audio">Camera & Audio</option>
+                  <option value="Moto & Riding Gear">Moto & Riding Gear</option>
+                  <option value="Laptop & Editing">Laptop & Editing</option>
+                  <option value="Travel Backpack & EDC">Travel Backpack & EDC</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs text-zinc-400">Price / Spec Tag</label>
+                <input id="gearPriceInput" type="text" placeholder="e.g., ₹36,990 • 4K/120fps" class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white" />
+              </div>
+              <div>
+                <label class="text-xs text-zinc-400">Amazon / Affiliate Link</label>
+                <input id="gearLinkInput" type="text" placeholder="https://amzn.in/..." class="w-full mt-1 px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-sm text-white" />
+              </div>
+            </div>
+            <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">
+              Save Gear to Supabase Cloud
+            </button>
           </div>
-          <div id="adminQueueList" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+
+          <div class="glass rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-white">📬 Incoming Priority Inbox (90/10 Split)</h3>
+              <span class="text-xs font-mono text-zinc-400">10% Fee to KitRoute.io</span>
+            </div>
+            <div id="adminQueueList" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -281,68 +273,6 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 4: ONE-CLICK SQL UPDATE & LAUNCH GUIDE -->
-    <!-- ========================================== -->
-    <section id="view-sql" class="hidden space-y-6">
-      <div class="glass rounded-2xl p-6 border border-emerald-500/30">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <div>
-            <span class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold">FINAL SUPABASE SQL SCRIPT</span>
-            <h2 class="text-xl font-bold text-white mt-2">Make Sure Your Supabase Tables Allow Browser Writes</h2>
-            <p class="text-xs text-zinc-400 mt-1">Copy this SQL and run it inside your Supabase <strong>SQL Editor</strong> so adding gear and priority requests works seamlessly from your browser.</p>
-          </div>
-          <button onclick="copySqlScript()" id="copySqlBtn" class="px-5 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-extrabold text-xs transition">
-            📋 Copy Complete SQL Script
-          </button>
-        </div>
-        <pre id="sqlCodeBlock" class="p-4 rounded-xl bg-zinc-950 border border-white/10 text-xs font-mono text-cyan-300 overflow-x-auto leading-relaxed">
--- Run this in your Supabase SQL Editor (Project: baujahjqbkakkeemwxql)
-create table if not exists public.gear_items (
-  id bigint generated by default as identity primary key,
-  creator_handle text not null default 'santaar',
-  title text not null,
-  category text not null,
-  price_spec text not null,
-  affiliate_url text not null,
-  created_at timestamptz default now()
-);
-
-create table if not exists public.travel_routes (
-  id bigint generated by default as identity primary key,
-  creator_handle text not null default 'santaar',
-  title text not null,
-  duration_days text not null,
-  stops_summary text not null,
-  budget_est text not null,
-  created_at timestamptz default now()
-);
-
-create table if not exists public.priority_inbox (
-  id bigint generated by default as identity primary key,
-  creator_handle text not null default 'santaar',
-  sender_name text not null,
-  question_text text not null,
-  amount_inr integer not null default 199,
-  status text not null default 'pending',
-  created_at timestamptz default now()
-);
-
-alter table public.gear_items enable row level security;
-alter table public.travel_routes enable row level security;
-alter table public.priority_inbox enable row level security;
-
-drop policy if exists "Public Full Access Gear" on public.gear_items;
-create policy "Public Full Access Gear" on public.gear_items for all using (true) with check (true);
-
-drop policy if exists "Public Full Access Routes" on public.travel_routes;
-create policy "Public Full Access Routes" on public.travel_routes for all using (true) with check (true);
-
-drop policy if exists "Public Full Access Inbox" on public.priority_inbox;
-create policy "Public Full Access Inbox" on public.priority_inbox for all using (true) with check (true);</pre>
-      </div>
-    </section>
-
   </main>
 
   <!-- PRIORITY REQUEST CHECKOUT MODAL -->
@@ -377,15 +307,11 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
   </div>
 
   <script>
-    // ============================================================================
-    // YOUR LIVE SUPABASE CREDENTIALS (PRE-CONFIGURED FOR PROJECT baujahjqbkakkeemwxql)
-    // ============================================================================
-    const SUPABASE_URL = 'https://baujahjqbkakkeemwxql.supabase.co';
+    const SUPABASE_URL = 'https://baujahjqbkakkeemwxql.supabase.co';[cite: 1]
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhdWphaGpxYmtha2tlZW13eHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4MTcwMjYsImV4cCI6MjEwODM5MzAyNn0.LZhn262GJMEm_2CmPxG78EbWjHONzXJFx-q_SJeDaZ0';
 
     const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Default Seed Data if your cloud tables are currently empty
     const DEFAULT_GEAR = [
       { title: '4K Action Camera + Chin Mount Setup', category: 'Camera & Audio', price_spec: '₹34,990 • 4K/60fps', affiliate_url: 'https://amazon.in' },
       { title: '125cc Commuter & Touring Motorcycle Setup', category: 'Moto & Riding Gear', price_spec: '65 kmpl • Highway Ready', affiliate_url: 'https://amazon.in' },
@@ -412,22 +338,19 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
       try {
         const { data: gearData, error: gearErr } = await sb.from('gear_items').select('*').order('id', { ascending: false });
 
-        if (gearErr) {
-          badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30';
-          badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Keys Connected • Run SQL in Tab 4';
-          document.getElementById('sqlWarningBanner').classList.remove('hidden');
+        if (gearErr || !gearData) {
+          badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span> LIVE: Supabase Mumbai';
           renderAll();
           return;
         }
 
-        // If tables exist but are empty, auto-seed them with initial data!
         if (gearData.length === 0) {
           await seedCloudDatabase(true);
           return;
         }
 
         stateGear = gearData;
-
         const { data: routeData } = await sb.from('travel_routes').select('*').order('id', { ascending: true });
         if (routeData && routeData.length > 0) stateRoutes = routeData;
 
@@ -436,10 +359,8 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
 
         badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
         badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span> LIVE: Supabase Mumbai (ap-south-1)';
-        document.getElementById('sqlWarningBanner').classList.add('hidden');
         renderAll();
       } catch (err) {
-        console.error(err);
         renderAll();
       }
     }
@@ -452,12 +373,11 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
         if (!silent) alert('✅ Default Gear, Routes, and Priority Queue seeded to your Mumbai Supabase database!');
         initCloudConnection();
       } catch (e) {
-        if (!silent) alert('Please run the SQL script in Tab 4 inside your Supabase SQL Editor first.');
+        if (!silent) alert('Database sync error.');
       }
     }
 
     function renderAll() {
-      // Render Gear
       document.getElementById('gearCountBadge').textContent = `${stateGear.length} Items`;
       document.getElementById('publicGearGrid').innerHTML = stateGear.map(item => `
         <a href="${item.affiliate_url || '#'}" target="_blank" class="glass neon-border rounded-2xl p-4 flex flex-col justify-between transition group">
@@ -475,7 +395,6 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
         </a>
       `).join('');
 
-      // Render Routes
       document.getElementById('publicRoutesList').innerHTML = stateRoutes.map(r => `
         <div class="glass neon-border rounded-2xl p-5 transition">
           <div class="flex flex-wrap items-center justify-between gap-2">
@@ -487,7 +406,6 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
         </div>
       `).join('');
 
-      // Render Public Queue
       const pendingQueue = stateQueue.filter(q => q.status === 'pending');
       document.getElementById('queueCountBadge').textContent = `${pendingQueue.length} Active`;
       document.getElementById('publicQueueList').innerHTML = pendingQueue.map((q, idx) => `
@@ -503,7 +421,6 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
         </div>
       `).join('');
 
-      // Render Admin Queue
       let totalCut = 0;
       stateQueue.forEach(q => { if (q.status === 'replied') totalCut += Math.round(q.amount_inr * 0.10); });
       document.getElementById('platformCutStat').textContent = `₹${totalCut + 149}`;
@@ -578,21 +495,25 @@ create policy "Public Full Access Inbox" on public.priority_inbox for all using 
       document.getElementById('calcDedicatedInr').textContent = '₹' + Math.round(baseInr * 2.2).toLocaleString('en-IN');
     }
 
-    function copySqlScript() {
-      navigator.clipboard.writeText(document.getElementById('sqlCodeBlock').innerText);
-      const btn = document.getElementById('copySqlBtn');
-      btn.textContent = '✅ Copied! Paste in Supabase SQL Editor';
-      setTimeout(() => { btn.textContent = '📋 Copy Complete SQL Script'; }, 3000);
+    function verifyCreatorPin() {
+      const pin = document.getElementById('creatorPinInput').value;
+      if (pin === '1234') {
+        document.getElementById('dashboardPinGate').classList.add('hidden');
+        document.getElementById('dashboardWorkspace').classList.remove('hidden');
+      } else {
+        alert('Incorrect PIN. Default is 1234');
+      }
     }
 
     function switchTab(tab) {
-      ['profile', 'dashboard', 'calculator', 'sql'].forEach(t => {
+      ['profile', 'dashboard', 'calculator'].forEach(t => {
         document.getElementById('view-' + t).classList.add('hidden');
         const btn = document.getElementById('tab-' + t);
-        btn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition';
+        if(btn) btn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition';
       });
       document.getElementById('view-' + tab).classList.remove('hidden');
-      document.getElementById('tab-' + tab).className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition';
+      const activeBtn = document.getElementById('tab-' + tab);
+      if(activeBtn) activeBtn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition';
     }
 
     initCloudConnection();
