@@ -34,7 +34,7 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.25s ease; }
     
-    /* Warm Creamy Alabaster Light Mode (Outbid / OnePage.io Aesthetic) */
+    /* Warm Creamy Alabaster Light Mode */
     body {
       background-color: #f6f4ef;
       color: #1c2430;
@@ -69,7 +69,7 @@
       box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14);
     }
 
-    /* Subtle Eye-Pleasing Nordic Slate Dark Mode (Never harsh pitch black) */
+    /* Subtle Eye-Pleasing Nordic Slate Dark Mode */
     html.dark body {
       background-color: #141923;
       color: #e6edf5;
@@ -167,6 +167,7 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-accent-600">.io</span></span>
+            <span class="hidden md:inline-block text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-accent-500/10 text-accent-600 font-bold border border-accent-500/20">v4.0 OS</span>
           </div>
           <p class="text-[10px] opacity-60 font-medium hidden sm:block">Futuristic 21-Tool Browser Workspace</p>
         </div>
@@ -290,7 +291,7 @@
           </div>
         </div>
 
-        <!-- HUMAN-FRIENDLY LIVE SMART WIDGET (Anyone can understand & use immediately) -->
+        <!-- HUMAN-FRIENDLY LIVE SMART WIDGET -->
         <div class="lg:col-span-5 surface-muted rounded-2xl p-5 border space-y-4">
           <div class="flex items-center justify-between border-b border-inherit pb-3">
             <div>
@@ -402,14 +403,12 @@
     <!-- ======================================================= -->
     <section id="view-pdf" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
-        <!-- Sub-Mode Selector -->
         <div class="flex flex-wrap gap-2 border-b border-inherit pb-4">
           <button onclick="setPdfTab('img2pdf')" id="pdfBtn-img2pdf" class="px-4 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white">1. Merge Images to PDF</button>
           <button onclick="setPdfTab('txt2pdf')" id="pdfBtn-txt2pdf" class="px-4 py-2 rounded-xl text-xs font-semibold surface-muted border">2. Document / Text to PDF</button>
           <button onclick="setPdfTab('inspect')" id="pdfBtn-inspect" class="px-4 py-2 rounded-xl text-xs font-semibold surface-muted border">3. Inspect & Analyze PDF File</button>
         </div>
 
-        <!-- Mode A: Merge Multiple Images into Single PDF -->
         <div id="pdfPane-img2pdf" class="space-y-4">
           <p class="text-xs opacity-75">Select one or multiple images (JPG/PNG/WebP) to merge and compile into a clean, multi-page downloadable PDF document locally.</p>
           <input id="pdfImgInput" type="file" accept="image/*" multiple class="w-full p-3 rounded-xl input-ui text-xs" />
@@ -418,7 +417,6 @@
           </button>
         </div>
 
-        <!-- Mode B: Text / Markdown Notes to Formatted PDF -->
         <div id="pdfPane-txt2pdf" class="hidden space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -441,7 +439,6 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
           </button>
         </div>
 
-        <!-- Mode C: PDF File Inspector -->
         <div id="pdfPane-inspect" class="hidden space-y-4">
           <p class="text-xs opacity-75">Select any `.pdf` file from your device to inspect its exact byte size, estimated page count, and PDF specification version without uploading.</p>
           <input type="file" accept="application/pdf" onchange="inspectPdfFile(event)" class="w-full p-3 rounded-xl input-ui text-xs" />
@@ -1089,9 +1086,12 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
   </div>
 
   <!-- ========================================================= -->
-  <!-- MASTER SCRIPT ENGINE (ALL 21 TOOLS + 3-PERSPECTIVE LOGIC) -->
+  <!-- MASTER SCRIPT ENGINE (ALL 21 TOOLS + SILENT STARTUP)      -->
   <!-- ========================================================= -->
   <script>
+    // Startup Boot Guard — Prevents popups from firing during initial page load
+    let isBooting = true;
+
     // 1. ADSENSE VISIBILITY SWITCH (Keep false until Google approves your domain, then flip to true)
     const ADSENSE_APPROVED = false;
     if (ADSENSE_APPROVED) {
@@ -1152,6 +1152,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
     }
 
     function showToast(msg) {
+      if (isBooting) return; // Silences all popups during initial page load
       const container = document.getElementById('toastContainer');
       const t = document.createElement('div');
       t.className = 'surface-card px-4 py-2.5 rounded-xl border shadow-lg text-xs font-semibold flex items-center gap-2';
@@ -1203,6 +1204,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       const ctxHeader = document.getElementById('contextualToolHeader');
       if (toolId === 'home') {
         ctxHeader.classList.add('hidden');
+        history.replaceState(null, null, ' ');
       } else {
         const meta = TOOLS_REGISTRY.find(t => t.id === toolId);
         if (meta) {
@@ -1210,6 +1212,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
           document.getElementById('ctxTitle').textContent = `${meta.icon} ${meta.title}`;
           document.getElementById('ctxPurpose').textContent = meta.purpose;
           ctxHeader.classList.remove('hidden');
+          history.replaceState(null, null, '#' + toolId);
         }
       }
       if (toolId === 'diff') runCodeDiff();
@@ -1314,7 +1317,6 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
           t.keywords.some(k => k.includes(query))
         );
       } else if (!query) {
-        // Show 10 Initials by default, with a button at the bottom to reveal all 21
         matches = TOOLS_REGISTRY.slice(0, 10);
       }
 
@@ -1599,7 +1601,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
         {
           badge: 'Perspective 1',
           tone: 'Warm & Relationship-First',
-          title: ' Executive Account-Management Nudge',
+          title: 'Executive Account-Management Nudge',
           content: `Subject: Quick check-in regarding ${amt} — ${client}\n\nHi ${client} Team,\n\nI hope the week is going smoothly on your end! I wanted to briefly touch base regarding invoice ${amt} covering ${ctx}.\n\nIn case it slipped through the cracks during a busy cycle, I have re-attached the summary details for your accounts team. Could you let me know when we might expect remittance?\n\nWarm regards,\nAccounts & Delivery Team`
         },
         {
@@ -1996,7 +1998,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       document.getElementById('gradientCssText').textContent = rule;
     }
 
-    // Boot All Default Views
+    // Boot All Default Views Silently (No Startup Popups!)
     filterDirectory();
     renderSpotlightBoard();
     updateCalculator();
@@ -2006,6 +2008,15 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
     runMetaGen();
     runSlugCraft();
     generateUuids();
+
+    // Unlock Toast Popups for User Interactions
+    isBooting = false;
+
+    // Direct URL Hash Link Support (e.g., yoursite.com/#pdf)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && TOOLS_REGISTRY.some(t => t.id === hash)) switchTool(hash);
+    });
   </script>
 </body>
 </html>
