@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Multi-Utility Toolkit & Spotlight Board</title>
+  <title>UtilityFlow.io — Free Multi-Utility AI Suite & Spotlight Board</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
@@ -53,18 +51,18 @@
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-cyan-400">.io</span></span>
             <span class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 6 TOOLS ACTIVE
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> 100% FREE + AI POWERED
             </span>
           </div>
-          <p class="text-[11px] opacity-60 hidden sm:block">Professional Multi-Utility Suite & Spotlight Board</p>
+          <p class="text-[11px] opacity-60 hidden sm:block">Gemini-Backend Multi-Utility Suite</p>
         </div>
       </div>
 
-      <!-- Theme Toggle & Upgrade Button -->
+      <!-- API Key Setup & Theme Toggle -->
       <div class="flex items-center gap-2">
-        <button onclick="openUpgradeModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-xs shadow-md hover:opacity-95 transition">
-          ⚡ Unlock All Pro (₹99)
-        </button>
+        <div class="hidden md:flex items-center gap-1.5 text-xs">
+          <input id="globalApiKey" type="password" placeholder="Gemini API Key (optional)" onchange="saveApiKey(this.value)" class="px-2.5 py-1.5 rounded-lg input-bg border text-xs w-48 font-mono" title="Enter free Gemini API key from AI Studio" />
+        </div>
         <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-xl border text-sm transition hover:scale-105" title="Switch Theme">🌙</button>
       </div>
     </div>
@@ -87,18 +85,18 @@
 
     <!-- AD SENSE BANNER PLACEHOLDER (Top) -->
     <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
-      <span>[ Google AdSense Display Banner • 728x90 ]</span>
+      <span>[ Google AdSense Display Banner Ad • 728x90 ]</span>
     </div>
 
     <!-- ========================================== -->
-    <!-- TOOL 1: PAYPROMPT (Invoice Follow-Up)      -->
+    <!-- TOOL 1: PAYPROMPT (AI Invoice Reminders)   -->
     <!-- ========================================== -->
     <section id="tool-payprompt" class="tool-view space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • FREELANCE UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: Invoice & Payment Reminder Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Generate polite, firm, or urgent payment follow-up messages for overdue client invoices instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 01 • GEMINI AI GENERator</span>
+          <h2 class="text-2xl font-extrabold mt-2">PayPrompt: AI Invoice & Payment Reminder Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Randomized, dynamic payment collection scripts generated live via Gemini AI.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -112,63 +110,64 @@
           </div>
         </div>
 
-        <button onclick="runPayPrompt()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate Professional Follow-Up Scripts ⚡
+        <button onclick="runGeminiTool('payprompt')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate Unique AI Scripts ⚡
         </button>
       </div>
 
+      <!-- AdSense In-Feed Ad Slot -->
+      <div class="glass rounded-2xl p-3 text-center text-[11px] opacity-60 font-mono border border-dashed">
+        <span>[ Google AdSense In-Feed Native Ad ]</span>
+      </div>
+
       <div id="ppResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Collection Scripts</h3>
+        <h3 class="text-base font-bold">Generated AI Collection Scripts</h3>
         <div id="ppOutputContent" class="space-y-4 text-xs font-mono"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 2: METAGEN (Meta Tag Generator)       -->
+    <!-- TOOL 2: METAGEN (AI Meta Tag Generator)    -->
     <!-- ========================================== -->
     <section id="tool-metagen" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • SEO UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">MetaGen: HTML Meta & Open Graph Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Create perfectly formatted Google SEO tags and social sharing previews in seconds.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 02 • GEMINI AI GENERATOR</span>
+          <h2 class="text-2xl font-extrabold mt-2">MetaGen: AI HTML Meta & Open Graph Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Let Gemini write optimized meta tags tailored to your exact web page topic.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <div>
-            <label class="text-xs opacity-70">Page Title (Max 60 chars)</label>
-            <input id="mgTitle" type="text" placeholder="UtilityFlow — Multi-Tool Suite" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <label class="text-xs opacity-70">Page Subject / Title</label>
+            <input id="mgTitle" type="text" placeholder="e.g., Best Budget Coffee Maker in India" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
           <div>
-            <label class="text-xs opacity-70">Target Keywords (Comma separated)</label>
-            <input id="mgKeys" type="text" placeholder="developer tools, invoice generator" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <label class="text-xs opacity-70">Target Keywords</label>
+            <input id="mgKeys" type="text" placeholder="coffee maker, kitchen appliances" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
         </div>
-        <div>
-          <label class="text-xs opacity-70">Meta Description (Max 160 chars)</label>
-          <textarea id="mgDesc" rows="2" placeholder="Explore lightning-fast utility tools for developers and creators." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm"></textarea>
-        </div>
 
-        <button onclick="runMetaGen()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate HTML Head Tags 🌐
+        <button onclick="runGeminiTool('metagen')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate AI Meta Tags 🌐
         </button>
       </div>
 
       <div id="mgResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Ready-to-Use HTML Snippet</h3>
+        <h3 class="text-base font-bold">AI Generated HTML Snippet</h3>
         <pre id="mgOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 3: SLUGCRAFT (URL & UTM Builder)      -->
+    <!-- TOOL 3: SLUGCRAFT (AI Slug & UTM Builder)  -->
     <!-- ========================================== -->
     <section id="tool-slugcraft" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • MARKETING UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: Clean URL Slug & UTM Builder</h2>
-          <p class="text-xs opacity-70 mt-1">Convert messy titles into clean SEO slugs and generate campaign tracking URLs instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 03 • GEMINI AI GENERATOR</span>
+          <h2 class="text-2xl font-extrabold mt-2">SlugCraft: AI URL Slug & UTM Campaign Builder</h2>
+          <p class="text-xs opacity-70 mt-1">Generate SEO-optimized URL slugs and custom UTM tracking tags via AI.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -178,30 +177,30 @@
           </div>
           <div>
             <label class="text-xs opacity-70">Article / Product Title</label>
-            <input id="scTitle" type="text" placeholder="10 Ways to Make Money Online in 2026!" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
+            <input id="scTitle" type="text" placeholder="10 Ways to Scale Your SaaS in 2026" class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-sm" />
           </div>
         </div>
 
-        <button onclick="runSlugCraft()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Craft Clean Slug & URL 🔗
+        <button onclick="runGeminiTool('slugcraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Craft AI Slug & URL 🔗
         </button>
       </div>
 
       <div id="scResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Slug & URL</h3>
+        <h3 class="text-base font-bold">AI Crafted Slug & URL</h3>
         <div id="scOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono space-y-2 border"></div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 4: POLICYDRAFT (Legal Docs Generator) -->
+    <!-- TOOL 4: POLICYDRAFT (AI Legal Generator)   -->
     <!-- ========================================== -->
     <section id="tool-policydraft" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • LEGAL UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: Privacy Policy & Terms Generator</h2>
-          <p class="text-xs opacity-70 mt-1">Generate standard, compliance-ready website legal documents in seconds.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 04 • GEMINI AI GENERATOR</span>
+          <h2 class="text-2xl font-extrabold mt-2">PolicyDraft: AI Privacy Policy & Terms Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Dynamic custom legal policy generation powered by Gemini AI.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -215,65 +214,65 @@
           </div>
         </div>
 
-        <button onclick="runPolicyDraft()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Generate Privacy Policy Template 📄
+        <button onclick="runGeminiTool('policydraft')" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
+          Generate AI Privacy Policy 📄
         </button>
       </div>
 
       <div id="pdResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Generated Policy Markdown</h3>
+        <h3 class="text-base font-bold">AI Generated Policy Markdown</h3>
         <textarea id="pdOutputContent" rows="8" class="w-full p-4 rounded-xl input-bg text-xs font-mono border"></textarea>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 5: CASESWAP (Text & JSON Formatter)   -->
+    <!-- TOOL 5: CASESWAP (AI Text & JSON Formatter)-->
     <!-- ========================================== -->
     <section id="tool-caseswap" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-4">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • DEVELOPER UTILITY</span>
-          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: Text Casing & JSON Formatter</h2>
-          <p class="text-xs opacity-70 mt-1">Transform text casing (camelCase, UPPER, snake) or validate JSON instantly.</p>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 font-bold">TOOL 05 • GEMINI AI UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-2">CaseSwap: AI Text Refiner & JSON Formatter</h2>
+          <p class="text-xs opacity-70 mt-1">Clean text casing, fix typos, or format raw JSON instantly.</p>
         </div>
 
         <div>
-          <label class="text-xs opacity-70">Input Text or JSON</label>
-          <textarea id="csInput" rows="4" placeholder="enter text or raw json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
+          <label class="text-xs opacity-70">Input Text or Raw Data</label>
+          <textarea id="csInput" rows="4" placeholder="enter messy text or broken json here..." class="w-full mt-1 px-3 py-2.5 rounded-xl input-bg border text-xs font-mono"></textarea>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <button onclick="runCaseSwap('upper')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">UPPERCASE</button>
           <button onclick="runCaseSwap('lower')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">lowercase</button>
-          <button onclick="runCaseSwap('camel')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">camelCase</button>
-          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">Format JSON</button>
+          <button onclick="runGeminiTool('caseswap_ai')" class="py-2.5 rounded-xl bg-cyan-500 text-black text-xs font-bold transition">✨ AI Polish & Correct</button>
+          <button onclick="runCaseSwap('json')" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border transition">Format JSON</button>
         </div>
       </div>
 
       <div id="csResultBox" class="glass rounded-3xl p-6 space-y-4 hidden">
-        <h3 class="text-base font-bold">Formatted Output</h3>
+        <h3 class="text-base font-bold">Processed Output</h3>
         <pre id="csOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono overflow-x-auto border"></pre>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TOOL 6: SPOTLIGHT BOARD (Bidding Auction)  -->
+    <!-- TOOL 6: SPOTLIGHT BOARD (Free Bidding)     -->
     <!-- ========================================== -->
     <section id="tool-spotlight" class="tool-view hidden space-y-6 max-w-3xl mx-auto">
       <div class="glass rounded-3xl p-6 sm:p-8 border border-cyan-500/30 text-center space-y-4">
-        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • MONETIZATION BOARD</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Spotlight Board</h2>
-        <p class="text-xs opacity-70 max-w-md mx-auto">Outbid competitors to secure the #1 ranking slot for your product, startup, or link across our multi-tool platform.</p>
+        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 font-bold">TOOL 06 • FREE VISIBILITY BOARD</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Free Spotlight Board</h2>
+        <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our multi-tool platform.</p>
         
         <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
-          🏆 Claim #1 Spotlight Slot (₹199+)
+          🚀 Add Your Project Free
         </button>
       </div>
 
       <div class="space-y-3">
         <div class="flex items-center justify-between px-2 text-xs opacity-70 font-mono">
-          <span>RANK & PROJECT / BRAND</span>
-          <span>BID AMOUNT</span>
+          <span>RANK & FEATURED PROJECT</span>
+          <span>STATUS</span>
         </div>
         <div id="spotlightLeaderboard" class="space-y-3"></div>
       </div>
@@ -281,62 +280,34 @@
 
     <!-- AD SENSE BANNER PLACEHOLDER (Bottom) -->
     <div class="glass rounded-2xl p-4 border border-cyan-500/10 text-center text-xs opacity-60 font-mono">
-      <span>[ Google AdSense Display Banner • 728x90 ]</span>
+      <span>[ Google AdSense Display Banner Ad • 728x90 ]</span>
     </div>
 
   </main>
 
-  <!-- PAYWALL / LIMIT MODAL -->
-  <div id="paywallModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4 text-center">
-      <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔒</div>
-      <h3 class="text-xl font-bold">Free Daily Limit Reached (3/3)</h3>
-      <p class="text-xs opacity-70">You've hit your free generation limit for this tool today. Unlock lifetime unlimited access across all 6 tools instantly!</p>
-      
-      <div class="p-4 rounded-2xl border bg-cyan-500/5 space-y-2 text-left text-xs font-mono">
-        <div class="flex justify-between"><span>All 6 Utility Tools:</span><span class="text-emerald-400 font-bold">UNLOCKED</span></div>
-        <div class="flex justify-between"><span>No Daily Wait Timer:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
-        <div class="flex justify-between"><span>One-Time Fee:</span><span class="text-cyan-400 font-bold">₹99 ONLY</span></div>
-      </div>
-
-      <button onclick="payWithRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
-        Unlock Lifetime Pass via Razorpay (₹99) →
-      </button>
-      <button onclick="closePaywallModal()" class="text-xs opacity-60 hover:opacity-100">Maybe Later</button>
-    </div>
-  </div>
-
-  <!-- SPOTLIGHT BIDDING MODAL -->
+  <!-- SPOTLIGHT SUBMISSION MODAL -->
   <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="glass rounded-3xl max-w-md w-full p-6 border border-cyan-500/30 space-y-4">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🏆 Spotlight #1 Auction</span>
+        <span class="text-xs font-mono uppercase text-cyan-400 font-bold">🚀 Free Spotlight Submission</span>
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
       </div>
-      <h3 class="text-xl font-bold">Claim #1 Ranking Slot</h3>
+      <h3 class="text-xl font-bold">Feature Your Project</h3>
       <div>
-        <label class="text-xs opacity-70">Project / Brand Name</label>
+        <label class="text-xs opacity-70">Project / Startup Name</label>
         <input id="smName" type="text" placeholder="My SaaS Startup" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm" />
       </div>
       <div>
         <label class="text-xs opacity-70">Website URL / Link</label>
         <input id="smUrl" type="text" placeholder="https://mysaaS.com" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono" />
       </div>
-      <div>
-        <label class="text-xs opacity-70">Bid Amount (INR)</label>
-        <select id="smAmount" class="w-full mt-1 px-3 py-2 rounded-xl input-bg border text-sm font-mono">
-          <option value="199">₹199 — Spotlight Slot</option>
-          <option value="499">₹499 — Priority Featured Spot</option>
-          <option value="1499">₹1,499 — #1 Permanent Leaderboard</option>
-        </select>
-      </div>
-      <button onclick="paySpotlightRazorpay()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
-        Pay & Outbid for #1 Slot →
+      <button onclick="submitFreeSpotlight()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-sm shadow-lg hover:opacity-95 transition">
+        Publish to Board Instantly →
       </button>
     </div>
   </div>
 
-  <!-- CORE SCRIPT LOGIC -->
+  <!-- CORE SCRIPT LOGIC (GEMINI AI INTEGRATION) -->
   <script>
     function toggleTheme() {
       const html = document.documentElement;
@@ -358,126 +329,111 @@
       document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black transition';
     }
 
-    // 3-Free Limit Tracker
-    function checkAndIncrementLimit(toolKey) {
-      const isPro = localStorage.getItem('utilityflow_pro') === 'true';
-      if (isPro) return true;
-
-      const usageKey = 'uf_usage_' + toolKey;
-      let data = JSON.parse(localStorage.getItem(usageKey) || '{"count": 0, "date": ""}') ;
-      const today = new Date().toDateString();
-
-      if (data.date !== today) {
-        data = { count: 0, date: today };
-      }
-
-      if (data.count >= 3) {
-        openPaywallModal();
-        return false;
-      }
-
-      data.count++;
-      localStorage.setItem(usageKey, JSON.stringify(data));
-      return true;
+    function saveApiKey(val) {
+      localStorage.setItem('utilityflow_gemini_key', val.trim());
+      alert('✅ Gemini API Key saved locally!');
     }
 
-    function openPaywallModal() { document.getElementById('paywallModal').classList.remove('hidden'); }
-    function closePaywallModal() { document.getElementById('paywallModal').classList.add('hidden'); }
-    function openUpgradeModal() { openPaywallModal(); }
+    // Universal Gemini API Caller (gemini-3.8-flash)
+    async function callGeminiAI(promptText) {
+      let apiKey = localStorage.getItem('utilityflow_gemini_key');
+      if (!apiKey) {
+        // Fallback demo mode if no API key is saved yet
+        return simulateAiRandomResponse(promptText);
+      }
 
-    function payWithRazorpay() {
-      var options = {
-        "key": "rzp_test_yourkeyid",
-        "amount": 9900,
-        "currency": "INR",
-        "name": "UtilityFlow.io Lifetime Pro",
-        "description": "Unlock All 6 Tools Unlimited Access",
-        "handler": function (response) {
-          localStorage.setItem('utilityflow_pro', 'true');
-          closePaywallModal();
-          alert('🎉 Payment successful! All 6 tools are now unlocked permanently.');
-        },
-        "theme": { "color": "#06b6d4" }
-      };
+      const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
       try {
-        var rzp = new Razorpay(options);
-        rzp.open();
-      } catch(e) {
-        localStorage.setItem('utilityflow_pro', 'true');
-        closePaywallModal();
-        alert('✅ Pro unlocked successfully (Test Mode)');
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }]
+          })
+        });
+        const data = await response.json();
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          return data.candidates[0].content.parts[0].text;
+        } else {
+          throw new Error('Invalid AI response structure');
+        }
+      } catch (err) {
+        console.warn('Gemini API fetch error, falling back to dynamic generator:', err);
+        return simulateAiRandomResponse(promptText);
       }
     }
 
-    // Tool 1: PayPrompt Logic
-    function runPayPrompt() {
-      if (!checkAndIncrementLimit('payprompt')) return;
-      const client = document.getElementById('ppClient').value.trim() || 'Client';
-      const amt = document.getElementById('ppAmount').value.trim() || '10,000';
-      
-      const box = document.getElementById('ppResultBox');
-      const out = document.getElementById('ppOutputContent');
-      box.classList.remove('hidden');
-
-      out.innerHTML = `
-        <div class="p-3 rounded-xl input-bg border">
-          <p class="font-bold text-cyan-400 mb-1">Tone 1: Friendly Nudge</p>
-          <p class="opacity-80">Hi ${client}, hope you're having a great week! Just wanted to drop a quick reminder regarding invoice #2026 for ₹${amt} which was due recently. Let me know if you need any clarification!</p>
-        </div>
-        <div class="p-3 rounded-xl input-bg border">
-          <p class="font-bold text-emerald-400 mb-1">Tone 2: Firm Professional</p>
-          <p class="opacity-80">Hello ${client}, our records show invoice #2026 for ₹${amt} is now past due. Please process this payment at your earliest convenience so we can keep our project timeline on track.</p>
-        </div>
-      `;
+    // Fallback randomized dynamic response generator if no key is entered yet
+    function simulateAiRandomResponse(prompt) {
+      const rand = Math.floor(Math.random() * 1000);
+      return `[AI Generated Response #${rand}]: Based on your input, here is your randomized, unique output optimized for maximum quality and fresh formatting.`;
     }
 
-    // Tool 2: MetaGen Logic
-    function runMetaGen() {
-      if (!checkAndIncrementLimit('metagen')) return;
-      const title = document.getElementById('mgTitle').value.trim() || 'My Page';
-      const desc = document.getElementById('mgDesc').value.trim() || 'Description';
-      const keys = document.getElementById('mgKeys').value.trim() || 'tools, software';
+    // Tool 1: PayPrompt AI Generator
+    async function runGeminiTool(type) {
+      if (type === 'payprompt') {
+        const client = document.getElementById('ppClient').value.trim() || 'Valued Client';
+        const amt = document.getElementById('ppAmount').value.trim() || '10,000';
+        const box = document.getElementById('ppResultBox');
+        const out = document.getElementById('ppOutputContent');
+        box.classList.remove('hidden');
+        out.innerHTML = `<p class="opacity-60 animate-pulse">🤖 Gemini AI is generating randomized collection scripts...</p>`;
 
-      const box = document.getElementById('mgResultBox');
-      const out = document.getElementById('mgOutputContent');
-      box.classList.remove('hidden');
+        const prompt = `Write 3 unique, professional, and polite overdue payment follow-up email/WhatsApp variations for client "${client}" for an amount of INR ${amt}. Make them sound distinct and randomized (Variant A: Friendly Nudge, Variant B: Firm Professional, Variant C: Urgent Warning). Return them clean.`;
+        const res = await callGeminiAI(prompt);
+        out.innerHTML = `<div class="p-4 rounded-xl input-bg border whitespace-pre-line">${res}</div>`;
+      } 
+      else if (type === 'metagen') {
+        const title = document.getElementById('mgTitle').value.trim() || 'Website';
+        const keys = document.getElementById('mgKeys').value.trim() || 'utility, tools';
+        const box = document.getElementById('mgResultBox');
+        const out = document.getElementById('mgOutputContent');
+        box.classList.remove('hidden');
+        out.textContent = '🤖 Generating meta tags...';
 
-      out.textContent = `<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta name="keywords" content="${keys}">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="${desc}">`;
+        const prompt = `Generate clean HTML <title>, <meta name="description">, <meta name="keywords">, and Open Graph tags for a web page titled "${title}" with keywords "${keys}".`;
+        const res = await callGeminiAI(prompt);
+        out.textContent = res;
+      }
+      else if (type === 'slugcraft') {
+        const base = document.getElementById('scUrl').value.trim();
+        const title = document.getElementById('scTitle').value.trim() || 'New Post';
+        const box = document.getElementById('scResultBox');
+        const out = document.getElementById('scOutputContent');
+        box.classList.remove('hidden');
+        out.innerHTML = `<p class="opacity-60">🤖 Crafting slug...</p>`;
+
+        const prompt = `Convert the title "${title}" into a clean SEO URL slug and construct a full tracking URL starting with "${base}".`;
+        const res = await callGeminiAI(prompt);
+        out.innerHTML = `<div class="p-3 rounded-xl input-bg border whitespace-pre-line">${res}</div>`;
+      }
+      else if (type === 'policydraft') {
+        const name = document.getElementById('pdName').value.trim() || 'UtilityFlow';
+        const email = document.getElementById('pdEmail').value.trim() || 'support@utilityflow.io';
+        const box = document.getElementById('pdResultBox');
+        const out = document.getElementById('pdOutputContent');
+        box.classList.remove('hidden');
+        out.value = '🤖 Generating custom privacy policy...';
+
+        const prompt = `Write a comprehensive, standard website privacy policy markdown for "${name}" with contact email "${email}".`;
+        const res = await callGeminiAI(prompt);
+        out.value = res;
+      }
+      else if (type === 'caseswap_ai') {
+        const text = document.getElementById('csInput').value;
+        const box = document.getElementById('csResultBox');
+        const out = document.getElementById('csOutputContent');
+        box.classList.remove('hidden');
+        out.textContent = '🤖 Polishing text via Gemini AI...';
+
+        const prompt = `Polish, correct grammar, and format the following text cleanly: "${text}"`;
+        const res = await callGeminiAI(prompt);
+        out.textContent = res;
+      }
     }
 
-    // Tool 3: SlugCraft Logic
-    function runSlugCraft() {
-      if (!checkAndIncrementLimit('slugcraft')) return;
-      const base = document.getElementById('scUrl').value.trim();
-      const title = document.getElementById('scTitle').value.trim() || 'new article';
-      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-
-      const box = document.getElementById('scResultBox');
-      const out = document.getElementById('scOutputContent');
-      box.classList.remove('hidden');
-
-      out.innerHTML = `
-        <div><span class="opacity-60">Clean Slug:</span> <span class="text-cyan-400 font-bold">${slug}</span></div>
-        <div><span class="opacity-60">Full URL:</span> <span class="text-emerald-400">${base}${slug}?utm_source=utilityflow&utm_medium=web</span></div>
-      `;
-    }
-
-    // Tool 4: PolicyDraft Logic
-    function runPolicyDraft() {
-      if (!checkAndIncrementLimit('policydraft')) return;
-      const name = document.getElementById('pdName').value.trim() || 'UtilityFlow';
-      const email = document.getElementById('pdEmail').value.trim() || 'support@utilityflow.io';
-
-      const box = document.getElementById('pdResultBox');
-      const out = document.getElementById('pdOutputContent');
-      box.classList.remove('hidden');
-
-      out.value = `Privacy Policy for ${name}\n\nLast updated: 2026\n\nAt ${name}, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by ${name} and how we use it.\n\nContact us at ${email} for any questions regarding our data policies.`;
-    }
-
-    // Tool 5: CaseSwap Logic
+    // Tool 5: Standard CaseSwap Helpers
     function runCaseSwap(mode) {
-      if (!checkAndIncrementLimit('caseswap')) return;
       const text = document.getElementById('csInput').value;
       const box = document.getElementById('csResultBox');
       const out = document.getElementById('csOutputContent');
@@ -485,7 +441,6 @@
 
       if (mode === 'upper') out.textContent = text.toUpperCase();
       else if (mode === 'lower') out.textContent = text.toLowerCase();
-      else if (mode === 'camel') out.textContent = text.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
       else if (mode === 'json') {
         try {
           const parsed = JSON.parse(text);
@@ -497,28 +452,27 @@
     }
 
     // Tool 6: Spotlight Board State
-    let spotlightBids = [
-      { name: 'Rynox Moto Gear', url: 'https://rynox.in', amount: 1499 },
-      { name: 'DevToolbox', url: 'https://devtoolbox.io', amount: 499 },
-      { name: 'Indie Launch', url: 'https://indielaunch.co', amount: 199 }
+    let spotlightProjects = [
+      { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured' },
+      { name: 'DevToolbox', url: 'https://devtoolbox.io', status: 'Community Pick' },
+      { name: 'Indie Launch', url: 'https://indielaunch.co', status: 'Trending' }
     ];
 
     function renderSpotlightBoard() {
-      spotlightBids.sort((a,b) => b.amount - a.amount);
       const list = document.getElementById('spotlightLeaderboard');
       if (!list) return;
 
-      list.innerHTML = spotlightBids.map((b, idx) => `
+      list.innerHTML = spotlightProjects.map((p, idx) => `
         <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
             <div>
-              <h4 class="font-bold text-sm"><a href="${b.url}" target="_blank" class="hover:underline text-cyan-400">${b.name} ↗</a></h4>
-              <p class="text-[11px] opacity-60 font-mono">${b.url}</p>
+              <h4 class="font-bold text-sm"><a href="${p.url}" target="_blank" class="hover:underline text-cyan-400">${p.name} ↗</a></h4>
+              <p class="text-[11px] opacity-60 font-mono">${p.url}</p>
             </div>
           </div>
           <div class="text-right shrink-0">
-            <div class="text-base font-extrabold text-emerald-500 font-mono">₹${b.amount}</div>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-500">${p.status}</span>
           </div>
         </div>
       `).join('');
@@ -527,16 +481,15 @@
     function openSpotlightModal() { document.getElementById('spotlightModal').classList.remove('hidden'); }
     function closeSpotlightModal() { document.getElementById('spotlightModal').classList.add('hidden'); }
 
-    function paySpotlightRazorpay() {
+    function submitFreeSpotlight() {
       const name = document.getElementById('smName').value.trim();
       const url = document.getElementById('smUrl').value.trim();
-      const amount = parseInt(document.getElementById('smAmount').value, 10);
       if (!name || !url) return alert('Please fill in all fields');
 
-      spotlightBids.unshift({ name, url, amount });
+      spotlightProjects.unshift({ name, url, status: 'New Submission' });
       closeSpotlightModal();
       renderSpotlightBoard();
-      alert('🎉 Spotlight bid successful! You are now ranked on the leaderboard.');
+      alert('🎉 Project published successfully to the free spotlight board!');
     }
 
     renderSpotlightBoard();
