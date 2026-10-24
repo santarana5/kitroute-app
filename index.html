@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,6 +19,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Real-Time Cross-Device WebSocket Sync Engine (MQTT over WebSockets) -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
@@ -47,70 +49,67 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
-      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: background-color 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
     }
 
-    /* Eye-Pleasing Futuristic Aurora Light Mode */
+    /* Default Crisp Executive Light Mode */
     body {
-      background-color: #f4f6fb;
+      background-color: #f4f7fb;
       color: #0f172a;
       background-image:
-        radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.14) 0px, transparent 48%),
-        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 48%),
-        radial-gradient(at 50% 100%, rgba(244, 63, 94, 0.08) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.10) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.10) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.06) 0px, transparent 50%);
       background-attachment: fixed;
     }
     .surface-card {
-      background-color: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(203, 213, 225, 0.75);
-      box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 30px -6px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
     }
     .surface-muted {
-      background-color: #eef2f9;
-      border: 1px solid #dce3f0;
+      background-color: #f1f5f9;
+      border: 1px solid #e2e8f0;
     }
     .surface-glass {
-      background-color: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      border-color: rgba(203, 213, 225, 0.8);
+      background-color: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(16px);
+      border-color: #e2e8f0;
     }
     .input-ui {
       background-color: #ffffff;
       color: #0f172a;
       border: 1px solid #cbd5e1;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
     .input-ui:focus {
-      border-color: #14b8a6;
+      border-color: #0d9488;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2), 0 0 15px -3px rgba(20, 184, 166, 0.25);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.16);
     }
 
-    /* Futuristic Deep Cyber-Aurora Dark Mode */
+    /* Optional Deep Cyber-Aurora Dark Mode */
     html.dark body {
       background-color: #090d16;
       color: #f1f5f9;
       background-image:
-        radial-gradient(at 5% 5%, rgba(20, 184, 166, 0.16) 0px, transparent 45%),
-        radial-gradient(at 95% 10%, rgba(139, 92, 246, 0.16) 0px, transparent 45%),
-        radial-gradient(at 50% 95%, rgba(14, 165, 233, 0.12) 0px, transparent 50%);
+        radial-gradient(at 5% 5%, rgba(20, 184, 166, 0.15) 0px, transparent 45%),
+        radial-gradient(at 95% 10%, rgba(139, 92, 246, 0.15) 0px, transparent 45%);
     }
     html.dark .surface-card {
-      background-color: rgba(17, 24, 39, 0.86);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(51, 65, 85, 0.75);
+      background-color: #111827;
+      border: 1px solid #1e293b;
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.55);
     }
     html.dark .surface-muted {
-      background-color: rgba(30, 41, 59, 0.78);
-      border: 1px solid rgba(51, 65, 85, 0.85);
+      background-color: #1e293b;
+      border: 1px solid #334155;
     }
     html.dark .surface-glass {
-      background-color: rgba(15, 23, 42, 0.82);
-      backdrop-filter: blur(20px);
-      border-color: rgba(51, 65, 85, 0.75);
+      background-color: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(16px);
+      border-color: #1e293b;
     }
     html.dark .input-ui {
       background-color: #0b111e;
@@ -119,58 +118,57 @@
     }
     html.dark .input-ui:focus {
       border-color: #2dd4bf;
-      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.22), 0 0 20px -4px rgba(45, 212, 191, 0.3);
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.22);
     }
 
-    /* Mobile App Smooth Animations & View Transitions */
+    /* Smooth App View Animations */
     @keyframes viewSlideUp {
-      0% { opacity: 0; transform: translateY(14px) scale(0.992); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     .tool-section:not(.hidden) {
-      animation: viewSlideUp 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: viewSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes toastRiseIn {
-      0% { opacity: 0; transform: translateY(24px) scale(0.92); }
+      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .toast-enter {
-      animation: toastRiseIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: toastRiseIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes pulseFlash {
-      0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.7); transform: scale(0.99); }
-      50% { box-shadow: 0 0 0 8px rgba(20, 184, 166, 0); transform: scale(1.01); }
-      100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); transform: scale(1); }
+      0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.6); }
+      50% { box-shadow: 0 0 0 8px rgba(20, 184, 166, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
     }
     .flash-refresh {
       animation: pulseFlash 0.45s ease-out;
     }
 
-    /* Futuristic Bento Card Hover Glow */
     .bento-card {
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
     }
     .bento-card:hover {
-      transform: translateY(-4px);
-      border-color: #14b8a6;
-      box-shadow: 0 20px 38px -10px rgba(20, 184, 166, 0.22);
+      transform: translateY(-3px);
+      border-color: #0d9488;
+      box-shadow: 0 16px 32px -10px rgba(13, 148, 136, 0.18);
     }
 
-    /* High-Contrast Color-Coded Diff Checker */
+    /* Color-Coded Diff Checker */
     .diff-row {
       display: grid;
-      grid-template-columns: 46px 28px 1fr;
+      grid-template-columns: 44px 26px 1fr;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-      line-height: 1.75;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      line-height: 1.7;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
     .diff-num {
       user-select: none;
       text-align: right;
-      padding-right: 10px;
+      padding-right: 8px;
       opacity: 0.55;
       border-right: 1px solid rgba(148, 163, 184, 0.2);
     }
@@ -186,7 +184,7 @@
       word-break: break-all;
     }
     .diff-del {
-      background-color: rgba(239, 68, 68, 0.18) !important;
+      background-color: rgba(239, 68, 68, 0.15) !important;
       color: #b91c1c !important;
       border-left: 4px solid #ef4444;
     }
@@ -196,7 +194,7 @@
       border-left: 4px solid #f87171;
     }
     .diff-add {
-      background-color: rgba(16, 185, 129, 0.18) !important;
+      background-color: rgba(16, 185, 129, 0.15) !important;
       color: #047857 !important;
       border-left: 4px solid #10b981;
     }
@@ -206,13 +204,13 @@
       border-left: 4px solid #34d399;
     }
     .diff-word-del {
-      background-color: rgba(239, 68, 68, 0.38);
+      background-color: rgba(239, 68, 68, 0.32);
       border-radius: 4px;
       padding: 1px 4px;
       font-weight: 700;
     }
     .diff-word-add {
-      background-color: rgba(16, 185, 129, 0.38);
+      background-color: rgba(16, 185, 129, 0.32);
       border-radius: 4px;
       padding: 1px 4px;
       font-weight: 700;
@@ -221,31 +219,31 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     html.dark ::-webkit-scrollbar-thumb { background: #334155; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-accent-600 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-teal-600 selection:text-white">
 
   <!-- BOTTOM-CENTER / BOTTOM-RIGHT FLOATING TOAST CONTAINER -->
   <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-6 z-50 flex flex-col items-center sm:items-end gap-2.5 pointer-events-none w-[92vw] sm:w-auto max-w-md"></div>
 
   <!-- COMMAND PALETTE MODAL -->
-  <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-start justify-center pt-14 p-4">
+  <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-start justify-center pt-14 p-4">
     <div class="surface-card max-w-3xl w-full rounded-3xl border shadow-2xl overflow-hidden">
       <div class="p-4 border-b border-inherit flex items-center gap-3">
-        <svg class="w-5 h-5 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <svg class="w-5 h-5 text-teal-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         <input id="cmdInput" type="text" placeholder="Search all 20 utilities by name, category, or task..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
-        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-accent-500/15 text-accent-500 font-bold shrink-0">Showing 9 of 20</span>
+        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold shrink-0">Showing 9 of 20</span>
         <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2.5 py-1 rounded-lg surface-muted border opacity-75 hover:opacity-100">ESC</button>
       </div>
       <div class="px-4 py-2 surface-muted border-b border-inherit flex items-center justify-between gap-2 overflow-x-auto no-scrollbar text-[11px]">
         <div class="flex items-center gap-1.5">
-          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">Top 9 Initial</button>
-          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">View All 20</button>
-          <button onclick="renderCmdList('Document')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">📄 PDF & Docs</button>
-          <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">👨‍💻 Dev & Sandbox</button>
-          <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">🏦 Finance & IBAN</button>
+          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">Top 9 Initial</button>
+          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">View All 20</button>
+          <button onclick="renderCmdList('Document')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">📄 PDF & Docs</button>
+          <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">👨‍💻 Dev & Sandbox</button>
+          <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">🏦 Finance & IBAN</button>
         </div>
         <span class="font-mono opacity-60 hidden sm:inline">Scroll for more ↓</span>
       </div>
@@ -253,52 +251,51 @@
     </div>
   </div>
 
-  <!-- TOP HEADER WITH DYNAMIC LIVE TELEMETRY & NAVIGATION -->
+  <!-- TOP HEADER WITH REAL-TIME WEBSOCKET TELEMETRY & NAVIGATION -->
   <header class="sticky top-0 z-40 surface-glass border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
       
       <div onclick="switchTool('home')" class="flex items-center gap-3 cursor-pointer group shrink-0">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white font-extrabold text-sm shadow-lg shadow-teal-500/25 group-hover:scale-105 transition">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md group-hover:scale-105 transition">
           UF
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-400">.in</span></span>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
           </div>
           <p class="text-[10px] opacity-65 font-medium hidden sm:block">Next-Gen 20-Tool Browser Ecosystem</p>
         </div>
       </div>
 
-      <!-- Real-Time Dynamic Active & Total Visitor Telemetry (Visible on Mobile & Desktop) -->
-      <div class="flex items-center gap-2.5 sm:gap-4 px-3 sm:px-4 py-1.5 rounded-full surface-muted border text-[11px] sm:text-xs shadow-inner">
-        <div class="flex items-center gap-1.5" title="Real-time concurrent active sessions across devices">
+      <!-- Real-Time Cross-Device Active & Total Visitor Pill -->
+      <div class="flex items-center gap-2.5 sm:gap-4 px-3.5 sm:px-4 py-1.5 rounded-full surface-muted border text-[11px] sm:text-xs shadow-sm">
+        <div class="flex items-center gap-1.5" title="Live concurrent devices connected right now">
           <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span id="livePulseDot" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
-          <span class="opacity-75 hidden md:inline">Active Now:</span>
-          <span id="liveVisitorCount" class="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">...</span>
+          <span class="opacity-75 font-medium">Active Now:</span>
+          <span id="liveVisitorCount" class="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">1</span>
         </div>
         <span class="opacity-25">|</span>
-        <div class="flex items-center gap-1.5" title="Cumulative real visits recorded globally">
-          <span class="opacity-75 hidden sm:inline">Total Visits:</span>
-          <span class="opacity-75 sm:hidden">Visits:</span>
+        <div class="flex items-center gap-1.5" title="Cumulative real visits across all devices">
+          <span class="opacity-75 font-medium">Total Visits:</span>
           <span id="totalVisitorCount" class="font-mono font-extrabold text-teal-600 dark:text-teal-400">...</span>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-3 px-3 py-2 rounded-xl surface-muted border text-xs opacity-90 hover:opacity-100 hover:border-teal-500 transition">
+        <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl surface-muted border text-xs opacity-95 hover:border-teal-500 transition">
           <span class="flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             <span class="hidden lg:inline font-semibold">Quick Launch (20 Tools)...</span>
             <span class="lg:hidden font-semibold">Search</span>
           </span>
           <kbd class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl+K</kbd>
         </button>
 
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="px-3 py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition shadow-sm" title="Switch Light / Dark Mode">
-          ☀️ Light
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="px-3.5 py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition shadow-sm" title="Switch Light / Dark Mode">
+          🌙 Dark
         </button>
       </div>
     </div>
@@ -332,7 +329,7 @@
           </button>
           <div id="moreDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 surface-card rounded-2xl border shadow-2xl p-4 z-50 space-y-3 text-xs max-h-[75vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-inherit pb-2">
-              <span class="font-bold text-teal-500 font-mono uppercase text-[11px]">Complete 20-Utility Directory</span>
+              <span class="font-bold text-teal-600 dark:text-teal-400 font-mono uppercase text-[11px]">Complete 20-Utility Directory</span>
               <button onclick="toggleMoreDropdown()" class="opacity-60 hover:opacity-100">✕</button>
             </div>
             <div id="dropdownDynamicList" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5"></div>
@@ -344,23 +341,22 @@
   </header>
 
   <!-- MAIN WORKSPACE CONTAINER -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
 
-    <!-- VIEW: FUTURISTIC HOMEPAGE HUB -->
+    <!-- VIEW: FUTURISTIC BENTO HOMEPAGE HUB (FIXED SIDE-BY-SIDE 12-COLUMN GRID) -->
     <section id="view-home" class="tool-section space-y-10">
-      <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
-        <!-- Decorative Futuristic Glow Orb -->
-        <div class=" -top-24 -right-24 w-72 h-72 bg-gradient-to-br from-teal-500/20 via-indigo-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="lg:col-span-7 space-y-5 relative z-10">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-teal-500/15 to-indigo-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30 text-xs font-bold">
+      <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left 7 Columns: Headline & Discipline Filters -->
+        <div class="lg:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/25 text-xs font-bold">
             <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
             <span>20 Browser-Native Modules • 100% Client-Side Privacy</span>
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.12]">
-            Next-gen precision tools for <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-sky-400 to-indigo-500">work, finance & creation.</span>
+            Next-gen precision tools for <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-sky-500 to-indigo-600 dark:from-teal-400 dark:via-sky-400 dark:to-indigo-400">work, finance & creation.</span>
           </h1>
-          <p class="text-sm sm:text-base opacity-80 leading-relaxed max-w-xl">
+          <p class="text-sm sm:text-base opacity-80 leading-relaxed max-w-2xl">
             Engineered with the responsiveness of a native desktop OS. Compile multi-page PDFs, inspect global IBAN bank branches, compare code diffs in vivid color, model compound wealth, or run live unified code—all inside your browser at <strong>UtilityFlow.in</strong>.
           </p>
 
@@ -376,46 +372,48 @@
           </div>
         </div>
 
-        <div class="lg:col-span-5 surface-muted rounded-2xl p-5 border space-y-4 relative z-10 shadow-lg">
+        <!-- Right 5 Columns: Everyday Instant Calculator (Side-by-Side on Desktop) -->
+        <div class="lg:col-span-5 surface-muted rounded-2xl p-6 border space-y-4 shadow-sm">
           <div class="flex items-center justify-between border-b border-inherit pb-3">
             <div>
               <span class="text-xs font-extrabold text-teal-600 dark:text-teal-400 block">⚡ Everyday Instant Calculator</span>
-              <span class="text-[11px] opacity-65">Modify any number below—updates in real time!</span>
+              <span class="text-[11px] opacity-70">Modify any number below—updates in real time!</span>
             </div>
-            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-500 border border-teal-500/30 font-bold">Interactive</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/30 font-bold">Live Widget</span>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-[11px] font-semibold opacity-75">Bill / Expense Amount (₹)</label>
+              <label class="text-[11px] font-semibold opacity-80">Bill / Expense Amount (₹)</label>
               <input id="liveBillAmt" type="number" value="2400" oninput="updateEverydayWidget()" class="w-full mt-1 px-3 py-2 rounded-xl input-ui text-sm font-mono font-bold" />
             </div>
             <div>
-              <label class="text-[11px] font-semibold opacity-75">Split Among (People)</label>
+              <label class="text-[11px] font-semibold opacity-80">Split Among (People)</label>
               <input id="liveBillPeople" type="number" min="1" max="100" value="4" oninput="updateEverydayWidget()" class="w-full mt-1 px-3 py-2 rounded-xl input-ui text-sm font-mono font-bold" />
             </div>
           </div>
 
-          <div class="grid grid-cols-3 gap-2 text-center font-mono">
-            <div class="p-2.5 rounded-xl surface-card border">
-              <div class="text-[10px] opacity-60 font-sans">Per Person</div>
-              <div id="livePerPerson" class="text-sm font-extrabold text-teal-500 mt-0.5">₹600</div>
+          <div class="grid grid-cols-3 gap-2.5 text-center font-mono">
+            <div class="p-3 rounded-xl surface-card border">
+              <div class="text-[10px] opacity-60 font-sans font-semibold">Per Person</div>
+              <div id="livePerPerson" class="text-sm font-extrabold text-teal-600 dark:text-teal-400 mt-0.5">₹600</div>
             </div>
-            <div class="p-2.5 rounded-xl surface-card border">
-              <div class="text-[10px] opacity-60 font-sans">In USD ($)</div>
-              <div id="liveInUsd" class="text-sm font-extrabold text-sky-500 mt-0.5">$28.57</div>
+            <div class="p-3 rounded-xl surface-card border">
+              <div class="text-[10px] opacity-60 font-sans font-semibold">In USD ($)</div>
+              <div id="liveInUsd" class="text-sm font-extrabold text-sky-600 dark:text-sky-400 mt-0.5">$28.57</div>
             </div>
-            <div class="p-2.5 rounded-xl surface-card border">
-              <div class="text-[10px] opacity-60 font-sans">+18% GST</div>
-              <div id="liveWithGst" class="text-sm font-extrabold text-indigo-500 mt-0.5">₹2,832</div>
+            <div class="p-3 rounded-xl surface-card border">
+              <div class="text-[10px] opacity-60 font-sans font-semibold">+18% GST</div>
+              <div id="liveWithGst" class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400 mt-0.5">₹2,832</div>
             </div>
           </div>
 
           <div class="pt-1 flex items-center justify-between text-[11px]">
-            <span class="opacity-65">Need deeper financial charts or PDF tools?</span>
-            <button onclick="switchTool('calc')" class="font-bold text-teal-500 hover:underline">Open Wealth Engine →</button>
+            <span class="opacity-70">Need deeper financial charts or PDF tools?</span>
+            <button onclick="switchTool('calc')" class="font-bold text-teal-600 dark:text-teal-400 hover:underline">Open Wealth Engine →</button>
           </div>
         </div>
+
       </div>
 
       <!-- DIRECTORY BENTO GRID -->
@@ -438,78 +436,75 @@
       </div>
 
       <!-- FUTURISTIC LABS ROADMAP (Q4 2026 - Q1 2027) -->
-      <div class="surface-card rounded-3xl p-6 sm:p-8 border relative overflow-hidden">
-        <div class=" -bottom-20 -left-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="space-y-6 relative z-10">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-inherit pb-5">
-            <div class="space-y-2 max-w-2xl">
-              <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-pink-500/20 text-amber-500 font-bold border border-amber-500/30">
-                <span>🚀 UtilityFlow Future Labs • Q4 2026 & Q1 2027 Active Pipeline</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl font-extrabold">6 Next-Gen WebAssembly Modules Currently in Engineering</h3>
-              <p class="text-xs sm:text-sm opacity-75 leading-relaxed">
-                UtilityFlow.in is a continuously evolving browser OS. Our engineering pipeline is actively compiling zero-server AI and media tools scheduled to go live across Q4 2026 and Q1 2027.
-              </p>
+      <div class="surface-card rounded-3xl p-6 sm:p-8 border space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-inherit pb-5">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
+              <span>🚀 UtilityFlow Future Labs • Q4 2026 & Q1 2027 Active Pipeline</span>
             </div>
-            <div class="shrink-0">
-              <span class="px-4 py-2 rounded-xl surface-muted border text-xs font-mono font-bold text-teal-500 block text-center">Pipeline Status: 6 Modules Active</span>
+            <h3 class="text-xl sm:text-2xl font-extrabold">6 Next-Gen WebAssembly Modules Currently in Engineering</h3>
+            <p class="text-xs sm:text-sm opacity-75 leading-relaxed">
+              UtilityFlow.in is a continuously evolving browser OS. Our engineering pipeline is actively compiling zero-server AI and media tools scheduled to go live across Q4 2026 and Q1 2027.
+            </p>
+          </div>
+          <div class="shrink-0">
+            <span class="px-4 py-2 rounded-xl surface-muted border text-xs font-mono font-bold text-teal-600 dark:text-teal-400 block text-center">Pipeline Status: 6 Modules Active</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>🎙️</span> <span>AI Audio Stem Splitter</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">Q4 2026 • 85%</span>
             </div>
+            <p class="opacity-75 text-[11px]">Isolate vocals and instruments locally using WebGPU neural inference.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-teal-500 to-emerald-400" style="width: 85%"></div></div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>🎙️</span> <span>AI Audio Stem Splitter</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 font-bold">Q4 2026 • 85%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Isolate vocals and instruments locally using WebGPU neural inference.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-teal-500 to-emerald-400" style="width: 85%"></div></div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>📊</span> <span>CSV & Excel to SQL Studio</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold">Q4 2026 • 92%</span>
             </div>
+            <p class="opacity-75 text-[11px]">Convert massive spreadsheets into indexed PostgreSQL & MySQL schemas.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-sky-500 to-indigo-500" style="width: 92%"></div></div>
+          </div>
 
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>📊</span> <span>CSV & Excel to SQL Studio</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 font-bold">Q4 2026 • 92%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Convert massive spreadsheets into indexed PostgreSQL & MySQL schemas.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-sky-500 to-indigo-500" style="width: 92%"></div></div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>✒️</span> <span>Raster to SVG Vector Tracer</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 font-bold">Q4 2026 • 70%</span>
             </div>
+            <p class="opacity-75 text-[11px]">Transform PNG/JPG logos into scalable bezier SVG paths in one click.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 70%"></div></div>
+          </div>
 
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>✒️</span> <span>Raster to SVG Vector Tracer</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 font-bold">Q4 2026 • 70%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Transform PNG/JPG logos into scalable bezier SVG paths in one click.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 70%"></div></div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>🔍</span> <span>Regex Visual AST Debugger</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold">Q1 2027 • 60%</span>
             </div>
+            <p class="opacity-75 text-[11px]">Interactive railroad diagrams and step-by-step regular expression testing.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500" style="width: 60%"></div></div>
+          </div>
 
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>🔍</span> <span>Regex Visual AST Debugger</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">Q1 2027 • 60%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Interactive railroad diagrams and step-by-step regular expression testing.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500" style="width: 60%"></div></div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>🔐</span> <span>JWT & OAuth2 Token Debugger</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">Q1 2027 • 75%</span>
             </div>
+            <p class="opacity-75 text-[11px]">Verify RS256/HS256 signatures and inspect claim expiration locally.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width: 75%"></div></div>
+          </div>
 
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>🔐</span> <span>JWT & OAuth2 Token Debugger</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">Q1 2027 • 75%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Verify RS256/HS256 signatures and inspect claim expiration locally.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width: 75%"></div></div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm flex items-center gap-1.5"><span>🎬</span> <span>WebM / MP4 Video Trimmer</span></span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-500/15 text-pink-600 dark:text-pink-400 font-bold">Q1 2027 • 50%</span>
             </div>
-
-            <div class="p-4 rounded-2xl surface-muted border space-y-2.5">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-sm flex items-center gap-1.5"><span>🎬</span> <span>WebM / MP4 Video Trimmer</span></span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-500/20 text-pink-400 font-bold">Q1 2027 • 50%</span>
-              </div>
-              <p class="opacity-70 text-[11px]">Frame-accurate FFmpeg.wasm video clipping with zero server uploads.</p>
-              <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-500 to-rose-500" style="width: 50%"></div></div>
-            </div>
+            <p class="opacity-75 text-[11px]">Frame-accurate FFmpeg.wasm video clipping with zero server uploads.</p>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-500 to-rose-500" style="width: 50%"></div></div>
           </div>
         </div>
       </div>
@@ -518,7 +513,7 @@
     <!-- CONTEXTUAL PURPOSE HEADER -->
     <div id="contextualToolHeader" class="hidden surface-card rounded-2xl p-6 border shadow-sm space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-teal-500/15 text-teal-500 font-bold">Category</span>
+        <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">Category</span>
         <button onclick="switchTool('home')" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-bold hover:border-teal-500 transition">
           ← Back to All 20 Tools
         </button>
@@ -527,7 +522,7 @@
       <p id="ctxPurpose" class="text-xs sm:text-sm opacity-75 leading-relaxed">Detailed explanation of what this utility is specifically used for.</p>
     </div>
 
-    <!-- TOOL 1: PDF & DOCUMENT COMMAND SUITE (WITH PROGRESSION BAR & DOWNLOAD STATUS) -->
+    <!-- TOOL 1: PDF & DOCUMENT COMMAND SUITE -->
     <section id="view-pdf" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap gap-2 border-b border-inherit pb-4">
@@ -577,13 +572,13 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <!-- Live PDF Compilation & Download Progression Banner -->
         <div id="pdfProgressBox" class="hidden p-5 rounded-2xl surface-muted border space-y-3">
           <div class="flex items-center justify-between text-xs font-mono">
-            <span id="pdfProgressStatus" class="font-bold text-teal-500">⏳ Initializing PDF compiler...</span>
+            <span id="pdfProgressStatus" class="font-bold text-teal-600 dark:text-teal-400">⏳ Initializing PDF compiler...</span>
             <span id="pdfProgressPercent" class="font-extrabold">0%</span>
           </div>
           <div class="h-2.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden">
             <div id="pdfProgressBar" class="h-full bg-gradient-to-r from-teal-500 via-sky-500 to-indigo-500 transition-all duration-300" style="width: 0%"></div>
           </div>
-          <div id="pdfDownloadSuccessBanner" class="hidden pt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-emerald-500 font-bold">
+          <div id="pdfDownloadSuccessBanner" class="hidden pt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold">
             <span>✅ Download Completed Successfully! Your PDF file has been saved to your device.</span>
           </div>
         </div>
@@ -595,7 +590,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="surface-card rounded-2xl p-6 border space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-inherit pb-4">
           <div>
-            <span class="text-xs font-extrabold font-mono text-teal-500 block">⚡ Unified Single-Window HTML5 / CSS3 / JS Code Studio</span>
+            <span class="text-xs font-extrabold font-mono text-teal-600 dark:text-teal-400 block">⚡ Unified Single-Window HTML5 / CSS3 / JS Code Studio</span>
             <span class="text-[11px] opacity-70">Write or paste complete HTML, `&lt;style&gt;`, and `&lt;script&gt;` code inside one unified editor below.</span>
           </div>
           <div class="flex flex-wrap gap-2">
@@ -609,7 +604,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="space-y-2">
           <div class="flex items-center justify-between text-xs font-mono">
             <span class="font-bold opacity-80">Unified Code Editor (Supports HTML + &lt;style&gt; CSS + &lt;script&gt; JS)</span>
-            <span id="sbStatusBadge" class="text-[11px] text-emerald-500 font-bold">● Live Auto-Render Active</span>
+            <span id="sbStatusBadge" class="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">● Live Auto-Render Active</span>
           </div>
           <textarea id="sbUnifiedCode" rows="12" oninput="runLiveSandbox(false)" class="w-full p-4 rounded-2xl input-ui text-xs font-mono leading-relaxed"><!DOCTYPE html>
 <html>
@@ -717,14 +712,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
           <div class="md:col-span-2 space-y-4">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold">Password Length: <span id="passLenLabel" class="text-teal-500 font-mono">20 chars</span></label>
-              <input id="passLenRange" type="range" min="8" max="64" value="20" oninput="document.getElementById('passLenLabel').textContent=this.value+' chars'; generateSecurePasswords();" class="w-48 accent-teal-500" />
+              <label class="text-xs font-bold">Password Length: <span id="passLenLabel" class="text-teal-600 dark:text-teal-400 font-mono">20 chars</span></label>
+              <input id="passLenRange" type="range" min="8" max="64" value="20" oninput="document.getElementById('passLenLabel').textContent=this.value+' chars'; generateSecurePasswords();" class="w-48 accent-teal-600" />
             </div>
             <div class="flex flex-wrap gap-4 text-xs font-semibold">
-              <label class="flex items-center gap-1.5"><input id="chkUpper" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-500" /> Uppercase (A-Z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkLower" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-500" /> Lowercase (a-z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkNum" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-500" /> Numbers (0-9)</label>
-              <label class="flex items-center gap-1.5"><input id="chkSym" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-500" /> Symbols (!@#$)</label>
+              <label class="flex items-center gap-1.5"><input id="chkUpper" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Uppercase (A-Z)</label>
+              <label class="flex items-center gap-1.5"><input id="chkLower" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Lowercase (a-z)</label>
+              <label class="flex items-center gap-1.5"><input id="chkNum" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Numbers (0-9)</label>
+              <label class="flex items-center gap-1.5"><input id="chkSym" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Symbols (!@#$)</label>
             </div>
             <button onclick="generateSecurePasswords()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">
               Regenerate 3 Security Profiles 🔐
@@ -733,8 +728,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
           <div class="surface-muted rounded-2xl p-4 border space-y-2 text-xs font-mono">
             <div class="text-[11px] uppercase opacity-60 font-bold">Cryptographic Strength</div>
-            <div id="passEntropyBits" class="text-xl font-extrabold text-emerald-500">131 Bits Entropy</div>
-            <div class="text-[11px] opacity-75">Est. Brute-Force Crack Time: <strong class="text-teal-500">Centuries+</strong></div>
+            <div id="passEntropyBits" class="text-xl font-extrabold text-emerald-600 dark:text-emerald-400">131 Bits Entropy</div>
+            <div class="text-[11px] opacity-75">Est. Brute-Force Crack Time: <strong class="text-teal-600 dark:text-teal-400">Centuries+</strong></div>
           </div>
         </div>
 
@@ -748,8 +743,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div class="space-y-1.5">
             <div class="flex justify-between items-center">
-              <label class="text-xs font-bold font-mono text-rose-500">Original Text / Code (Left — Deletions in Red)</label>
-              <button onclick="LoadSampleDiff()" class="text-[11px] text-teal-500 font-bold hover:underline">Load Sample Code</button>
+              <label class="text-xs font-bold font-mono text-rose-600 dark:text-rose-400">Original Text / Code (Left — Deletions in Red)</label>
+              <button onclick="LoadSampleDiff()" class="text-[11px] text-teal-600 dark:text-teal-400 font-bold hover:underline">Load Sample Code</button>
             </div>
             <textarea id="diffOriginal" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateInvoiceTotal(subtotal) {
   const taxRate = 0.15;
@@ -761,7 +756,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div class="space-y-1.5">
             <div class="flex justify-between items-center">
-              <label class="text-xs font-bold font-mono text-emerald-500">Modified Text / Code (Right — Additions in Green)</label>
+              <label class="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400">Modified Text / Code (Right — Additions in Green)</label>
               <button onclick="document.getElementById('diffOriginal').value=''; document.getElementById('diffModified').value=''; runCodeDiff();" class="text-[11px] opacity-60 hover:opacity-100">Clear Both</button>
             </div>
             <textarea id="diffModified" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateInvoiceTotal(subtotal, promoCode = false) {
@@ -778,8 +773,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
             Compare Side-by-Side with Color Highlighting ⚖️
           </button>
           <div class="flex items-center gap-3 text-xs font-mono">
-            <span id="diffRemovedBadge" class="px-3 py-1 rounded-lg bg-red-500/20 text-red-500 border border-red-500/30 font-extrabold">- 0 Deletions</span>
-            <span id="diffAddedBadge" class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 font-extrabold">+ 0 Additions</span>
+            <span id="diffRemovedBadge" class="px-3 py-1 rounded-lg bg-red-500/15 text-red-600 dark:text-red-400 border border-red-500/30 font-extrabold">- 0 Deletions</span>
+            <span id="diffAddedBadge" class="px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-extrabold">+ 0 Additions</span>
             <span id="diffUnchangedBadge" class="px-3 py-1 rounded-lg surface-muted border font-bold opacity-75">0 Unchanged</span>
           </div>
         </div>
@@ -787,13 +782,13 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div id="diffResultBox" class="space-y-3 pt-4 border-t border-inherit">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div class="surface-muted rounded-xl border overflow-hidden">
-              <div class="px-3.5 py-2 border-b border-inherit text-[11px] font-mono font-bold bg-red-500/10 text-red-500 flex justify-between">
+              <div class="px-3.5 py-2 border-b border-inherit text-[11px] font-mono font-bold bg-red-500/10 text-red-600 dark:text-red-400 flex justify-between">
                 <span>− Original Code (Removed / Changed Lines Highlighted Red)</span><span>Line</span>
               </div>
               <div id="diffLeftPane" class="overflow-x-auto"></div>
             </div>
             <div class="surface-muted rounded-xl border overflow-hidden">
-              <div class="px-3.5 py-2 border-b border-inherit text-[11px] font-mono font-bold bg-emerald-500/10 text-emerald-500 flex justify-between">
+              <div class="px-3.5 py-2 border-b border-inherit text-[11px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex justify-between">
                 <span>+ Modified Code (Added / Changed Lines Highlighted Green)</span><span>Line</span>
               </div>
               <div id="diffRightPane" class="overflow-x-auto"></div>
@@ -807,7 +802,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     <section id="view-calc" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-teal-500 font-mono">⚡ Interactive Financial Modeling & Multi-Chart Engine</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 font-mono">⚡ Interactive Financial Modeling & Multi-Chart Engine</span>
           <div class="flex gap-1.5 p-1 surface-muted rounded-xl border">
             <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white transition">Compound Wealth / Lumpsum</button>
             <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-4 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">Loan EMI Amortization</button>
@@ -820,11 +815,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <label id="labelVal1" class="text-xs font-bold">Principal Investment Amount (₹)</label>
                 <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border border-teal-500/30">
-                  <span class="text-xs font-mono font-bold text-teal-500">₹</span>
+                  <span class="text-xs font-mono font-bold text-teal-600">₹</span>
                   <input id="numVal1" type="number" min="500" max="100000000" step="1000" value="100000" oninput="syncCalcFromInput(1)" class="w-28 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
                 </div>
               </div>
-              <input id="rangeVal1" type="range" min="5000" max="10000000" step="5000" value="100000" oninput="syncCalcFromSlider(1)" class="w-full accent-teal-500 cursor-pointer" />
+              <input id="rangeVal1" type="range" min="5000" max="10000000" step="5000" value="100000" oninput="syncCalcFromSlider(1)" class="w-full accent-teal-600 cursor-pointer" />
             </div>
 
             <div class="space-y-2.5">
@@ -832,10 +827,10 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
                 <label id="labelVal2" class="text-xs font-bold">Expected Annual Return Rate (% p.a)</label>
                 <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border border-indigo-500/30">
                   <input id="numVal2" type="number" min="0.1" max="100" step="0.1" value="12" oninput="syncCalcFromInput(2)" class="w-20 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
-                  <span class="text-xs font-mono font-bold text-indigo-500">%</span>
+                  <span class="text-xs font-mono font-bold text-indigo-600">%</span>
                 </div>
               </div>
-              <input id="rangeVal2" type="range" min="1" max="35" step="0.25" value="12" oninput="syncCalcFromSlider(2)" class="w-full accent-indigo-500 cursor-pointer" />
+              <input id="rangeVal2" type="range" min="1" max="35" step="0.25" value="12" oninput="syncCalcFromSlider(2)" class="w-full accent-indigo-600 cursor-pointer" />
             </div>
 
             <div class="space-y-2.5">
@@ -843,29 +838,29 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
                 <label id="labelVal3" class="text-xs font-bold">Time Duration Horizon (Years)</label>
                 <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border border-pink-500/30">
                   <input id="numVal3" type="number" min="1" max="50" step="1" value="8" oninput="syncCalcFromInput(3)" class="w-16 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
-                  <span class="text-xs font-mono font-bold text-pink-500">Yrs</span>
+                  <span class="text-xs font-mono font-bold text-pink-600">Yrs</span>
                 </div>
               </div>
-              <input id="rangeVal3" type="range" min="1" max="40" step="1" value="8" oninput="syncCalcFromSlider(3)" class="w-full accent-pink-500 cursor-pointer" />
+              <input id="rangeVal3" type="range" min="1" max="40" step="1" value="8" oninput="syncCalcFromSlider(3)" class="w-full accent-pink-600 cursor-pointer" />
             </div>
 
             <!-- Colorful KPI Metric Cards -->
             <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
               <div class="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/30">
                 <div class="text-[10px] uppercase opacity-70 font-sans font-bold">Base Principal</div>
-                <div id="resInvested" class="text-base font-extrabold text-indigo-500 mt-1">₹1,00,000</div>
+                <div id="resInvested" class="text-base font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">₹1,00,000</div>
               </div>
               <div class="p-3.5 rounded-2xl bg-teal-500/10 border border-teal-500/30">
                 <div id="resGainLabel" class="text-[10px] uppercase opacity-70 font-sans font-bold">Wealth Gained</div>
-                <div id="resGains" class="text-base font-extrabold text-teal-500 mt-1">₹1,47,596</div>
+                <div id="resGains" class="text-base font-extrabold text-teal-600 dark:text-teal-400 mt-1">₹1,47,596</div>
               </div>
               <div id="emiRow" class="hidden col-span-2 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex justify-between items-center">
-                <span class="font-sans font-bold text-amber-500">Monthly EMI Payable:</span>
-                <span id="resMonthlyEmi" class="text-base font-extrabold text-amber-500">₹0</span>
+                <span class="font-sans font-bold text-amber-600 dark:text-amber-400">Monthly EMI Payable:</span>
+                <span id="resMonthlyEmi" class="text-base font-extrabold text-amber-600 dark:text-amber-400">₹0</span>
               </div>
               <div class="col-span-2 p-4 rounded-2xl bg-gradient-to-r from-teal-500/15 via-indigo-500/15 to-pink-500/15 border border-teal-500/40 flex justify-between items-center">
                 <span class="font-sans font-extrabold text-xs">Total Projected Maturity Value:</span>
-                <span id="resTotal" class="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-400">₹2,47,596</span>
+                <span id="resTotal" class="text-lg font-extrabold text-teal-600 dark:text-teal-400">₹2,47,596</span>
               </div>
             </div>
           </div>
@@ -895,7 +890,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       </div>
     </section>
 
-    <!-- TOOL 7: 4-FIELD INVOICE FOLLOW-UP DRAFTER (DETAILED 6-8 LINE EXECUTIVE LETTERS) -->
+    <!-- TOOL 7: 4-FIELD INVOICE FOLLOW-UP DRAFTER -->
     <section id="view-payprompt" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -909,7 +904,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div>
             <label class="text-xs font-bold opacity-80">3. Exact Invoice Amount</label>
-            <input id="ppAmount" type="text" value="₹1,48,500" placeholder="e.g., ₹1,48,500 or $2,400" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono font-bold text-teal-500" />
+            <input id="ppAmount" type="text" value="₹1,48,500" placeholder="e.g., ₹1,48,500 or $2,400" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono font-bold text-teal-600 dark:text-teal-400" />
           </div>
           <div>
             <label class="text-xs font-bold opacity-80">4. Due Date / Project Context</label>
@@ -984,7 +979,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <button onclick="generateUuids(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
             🎲 Generate Fresh Randomized Tokens (UUID v4, API Secret & NanoID)
           </button>
-          <span id="uuidBatchCounter" class="text-xs font-mono px-3 py-1 rounded-full bg-teal-500/15 text-teal-500 font-bold">Batch #1 • Cryptographically Random</span>
+          <span id="uuidBatchCounter" class="text-xs font-mono px-3 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">Batch #1 • Cryptographically Random</span>
         </div>
         <div id="uuidOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4"></div>
       </div>
@@ -1009,7 +1004,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex items-center justify-between p-4 rounded-xl surface-muted border font-mono text-xs">
           <span>Current Live Unix Epoch:</span>
-          <span id="liveEpochDisplay" class="font-bold text-teal-500 text-sm">1792841340</span>
+          <span id="liveEpochDisplay" class="font-bold text-teal-600 dark:text-teal-400 text-sm">1792841340</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <input id="epochInput" type="number" placeholder="Enter Unix Timestamp (seconds or ms)" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
@@ -1032,7 +1027,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="space-y-1.5">
             <div class="flex justify-between items-center">
               <label class="text-xs font-semibold font-mono opacity-75">Compiled HTML Markup</label>
-              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-teal-500 font-bold hover:underline">Copy HTML</button>
+              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-teal-600 dark:text-teal-400 font-bold hover:underline">Copy HTML</button>
             </div>
             <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
           </div>
@@ -1048,7 +1043,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold">Copy Text</button>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-teal-500">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-teal-600 dark:text-teal-400">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Characters</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Sentences</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntTime" class="text-2xl font-bold text-sky-500">0s</div><div class="text-[10px] uppercase opacity-60 mt-1">Read Time</div></div>
@@ -1118,7 +1113,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       </div>
     </section>
 
-    <!-- TOOL 18: IMAGE COMPRESSION STUDIO (WITH DOWNLOAD COMPLETION CONFIRMATION) -->
+    <!-- TOOL 18: IMAGE COMPRESSION STUDIO -->
     <section id="view-image" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div id="dropZone" class="border-2 border-dashed rounded-2xl p-8 text-center space-y-2 surface-muted hover:border-teal-500 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
@@ -1134,12 +1129,12 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
               <img id="sourceImgPreview" class="w-14 h-14 object-cover rounded-lg border" />
               <div class="text-xs font-mono">
                 <p class="font-bold" id="imgOriginalName">file.jpg</p>
-                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-teal-500 font-bold">0 KB</span></p>
+                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-teal-600 dark:text-teal-400 font-bold">0 KB</span></p>
               </div>
             </div>
             <div class="w-full sm:w-52 space-y-1">
-              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-teal-500">75%</span></div>
-              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-teal-500" />
+              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-teal-600 dark:text-teal-400">75%</span></div>
+              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-teal-600" />
             </div>
           </div>
           <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">Compress Image Now ⚡</button>
@@ -1147,7 +1142,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
         <div id="imageResultBox" class="hidden pt-4 border-t border-inherit space-y-3">
           <div id="imageOutputContent"></div>
-          <div id="imgDownloadPromptBanner" class="hidden p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-500 text-xs font-bold flex items-center justify-between">
+          <div id="imgDownloadPromptBanner" class="hidden p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center justify-between">
             <span>✅ Download Completed! Your optimized image has been saved to your device.</span>
           </div>
         </div>
@@ -1196,37 +1191,34 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
   <!-- INNOVATIVE 4-COLUMN ENTERPRISE FOOTER -->
   <footer class="border-t surface-card mt-16 py-12 px-4 sm:px-6 text-xs">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       
-      <!-- Column 1: Brand & Live Status -->
       <div class="space-y-3">
         <div class="flex items-center gap-2.5">
           <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 text-white font-extrabold flex items-center justify-center text-xs shadow">UF</span>
-          <span class="font-extrabold text-base">UtilityFlow<span class="text-teal-500">.in</span></span>
+          <span class="font-extrabold text-base">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
         </div>
         <p class="opacity-75 leading-relaxed">
           An enterprise-grade, privacy-first ecosystem of 20 client-side web utilities. Engineered for zero-latency execution directly inside modern browsers.
         </p>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full surface-muted border text-[11px] font-mono text-emerald-500 font-bold">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full surface-muted border text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           <span>All 20 Systems Operational</span>
         </div>
       </div>
 
-      <!-- Column 2: Core Suites -->
       <div class="space-y-2.5">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Flagship Suites</div>
         <div class="grid grid-cols-1 gap-1.5 opacity-85">
-          <button onclick="switchTool('pdf')" class="text-left hover:text-teal-500 transition">📄 PDF & Document Suite</button>
-          <button onclick="switchTool('iban')" class="text-left hover:text-teal-500 transition">🏦 Global IBAN Bank Inspector</button>
-          <button onclick="switchTool('sandbox')" class="text-left hover:text-teal-500 transition">💻 Unified HTML/CSS/JS Sandbox</button>
-          <button onclick="switchTool('diff')" class="text-left hover:text-teal-500 transition">⚖️ Color-Coded Code Diff</button>
-          <button onclick="switchTool('calc')" class="text-left hover:text-teal-500 transition">📈 Dual-Chart Wealth Engine</button>
-          <button onclick="switchTool('payprompt')" class="text-left hover:text-teal-500 transition">💸 4-Field Invoice Drafter</button>
+          <button onclick="switchTool('pdf')" class="text-left hover:text-teal-600 transition">📄 PDF & Document Suite</button>
+          <button onclick="switchTool('iban')" class="text-left hover:text-teal-600 transition">🏦 Global IBAN Bank Inspector</button>
+          <button onclick="switchTool('sandbox')" class="text-left hover:text-teal-600 transition">💻 Unified HTML/CSS/JS Sandbox</button>
+          <button onclick="switchTool('diff')" class="text-left hover:text-teal-600 transition">⚖️ Color-Coded Code Diff</button>
+          <button onclick="switchTool('calc')" class="text-left hover:text-teal-600 transition">📈 Dual-Chart Wealth Engine</button>
+          <button onclick="switchTool('payprompt')" class="text-left hover:text-teal-600 transition">💸 4-Field Invoice Drafter</button>
         </div>
       </div>
 
-      <!-- Column 3: Developer & Security Architecture -->
       <div class="space-y-2.5">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Security & Architecture</div>
         <ul class="space-y-1.5 opacity-80">
@@ -1234,22 +1226,21 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <li>⚡ Zero Cloud File Uploads</li>
           <li>🛡️ WebCrypto CSPRNG Token Generation</li>
           <li>🌐 ISO-13616 & MOD-97 Banking Compliance</li>
-          <li>📊 Google Analytics 4 Verified Telemetry</li>
+          <li>📊 Live Multi-Device WebSocket Telemetry</li>
         </ul>
       </div>
 
-      <!-- Column 4: Direct Contact, Support & Official Links -->
       <div class="space-y-3">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Official Channels & Support</div>
         <p class="opacity-75 leading-relaxed">
           For enterprise feature requests, custom utility integration, or partnership inquiries:
         </p>
         <div class="space-y-2">
-          <a href="https://utilityflow.in" class="flex items-center gap-2 px-3.5 py-2 rounded-xl surface-muted border font-mono font-bold text-indigo-500 hover:border-indigo-500 transition">
+          <a href="https://utilityflow.in" class="flex items-center gap-2 px-3.5 py-2 rounded-xl surface-muted border font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:border-indigo-500 transition">
             <span>🌐</span>
             <span>https://utilityflow.in</span>
           </a>
-          <a href="mailto:santarana5@gmail.com" class="flex items-center gap-2 px-3.5 py-2 rounded-xl surface-muted border font-mono font-bold text-teal-500 hover:border-teal-500 transition">
+          <a href="mailto:santarana5@gmail.com" class="flex items-center gap-2 px-3.5 py-2 rounded-xl surface-muted border font-mono font-bold text-teal-600 dark:text-teal-400 hover:border-teal-500 transition">
             <span>✉️</span>
             <span>santarana5@gmail.com</span>
           </a>
@@ -1257,7 +1248,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       </div>
 
     </div>
-    <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-inherit flex flex-col sm:flex-row items-center justify-between gap-2 opacity-65 text-[11px]">
+    <div class="max-w-7xl mx-auto pt-8 mt-8 border-t border-inherit flex flex-col sm:flex-row items-center justify-between gap-2 opacity-65 text-[11px]">
       <span>© 2026 UtilityFlow.in • All 20 Browser Modules Free & Operational</span>
       <span>Engineered for Speed, Privacy & Precision • Zero Server Data Logged</span>
     </div>
@@ -1267,7 +1258,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
   <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="surface-card rounded-2xl max-w-md w-full p-6 border shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-inherit pb-3">
-        <span class="text-xs font-mono uppercase text-teal-500 font-bold">Submit Product to Directory</span>
+        <span class="text-xs font-mono uppercase text-teal-600 font-bold">Submit Product to Directory</span>
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70">✕</button>
       </div>
       <div class="space-y-3">
@@ -1308,101 +1299,146 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     ];
 
     // =========================================================================
-    // 1. REAL-TIME MULTI-DEVICE VISITOR & ACTIVE SESSION TELEMETRY ENGINE
+    // 1. REAL-TIME MULTI-DEVICE WEBSOCKET PRESENCE & TOTAL VISITS ENGINE
+    //    Connects your Laptop, Mobile, and all global visitors simultaneously!
     // =========================================================================
-    async function initRealTimeTelemetry() {
-      const totalEl = document.getElementById('totalVisitorCount');
+    function initCrossDeviceRealtimeTelemetry() {
       const liveEl = document.getElementById('liveVisitorCount');
+      const totalEl = document.getElementById('totalVisitorCount');
 
-      // Track cross-tab & local active heartbeats via BroadcastChannel + storage
-      const tabId = 'uf_tab_' + Math.random().toString(36).slice(2, 10);
-      const registerHeartbeat = () => {
-        try {
-          const now = Date.now();
-          let peers = JSON.parse(localStorage.getItem('uf_active_peers') || '{}');
-          peers[tabId] = now;
-          Object.keys(peers).forEach(k => { if (now - peers[k] > 18000) delete peers[k]; });
-          localStorage.setItem('uf_active_peers', JSON.stringify(peers));
-          return Object.keys(peers).length;
-        } catch (e) { return 1; }
+      // Unique ID for this specific browser window / mobile tab
+      const clientId = 'uf_node_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now().toString(36);
+      const activeNodes = {};
+      activeNodes[clientId] = Date.now();
+
+      // Local baseline while connecting
+      let syncedTotalVisits = parseInt(localStorage.getItem('uf_global_visits_v9') || '0', 10);
+      let hasIncrementedThisSession = sessionStorage.getItem('uf_session_counted_v9') === '1';
+
+      const renderCounts = () => {
+        const now = Date.now();
+        Object.keys(activeNodes).forEach(id => {
+          if (id !== clientId && now - activeNodes[id] > 10000) {
+            delete activeNodes[id];
+          }
+        });
+        activeNodes[clientId] = now;
+        const activeCount = Math.max(1, Object.keys(activeNodes).length);
+        liveEl.textContent = activeCount.toLocaleString('en-IN');
+        if (syncedTotalVisits > 0) {
+          totalEl.textContent = syncedTotalVisits.toLocaleString('en-IN');
+        }
       };
 
-      const localTabs = registerHeartbeat();
-
-      // Primary Global Cloud Counter (counterapi.dev supports CORS on GitHub Pages)
-      let globalTotal = null;
-      let globalActive = null;
-
-      try {
-        const res = await fetch('https://api.counterapi.dev/v1/utilityflow_in_prod/total_visits/up');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data.count === 'number') {
-            globalTotal = data.count;
-            localStorage.setItem('uf_cached_global_total', String(globalTotal));
+      // Also try CounterAPI.dev as a secondary backup for total visits
+      fetch('https://api.counterapi.dev/v1/utilityflow_in_v9/total/up')
+        .then(r => r.json())
+        .then(d => {
+          if (d && typeof d.count === 'number' && d.count > syncedTotalVisits) {
+            syncedTotalVisits = d.count;
+            localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
+            renderCounts();
           }
-        }
-      } catch (e) {}
+        })
+        .catch(() => {});
 
-      // Active concurrent session bucket (rotates every 5 minutes so concurrent devices opening within the window increment together)
-      const activeBucket = 'active_window_' + Math.floor(Date.now() / 300000);
-      try {
-        const activeRes = await fetch(`https://api.counterapi.dev/v1/utilityflow_in_prod/${activeBucket}/up`);
-        if (activeRes.ok) {
-          const activeData = await activeRes.json();
-          if (activeData && typeof activeData.count === 'number') {
-            globalActive = Math.max(activeData.count, localTabs);
-          }
-        }
-      } catch (e) {}
-
-      if (globalTotal === null) {
-        const cached = parseInt(localStorage.getItem('uf_cached_global_total') || '0', 10) + 1;
-        localStorage.setItem('uf_cached_global_total', String(cached));
-        globalTotal = cached;
-      }
-      if (globalActive === null) {
-        globalActive = Math.max(1, localTabs);
+      if (typeof mqtt === 'undefined') {
+        syncedTotalVisits = Math.max(1, syncedTotalVisits + 1);
+        totalEl.textContent = syncedTotalVisits.toLocaleString('en-IN');
+        return;
       }
 
-      totalEl.textContent = globalTotal.toLocaleString('en-IN');
-      liveEl.textContent = globalActive.toLocaleString('en-IN');
+      const TOPIC_PRESENCE = 'utilityflow_in_v9/presence';
+      const TOPIC_TOTAL = 'utilityflow_in_v9/total_visits';
 
-      // Poll every 12 seconds so opening on multiple phones/laptops updates dynamically without refreshing
-      setInterval(async () => {
-        const activeLocal = registerHeartbeat();
+      // Connect to high-availability public WebSocket broker (with automatic fallback)
+      const brokers = [
+        'wss://broker.emqx.io:8084/mqtt',
+        'wss://test.mosquitto.org:8081/mqtt'
+      ];
+      let client = mqtt.connect(brokers[0], {
+        clientId: clientId,
+        clean: true,
+        connectTimeout: 5000,
+        reconnectPeriod: 3000
+      });
+
+      let receivedRetainedTotal = false;
+
+      client.on('connect', () => {
+        client.subscribe([TOPIC_PRESENCE, TOPIC_TOTAL], { qos: 0 });
+
+        // Broadcast our immediate arrival to all open phones/laptops
+        client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'join', ts: Date.now() }), { qos: 0 });
+
+        // Wait 1.2s to receive retained total from broker; if first time in this tab session, increment & retain!
+        setTimeout(() => {
+          if (!hasIncrementedThisSession) {
+            hasIncrementedThisSession = true;
+            sessionStorage.setItem('uf_session_counted_v9', '1');
+            syncedTotalVisits = Math.max(1, syncedTotalVisits + 1);
+            localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
+            // Publish with retain: true so every future phone/laptop immediately gets the exact total count!
+            client.publish(TOPIC_TOTAL, JSON.stringify({ total: syncedTotalVisits, updatedBy: clientId }), { qos: 0, retain: true });
+            renderCounts();
+          } else if (syncedTotalVisits === 0) {
+            syncedTotalVisits = 1;
+            renderCounts();
+          }
+        }, 1200);
+      });
+
+      client.on('message', (topic, payload) => {
         try {
-          const currentBucket = 'active_window_' + Math.floor(Date.now() / 300000);
-          const r1 = await fetch(`https://api.counterapi.dev/v1/utilityflow_in_prod/${currentBucket}`);
-          if (r1.ok) {
-            const d1 = await r1.json();
-            if (d1 && typeof d1.count === 'number') {
-              liveEl.textContent = Math.max(d1.count, activeLocal).toLocaleString('en-IN');
+          const data = JSON.parse(payload.toString());
+          if (topic === TOPIC_PRESENCE && data.id) {
+            if (data.action === 'leave') {
+              delete activeNodes[data.id];
+            } else {
+              activeNodes[data.id] = Date.now();
+              // If a new device just joined, immediately reply with our heartbeat so their screen updates to 2+ right away!
+              if (data.action === 'join' && data.id !== clientId) {
+                client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
+              }
             }
-          }
-          const r2 = await fetch('https://api.counterapi.dev/v1/utilityflow_in_prod/total_visits');
-          if (r2.ok) {
-            const d2 = await r2.json();
-            if (d2 && typeof d2.count === 'number') {
-              totalEl.textContent = d2.count.toLocaleString('en-IN');
+            renderCounts();
+          } else if (topic === TOPIC_TOTAL && typeof data.total === 'number') {
+            receivedRetainedTotal = true;
+            if (data.total > syncedTotalVisits) {
+              syncedTotalVisits = data.total;
+              localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
             }
+            renderCounts();
           }
-        } catch (err) {
-          liveEl.textContent = Math.max(1, activeLocal).toLocaleString('en-IN');
+        } catch (e) {}
+      });
+
+      // Heartbeat every 3 seconds across all open devices
+      setInterval(() => {
+        if (client && client.connected) {
+          client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
         }
-      }, 12000);
+        renderCounts();
+      }, 3000);
+
+      // Broadcast instant departure when tab closes
+      window.addEventListener('beforeunload', () => {
+        if (client && client.connected) {
+          client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'leave' }), { qos: 0 });
+        }
+      });
     }
-    initRealTimeTelemetry();
+    initCrossDeviceRealtimeTelemetry();
 
     // =========================================================================
-    // 2. THEME CONTROLLER (DARK DEFAULT FOR FUTURISTIC GLOW, FULL LIGHT TOGGLE)
+    // 2. THEME CONTROLLER (DEFAULT LIGHT MODE, TOGGLEABLE TO DARK MODE)
     // =========================================================================
-    if (localStorage.getItem('uf_theme_v7') === 'light') {
-      document.documentElement.classList.remove('dark');
-      document.getElementById('themeToggleBtn').textContent = '🌙 Dark';
-    } else {
+    if (localStorage.getItem('uf_theme_mode') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '☀️ Light';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeToggleBtn').textContent = '🌙 Dark';
     }
 
     function toggleTheme() {
@@ -1410,11 +1446,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       const btn = document.getElementById('themeToggleBtn');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        localStorage.setItem('uf_theme_v7', 'light');
+        localStorage.setItem('uf_theme_mode', 'light');
         btn.textContent = '🌙 Dark';
       } else {
         html.classList.add('dark');
-        localStorage.setItem('uf_theme_v7', 'dark');
+        localStorage.setItem('uf_theme_mode', 'dark');
         btn.textContent = '☀️ Light';
       }
       showToast('Workspace theme updated');
@@ -1555,12 +1591,12 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="w-11 h-11 rounded-xl surface-muted border flex items-center justify-center text-xl group-hover:scale-110 transition shadow-sm">${t.icon}</span>
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-500 border border-teal-500/20 font-bold">${t.category}</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 font-bold">${t.category}</span>
             </div>
-            <h3 class="font-extrabold text-sm group-hover:text-teal-500 transition pt-1">${t.title}</h3>
+            <h3 class="font-extrabold text-sm group-hover:text-teal-600 dark:group-hover:text-teal-400 transition pt-1">${t.title}</h3>
             <p class="text-xs opacity-75 leading-relaxed">${t.purpose}</p>
           </div>
-          <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-teal-500">
+          <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-teal-600 dark:text-teal-400">
             <span>Launch Module</span>
             <span class="group-hover:translate-x-1.5 transition-transform">→</span>
           </div>
@@ -1607,7 +1643,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       if (!query) {
         html += `
-          <div onclick="renderCmdList('all')" class="sm:col-span-2 p-2.5 rounded-xl surface-card border border-dashed text-center text-xs font-bold text-teal-500 cursor-pointer hover:border-teal-500">
+          <div onclick="renderCmdList('all')" class="sm:col-span-2 p-2.5 rounded-xl surface-card border border-dashed text-center text-xs font-bold text-teal-600 dark:text-teal-400 cursor-pointer hover:border-teal-500">
             + Click or Type to Scroll All 20 Utilities ↓
           </div>
         `;
@@ -1832,11 +1868,10 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       const raw = document.getElementById('ibanInput').value.replace(/\s+/g, '').toUpperCase();
       const out = document.getElementById('ibanOutput');
       if (raw.length < 14 || raw.length > 34) {
-        out.innerHTML = `<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-500 text-xs font-mono font-bold">❌ Invalid IBAN Length (${raw.length} characters). Official ISO-13616 IBANs must be between 15 and 34 alphanumeric characters.</div>`;
+        out.innerHTML = `<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400 text-xs font-mono font-bold">❌ Invalid IBAN Length (${raw.length} characters). Official ISO-13616 IBANs must be between 15 and 34 alphanumeric characters.</div>`;
         return;
       }
 
-      // Official ISO-13616 MOD-97 Mathematical Check
       const rearranged = raw.slice(4) + raw.slice(0, 4);
       const numeric = rearranged.replace(/[A-Z]/g, ch => (ch.charCodeAt(0) - 55).toString());
       let remainder = numeric;
@@ -1854,7 +1889,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       const cSpec = COUNTRY_IBAN_SPECS[countryCode] || { name: `International (${countryCode})`, len: raw.length, sepa: 'Standard SWIFT / SEPA', currency: 'Multi-Currency' };
 
-      // Structural Bank / Branch / Account Slicing per Country
       let bankCode = bban.slice(0, 4);
       let branchSortCode = bban.slice(4, 10);
       let accountNumber = bban.slice(10);
@@ -1885,7 +1919,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         country: cSpec.name
       };
 
-      // Query OpenIBAN Public Directory API for live bank attributes if available
       try {
         const res = await fetch(`https://openiban.com/validate/${raw}?getBIC=true&validateBankCode=true`);
         if (res.ok) {
@@ -1900,7 +1933,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       } catch (e) {}
 
       out.innerHTML = `
-        <div class="p-4 rounded-2xl ${isValid ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-500' : 'bg-red-500/15 border-red-500/40 text-red-500'} border flex flex-wrap items-center justify-between gap-3">
+        <div class="p-4 rounded-2xl ${isValid ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-700 dark:text-emerald-300' : 'bg-red-500/15 border-red-500/40 text-red-600 dark:text-red-400'} border flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-3">
             <span class="text-2xl">${isValid ? '✅' : '❌'}</span>
             <div>
@@ -1914,11 +1947,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Issuing Bank Name</div>
-            <div class="font-extrabold text-sm text-teal-500">${escapeHtml(resolvedBank.bank)}</div>
+            <div class="font-extrabold text-sm text-teal-600 dark:text-teal-400">${escapeHtml(resolvedBank.bank)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">BIC / SWIFT Identifier</div>
-            <div class="font-mono font-extrabold text-sm text-indigo-400">${escapeHtml(resolvedBank.bic)}</div>
+            <div class="font-mono font-extrabold text-sm text-indigo-600 dark:text-indigo-400">${escapeHtml(resolvedBank.bic)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Registered Branch Address</div>
@@ -1939,7 +1972,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Domestic Account Number</div>
-            <div class="font-mono font-bold text-sm text-teal-500">${escapeHtml(accountNumber)}</div>
+            <div class="font-mono font-bold text-sm text-teal-600 dark:text-teal-400">${escapeHtml(accountNumber)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">SEPA & Settlement Currency</div>
@@ -2000,17 +2033,17 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       document.getElementById('passPerspectivesOutput').innerHTML = `
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-teal-500 font-bold">Perspective 1 • High-Entropy Standard</div>
+          <div class="text-[10px] font-mono uppercase text-teal-600 dark:text-teal-400 font-bold">Perspective 1 • High-Entropy Standard</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p1)}</div>
           <button onclick="navigator.clipboard.writeText('${escapeHtml(p1)}'); showToast('Copied Standard Password!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Password</button>
         </div>
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-sky-500 font-bold">Perspective 2 • Memorable Passphrase</div>
+          <div class="text-[10px] font-mono uppercase text-sky-600 dark:text-sky-400 font-bold">Perspective 2 • Memorable Passphrase</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p2)}</div>
           <button onclick="navigator.clipboard.writeText('${escapeHtml(p2)}'); showToast('Copied Passphrase!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Passphrase</button>
         </div>
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-emerald-500 font-bold">Perspective 3 • 256-Bit Vault Key</div>
+          <div class="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-bold">Perspective 3 • 256-Bit Vault Key</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p3)}</div>
           <button onclick="navigator.clipboard.writeText('${escapeHtml(p3)}'); showToast('Copied Vault Key!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Vault Key</button>
         </div>
@@ -2018,7 +2051,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 8. COLOR-CODED SPLIT CODE DIFF INSPECTOR (WITH WORD-LEVEL HIGHLIGHTING)
+    // 8. COLOR-CODED SPLIT CODE DIFF INSPECTOR
     // =========================================================================
     function LoadSampleDiff() {
       document.getElementById('diffOriginal').value = `const serverConfig = {\n  env: "staging",\n  port: 3000,\n  debug: true,\n  retries: 2\n};`;
@@ -2144,7 +2177,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
       document.getElementById('resTotal').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
 
-      // Doughnut Chart
       const ctx = document.getElementById('financialChart').getContext('2d');
       if (financialChartInstance) financialChartInstance.destroy();
       financialChartInstance = new Chart(ctx, {
@@ -2161,7 +2193,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '70%' }
       });
 
-      // Colorful Bar Trajectory Chart
       const gCtx = document.getElementById('financialGrowthChart').getContext('2d');
       if (growthChartInstance) growthChartInstance.destroy();
       growthChartInstance = new Chart(gCtx, {
@@ -2180,8 +2211,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } },
-            y: { grid: { color: 'rgba(148,163,184,0.12)' }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+            x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+            y: { grid: { color: 'rgba(148,163,184,0.15)' }, ticks: { color: '#64748b', font: { size: 10 } } }
           }
         }
       });
@@ -2196,7 +2227,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="surface-muted rounded-2xl p-4 border flex flex-col justify-between space-y-3">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-500 font-bold">${item.badge}</span>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">${item.badge}</span>
               <span class="text-[11px] font-semibold opacity-65">${item.tone}</span>
             </div>
             <h4 class="font-bold text-sm">${item.title}</h4>
@@ -2211,7 +2242,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       setTimeout(() => container.classList.remove('flash-refresh'), 450);
     }
 
-    // 4-Field Invoice Follow-Up Drafter (6-8 Line Detailed Letters)
     function runPayPrompt(notify = false) {
       const client = document.getElementById('ppClient').value.trim() || 'Valued Client';
       const invRef = document.getElementById('ppInvoiceRef').value.trim() || 'INV-2026-0894';
@@ -2235,13 +2265,12 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           badge: 'Perspective 3',
           tone: 'Direct Escalation & Final Notice',
           title: 'Executive SLA & Credit Hold Warning',
-          content: `Subject: URGENT: Final Settlement Notice — Overdue Invoice ${invRef} (${amt})\n\nAttention: ${client} Executive Management & Finance Controller,\n\nDespite our previous reminders, Invoice ${invRef} for the sum of ${amt} (${ctx}) remains significantly past due. Per our Master Services Agreement, accounts exceeding standard credit terms are subject to a temporary administrative hold on active deliverables and support SLAs.\n\nWe strongly value our business relationship with ${client} and wish to avoid any service disruption. Please arrange immediate clearance of ${amt} against Invoice ${invRef} by end of business tomorrow and share the wire confirmation receipt immediately.\n\nRegards,\n Corporate Credit & Legal Compliance`
+          content: `Subject: URGENT: Final Settlement Notice — Overdue Invoice ${invRef} (${amt})\n\nAttention: ${client} Executive Management & Finance Controller,\n\nDespite our previous reminders, Invoice ${invRef} for the sum of ${amt} (${ctx}) remains significantly past due. Per our Master Services Agreement, accounts exceeding standard credit terms are subject to a temporary administrative hold on active deliverables and support SLAs.\n\nWe strongly value our business relationship with ${client} and wish to avoid any service disruption. Please arrange immediate clearance of ${amt} against Invoice ${invRef} by end of business tomorrow and share the wire confirmation receipt immediately.\n\nRegards,\nCorporate Credit & Legal Compliance`
         }
       ]);
       if (notify) showToast('💸 Generated 3 detailed multi-paragraph invoice follow-up letters!');
     }
 
-    // Comprehensive Multi-Paragraph Compliance Policy Generator
     function runPolicyDraft(notify = false) {
       const name = document.getElementById('pdName').value.trim() || 'UtilityFlow.in';
       const domain = document.getElementById('pdDomain').value.trim() || 'https://utilityflow.in';
@@ -2270,7 +2299,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       if (notify) showToast('🛡️ Compiled 3 comprehensive multi-section legal policies!');
     }
 
-    // Comprehensive OpenGraph & Meta Tag Builder
     function runMetaGen(notify = false) {
       const t = document.getElementById('mgTitle').value.trim() || 'UtilityFlow.in — 20 Free Browser Utilities';
       const url = document.getElementById('mgUrl').value.trim() || 'https://utilityflow.in/';
@@ -2300,7 +2328,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       if (notify) showToast('🌐 Generated 3 comprehensive SEO, OpenGraph & JSON-LD suites!');
     }
 
-    // Comprehensive UTM & URL Slug Builder
     function runSlugCraft(notify = false) {
       const base = document.getElementById('scUrl').value.trim().replace(/\/?$/, '/');
       const title = document.getElementById('scTitle').value.trim() || 'launch-guide';
@@ -2331,7 +2358,6 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       if (notify) showToast('🔗 Generated 3 complete URL slug & GA4 attribution suites!');
     }
 
-    // Truly Randomized UUID v4 & Cryptographic Token Studio
     function generateUuids(notify = false) {
       const makeCryptoUuid = () => {
         if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
@@ -2385,7 +2411,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 11. OTHER CORE UTILITIES & IMAGE COMPRESSION WITH DOWNLOAD CONFIRMATION
+    // 11. OTHER CORE UTILITIES & IMAGE COMPRESSION
     // =========================================================================
     let spotlightProjects = [
       { name: 'UtilityFlow.in Browser OS', url: 'https://utilityflow.in', status: 'Official Platform' },
@@ -2397,11 +2423,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="flex items-center gap-3">
             <span class="w-7 h-7 rounded-lg surface-muted border font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>
             <div>
-              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-teal-500">${escapeHtml(p.name)} ↗</a>
+              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-teal-600">${escapeHtml(p.name)} ↗</a>
               <div class="text-[11px] font-mono opacity-55">${escapeHtml(p.url)}</div>
             </div>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-500 font-bold">${p.status}</span>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">${p.status}</span>
         </div>
       `).join('');
     }
@@ -2505,8 +2531,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
             document.getElementById('imageOutputContent').innerHTML = `
               <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl surface-muted border">
                 <div class="text-xs font-mono">
-                  Compressed Size: <strong class="text-emerald-500">${(blob.size/1024).toFixed(1)} KB</strong>
-                  <span class="ml-2 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 font-bold">Saved ${savedPct}%</span>
+                  Compressed Size: <strong class="text-emerald-600 dark:text-emerald-400">${(blob.size/1024).toFixed(1)} KB</strong>
+                  <span class="ml-2 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">Saved ${savedPct}%</span>
                 </div>
                 <button onclick="downloadCompressedImage('${url}', 'compressed-${escapeHtml(loadedFile.name)}')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-extrabold shadow-md">Download Compressed Image ⬇️</button>
               </div>
