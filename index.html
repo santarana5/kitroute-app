@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Enterprise-Grade Multi-Utility Suite</title>
+  <title>UtilityFlow.io — Enterprise Multi-Utility Suite (16 Tools)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,24 +46,29 @@
 </head>
 <body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
+  <!-- TOAST CONTAINER -->
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- COMMAND PALETTE MODAL (Cmd + K) -->
   <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-md flex items-start justify-center pt-20 p-4">
     <div class="glass max-w-lg w-full rounded-2xl p-4 border shadow-2xl space-y-3 card-bg">
       <div class="flex items-center justify-between border-b pb-3">
-        <span class="text-xs font-mono uppercase tracking-wider text-sky-500 font-bold">⚡ Command Palette</span>
+        <span class="text-xs font-mono uppercase tracking-wider text-sky-500 font-bold">⚡ Command Palette (16 Tools)</span>
         <button onclick="toggleCmdPalette(false)" class="text-xs opacity-60 hover:opacity-100">ESC</button>
       </div>
-      <input id="cmdInput" type="text" placeholder="Type a command or search tools (e.g., calculator, qr, theme)..." oninput="filterCommands(this.value)" class="w-full px-4 py-3 rounded-xl input-bg text-sm font-mono border" autofocus />
-      <div id="cmdResults" class="space-y-1 max-h-60 overflow-y-auto">
-        <div onclick="switchTool('calc'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📈 Open Financial Wealth Engine</span><span class="opacity-40 font-mono">Tool 1</span></div>
-        <div onclick="switchTool('image'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🖼️ Open Image Compression Studio</span><span class="opacity-40 font-mono">Tool 2</span></div>
-        <div onclick="switchTool('qr'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📱 Open QR Code Generator</span><span class="opacity-40 font-mono">Tool 3</span></div>
-        <div onclick="switchTool('text'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>📝 Open Word & SEO Counter</span><span class="opacity-40 font-mono">Tool 4</span></div>
-        <div onclick="switchTool('spotlight'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🏆 Open Spotlight Board</span><span class="opacity-40 font-mono">Tool 5</span></div>
-        <div onclick="toggleTheme(); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-sky-500/10 cursor-pointer text-xs font-semibold flex items-center justify-between"><span>🌓 Toggle Light/Dark Theme</span><span class="opacity-40 font-mono">Shortcut</span></div>
+      <input id="cmdInput" type="text" placeholder="Search across all 16 tools..." class="w-full px-4 py-3 rounded-xl input-bg text-sm font-mono border" autofocus />
+      <div id="cmdResults" class="space-y-1 max-h-60 overflow-y-auto text-xs font-semibold">
+        <div onclick="switchTool('home'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🏠 Home & Interactive Grid</span><span class="opacity-40">Overview</span></div>
+        <div onclick="switchTool('calc'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>📈 Financial Wealth Engine</span><span class="opacity-40">Tool 1</span></div>
+        <div onclick="switchTool('image'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🖼️ Image Compressor Studio</span><span class="opacity-40">Tool 2</span></div>
+        <div onclick="switchTool('qr'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>📱 QR Code Generator</span><span class="opacity-40">Tool 3</span></div>
+        <div onclick="switchTool('text'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>📝 Word & SEO Counter</span><span class="opacity-40">Tool 4</span></div>
+        <div onclick="switchTool('spotlight'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🏆 Spotlight Board</span><span class="opacity-40">Tool 5</span></div>
+        <div onclick="switchTool('markdown'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>📋 Markdown to HTML Converter</span><span class="opacity-40">Tool 6</span></div>
+        <div onclick="switchTool('uuid'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🔑 UUID v4 & Hash Generator</span><span class="opacity-40">Tool 7</span></div>
+        <div onclick="switchTool('base64'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🔤 Base64 & URL Encoder</span><span class="opacity-40">Tool 8</span></div>
+        <div onclick="switchTool('color'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>🎨 CSS Gradient & Palette</span><span class="opacity-40">Tool 9</span></div>
+        <div onclick="switchTool('diff'); toggleCmdPalette(false);" class="p-2 rounded-xl hover:bg-sky-500/10 cursor-pointer flex justify-between"><span>⚖️ Code Diff Checker</span><span class="opacity-40">Tool 10</span></div>
       </div>
     </div>
   </div>
@@ -72,22 +77,21 @@
   <header class="sticky top-0 z-40 glass border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
       <div class="flex items-center gap-3.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center font-extrabold text-white text-lg shadow-lg shadow-sky-500/20">⚡</div>
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center font-extrabold text-white text-lg shadow-lg shadow-sky-500/20 cursor-pointer" onclick="switchTool('home')">⚡</div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-sky-500">.io</span></span>
+            <span class="font-extrabold tracking-tight text-lg cursor-pointer" onclick="switchTool('home')">UtilityFlow<span class="text-sky-500">.io</span></span>
             <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span> Enterprise v2.5
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span> 16 Tools Live
             </span>
           </div>
-          <p class="text-[11px] opacity-60 font-medium">Professional Client-Side Utility Infrastructure</p>
+          <p class="text-[11px] opacity-60 font-medium">Enterprise Client-Side Utility Infrastructure</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2.5">
-        <!-- Command Palette Trigger Button -->
         <button onclick="toggleCmdPalette(true)" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl card-bg border text-xs font-mono opacity-75 hover:opacity-100 shadow-sm transition">
-          <span>Search tools...</span> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px]">⌘K</kbd>
+          <span>Search 16 tools...</span> <kbd class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px]">⌘K</kbd>
         </button>
         <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2.5 rounded-xl border text-sm transition hover:scale-105 shadow-sm card-bg font-medium" title="Switch Theme">☀️</button>
       </div>
@@ -97,16 +101,22 @@
   <!-- NAVIGATION TABS -->
   <div class="glass border-b sticky top-[69px] z-30 overflow-x-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-2 min-w-max">
-      <button onclick="switchTool('calc')" id="btn-calc" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition">1. Wealth & Loan Engine 📈</button>
-      <button onclick="switchTool('image')" id="btn-image" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">2. Image Compression Studio 🖼️</button>
-      <button onclick="switchTool('qr')" id="btn-qr" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">3. QR Studio 📱</button>
-      <button onclick="switchTool('text')" id="btn-text" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">4. SEO Metric Counter 📝</button>
-      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">5. Spotlight Board 🏆</button>
+      <button onclick="switchTool('home')" id="btn-home" class="tool-tab px-4 py-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition">🏠 Overview</button>
+      <button onclick="switchTool('calc')" id="btn-calc" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">1. Wealth Engine 📈</button>
+      <button onclick="switchTool('image')" id="btn-image" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">2. Image Studio 🖼️</button>
+      <button onclick="switchTool('qr')" id="btn-qr" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">3. QR Generator 📱</button>
+      <button onclick="switchTool('text')" id="btn-text" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">4. SEO Counter 📝</button>
+      <button onclick="switchTool('spotlight')" id="btn-spotlight" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">5. Spotlight 🏆</button>
+      <button onclick="switchTool('markdown')" id="btn-markdown" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">6. Markdown 📋</button>
+      <button onclick="switchTool('uuid')" id="btn-uuid" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">7. UUID/Hash 🔑</button>
+      <button onclick="switchTool('base64')" id="btn-base64" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">8. Base64 🔤</button>
+      <button onclick="switchTool('color')" id="btn-color" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">9. Color Palette 🎨</button>
+      <button onclick="switchTool('diff')" id="btn-diff" class="tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition">10. Code Diff ⚖️</button>
     </div>
   </div>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
 
     <!-- AD SENSE BANNER TOP -->
     <div class="glass rounded-2xl p-4 border border-sky-500/15 text-center text-xs opacity-60 font-mono">
@@ -114,13 +124,109 @@
     </div>
 
     <!-- ========================================== -->
+    <!-- VIEW 0: EXECUTIVE LANDING / OVERVIEW PAGE  -->
+    <!-- ========================================== -->
+    <section id="tool-home" class="tool-view space-y-10">
+      <div class="glass rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <span class="text-[10px] font-mono uppercase px-3.5 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold border border-sky-500/20">
+          ⚡ NEXT-GEN UTILITY INFRASTRUCTURE
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          Everything You Need, <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-600">Zero Friction.</span>
+        </h1>
+        <p class="text-sm sm:text-base opacity-70 max-w-2xl mx-auto font-medium">
+          UtilityFlow.io is engineered for modern developers, creators, marketers, and professionals. All 16 core tools execute 100% locally in your browser with zero server data storage, absolute privacy, and instant results.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <button onclick="switchTool('calc')" class="px-6 py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-xs shadow-lg shadow-sky-500/25 transition">
+            Explore All 16 Tools ↓
+          </button>
+          <button onclick="toggleCmdPalette(true)" class="px-6 py-3.5 rounded-2xl card-bg border font-bold text-xs shadow-sm hover:bg-sky-500/10 transition">
+            Quick Launch (⌘K)
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Tool Grid Navigation -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between px-2">
+          <h3 class="text-sm font-bold uppercase tracking-wider font-mono opacity-70">Interactive Tool Directory (16 Utilities)</h3>
+          <span class="text-xs font-mono opacity-50">Click any card to launch</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div onclick="switchTool('calc')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">📈</div>
+            <h4 class="font-extrabold text-sm">Financial Wealth & Loan Engine</h4>
+            <p class="text-xs opacity-60 leading-relaxed">SIP compound interest modeling and professional loan amortization schedules with Chart.js.</p>
+          </div>
+
+          <div onclick="switchTool('image')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">🖼️</div>
+            <h4 class="font-extrabold text-sm">Image Compression Studio</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Drag-and-drop client-side lossless compression with direct browser download triggers.</p>
+          </div>
+
+          <div onclick="switchTool('qr')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">📱</div>
+            <h4 class="font-extrabold text-sm">Custom QR Code Studio</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Vector QR code generator with custom foreground, background branding colors.</p>
+          </div>
+
+          <div onclick="switchTool('text')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">📝</div>
+            <h4 class="font-extrabold text-sm">Word & SEO Counter</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Live character metrics with Twitter post and Google SEO meta description meters.</p>
+          </div>
+
+          <div onclick="switchTool('spotlight')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">🏆</div>
+            <h4 class="font-extrabold text-sm">Community Spotlight Board</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Submit your startup or project link for instant community visibility and exposure.</p>
+          </div>
+
+          <div onclick="switchTool('markdown')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">📋</div>
+            <h4 class="font-extrabold text-sm">Markdown to HTML Converter</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Split-screen live renderer converting Markdown into clean HTML markup instantly.</p>
+          </div>
+
+          <div onclick="switchTool('uuid')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">🔑</div>
+            <h4 class="font-extrabold text-sm">UUID v4 & Hash Generator</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Generate cryptographically secure identifiers and MD5/SHA hashes on demand.</p>
+          </div>
+
+          <div onclick="switchTool('base64')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">🔤</div>
+            <h4 class="font-extrabold text-sm">Base64 & URL Encoder/Decoder</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Instant secure string encoder and decoder for API testing and payloads.</p>
+          </div>
+
+          <div onclick="switchTool('color')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">🎨</div>
+            <h4 class="font-extrabold text-sm">CSS Gradient & Palette Studio</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Generate aesthetic Tailwind color gradients and hex codes with 1-click copy.</p>
+          </div>
+
+          <div onclick="switchTool('diff')" class="glass card-bg rounded-2xl p-5 border hover:border-sky-500 transition cursor-pointer space-y-2 group shadow-sm sm:col-span-2 lg:col-span-1">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition">⚖️</div>
+            <h4 class="font-extrabold text-sm">Code Diff Checker</h4>
+            <p class="text-xs opacity-60 leading-relaxed">Compare two blocks of code or text side-by-side to detect line changes instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
     <!-- TOOL 1: FINANCIAL WEALTH & LOAN ENGINE     -->
     <!-- ========================================== -->
-    <section id="tool-calc" class="tool-view space-y-6">
+    <section id="tool-calc" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">FINANCIAL MODELING ENGINE</span>
+            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 01 • FINANCIAL MODELING ENGINE</span>
             <h2 class="text-2xl font-extrabold mt-1">Investment & Loan Amortization Calculator</h2>
           </div>
           <div class="flex gap-1 p-1 card-bg rounded-xl border">
@@ -156,32 +262,17 @@
             </div>
           </div>
 
-          <!-- Professional Breakdown Card & Chart.js Integration -->
           <div class="card-bg rounded-2xl p-5 border flex flex-col justify-between space-y-4 shadow-sm">
             <h4 class="text-xs font-bold uppercase opacity-60 tracking-wider font-mono">Visual Analytics</h4>
-            
             <div class="h-36 relative flex items-center justify-center">
               <canvas id="financialChart"></canvas>
             </div>
-
             <div class="space-y-2 font-mono text-xs pt-2 border-t">
-              <div class="flex justify-between">
-                <span class="opacity-70">Principal:</span>
-                <span id="resInvested" class="font-bold">₹1,00,000</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="opacity-70" id="resGainLabel">Est. Returns:</span>
-                <span id="resGains" class="font-bold text-emerald-500">₹76,234</span>
-              </div>
-              <div class="pt-2 border-t flex justify-between text-sm">
-                <span class="font-bold">Total Maturity:</span>
-                <span id="resTotal" class="font-extrabold text-sky-500">₹1,76,234</span>
-              </div>
+              <div class="flex justify-between"><span class="opacity-70">Principal:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
+              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Est. Returns:</span><span id="resGains" class="font-bold text-emerald-500">₹76,234</span></div>
+              <div class="pt-2 border-t flex justify-between text-sm"><span class="font-bold">Total Maturity:</span><span id="resTotal" class="font-extrabold text-sky-500">₹1,76,234</span></div>
             </div>
-
-            <button onclick="window.print()" class="w-full py-2.5 rounded-xl card-bg border text-xs font-bold hover:bg-sky-500/10 transition">
-              🖨️ Export PDF Report
-            </button>
+            <button onclick="window.print()" class="w-full py-2.5 rounded-xl card-bg border text-xs font-bold hover:bg-sky-500/10 transition">🖨️ Export PDF Report</button>
           </div>
         </div>
       </div>
@@ -193,7 +284,7 @@
     <section id="tool-image" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">CLIENT-SIDE MEDIA PIPELINE</span>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 02 • CLIENT-SIDE MEDIA PIPELINE</span>
           <h2 class="text-2xl font-extrabold mt-1">Advanced Image Compression Studio</h2>
           <p class="text-xs opacity-70 mt-1">Lossless-grade client-side compression engine with instant file optimization.</p>
         </div>
@@ -216,22 +307,14 @@
                 <p class="opacity-60">Original Size: <span id="imgOriginalSize" class="text-sky-500 font-bold">0 KB</span></p>
               </div>
             </div>
-            
             <div class="w-full sm:w-48 space-y-1">
-              <div class="flex justify-between text-xs font-semibold">
-                <span>Compression Level</span>
-                <span id="qualityDisplay" class="font-mono text-sky-500">80%</span>
-              </div>
+              <div class="flex justify-between text-xs font-semibold"><span>Compression Level</span><span id="qualityDisplay" class="font-mono text-sky-500">80%</span></div>
               <input id="qualityRange" type="range" min="20" max="95" value="80" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-sky-500" />
             </div>
           </div>
-
-          <button onclick="compressAndProcessImage()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
-            Process & Compress Image ⚡
-          </button>
+          <button onclick="compressAndProcessImage()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">Process & Compress Image ⚡</button>
         </div>
       </div>
-
       <div id="imageResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl text-center">
         <h3 class="text-base font-bold text-left">Optimized Image Ready</h3>
         <div id="imageOutputContent" class="space-y-4"></div>
@@ -244,37 +327,24 @@
     <section id="tool-qr" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">VECTOR QR STUDIO</span>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 03 • VECTOR QR STUDIO</span>
           <h2 class="text-2xl font-extrabold mt-1">Custom Styled QR Code Generator</h2>
           <p class="text-xs opacity-70 mt-1">Generate high-resolution scannable QR codes with custom styling.</p>
         </div>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="sm:col-span-2">
             <label class="text-xs opacity-70 font-semibold">Target URL or String</label>
             <input id="qrInput" type="text" value="https://utilityflow.io" placeholder="https://yourwebsite.com" class="w-full mt-1 px-4 py-3 rounded-xl input-bg text-sm font-mono" />
           </div>
-          <div>
-            <label class="text-xs opacity-70 font-semibold">Foreground Color</label>
-            <input id="qrColor" type="color" value="#0ea5e9" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" />
-          </div>
-          <div>
-            <label class="text-xs opacity-70 font-semibold">Background Color</label>
-            <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" />
-          </div>
+          <div><label class="text-xs opacity-70 font-semibold">Foreground Color</label><input id="qrColor" type="color" value="#0ea5e9" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" /></div>
+          <div><label class="text-xs opacity-70 font-semibold">Background Color</label><input id="qrBgColor" type="color" value="#ffffff" class="w-full h-10 mt-1 rounded-xl cursor-pointer input-bg p-1" /></div>
         </div>
-
-        <button onclick="generateAdvancedQRCode()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
-          Generate Custom QR Code 🎨
-        </button>
+        <button onclick="generateAdvancedQRCode()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">Generate Custom QR Code 🎨</button>
       </div>
-
       <div id="qrResultBox" class="glass rounded-3xl p-6 space-y-4 hidden shadow-xl text-center max-w-md mx-auto">
         <h3 class="text-base font-bold">Your Custom QR Code</h3>
         <div id="qrOutputContent" class="p-6 bg-white rounded-2xl border shadow-sm flex justify-center"></div>
-        <a id="downloadQrBtn" download="utilityflow-qrcode.png" class="inline-block w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs shadow-md transition">
-          Download HD QR Code ⬇️
-        </a>
+        <a id="downloadQrBtn" download="utilityflow-qrcode.png" class="inline-block w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs shadow-md transition">Download HD QR Code ⬇️</a>
       </div>
     </section>
 
@@ -284,57 +354,24 @@
     <section id="tool-text" class="tool-view hidden space-y-6">
       <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
         <div>
-          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">CONTENT METRICS ENGINE</span>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 04 • CONTENT METRICS ENGINE</span>
           <h2 class="text-2xl font-extrabold mt-1">Live Word & SEO Character Counter</h2>
           <p class="text-xs opacity-70 mt-1">Comprehensive text metrics breakdown with social platform limit indicators.</p>
         </div>
-
         <div class="relative">
           <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Start typing or paste your content here..." class="w-full px-4 py-3.5 rounded-2xl input-bg text-xs font-mono"></textarea>
           <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg card-bg border text-[10px] font-bold shadow-sm hover:bg-sky-500/10 transition">📋 Copy Text</button>
         </div>
-
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-          <div class="p-4 rounded-2xl card-bg border shadow-sm">
-            <div id="cntWords" class="text-2xl font-extrabold text-sky-500">0</div>
-            <div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Words</div>
-          </div>
-          <div class="p-4 rounded-2xl card-bg border shadow-sm">
-            <div id="cntChars" class="text-2xl font-extrabold text-emerald-500">0</div>
-            <div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Characters</div>
-          </div>
-          <div class="p-4 rounded-2xl card-bg border shadow-sm">
-            <div id="cntSentences" class="text-2xl font-extrabold text-amber-500">0</div>
-            <div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Sentences</div>
-          </div>
-          <div class="p-4 rounded-2xl card-bg border shadow-sm">
-            <div id="cntTime" class="text-2xl font-extrabold text-purple-500">0s</div>
-            <div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Read Time</div>
-          </div>
+          <div class="p-4 rounded-2xl card-bg border shadow-sm"><div id="cntWords" class="text-2xl font-extrabold text-sky-500">0</div><div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Words</div></div>
+          <div class="p-4 rounded-2xl card-bg border shadow-sm"><div id="cntChars" class="text-2xl font-extrabold text-emerald-500">0</div><div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Characters</div></div>
+          <div class="p-4 rounded-2xl card-bg border shadow-sm"><div id="cntSentences" class="text-2xl font-extrabold text-amber-500">0</div><div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Sentences</div></div>
+          <div class="p-4 rounded-2xl card-bg border shadow-sm"><div id="cntTime" class="text-2xl font-extrabold text-purple-500">0s</div><div class="text-[10px] opacity-60 uppercase mt-1 font-sans font-bold">Read Time</div></div>
         </div>
-
         <div class="card-bg rounded-2xl p-4 border space-y-3">
           <h4 class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Platform Character Limit Checkers</h4>
-          
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-mono">
-              <span>Twitter / X Post (280 max)</span>
-              <span id="twLimitText">0 / 280</span>
-            </div>
-            <div class="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-              <div id="twBar" class="h-full bg-sky-500 transition-all duration-200" style="width: 0%;"></div>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-mono">
-              <span>Google SEO Meta Description (160 optimal)</span>
-              <span id="seoLimitText">0 / 160</span>
-            </div>
-            <div class="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-              <div id="seoBar" class="h-full bg-emerald-500 transition-all duration-200" style="width: 0%;"></div>
-            </div>
-          </div>
+          <div class="space-y-1"><div class="flex justify-between text-xs font-mono"><span>Twitter / X Post (280 max)</span><span id="twLimitText">0 / 280</span></div><div class="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden"><div id="twBar" class="h-full bg-sky-500 transition-all duration-200" style="width: 0%;"></div></div></div>
+          <div class="space-y-1"><div class="flex justify-between text-xs font-mono"><span>Google SEO Meta Description (160 optimal)</span><span id="seoLimitText">0 / 160</span></div><div class="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden"><div id="seoBar" class="h-full bg-emerald-500 transition-all duration-200" style="width: 0%;"></div></div></div>
         </div>
       </div>
     </section>
@@ -344,21 +381,125 @@
     <!-- ========================================== -->
     <section id="tool-spotlight" class="tool-view hidden space-y-6 max-w-3xl mx-auto">
       <div class="glass rounded-3xl p-6 sm:p-8 border border-sky-500/30 text-center space-y-4 shadow-xl">
-        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">COMMUNITY SPOTLIGHT</span>
+        <span class="text-[10px] font-mono uppercase px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 05 • COMMUNITY SPOTLIGHT</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold">UtilityFlow Spotlight Board</h2>
         <p class="text-xs opacity-70 max-w-md mx-auto">Submit your product or startup link for free community exposure across our platform.</p>
-        
-        <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 hover:opacity-95 transition">
-          🚀 Add Your Project Free
-        </button>
+        <button onclick="openSpotlightModal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 hover:opacity-95 transition">🚀 Add Your Project Free</button>
       </div>
-
       <div class="space-y-3">
-        <div class="flex items-center justify-between px-2 text-xs opacity-70 font-mono">
-          <span>RANK & FEATURED PROJECT</span>
-          <span>STATUS</span>
-        </div>
+        <div class="flex items-center justify-between px-2 text-xs opacity-70 font-mono"><span>RANK & FEATURED PROJECT</span><span>STATUS</span></div>
         <div id="spotlightLeaderboard" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 6: MARKDOWN TO HTML CONVERTER         -->
+    <!-- ========================================== -->
+    <section id="tool-markdown" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 06 • VIRAL DEVELOPER UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-1">Markdown to HTML Live Converter</h2>
+          <p class="text-xs opacity-70 mt-1">Type markdown on the left and see clean HTML rendered on the right instantly.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label class="text-xs font-bold opacity-70 font-mono">Markdown Input</label>
+            <textarea id="mdInput" rows="8" oninput="convertMarkdown()" placeholder="# Hello World&#10;**Bold text** and *italic*" class="w-full p-3.5 rounded-xl input-bg text-xs font-mono"></textarea>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><label class="text-xs font-bold opacity-70 font-mono">HTML Output</label><button onclick="copyHtmlOutput()" class="text-[10px] font-mono px-2.5 py-1 rounded card-bg border font-bold hover:bg-sky-500/10">Copy HTML</button></div>
+            <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl input-bg text-xs font-mono opacity-80"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 7: UUID v4 & HASH GENERATOR           -->
+    <!-- ========================================== -->
+    <section id="tool-uuid" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 07 • CRYPTO & DEV UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-1">UUID v4 & Hash Generator</h2>
+          <p class="text-xs opacity-70 mt-1">Generate random unique identifiers and mock strings instantly.</p>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="generateUuids()" class="px-5 py-3 rounded-xl bg-sky-500 text-white text-xs font-extrabold shadow-md">Generate 5 UUIDs v4</button>
+          <button onclick="generateHashString()" class="px-5 py-3 rounded-xl card-bg border text-xs font-bold hover:bg-sky-500/10">Generate Secure Random Token</button>
+        </div>
+        <div>
+          <textarea id="uuidOutput" rows="5" readonly class="w-full p-4 rounded-xl input-bg text-xs font-mono"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 8: BASE64 & URL ENCODER/DECODER       -->
+    <!-- ========================================== -->
+    <section id="tool-base64" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 08 • SECURITY & ENCODING</span>
+          <h2 class="text-2xl font-extrabold mt-1">Base64 & URL Encoder/Decoder</h2>
+          <p class="text-xs opacity-70 mt-1">Encode or decode strings instantly in your browser securely.</p>
+        </div>
+        <div>
+          <textarea id="base64Input" rows="4" oninput="processBase64('encode')" placeholder="Enter text to encode/decode..." class="w-full p-3.5 rounded-xl input-bg text-xs font-mono"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="processBase64('encode')" class="py-3 rounded-xl bg-sky-500 text-white font-extrabold text-xs shadow-md">Encode to Base64</button>
+          <button onclick="processBase64('decode')" class="py-3 rounded-xl card-bg border font-bold text-xs hover:bg-sky-500/10">Decode from Base64</button>
+        </div>
+        <div>
+          <textarea id="base64Output" rows="4" readonly class="w-full p-3.5 rounded-xl input-bg text-xs font-mono opacity-80" placeholder="Result will appear here..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 9: CSS GRADIENT & COLOR PALETTE       -->
+    <!-- ========================================== -->
+    <section id="tool-color" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 09 • UI & DESIGN UTILITY</span>
+          <h2 class="text-2xl font-extrabold mt-1">CSS Gradient & Color Palette Studio</h2>
+          <p class="text-xs opacity-70 mt-1">Generate professional gradients with 1-click CSS code copying.</p>
+        </div>
+        <div id="gradientPreviewBox" class="h-32 rounded-2xl shadow-inner transition-all duration-500 flex items-center justify-center p-4 bg-gradient-to-r from-sky-400 to-indigo-600">
+          <span id="gradientCssText" class="px-4 py-2 rounded-xl bg-black/40 backdrop-blur-md text-white font-mono text-xs select-all">background: linear-gradient(to right, #38bdf8, #4f46e5);</span>
+        </div>
+        <button onclick="generateRandomGradient()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">Generate Random Aesthetic Gradient 🎨</button>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOOL 10: CODE DIFF CHECKER                 -->
+    <!-- ========================================== -->
+    <section id="tool-diff" class="tool-view hidden space-y-6">
+      <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold">TOOL 10 • DEVELOPER DIFFERENCIATOR</span>
+          <h2 class="text-2xl font-extrabold mt-1">Code Diff Checker</h2>
+          <p class="text-xs opacity-70 mt-1">Compare original code against modified code side-by-side.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label class="text-xs font-bold opacity-70 font-mono">Original Code (A)</label>
+            <textarea id="diffOriginal" rows="6" placeholder="Paste original code here..." class="w-full p-3.5 rounded-xl input-bg text-xs font-mono"></textarea>
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold opacity-70 font-mono">Modified Code (B)</label>
+            <textarea id="diffModified" rows="6" placeholder="Paste modified code here..." class="w-full p-3.5 rounded-xl input-bg text-xs font-mono"></textarea>
+          </div>
+        </div>
+        <button onclick="runCodeDiff()" class="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">Compare Line Differences ⚖️</button>
+        <div id="diffResultBox" class="hidden space-y-2">
+          <label class="text-xs font-bold opacity-70 font-mono">Diff Analysis Result</label>
+          <div id="diffOutputContent" class="p-4 rounded-xl input-bg text-xs font-mono space-y-1"></div>
+        </div>
       </div>
     </section>
 
@@ -377,23 +518,14 @@
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70 hover:opacity-100">✕ Close</button>
       </div>
       <h3 class="text-xl font-bold">Feature Your Project</h3>
-      <div>
-        <label class="text-xs opacity-70 font-semibold">Project / Startup Name</label>
-        <input id="smName" type="text" placeholder="My Startup" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm" />
-      </div>
-      <div>
-        <label class="text-xs opacity-70 font-semibold">Website URL / Link</label>
-        <input id="smUrl" type="text" placeholder="https://startup.com" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm font-mono" />
-      </div>
-      <button onclick="submitFreeSpotlight()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">
-        Publish to Board Instantly →
-      </button>
+      <div><label class="text-xs opacity-70 font-semibold">Project / Startup Name</label><input id="smName" type="text" placeholder="My Startup" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm" /></div>
+      <div><label class="text-xs opacity-70 font-semibold">Website URL / Link</label><input id="smUrl" type="text" placeholder="https://startup.com" class="w-full mt-1 px-4 py-2.5 rounded-xl input-bg text-sm font-mono" /></div>
+      <button onclick="submitFreeSpotlight()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-sky-500/25 transition">Publish to Board Instantly →</button>
     </div>
   </div>
 
-  <!-- SCRIPT ENGINE WITH EXPENSIVE FEATURES -->
+  <!-- COMPREHENSIVE SCRIPT ENGINE (16 TOOLS) -->
   <script>
-    // Theme Initializer
     if (localStorage.getItem('utilityflow_theme') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '🌙';
@@ -417,14 +549,12 @@
       showToast('Theme updated successfully');
     }
 
-    // --- TOAST NOTIFICATION SYSTEM ---
     function showToast(message) {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
       toast.className = 'glass card-bg px-4 py-3 rounded-xl border shadow-xl text-xs font-mono flex items-center gap-2 pointer-events-auto transition-all duration-300 translate-y-2 opacity-0';
       toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> <span>${message}</span>`;
       container.appendChild(toast);
-      
       setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
       setTimeout(() => {
         toast.classList.add('translate-y-2', 'opacity-0');
@@ -432,15 +562,10 @@
       }, 3000);
     }
 
-    // --- COMMAND PALETTE SHORTCUT (Cmd+K) ---
     function toggleCmdPalette(open) {
       const modal = document.getElementById('cmdPalette');
-      if (open) {
-        modal.classList.remove('hidden');
-        document.getElementById('cmdInput').focus();
-      } else {
-        modal.classList.add('hidden');
-      }
+      if (open) { modal.classList.remove('hidden'); document.getElementById('cmdInput').focus(); }
+      else { modal.classList.add('hidden'); }
     }
 
     window.addEventListener('keydown', (e) => {
@@ -449,27 +574,20 @@
         const modal = document.getElementById('cmdPalette');
         toggleCmdPalette(modal.classList.contains('hidden'));
       }
-      if (e.key === 'Escape') {
-        toggleCmdPalette(false);
-      }
+      if (e.key === 'Escape') toggleCmdPalette(false);
     });
-
-    function filterCommands(query) {
-      // Simple filter logic for command search
-      const q = query.toLowerCase();
-      // Can be expanded if needed
-    }
 
     function switchTool(toolId) {
       document.querySelectorAll('.tool-view').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-4 py-2.5 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition');
+      document.querySelectorAll('.tool-tab').forEach(btn => btn.className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 transition');
       
       document.getElementById('tool-' + toolId).classList.remove('hidden');
-      document.getElementById('btn-' + toolId).className = 'tool-tab px-4 py-2.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition';
-      showToast(`Switched to tool: ${toolId.toUpperCase()}`);
+      document.getElementById('btn-' + toolId).className = 'tool-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/20 transition';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`Switched to: ${toolId.toUpperCase()}`);
     }
 
-    // --- FINANCIAL CHART.JS ENGINE ---
+    // Tool 1: Financial Wealth Engine
     let calcMode = 'sip';
     let financialChartInstance = null;
 
@@ -528,210 +646,196 @@
       document.getElementById('resInvested').textContent = '₹' + Math.round(invested).toLocaleString('en-IN');
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
       document.getElementById('resTotal').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
-
-      // Render Chart.js
       renderFinancialChart(invested, gains);
     }
 
     function renderFinancialChart(invested, gains) {
       const ctx = document.getElementById('financialChart').getContext('2d');
-      if (financialChartInstance) {
-        financialChartInstance.destroy();
-      }
+      if (financialChartInstance) financialChartInstance.destroy();
       financialChartInstance = new Chart(ctx, {
         type: 'doughnut',
-        data: {
-          labels: ['Principal', 'Earnings'],
-          datasets: [{
-            data: [invested, gains],
-            backgroundColor: ['#94a3b8', '#10b981'],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          cutout: '75%'
-        }
+        data: { labels: ['Principal', 'Earnings'], datasets: [{ data: [invested, gains], backgroundColor: ['#94a3b8', '#10b981'], borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '75%' }
       });
     }
     updateCalculator();
 
-    // --- IMAGE COMPRESSOR & DRAG/DROP ---
+    // Tool 2: Image Compressor Studio
     let loadedFile = null;
-
-    function handleDrop(e) {
-      e.preventDefault();
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        processFile(e.dataTransfer.files[0]);
-      }
-    }
-
-    function handleImagePreview(e) {
-      if (e.target.files && e.target.files[0]) {
-        processFile(e.target.files[0]);
-      }
-    }
-
+    function handleDrop(e) { e.preventDefault(); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
+    function handleImagePreview(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
     function processFile(file) {
       loadedFile = file;
       document.getElementById('imgOriginalName').textContent = file.name;
       document.getElementById('imgOriginalSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
-
       const reader = new FileReader();
-      reader.onload = function(event) {
-        document.getElementById('sourceImgPreview').src = event.target.result;
+      reader.onload = (e) => {
+        document.getElementById('sourceImgPreview').src = e.target.result;
         document.getElementById('imagePreviewArea').classList.remove('hidden');
         showToast('Image loaded successfully');
       };
       reader.readAsDataURL(file);
     }
-
     function compressAndProcessImage() {
       if (!loadedFile) return;
       const quality = parseInt(document.getElementById('qualityRange').value) / 100;
-      
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = (e) => {
         const img = new Image();
         img.src = e.target.result;
-        img.onload = function() {
+        img.onload = () => {
           const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-
-          canvas.toBlob(function(blob) {
+          canvas.width = img.width; canvas.height = img.height;
+          canvas.getContext('2d').drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
             const compressedUrl = URL.createObjectURL(blob);
-            const newSizeKb = (blob.size / 1024).toFixed(1) + ' KB';
-            const savings = Math.max(0, (100 - (blob.size / loadedFile.size) * 100)).toFixed(0);
-
             const box = document.getElementById('imageResultBox');
             const out = document.getElementById('imageOutputContent');
             box.classList.remove('hidden');
-
             out.innerHTML = `
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                 <img src="${compressedUrl}" class="max-h-48 mx-auto rounded-xl border shadow-sm" />
                 <div class="space-y-3 text-xs font-mono text-left card-bg p-4 rounded-xl border">
-                  <p>New Compressed Size: <span class="text-emerald-500 font-bold">${newSizeKb}</span></p>
-                  <p>Size Reduced By: <span class="text-sky-500 font-bold">${savings}%</span></p>
-                  <button onclick="triggerFileDownload('${compressedUrl}', 'optimized-${loadedFile.name}')" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-center shadow-md transition cursor-pointer">
-                    Download Compressed Image ⬇️
-                  </button>
+                  <p>New Size: <span class="text-emerald-500 font-bold">${(blob.size / 1024).toFixed(1)} KB</span></p>
+                  <button onclick="triggerFileDownload('${compressedUrl}', 'optimized-${loadedFile.name}')" class="w-full py-3 rounded-xl bg-emerald-500 text-white font-extrabold text-center shadow-md">Download Compressed Image ⬇️</button>
                 </div>
               </div>
             `;
-            showToast('Image compressed successfully!');
+            showToast('Compression successful!');
           }, 'image/jpeg', quality);
         };
       };
       reader.readAsDataURL(loadedFile);
     }
-
     function triggerFileDownload(url, filename) {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast('Download initiated successfully');
+      const a = document.createElement('a'); a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      showToast('Download initiated!');
     }
 
-    // --- QR CODE GENERATOR ---
+    // Tool 3: QR Code Generator
     function generateAdvancedQRCode() {
       const text = document.getElementById('qrInput').value.trim() || 'https://utilityflow.io';
       const color = document.getElementById('qrColor').value.replace('#', '');
       const bgColor = document.getElementById('qrBgColor').value.replace('#', '');
-
-      const box = document.getElementById('qrResultBox');
-      const out = document.getElementById('qrOutputContent');
-      const downloadBtn = document.getElementById('downloadQrBtn');
-      box.classList.remove('hidden');
-
-      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}&color=${color}&bgcolor=${bgColor}`;
-      out.innerHTML = `<img src="${qrApiUrl}" alt="QR Code" class="w-48 h-48 mx-auto rounded-lg shadow-sm" />`;
-      downloadBtn.href = qrApiUrl;
-      showToast('QR code generated successfully');
+      document.getElementById('qrResultBox').classList.remove('hidden');
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}&color=${color}&bgcolor=${bgColor}`;
+      document.getElementById('qrOutputContent').innerHTML = `<img src="${url}" class="w-48 h-48 mx-auto rounded-lg" />`;
+      document.getElementById('downloadQrBtn').href = url;
+      showToast('QR Code generated!');
     }
 
-    // --- WORD & SEO COUNTER ---
+    // Tool 4: SEO Counter
     function runWordCounter() {
       const text = document.getElementById('wordInput').value;
       const words = text.trim() ? text.trim().split(/\s+/).length : 0;
       const chars = text.length;
-      const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
-      const readTime = Math.ceil(words / 200 * 60);
-
       document.getElementById('cntWords').textContent = words;
       document.getElementById('cntChars').textContent = chars;
-      document.getElementById('cntSentences').textContent = sentences;
-      document.getElementById('cntTime').textContent = readTime + 's';
-
-      const twPct = Math.min(100, (chars / 280) * 100);
+      document.getElementById('cntSentences').textContent = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+      document.getElementById('cntTime').textContent = Math.ceil(words / 200 * 60) + 's';
       document.getElementById('twLimitText').textContent = chars + ' / 280';
-      const twBar = document.getElementById('twBar');
-      twBar.style.width = twPct + '%';
-      twBar.className = chars > 280 ? 'h-full bg-red-500 transition-all duration-200' : 'h-full bg-sky-500 transition-all duration-200';
-
-      const seoPct = Math.min(100, (chars / 160) * 100);
+      document.getElementById('twBar').style.width = Math.min(100, (chars / 280) * 100) + '%';
       document.getElementById('seoLimitText').textContent = chars + ' / 160';
-      const seoBar = document.getElementById('seoBar');
-      seoBar.style.width = seoPct + '%';
-      seoBar.className = chars > 160 ? 'h-full bg-amber-500 transition-all duration-200' : 'h-full bg-emerald-500 transition-all duration-200';
+      document.getElementById('seoBar').style.width = Math.min(100, (chars / 160) * 100) + '%';
     }
+    function copyWordContent() { navigator.clipboard.writeText(document.getElementById('wordInput').value); showToast('Copied to clipboard!'); }
 
-    function copyWordContent() {
-      const text = document.getElementById('wordInput').value;
-      navigator.clipboard.writeText(text);
-      showToast('Text copied to clipboard!');
-    }
-
-    // --- SPOTLIGHT BOARD ---
+    // Tool 5: Spotlight Board State
     let spotlightProjects = [
       { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured' },
-      { name: 'DevToolbox', url: 'https://devtoolbox.io', status: 'Community Pick' },
-      { name: 'Indie Launch', url: 'https://indielaunch.co', status: 'Trending' }
+      { name: 'DevToolbox', url: 'https://devtoolbox.io', status: 'Community Pick' }
     ];
-
     function renderSpotlightBoard() {
       const list = document.getElementById('spotlightLeaderboard');
       if (!list) return;
-
       list.innerHTML = spotlightProjects.map((p, idx) => `
         <div class="glass card-bg rounded-2xl p-4 flex items-center justify-between gap-4 shadow-sm">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">#${idx + 1}</div>
-            <div>
-              <h4 class="font-bold text-sm"><a href="${p.url}" target="_blank" class="hover:underline text-sky-600 dark:text-sky-400">${p.name} ↗</a></h4>
-              <p class="text-[11px] opacity-60 font-mono">${p.url}</p>
-            </div>
+            <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-500 font-mono font-bold flex items-center justify-center text-sm">#${idx + 1}</div>
+            <div><h4 class="font-bold text-sm"><a href="${p.url}" target="_blank" class="text-sky-500">${p.name} ↗</a></h4><p class="text-[11px] opacity-60 font-mono">${p.url}</p></div>
           </div>
-          <div class="text-right shrink-0">
-            <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">${p.status}</span>
-          </div>
+          <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 font-bold">${p.status}</span>
         </div>
       `).join('');
     }
-
     function openSpotlightModal() { document.getElementById('spotlightModal').classList.remove('hidden'); }
     function closeSpotlightModal() { document.getElementById('spotlightModal').classList.add('hidden'); }
-
     function submitFreeSpotlight() {
       const name = document.getElementById('smName').value.trim();
       const url = document.getElementById('smUrl').value.trim();
-      if (!name || !url) return alert('Please fill in all fields');
+      if (!name || !url) return alert('Fill in all fields');
+      spotlightProjects.unshift({ name, url, status: 'New' });
+      closeSpotlightModal(); renderSpotlightBoard(); showToast('Published!');
+    }
+    renderSpotlightBoard();
 
-      spotlightProjects.unshift({ name, url, status: 'New Submission' });
-      closeSpotlightModal();
-      renderSpotlightBoard();
-      showToast('Project published successfully!');
+    // Tool 6: Markdown to HTML
+    function convertMarkdown() {
+      const md = document.getElementById('mdInput').value;
+      let html = md.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
+      document.getElementById('htmlOutput').value = html;
+    }
+    function copyHtmlOutput() { navigator.clipboard.writeText(document.getElementById('htmlOutput').value); showToast('HTML copied!'); }
+
+    // Tool 7: UUID & Hash
+    function generateUuids() {
+      let res = '';
+      for(let i=0; i<5; i++) {
+        res += 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+          let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        }) + '\n';
+      }
+      document.getElementById('uuidOutput').value = res.trim();
+      showToast('UUIDs generated');
+    }
+    function generateHashString() {
+      const token = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+      document.getElementById('uuidOutput').value = 'sha256_' + token;
+      showToast('Secure token generated');
     }
 
-    renderSpotlightBoard();
+    // Tool 8: Base64 Encoder/Decoder
+    function processBase64(mode) {
+      const val = document.getElementById('base64Input').value;
+      try {
+        if(mode === 'encode') document.getElementById('base64Output').value = btoa(val);
+        else document.getElementById('base64Output').value = atob(val);
+      } catch(e) { document.getElementById('base64Output').value = '❌ Invalid input for operation'; }
+    }
+
+    // Tool 9: CSS Gradient
+    function generateRandomGradient() {
+      const c1 = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      const c2 = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      const box = document.getElementById('gradientPreviewBox');
+      box.style.background = `linear-gradient(to right, ${c1}, ${c2})`;
+      document.getElementById('gradientCssText').textContent = `background: linear-gradient(to right, ${c1}, ${c2});`;
+      showToast('Gradient generated!');
+    }
+
+    // Tool 10: Code Diff Checker
+    function runCodeDiff() {
+      const a = document.getElementById('diffOriginal').value.split('\n');
+      const b = document.getElementById('diffModified').value.split('\n');
+      const box = document.getElementById('diffResultBox');
+      const out = document.getElementById('diffOutputContent');
+      box.classList.remove('hidden');
+      let html = '';
+      const max = Math.max(a.length, b.length);
+      for(let i=0; i<max; i++) {
+        const lineA = a[i] !== undefined ? a[i] : '';
+        const lineB = b[i] !== undefined ? b[i] : '';
+        if(lineA === lineB) html += `<div class="text-slate-500">  ${lineA}</div>`;
+        else {
+          if(lineA) html += `<div class="bg-red-500/15 text-red-500">- ${lineA}</div>`;
+          if(lineB) html += `<div class="bg-emerald-500/15 text-emerald-500">+ ${lineB}</div>`;
+        }
+      }
+      out.innerHTML = html || '<div class="opacity-50">No lines to compare</div>';
+      showToast('Diff analysis completed');
+    }
   </script>
 </body>
 </html>
