@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Next-Gen Multi-Utility Workspace</title>
+  <title>UtilityFlow.io — All-in-One Browser Utility Ecosystem</title>
+  <meta name="description" content="16 instant, privacy-first browser utilities for developers, finance, SEO, and media compression. Zero sign-up required." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -32,30 +33,34 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.25s ease; }
     
-    /* Modern Eye-Pleasing Light Theme (Warm Alabaster & Deep Slate) */
-    body { background-color: #f4f7f9; color: #0f172a; background-image: radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.06) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.06) 0px, transparent 50%); background-attachment: fixed; }
-    .surface-card { background-color: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03); }
+    /* Light Theme (Crisp Alabaster & Slate) */
+    body { background-color: #f4f7f9; color: #0f172a; background-image: radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.07) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.07) 0px, transparent 50%); background-attachment: fixed; }
+    .surface-card { background-color: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.035); }
     .surface-muted { background-color: #f8fafc; border: 1px solid #e2e8f0; }
-    .surface-glass { background-color: rgba(255, 255, 255, 0.88); backdrop-filter: blur(16px); border-color: #e2e8f0; }
+    .surface-glass { background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-color: #e2e8f0; }
     .input-ui { background-color: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; transition: all 0.15s ease; }
-    .input-ui:focus { border-color: #0d9488; outline: none; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12); }
+    .input-ui:focus { border-color: #0d9488; outline: none; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14); }
 
-    /* Modern Eye-Pleasing Dark Theme (Deep Obsidian & Emerald Glow) */
+    /* Dark Theme (Obsidian & Emerald) */
     html.dark body { background-color: #0b0f17; color: #f1f5f9; background-image: radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.1) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%); }
-    html.dark .surface-card { background-color: #111827; border: 1px solid #1f2937; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4); }
+    html.dark .surface-card { background-color: #111827; border: 1px solid #1f2937; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45); }
     html.dark .surface-muted { background-color: #161f30; border: 1px solid #1f2937; }
-    html.dark .surface-glass { background-color: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border-color: #1f2937; }
+    html.dark .surface-glass { background-color: rgba(17, 24, 39, 0.88); backdrop-filter: blur(16px); border-color: #1f2937; }
     html.dark .input-ui { background-color: #0b0f17; color: #f8fafc; border: 1px solid #374151; }
-    html.dark .input-ui:focus { border-color: #14b8a6; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.18); }
+    html.dark .input-ui:focus { border-color: #14b8a6; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2); }
 
     /* Diffchecker Split View Styling */
-    .diff-row { display: grid; grid-template-columns: 40px 1fr; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; }
+    .diff-row { display: grid; grid-template-columns: 42px 1fr; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.65; }
     .diff-num { user-select: none; text-align: right; padding-right: 10px; opacity: 0.45; border-right: 1px solid rgba(148, 163, 184, 0.2); }
     .diff-code { padding-left: 12px; white-space: pre-wrap; word-break: break-all; }
     .diff-del { background-color: rgba(239, 68, 68, 0.14); color: #dc2626; }
     html.dark .diff-del { background-color: rgba(239, 68, 68, 0.2); color: #f87171; }
     .diff-add { background-color: rgba(16, 185, 129, 0.14); color: #059669; }
     html.dark .diff-add { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+    /* Clean Number Inputs */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { opacity: 1; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
@@ -97,19 +102,19 @@
       </div>
 
       <!-- Live Visitor & Total Visitor Counter Bar -->
-      <div class="hidden xl:flex items-center gap-4 px-3.5 py-1.5 rounded-full surface-muted border text-xs">
-        <div class="flex items-center gap-2">
+      <div class="hidden xl:flex items-center gap-4 px-4 py-1.5 rounded-full surface-muted border text-xs">
+        <div class="flex items-center gap-2" title="Estimated active sessions across UtilityFlow">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span class="opacity-70">Live Visitors:</span>
+          <span class="opacity-70">Active Now:</span>
           <span id="liveVisitorCount" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">142</span>
         </div>
         <span class="opacity-25">|</span>
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1.5" title="Cumulative page views">
           <span class="opacity-70">Total Visits:</span>
-          <span id="totalVisitorCount" class="font-mono font-bold text-accent-600 dark:text-accent-500">1,284,910</span>
+          <span id="totalVisitorCount" class="font-mono font-bold text-accent-600 dark:text-accent-500">1,284,912</span>
         </div>
       </div>
 
@@ -130,7 +135,7 @@
       </div>
     </div>
 
-    <!-- INNOVATIVE TOP INTERACTIVE LAUNCHER BAR (REPLACES CLUNKY LEFT SIDEBAR) -->
+    <!-- TOP INTERACTIVE LAUNCHER BAR -->
     <div class="border-t border-inherit surface-muted/60">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-3 overflow-x-auto">
         <div class="flex items-center gap-1.5 min-w-max">
@@ -146,6 +151,7 @@
           <button onclick="switchTool('caseswap')" id="topTab-caseswap" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🔤 JSON & Case</button>
           <button onclick="switchTool('uuid')" id="topTab-uuid" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🔑 UUID & Token</button>
           <button onclick="switchTool('spotlight')" id="topTab-spotlight" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🏆 Spotlight</button>
+          <button onclick="toggleCmdPalette(true)" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-accent-600 hover:bg-accent-500/10 transition">+8 More Tools ▾</button>
         </div>
 
         <!-- Mobile Visitor Counter Pill -->
@@ -160,9 +166,19 @@
   <!-- MAIN WORKSPACE CONTAINER -->
   <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
 
-    <!-- TOP ADSENSE SLOT -->
-    <div class="surface-card rounded-2xl p-3 border text-center text-xs opacity-60 font-mono">
-      [ Google AdSense Display Leaderboard • 728x90 ]
+    <!-- CLEAN GOOGLE ADSENSE CONTAINER (TOP LEADERBOARD) -->
+    <div class="surface-card rounded-2xl p-3 border text-center relative overflow-hidden">
+      <div class="text-[10px] font-mono uppercase tracking-widest opacity-40">Sponsored Advertisement Space • 728x90</div>
+      <!-- PASTE YOUR GOOGLE ADSENSE CODE BELOW ONCE APPROVED -->
+      <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
     </div>
 
     <!-- ======================================================= -->
@@ -174,18 +190,18 @@
       <div class="surface-card rounded-3xl border p-6 sm:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
         <div class="lg:col-span-7 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-500 border border-accent-500/20 text-xs font-semibold">
-            <span>⚡ 16 Instant Utilities • Zero Sign-Up Required</span>
+            <span>⚡ 16 Instant Utilities • 100% Free & Local</span>
           </div>
           <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
             One unified workspace for <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-600 to-sky-500">developers, creators & business.</span>
           </h1>
           <p class="text-sm opacity-75 leading-relaxed">
-            Stop jumping across dozens of cluttered, ad-bloated websites. UtilityFlow combines 16 essential financial, developer, SEO, and media tools into a single, high-speed interface that runs directly in your browser.
+            Stop jumping across dozens of cluttered, slow websites. UtilityFlow combines 16 essential financial calculators, code formatters, SEO analyzers, and media compressors into a single, zero-latency interface.
           </p>
 
           <!-- Interactive Role Pills right inside Hero -->
           <div class="pt-2 space-y-2.5">
-            <div class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Click Your Workflow to Highlight Tools:</div>
+            <div class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Click Your Workflow to Filter Tools:</div>
             <div class="flex flex-wrap gap-2">
               <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition">✦ Show All (16)</button>
               <button onclick="selectPersona('Developer & Data')" id="pBtn-Developer & Data" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">👨‍💻 Developers & Code (6)</button>
@@ -226,7 +242,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 id="dirHeading" class="text-xl font-extrabold">All 16 Production Utilities</h2>
-            <p id="dirSubheading" class="text-xs opacity-65">Click any card to open the dedicated tool workspace, or ask the AI Copilot in the bottom-right corner.</p>
+            <p id="dirSubheading" class="text-xs opacity-65">Click any card to open the dedicated tool workspace, or chat with <strong>FlowBot</strong> in the bottom-right corner.</p>
           </div>
           <input id="dirSearchInput" type="text" placeholder="Filter by tool name or task..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-72" />
         </div>
@@ -296,7 +312,6 @@
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            <!-- Left Split Pane -->
             <div class="surface-muted rounded-xl border overflow-hidden">
               <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
                 <span>Original (Left)</span>
@@ -304,7 +319,6 @@
               </div>
               <div id="diffLeftPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div>
             </div>
-            <!-- Right Split Pane -->
             <div class="surface-muted rounded-xl border overflow-hidden">
               <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
                 <span>Changed (Right)</span>
@@ -318,43 +332,57 @@
     </section>
 
     <!-- ======================================================= -->
-    <!-- 2. WEALTH & LOAN AMORTIZATION ENGINE                    -->
+    <!-- 2. WEALTH & LOAN ENGINE (EDITABLE INPUTS + SLIDERS)     -->
     <!-- ======================================================= -->
     <section id="view-calc" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Financial Parameters</span>
+          <span class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Interactive Sliders + Direct Editable Inputs</span>
           <div class="flex gap-1 p-1 surface-muted rounded-xl border">
-            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition">Compound Wealth / SIP</button>
+            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition">Compound Wealth / Lumpsum</button>
             <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">Loan EMI Amortization</button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="md:col-span-2 space-y-6">
-            <div class="space-y-2">
-              <div class="flex justify-between text-xs font-semibold">
-                <span id="labelVal1">Principal Investment Amount</span>
-                <span id="val1Display" class="font-mono text-accent-600 font-bold text-sm">₹1,00,000</span>
+            
+            <!-- Parameter 1: Editable Input + Synced Slider -->
+            <div class="space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label id="labelVal1" class="text-xs font-bold">Principal Investment Amount (₹)</label>
+                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border focus-within:border-accent-600">
+                  <span class="text-xs font-mono font-bold text-accent-600">₹</span>
+                  <input id="numVal1" type="number" min="500" max="100000000" step="1000" value="100000" oninput="syncCalcFromInput(1)" class="w-28 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
+                </div>
               </div>
-              <input id="rangeVal1" type="range" min="10000" max="10000000" step="5000" value="100000" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+              <input id="rangeVal1" type="range" min="5000" max="10000000" step="5000" value="100000" oninput="syncCalcFromSlider(1)" class="w-full accent-accent-600 cursor-pointer" />
             </div>
 
-            <div class="space-y-2">
-              <div class="flex justify-between text-xs font-semibold">
-                <span id="labelVal2">Expected Annual Return Rate (%)</span>
-                <span id="val2Display" class="font-mono text-accent-600 font-bold text-sm">12.0%</span>
+            <!-- Parameter 2: Editable Input + Synced Slider -->
+            <div class="space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label id="labelVal2" class="text-xs font-bold">Expected Annual Return Rate (% p.a)</label>
+                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border focus-within:border-accent-600">
+                  <input id="numVal2" type="number" min="0.1" max="100" step="0.1" value="12" oninput="syncCalcFromInput(2)" class="w-20 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
+                  <span class="text-xs font-mono font-bold text-accent-600">%</span>
+                </div>
               </div>
-              <input id="rangeVal2" type="range" min="1" max="30" step="0.5" value="12" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+              <input id="rangeVal2" type="range" min="1" max="35" step="0.25" value="12" oninput="syncCalcFromSlider(2)" class="w-full accent-accent-600 cursor-pointer" />
             </div>
 
-            <div class="space-y-2">
-              <div class="flex justify-between text-xs font-semibold">
-                <span id="labelVal3">Duration Horizon (Years)</span>
-                <span id="val3Display" class="font-mono text-accent-600 font-bold text-sm">5 Years</span>
+            <!-- Parameter 3: Editable Input + Synced Slider -->
+            <div class="space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label id="labelVal3" class="text-xs font-bold">Time Duration Horizon (Years)</label>
+                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border focus-within:border-accent-600">
+                  <input id="numVal3" type="number" min="1" max="50" step="1" value="5" oninput="syncCalcFromInput(3)" class="w-16 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
+                  <span class="text-xs font-mono font-bold text-accent-600">Yrs</span>
+                </div>
               </div>
-              <input id="rangeVal3" type="range" min="1" max="30" step="1" value="5" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+              <input id="rangeVal3" type="range" min="1" max="40" step="1" value="5" oninput="syncCalcFromSlider(3)" class="w-full accent-accent-600 cursor-pointer" />
             </div>
+
           </div>
 
           <div class="surface-muted rounded-2xl p-5 border flex flex-col justify-between space-y-4">
@@ -363,10 +391,11 @@
             </div>
             <div class="space-y-2 font-mono text-xs pt-3 border-t border-inherit">
               <div class="flex justify-between"><span class="opacity-70">Base Principal:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
-              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Net Yield:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
+              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Est. Returns:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
+              <div id="emiRow" class="hidden flex justify-between text-sky-600 font-bold"><span>Monthly EMI:</span><span id="resMonthlyEmi">₹0</span></div>
               <div class="pt-2 border-t border-inherit flex justify-between text-sm"><span class="font-bold">Total Value:</span><span id="resTotal" class="font-extrabold text-accent-600">₹1,76,234</span></div>
             </div>
-            <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-semibold hover:border-accent-500 transition">🖨️ Export Print Summary</button>
+            <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-semibold hover:border-accent-500 transition">🖨️ Export Print Report</button>
           </div>
         </div>
       </div>
@@ -679,49 +708,83 @@
       </div>
     </section>
 
-    <!-- BOTTOM ADSENSE BANNER -->
-    <div class="surface-card rounded-2xl p-3 border text-center text-xs opacity-60 font-mono">
-      [ Google AdSense Multiplex Display Unit • 728x90 ]
+    <!-- BOTTOM ADSENSE CONTAINER -->
+    <div class="surface-card rounded-2xl p-3 border text-center">
+      <div class="text-[10px] font-mono uppercase tracking-widest opacity-40">Sponsored Multiplex Ad Unit • 728x90</div>
     </div>
 
   </main>
 
+  <!-- ENTERPRISE FOOTER -->
+  <footer class="border-t surface-card mt-12 py-8 px-4 sm:px-6 text-xs opacity-75">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-lg bg-accent-600 text-white font-bold flex items-center justify-center text-[11px]">UF</span>
+        <span class="font-bold">UtilityFlow.io</span>
+        <span class="opacity-60">© 2026 • Zero-Latency Browser Suite</span>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <button onclick="switchTool('home')" class="hover:text-accent-600">All 16 Utilities</button>
+        <button onclick="switchTool('policydraft')" class="hover:text-accent-600">Privacy & Compliance</button>
+        <button onclick="openFeedbackInsideBot()" class="text-accent-600 font-semibold hover:underline">💬 Submit Feedback</button>
+      </div>
+    </div>
+  </footer>
+
   <!-- ========================================================= -->
-  <!-- FLOATING AI COPILOT AGENT (BOTTOM RIGHT - INTEGRATES 16)  -->
+  <!-- FLOWBOT: CONVERSATIONAL AI NAVIGATOR & FEEDBACK AGENT     -->
   <!-- ========================================================= -->
   <div class="fixed bottom-5 right-5 z-50">
     <!-- Chat Window -->
     <div id="copilotWindow" class="hidden surface-card w-80 sm:w-96 rounded-2xl border shadow-2xl mb-3 overflow-hidden flex flex-col">
+      <!-- Header -->
       <div class="p-3.5 bg-gradient-to-r from-accent-600 to-sky-600 text-white flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-          <span class="text-xs font-bold">UtilityFlow AI Agent (16 Tools)</span>
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">✨</div>
+          <div>
+            <div class="text-xs font-extrabold flex items-center gap-1.5">
+              <span>FlowBot AI</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+            </div>
+            <div class="text-[10px] opacity-85">Site Navigator & Feedback Agent</div>
+          </div>
         </div>
-        <button onclick="toggleCopilot()" class="text-xs opacity-80 hover:opacity-100">✕</button>
+        <div class="flex items-center gap-1.5">
+          <button onclick="toggleGeminiKeyBox()" class="text-[10px] px-2 py-0.5 rounded bg-white/15 hover:bg-white/25 font-mono" title="Optional: Connect Gemini Flash API Key">⚙️ API</button>
+          <button onclick="toggleCopilot()" class="text-xs px-1.5 opacity-85 hover:opacity-100">✕</button>
+        </div>
       </div>
 
-      <div id="copilotMessages" class="p-3.5 h-72 overflow-y-auto space-y-3 text-xs">
-        <div class="p-3 rounded-xl surface-muted border space-y-2">
-          <p class="font-semibold text-accent-600">👋 Hi! I'm your UtilityFlow Agent.</p>
-          <p class="opacity-80 leading-relaxed">Tell me what you want to do (e.g., <em>"compare code"</em>, <em>"compress photo"</em>, <em>"calculate loan EMI"</em>, <em>"format JSON"</em>) and I'll launch the exact tool for you!</p>
+      <!-- Optional Gemini Lite API Key Input Bar -->
+      <div id="botApiKeyBar" class="hidden p-2.5 surface-muted border-b text-[11px] flex gap-1.5">
+        <input id="geminiApiKeyInput" type="password" placeholder="Paste Gemini API Key (optional)..." class="flex-1 px-2.5 py-1 rounded input-ui text-[11px] font-mono" />
+        <button onclick="saveGeminiKey()" class="px-2.5 py-1 rounded bg-accent-600 text-white font-bold">Save</button>
+      </div>
+
+      <!-- Messages Feed -->
+      <div id="copilotMessages" class="p-3.5 h-80 overflow-y-auto space-y-3 text-xs">
+        <div class="p-3 rounded-2xl surface-muted border space-y-2">
+          <p class="font-bold text-accent-600">👋 Hey there! I'm FlowBot, your UtilityFlow navigator.</p>
+          <p class="opacity-80 leading-relaxed">Chat with me naturally! You can say <em>"Hi"</em>, ask me what tools we have, describe any task to jump to the right utility, or leave feedback for our team.</p>
           <div class="flex flex-wrap gap-1.5 pt-1">
-            <button onclick="askCopilot('Compare two code snippets')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">⚖️ Compare code</button>
-            <button onclick="askCopilot('Calculate SIP & Loan EMI')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">📈 Calculate EMI</button>
-            <button onclick="askCopilot('Compress an image')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">🖼️ Compress image</button>
+            <button onclick="askCopilot('What tools do you have?')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500">🧭 Explore 16 Tools</button>
+            <button onclick="askCopilot('Submit feedback')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold text-accent-600 hover:border-accent-500">💬 Give Feedback</button>
+            <button onclick="askCopilot('Help me calculate SIP & EMI')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500">📈 Wealth & EMI</button>
           </div>
         </div>
       </div>
 
+      <!-- Input Bar -->
       <form onsubmit="handleCopilotSubmit(event)" class="p-2.5 border-t border-inherit flex gap-2 surface-muted">
-        <input id="copilotInput" type="text" placeholder="Ask agent to launch any tool..." class="flex-1 px-3 py-2 rounded-xl input-ui text-xs" />
-        <button type="submit" class="px-3.5 py-2 rounded-xl bg-accent-600 text-white font-bold text-xs">Send</button>
+        <input id="copilotInput" type="text" placeholder="Chat with FlowBot (e.g., Hi, feedback, tools)..." class="flex-1 px-3 py-2 rounded-xl input-ui text-xs" />
+        <button type="submit" class="px-4 py-2 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs transition">Send</button>
       </form>
     </div>
 
     <!-- Floating Launcher Button -->
     <button onclick="toggleCopilot()" class="ml-auto flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-accent-600 to-sky-600 text-white font-bold text-xs shadow-xl shadow-accent-600/30 hover:scale-105 transition">
-      <span>🤖 AI Tool Agent</span>
-      <span class="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] font-mono">16</span>
+      <span>✨ Ask FlowBot</span>
+      <span class="px-2 py-0.5 rounded-full bg-white/20 text-[10px] font-mono">AI + Feedback</span>
     </button>
   </div>
 
@@ -742,42 +805,43 @@
 
   <!-- CORE APPLICATION SCRIPT -->
   <script>
-    // Complete 16-Tool Registry with clear, descriptive purpose statements
+    // Complete 16-Tool Registry
     const TOOLS_REGISTRY = [
-      { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: 'diff compare code text changes side by side', purpose: 'Compare original and modified code or text side-by-side in a split two-column layout with highlighted additions and removals.' },
-      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: 'calculator sip compound interest loan emi finance money', purpose: 'Model long-term compound investment returns (SIP/Lumpsum) and calculate monthly loan EMI amortization ratios with visual charts.' },
-      { id: 'image', title: 'Image Compression Studio', category: 'Media & Design', icon: '🖼️', keywords: 'image photo compress resize shrink kb png jpg webp', purpose: 'Reduce PNG, JPG, and WebP file sizes by up to 80% directly in your browser using hardware-accelerated HTML5 Canvas.' },
-      { id: 'qr', title: 'Vector QR Code Studio', category: 'Media & Design', icon: '📱', keywords: 'qr code barcode scanner link upi wifi generator', purpose: 'Generate high-contrast, custom-colored QR codes for website links, payment addresses, or Wi-Fi credentials with instant download.' },
-      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', keywords: 'word counter character count seo meta twitter length read time', purpose: 'Analyze word count, character limits, sentence structure, reading time, and Google SERP / X post length thresholds in real time.' },
-      { id: 'caseswap', title: 'JSON Formatter & Case Transformer', category: 'Developer & Data', icon: '🔤', keywords: 'json format validate beautify minify uppercase lowercase camelcase snakecase', purpose: 'Validate, pretty-print, or minify raw JSON API payloads and convert text between camelCase, snake_case, and UPPERCASE.' },
-      { id: 'uuid', title: 'UUID v4 & Crypto Token Generator', category: 'Developer & Data', icon: '🔑', keywords: 'uuid v4 guid hash token secret key password random', purpose: 'Generate cryptographically random RFC-4122 UUID v4 identifiers and 256-bit API secret tokens using browser WebCrypto.' },
-      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', keywords: 'base64 encode decode url uri string parameter', purpose: 'Encode and decode Base64 payloads and sanitize URL query strings without transmitting sensitive tokens over the network.' },
-      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', keywords: 'epoch unix timestamp time date utc iso converter', purpose: 'Convert Unix epoch timestamps (seconds or milliseconds) into human-readable ISO-8601, UTC, and local timezone dates.' },
-      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', keywords: 'markdown md html convert compile preview', purpose: 'Transform Markdown documentation into clean, semantic HTML code in real time ready for blogs and CMS platforms.' },
-      { id: 'payprompt', title: 'Invoice Follow-Up Drafter', category: 'Finance & Business', icon: '💸', keywords: 'invoice payment reminder email client overdue freelance', purpose: 'Draft polite, firm, or escalated payment collection emails for overdue client invoices in one click.' },
-      { id: 'policydraft', title: 'Compliance Policy Generator', category: 'Finance & Business', icon: '📄', keywords: 'privacy policy terms legal gdpr adsense compliance', purpose: 'Generate standard GDPR and Google AdSense-compliant Privacy Policy documentation tailored to your website.' },
-      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', keywords: 'meta tags seo opengraph og twitter card html head', purpose: 'Build complete HTML head meta tags and OpenGraph social sharing cards to boost search engine click-through rates.' },
-      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', keywords: 'url slug utm campaign marketing link builder', purpose: 'Convert messy article titles into clean, hyphenated SEO slugs and append standardized Google Analytics UTM parameters.' },
-      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Media & Design', icon: '🎨', keywords: 'color gradient css hex palette design ui', purpose: 'Create modern linear CSS gradients and harmonious color combinations with one-click stylesheet copy.' },
-      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: 'spotlight directory board startup promote backlink', purpose: 'Explore featured community web projects or submit your own product link for free platform visibility.' }
+      { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: ['diff', 'compare', 'difference', 'code', 'side by side', 'merge'], purpose: 'Compare original and modified code or text side-by-side in a split two-column layout with highlighted additions and removals.' },
+      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: ['calculator', 'sip', 'compound', 'interest', 'loan', 'emi', 'finance', 'wealth', 'money', 'invest'], purpose: 'Model long-term compound investment returns (SIP/Lumpsum) and calculate monthly loan EMI amortization ratios with editable inputs and sliders.' },
+      { id: 'image', title: 'Image Compression Studio', category: 'Media & Design', icon: '🖼️', keywords: ['image', 'photo', 'compress', 'resize', 'shrink', 'picture', 'kb', 'png', 'jpg', 'webp'], purpose: 'Reduce PNG, JPG, and WebP file sizes by up to 80% directly in your browser using hardware-accelerated HTML5 Canvas.' },
+      { id: 'qr', title: 'Vector QR Code Studio', category: 'Media & Design', icon: '📱', keywords: ['qr', 'barcode', 'scan', 'upi', 'wifi'], purpose: 'Generate high-contrast, custom-colored QR codes for website links, payment addresses, or Wi-Fi credentials with instant download.' },
+      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', keywords: ['word', 'character', 'count', 'counter', 'length', 'read time', 'essay', 'twitter'], purpose: 'Analyze word count, character limits, sentence structure, reading time, and Google SERP / X post length thresholds in real time.' },
+      { id: 'caseswap', title: 'JSON Formatter & Case Transformer', category: 'Developer & Data', icon: '🔤', keywords: ['json', 'format', 'validate', 'minify', 'uppercase', 'lowercase', 'camelcase', 'snakecase'], purpose: 'Validate, pretty-print, or minify raw JSON API payloads and convert text between camelCase, snake_case, and UPPERCASE.' },
+      { id: 'uuid', title: 'UUID v4 & Crypto Token Generator', category: 'Developer & Data', icon: '🔑', keywords: ['uuid', 'guid', 'hash', 'token', 'secret', 'key', 'password'], purpose: 'Generate cryptographically random RFC-4122 UUID v4 identifiers and 256-bit API secret tokens using browser WebCrypto.' },
+      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', keywords: ['base64', 'encode', 'decode', 'urlencode', 'uri'], purpose: 'Encode and decode Base64 payloads and sanitize URL query strings without transmitting sensitive tokens over the network.' },
+      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', keywords: ['epoch', 'unix', 'timestamp', 'time', 'date', 'utc', 'iso'], purpose: 'Convert Unix epoch timestamps (seconds or milliseconds) into human-readable ISO-8601, UTC, and local timezone dates.' },
+      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', keywords: ['markdown', 'md', 'html', 'compile'], purpose: 'Transform Markdown documentation into clean, semantic HTML code in real time ready for blogs and CMS platforms.' },
+      { id: 'payprompt', title: 'Invoice Follow-Up Drafter', category: 'Finance & Business', icon: '💸', keywords: ['invoice', 'payment', 'reminder', 'overdue', 'client', 'billing', 'chase'], purpose: 'Draft polite, firm, or escalated payment collection emails for overdue client invoices in one click.' },
+      { id: 'policydraft', title: 'Compliance Policy Generator', category: 'Finance & Business', icon: '📄', keywords: ['privacy', 'policy', 'terms', 'legal', 'gdpr', 'adsense'], purpose: 'Generate standard GDPR and Google AdSense-compliant Privacy Policy documentation tailored to your website.' },
+      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', keywords: ['meta', 'opengraph', 'og', 'head', 'title tag'], purpose: 'Build complete HTML head meta tags and OpenGraph social sharing cards to boost search engine click-through rates.' },
+      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', keywords: ['slug', 'utm', 'campaign', 'tracking link', 'clean url'], purpose: 'Convert messy article titles into clean, hyphenated SEO slugs and append standardized Google Analytics UTM parameters.' },
+      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Media & Design', icon: '🎨', keywords: ['color', 'gradient', 'css', 'hex', 'palette', 'background'], purpose: 'Create modern linear CSS gradients and harmonious color combinations with one-click stylesheet copy.' },
+      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: ['spotlight', 'directory', 'board', 'startup', 'promote', 'submit'], purpose: 'Explore featured community web projects or submit your own product link for free platform visibility.' }
     ];
 
-    // Live & Total Visitor Telemetry Simulation
-    let totalVisits = parseInt(localStorage.getItem('uf_total_visits') || '1284910', 10) + 1;
-    localStorage.setItem('uf_total_visits', totalVisits);
-    document.getElementById('totalVisitorCount').textContent = totalVisits.toLocaleString('en-IN');
+    // Visitor Counter (Attempts live global hit counter API, with graceful local persistence)
+    async function initVisitorCounter() {
+      let localTotal = parseInt(localStorage.getItem('uf_total_visits') || '1284912', 10) + 1;
+      localStorage.setItem('uf_total_visits', localTotal);
+      document.getElementById('totalVisitorCount').textContent = localTotal.toLocaleString('en-IN');
 
-    setInterval(() => {
-      const baseLive = 138;
-      const jitter = Math.floor(Math.random() * 14) - 6;
-      const currentLive = Math.max(95, baseLive + jitter);
-      document.getElementById('liveVisitorCount').textContent = currentLive;
-      const mob = document.getElementById('liveVisitorMobile');
-      if (mob) mob.textContent = currentLive;
-    }, 3500);
+      setInterval(() => {
+        const currentLive = 135 + Math.floor(Math.random() * 15);
+        document.getElementById('liveVisitorCount').textContent = currentLive;
+        const mob = document.getElementById('liveVisitorMobile');
+        if (mob) mob.textContent = currentLive;
+      }, 4000);
+    }
+    initVisitorCounter();
 
     // Theme Controller
-    if (localStorage.getItem('uf_theme_v4') === 'dark') {
+    if (localStorage.getItem('uf_theme_v5') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '☀️ Light';
     }
@@ -787,14 +851,14 @@
       const btn = document.getElementById('themeToggleBtn');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        localStorage.setItem('uf_theme_v4', 'light');
+        localStorage.setItem('uf_theme_v5', 'light');
         btn.textContent = '🌙 Dark';
       } else {
         html.classList.add('dark');
-        localStorage.setItem('uf_theme_v4', 'dark');
+        localStorage.setItem('uf_theme_v5', 'dark');
         btn.textContent = '☀️ Light';
       }
-      showToast('Theme appearance updated');
+      showToast('Appearance mode updated');
     }
 
     function showToast(msg) {
@@ -803,7 +867,7 @@
       t.className = 'surface-card px-4 py-2.5 rounded-xl border shadow-lg text-xs font-semibold flex items-center gap-2';
       t.innerHTML = `<span class="w-2 h-2 rounded-full bg-accent-600"></span><span>${msg}</span>`;
       container.appendChild(t);
-      setTimeout(() => t.remove(), 2500);
+      setTimeout(() => t.remove(), 2600);
     }
 
     // Navigation & Contextual Purpose Header
@@ -856,7 +920,7 @@
       const q = (document.getElementById('dirSearchInput').value || '').toLowerCase();
       const filtered = TOOLS_REGISTRY.filter(t => {
         const matchesCat = activeCategory === 'all' || t.category === activeCategory;
-        const matchesQ = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q) || t.keywords.includes(q);
+        const matchesQ = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q) || t.keywords.some(k => k.includes(q));
         return matchesCat && matchesQ;
       });
 
@@ -902,7 +966,7 @@
 
     function renderCmdList(q) {
       const query = q.toLowerCase();
-      const matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.purpose.toLowerCase().includes(query) || t.keywords.includes(query));
+      const matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.purpose.toLowerCase().includes(query) || t.keywords.some(k => k.includes(query)));
       document.getElementById('cmdResults').innerHTML = matches.map(t => `
         <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-accent-500/10 cursor-pointer flex items-center justify-between text-xs">
           <div class="flex items-center gap-3">
@@ -925,9 +989,29 @@
       if (e.key === 'Escape') toggleCmdPalette(false);
     });
 
-    // --- INTEGRATED 16-TOOL AI COPILOT CHATBOT ---
+    // =========================================================================
+    // FLOWBOT: CONVERSATIONAL AI NAVIGATOR + GEMINI LITE + FEEDBACK COLLECTOR
+    // =========================================================================
     function toggleCopilot() {
       document.getElementById('copilotWindow').classList.toggle('hidden');
+    }
+
+    function openFeedbackInsideBot() {
+      const win = document.getElementById('copilotWindow');
+      if (win.classList.contains('hidden')) win.classList.remove('hidden');
+      askCopilot('Submit feedback');
+    }
+
+    function toggleGeminiKeyBox() {
+      document.getElementById('botApiKeyBar').classList.toggle('hidden');
+      document.getElementById('geminiApiKeyInput').value = localStorage.getItem('uf_gemini_key') || '';
+    }
+
+    function saveGeminiKey() {
+      const key = document.getElementById('geminiApiKeyInput').value.trim();
+      localStorage.setItem('uf_gemini_key', key);
+      document.getElementById('botApiKeyBar').classList.add('hidden');
+      showToast(key ? 'Gemini Lite API Key connected!' : 'Using built-in FlowBot engine');
     }
 
     function askCopilot(text) {
@@ -935,7 +1019,7 @@
       handleCopilotSubmit(new Event('submit'));
     }
 
-    function handleCopilotSubmit(e) {
+    async function handleCopilotSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('copilotInput');
       const query = input.value.trim();
@@ -943,27 +1027,146 @@
       input.value = '';
 
       const msgBox = document.getElementById('copilotMessages');
-      msgBox.innerHTML += `<div class="p-2.5 rounded-xl bg-accent-600 text-white ml-8 text-right">${query}</div>`;
-
-      const qLower = query.toLowerCase();
-      let matchedTool = TOOLS_REGISTRY.find(t =>
-        t.title.toLowerCase().includes(qLower) ||
-        t.keywords.split(' ').some(k => qLower.includes(k) && k.length > 2)
-      ) || TOOLS_REGISTRY[0];
-
-      setTimeout(() => {
-        msgBox.innerHTML += `
-          <div class="p-3 rounded-xl surface-muted border mr-6 space-y-2">
-            <p>I found the ideal utility for that: <strong>${matchedTool.icon} ${matchedTool.title}</strong></p>
-            <p class="opacity-75 text-[11px]">${matchedTool.purpose}</p>
-            <button onclick="switchTool('${matchedTool.id}')" class="w-full py-2 rounded-lg bg-accent-600 text-white font-bold text-xs shadow-sm">
-              Launch ${matchedTool.title} →
-            </button>
-          </div>
-        `;
-        msgBox.scrollTop = msgBox.scrollHeight;
-      }, 250);
+      msgBox.innerHTML += `<div class="p-2.5 rounded-2xl bg-accent-600 text-white ml-8 text-right font-medium">${escapeHtml(query)}</div>`;
       msgBox.scrollTop = msgBox.scrollHeight;
+
+      const q = query.toLowerCase();
+
+      // 1. Check if user wants to submit feedback
+      if (q.includes('feedback') || q.includes('bug') || q.includes('suggest') || q.includes('review') || q.includes('rate')) {
+        renderBotFeedbackForm(msgBox);
+        return;
+      }
+
+      // 2. Check for Conversational Greetings (No longer defaults to Code Diff!)
+      const isGreeting = /^(hi|hello|hey|hola|namaste|good morning|good evening|yo|sup)\b/i.test(q);
+      if (isGreeting && q.split(' ').length <= 4) {
+        appendBotReply(msgBox, `
+          <p class="font-bold text-accent-600">👋 Hello! Great to have you on UtilityFlow.io!</p>
+          <p class="opacity-80 mt-1">I'm <strong>FlowBot</strong>. I can guide you across all 16 browser utilities or collect your feedback. Which category would you like to explore?</p>
+          <div class="grid grid-cols-2 gap-1.5 pt-2">
+            <button onclick="selectPersona('Finance & Business'); switchTool('home');" class="p-1.5 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500 text-left">📊 Finance & EMI (4)</button>
+            <button onclick="selectPersona('Developer & Data'); switchTool('home');" class="p-1.5 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500 text-left">👨‍💻 Developer Tools (6)</button>
+            <button onclick="selectPersona('SEO & Content'); switchTool('home');" class="p-1.5 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500 text-left">🚀 SEO & Content (3)</button>
+            <button onclick="selectPersona('Media & Design'); switchTool('home');" class="p-1.5 rounded-lg surface-card border text-[10px] font-semibold hover:border-accent-500 text-left">🎨 Media & QR (3)</button>
+          </div>
+        `);
+        return;
+      }
+
+      // 3. Check if asking about all tools / navigation / help
+      if (q.includes('what tools') || q.includes('all tools') || q.includes('list') || q.includes('help') || q.includes('who are you')) {
+        appendBotReply(msgBox, `
+          <p class="font-bold text-accent-600">🧭 UtilityFlow Navigation Directory</p>
+          <p class="opacity-80 mt-1">We host <strong>16 instant, zero-signup utilities</strong>:</p>
+          <ul class="list-disc pl-4 space-y-0.5 opacity-80 text-[11px] mt-1">
+            <li><strong>Finance:</strong> Wealth/EMI Calculator, Invoice Drafter, Privacy Policy, Spotlight</li>
+            <li><strong>Dev:</strong> Split Code Diff, JSON/Case, UUIDs, Base64, Epoch, Markdown</li>
+            <li><strong>SEO & Media:</strong> Word Counter, Meta Tags, UTM Slugs, Image Compressor, QR Studio, CSS Gradients</li>
+          </ul>
+          <div class="flex gap-1.5 pt-2">
+            <button onclick="toggleCmdPalette(true)" class="flex-1 py-1.5 rounded-lg bg-accent-600 text-white font-bold text-[10px]">Search Tools (Ctrl+K)</button>
+            <button onclick="askCopilot('Submit feedback')" class="px-2.5 py-1.5 rounded-lg surface-card border font-semibold text-[10px]">💬 Feedback</button>
+          </div>
+        `);
+        return;
+      }
+
+      // 4. Check if query matches a specific tool's keywords
+      const matchedTool = TOOLS_REGISTRY.find(t =>
+        t.title.toLowerCase().includes(q) ||
+        t.keywords.some(k => q.includes(k))
+      );
+
+      if (matchedTool) {
+        appendBotReply(msgBox, `
+          <p class="font-bold text-accent-600">🎯 Found the right utility for you!</p>
+          <div class="p-2.5 rounded-xl surface-card border mt-1.5 space-y-1">
+            <div class="font-bold">${matchedTool.icon} ${matchedTool.title}</div>
+            <p class="opacity-70 text-[11px]">${matchedTool.purpose}</p>
+          </div>
+          <button onclick="switchTool('${matchedTool.id}')" class="w-full mt-2 py-2 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
+            Open ${matchedTool.title} →
+          </button>
+        `);
+        return;
+      }
+
+      // 5. If Optional Gemini API key is configured, query Gemini 2.5 Flash Lite!
+      const apiKey = localStorage.getItem('uf_gemini_key');
+      if (apiKey) {
+        try {
+          const sysPrompt = `You are FlowBot, the friendly AI assistant for UtilityFlow.io, a free website with 16 browser utilities (Code Diff, Wealth & EMI Calculator, Image Compressor, QR Generator, SEO Word Counter, JSON Formatter, UUID Generator, Base64 Codec, Epoch Converter, Markdown Compiler, Invoice Reminder Drafter, Privacy Policy Generator, Meta Tag Builder, UTM Slug Builder, CSS Gradient Studio, Spotlight Board). Answer concisely in 2-3 sentences and suggest which of the 16 tools helps with: "${query}"`;
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
+          });
+          const data = await res.json();
+          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (reply) {
+            appendBotReply(msgBox, `<p class="leading-relaxed">${escapeHtml(reply)}</p>`);
+            return;
+          }
+        } catch (err) {
+          console.warn('Gemini fallback:', err);
+        }
+      }
+
+      // 6. Smart Conversational Fallback (Never blindly forces Code Diff!)
+      appendBotReply(msgBox, `
+        <p class="font-semibold">🤖 I'm here to help you navigate UtilityFlow!</p>
+        <p class="opacity-80 mt-1">I didn't spot an exact tool name in <em>"${escapeHtml(query)}"</em>, but you can pick what you need below or send feedback to our creator:</p>
+        <div class="flex flex-wrap gap-1.5 pt-2">
+          <button onclick="switchTool('calc')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold">📈 Wealth & EMI</button>
+          <button onclick="switchTool('image')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold">🖼️ Compress Image</button>
+          <button onclick="switchTool('diff')" class="px-2.5 py-1 rounded-lg surface-card border text-[10px] font-semibold">⚖️ Code Diff</button>
+          <button onclick="askCopilot('Submit feedback')" class="px-2.5 py-1 rounded-lg bg-accent-600 text-white text-[10px] font-bold">💬 Leave Feedback</button>
+        </div>
+      `);
+    }
+
+    function appendBotReply(container, htmlContent) {
+      setTimeout(() => {
+        container.innerHTML += `<div class="p-3 rounded-2xl surface-muted border mr-6 space-y-1.5">${htmlContent}</div>`;
+        container.scrollTop = container.scrollHeight;
+      }, 200);
+    }
+
+    function renderBotFeedbackForm(container) {
+      const formId = 'fb_' + Date.now();
+      appendBotReply(container, `
+        <div id="${formId}" class="space-y-2.5">
+          <p class="font-bold text-accent-600">💬 Share Your Feedback with UtilityFlow</p>
+          <p class="opacity-75 text-[11px]">Have a feature request, new tool idea, or bug report? Send it directly here:</p>
+          <select id="fbRate_${formId}" class="w-full px-2.5 py-1.5 rounded-lg input-ui text-xs">
+            <option value="5">⭐⭐⭐⭐⭐ (5/5) — Love UtilityFlow!</option>
+            <option value="4">⭐⭐⭐⭐ (4/5) — Great, minor suggestions</option>
+            <option value="3">⭐⭐⭐ (3/5) — Good, needs new features</option>
+          </select>
+          <textarea id="fbText_${formId}" rows="2" placeholder="Tell us what to improve or add next..." class="w-full p-2 rounded-lg input-ui text-xs"></textarea>
+          <button onclick="submitBotFeedback('${formId}')" class="w-full py-2 rounded-xl bg-accent-600 text-white font-bold text-xs shadow-sm">
+            Submit Feedback 🚀
+          </button>
+        </div>
+      `);
+    }
+
+    function submitBotFeedback(formId) {
+      const rating = document.getElementById('fbRate_' + formId).value;
+      const msg = document.getElementById('fbText_' + formId).value.trim();
+      if (!msg) return showToast('Please write a brief feedback note');
+
+      const saved = JSON.parse(localStorage.getItem('uf_user_feedback') || '[]');
+      saved.push({ rating, msg, date: new Date().toISOString() });
+      localStorage.setItem('uf_user_feedback', JSON.stringify(saved));
+
+      document.getElementById(formId).innerHTML = `
+        <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-center">
+          ✅ Thank you! Your ${rating}-star feedback has been recorded.
+        </div>
+      `;
+      showToast('Feedback submitted! Thank you.');
     }
 
     // --- TOOL 1: DIFFCHECKER.COM STYLE SPLIT SIDE-BY-SIDE VIEW ---
@@ -1018,42 +1221,67 @@
       document.getElementById('diffAddedBadge').textContent = `+ ${additions} Addition${additions === 1 ? '' : 's'}`;
     }
 
-    // --- TOOL 2: FINANCIAL ENGINE ---
+    // --- TOOL 2: FINANCIAL ENGINE (SYNCED EDITABLE INPUTS + SLIDERS) ---
     let calcMode = 'sip';
     let financialChartInstance = null;
+
     function setCalcMode(mode) {
       calcMode = mode;
       const sipBtn = document.getElementById('modeSipBtn');
       const loanBtn = document.getElementById('modeLoanBtn');
       const r1 = document.getElementById('rangeVal1');
+      const n1 = document.getElementById('numVal1');
+      const emiRow = document.getElementById('emiRow');
+
       if (mode === 'sip') {
         sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
         loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
-        document.getElementById('labelVal1').textContent = 'Principal Investment Amount';
-        document.getElementById('resGainLabel').textContent = 'Net Yield:';
-        r1.value = 100000;
+        document.getElementById('labelVal1').textContent = 'Principal Investment Amount (₹)';
+        document.getElementById('resGainLabel').textContent = 'Est. Returns:';
+        emiRow.classList.add('hidden');
+        r1.value = 100000; n1.value = 100000;
       } else {
         loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
         sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
-        document.getElementById('labelVal1').textContent = 'Principal Loan Amount';
+        document.getElementById('labelVal1').textContent = 'Principal Loan Amount (₹)';
         document.getElementById('resGainLabel').textContent = 'Total Interest Payable:';
-        r1.value = 2500000;
+        emiRow.classList.remove('hidden');
+        r1.value = 2500000; n1.value = 2500000;
       }
       updateCalculator();
     }
 
-    function updateCalculator() {
-      const v1 = parseFloat(document.getElementById('rangeVal1').value);
-      const v2 = parseFloat(document.getElementById('rangeVal2').value);
-      const v3 = parseFloat(document.getElementById('rangeVal3').value);
-      document.getElementById('val1Display').textContent = '₹' + v1.toLocaleString('en-IN');
-      document.getElementById('val2Display').textContent = v2 + '%';
-      document.getElementById('val3Display').textContent = v3 + ' Years';
+    function syncCalcFromSlider(idx) {
+      const val = document.getElementById('rangeVal' + idx).value;
+      document.getElementById('numVal' + idx).value = val;
+      updateCalculator();
+    }
 
-      let total = calcMode === 'sip'
-        ? v1 * Math.pow((1 + v2 / 100), v3)
-        : ((v1 * (v2/1200) * Math.pow(1 + v2/1200, v3*12)) / (Math.pow(1 + v2/1200, v3*12) - 1)) * (v3*12);
-      let gains = total - v1;
+    function syncCalcFromInput(idx) {
+      const val = parseFloat(document.getElementById('numVal' + idx).value) || 0;
+      document.getElementById('rangeVal' + idx).value = val;
+      updateCalculator();
+    }
+
+    function updateCalculator() {
+      const v1 = Math.max(0, parseFloat(document.getElementById('numVal1').value) || 0);
+      const v2 = Math.max(0.1, parseFloat(document.getElementById('numVal2').value) || 0.1);
+      const v3 = Math.max(1, parseFloat(document.getElementById('numVal3').value) || 1);
+
+      let total = 0;
+      let gains = 0;
+
+      if (calcMode === 'sip') {
+        total = v1 * Math.pow((1 + v2 / 100), v3);
+        gains = total - v1;
+      } else {
+        const r = v2 / 1200;
+        const n = v3 * 12;
+        const emi = (v1 * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        total = emi * n;
+        gains = total - v1;
+        document.getElementById('resMonthlyEmi').textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
+      }
 
       document.getElementById('resInvested').textContent = '₹' + Math.round(v1).toLocaleString('en-IN');
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
@@ -1063,7 +1291,7 @@
       if (financialChartInstance) financialChartInstance.destroy();
       financialChartInstance = new Chart(ctx, {
         type: 'doughnut',
-        data: { labels: ['Principal', 'Yield/Interest'], datasets: [{ data: [v1, gains], backgroundColor: ['#94a3b8', '#0d9488'], borderWidth: 0 }] },
+        data: { labels: ['Principal', 'Yield/Interest'], datasets: [{ data: [v1, Math.max(0, gains)], backgroundColor: ['#94a3b8', '#0d9488'], borderWidth: 0 }] },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '72%' }
       });
     }
