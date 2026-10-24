@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.io — Enterprise Client-Side Utility Infrastructure</title>
+  <title>UtilityFlow.io — Next-Gen Multi-Utility Workspace</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
+            accent: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
             }
           }
         }
@@ -30,791 +30,754 @@
     }
   </script>
   <style>
-    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.25s ease, color 0.25s ease; }
     
-    /* Light Mode - Crisp Enterprise Slate */
-    body { background-color: #f8fafc; color: #0f172a; }
-    .surface-primary { background-color: #ffffff; border-color: #e2e8f0; }
-    .surface-secondary { background-color: #f1f5f9; border-color: #e2e8f0; }
-    .surface-elevated { background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-color: #e2e8f0; }
-    .input-field { background-color: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; transition: all 0.15s ease; }
-    .input-field:focus { border-color: #4f46e5; outline: none; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12); }
-    .nav-item { color: #475569; }
-    .nav-item:hover { background-color: #f1f5f9; color: #0f172a; }
-    .nav-item.active { background-color: #eef2ff; color: #4f46e5; font-weight: 600; border-right: 3px solid #4f46e5; }
+    /* Modern Eye-Pleasing Light Theme (Warm Alabaster & Deep Slate) */
+    body { background-color: #f4f7f9; color: #0f172a; background-image: radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.06) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.06) 0px, transparent 50%); background-attachment: fixed; }
+    .surface-card { background-color: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03); }
+    .surface-muted { background-color: #f8fafc; border: 1px solid #e2e8f0; }
+    .surface-glass { background-color: rgba(255, 255, 255, 0.88); backdrop-filter: blur(16px); border-color: #e2e8f0; }
+    .input-ui { background-color: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; transition: all 0.15s ease; }
+    .input-ui:focus { border-color: #0d9488; outline: none; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12); }
 
-    /* Dark Mode - Deep Carbon Zinc */
-    html.dark body { background-color: #09090b; color: #f8fafc; }
-    html.dark .surface-primary { background-color: #121215; border-color: #27272a; }
-    html.dark .surface-secondary { background-color: #18181b; border-color: #27272a; }
-    html.dark .surface-elevated { background-color: rgba(18, 18, 21, 0.88); backdrop-filter: blur(12px); border-color: #27272a; }
-    html.dark .input-field { background-color: #09090b; color: #f8fafc; border: 1px solid #27272a; }
-    html.dark .input-field:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18); }
-    html.dark .nav-item { color: #a1a1aa; }
-    html.dark .nav-item:hover { background-color: #18181b; color: #f8fafc; }
-    html.dark .nav-item.active { background-color: rgba(99, 102, 241, 0.12); color: #818cf8; font-weight: 600; border-right: 3px solid #6366f1; }
+    /* Modern Eye-Pleasing Dark Theme (Deep Obsidian & Emerald Glow) */
+    html.dark body { background-color: #0b0f17; color: #f1f5f9; background-image: radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.1) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%); }
+    html.dark .surface-card { background-color: #111827; border: 1px solid #1f2937; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4); }
+    html.dark .surface-muted { background-color: #161f30; border: 1px solid #1f2937; }
+    html.dark .surface-glass { background-color: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border-color: #1f2937; }
+    html.dark .input-ui { background-color: #0b0f17; color: #f8fafc; border: 1px solid #374151; }
+    html.dark .input-ui:focus { border-color: #14b8a6; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.18); }
 
-    /* Custom Scrollbar */
+    /* Diffchecker Split View Styling */
+    .diff-row { display: grid; grid-template-columns: 40px 1fr; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; }
+    .diff-num { user-select: none; text-align: right; padding-right: 10px; opacity: 0.45; border-right: 1px solid rgba(148, 163, 184, 0.2); }
+    .diff-code { padding-left: 12px; white-space: pre-wrap; word-break: break-all; }
+    .diff-del { background-color: rgba(239, 68, 68, 0.14); color: #dc2626; }
+    html.dark .diff-del { background-color: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .diff-add { background-color: rgba(16, 185, 129, 0.14); color: #059669; }
+    html.dark .diff-add { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
+
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    html.dark ::-webkit-scrollbar-thumb { background: #27272a; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    html.dark ::-webkit-scrollbar-thumb { background: #334155; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-accent-600 selection:text-white">
 
   <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+  <div id="toastContainer" class="fixed top-20 right-5 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- COMMAND PALETTE MODAL (Cmd + K) -->
+  <!-- COMMAND PALETTE MODAL (Ctrl + K) -->
   <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-start justify-center pt-20 p-4">
-    <div class="surface-primary max-w-xl w-full rounded-xl border shadow-2xl overflow-hidden">
-      <div class="p-3.5 border-b border-inherit flex items-center gap-3">
-        <svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <input id="cmdInput" type="text" placeholder="Jump to any utility or execute command..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
-        <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2 py-0.5 rounded surface-secondary border border-inherit opacity-70">ESC</button>
+    <div class="surface-card max-w-xl w-full rounded-2xl border shadow-2xl overflow-hidden">
+      <div class="p-4 border-b border-inherit flex items-center gap-3">
+        <svg class="w-4 h-4 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <input id="cmdInput" type="text" placeholder="Type a tool name or keyword (e.g., diff, qr, loan, json)..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
+        <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2 py-1 rounded surface-muted border opacity-70">ESC</button>
       </div>
       <div id="cmdResults" class="max-h-80 overflow-y-auto p-2 space-y-1"></div>
     </div>
   </div>
 
-  <!-- TOP ENTERPRISE HEADER -->
-  <header class="sticky top-0 z-40 surface-elevated border-b h-14 flex items-center px-4 lg:px-6 justify-between">
-    <div class="flex items-center gap-4">
-      <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-lg surface-secondary border">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </button>
-      <div onclick="switchTool('home')" class="flex items-center gap-2.5 cursor-pointer group">
-        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:bg-brand-700 transition">UF</div>
-        <div class="flex items-baseline gap-2">
-          <span class="font-bold tracking-tight text-base">UtilityFlow<span class="text-brand-600">.io</span></span>
-          <span class="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded surface-secondary border font-medium opacity-75">v3.0 Enterprise</span>
+  <!-- TOP HEADER WITH LIVE & TOTAL VISITOR STATS -->
+  <header class="sticky top-0 z-40 surface-glass border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div onclick="switchTool('home')" class="flex items-center gap-3 cursor-pointer group shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-500 to-sky-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-accent-500/20 group-hover:scale-105 transition">
+          UF
         </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold tracking-tight text-lg">UtilityFlow<span class="text-accent-600">.io</span></span>
+          </div>
+          <p class="text-[10px] opacity-60 font-medium hidden sm:block">All-in-One Browser Utility Ecosystem</p>
+        </div>
+      </div>
+
+      <!-- Live Visitor & Total Visitor Counter Bar -->
+      <div class="hidden xl:flex items-center gap-4 px-3.5 py-1.5 rounded-full surface-muted border text-xs">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="opacity-70">Live Visitors:</span>
+          <span id="liveVisitorCount" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">142</span>
+        </div>
+        <span class="opacity-25">|</span>
+        <div class="flex items-center gap-1.5">
+          <span class="opacity-70">Total Visits:</span>
+          <span id="totalVisitorCount" class="font-mono font-bold text-accent-600 dark:text-accent-500">1,284,910</span>
+        </div>
+      </div>
+
+      <!-- Search (Ctrl + K) & Theme Switch -->
+      <div class="flex items-center gap-2.5">
+        <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-4 px-3.5 py-2 rounded-xl surface-muted border text-xs opacity-85 hover:opacity-100 hover:border-accent-500 transition">
+          <span class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <span class="hidden sm:inline">Quick Search 16 Tools...</span>
+            <span class="sm:hidden">Search...</span>
+          </span>
+          <kbd class="px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl + K</kbd>
+        </button>
+
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="px-3 py-2 rounded-xl surface-card border text-xs font-semibold hover:border-accent-500 transition shadow-sm" title="Switch Theme">
+          🌙 Dark
+        </button>
       </div>
     </div>
 
-    <div class="flex items-center gap-3">
-      <button onclick="toggleCmdPalette(true)" class="hidden sm:flex items-center justify-between w-64 px-3 py-1.5 rounded-lg surface-secondary border text-xs opacity-75 hover:opacity-100 transition">
-        <span class="flex items-center gap-2">
-          <svg class="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          Search 16 utilities...
-        </span>
-        <kbd class="px-1.5 py-0.5 text-[10px] font-mono surface-primary rounded border">⌘K</kbd>
-      </button>
+    <!-- INNOVATIVE TOP INTERACTIVE LAUNCHER BAR (REPLACES CLUNKY LEFT SIDEBAR) -->
+    <div class="border-t border-inherit surface-muted/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-3 overflow-x-auto">
+        <div class="flex items-center gap-1.5 min-w-max">
+          <button onclick="switchTool('home')" id="topTab-home" class="top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white shadow-sm transition flex items-center gap-1.5">
+            <span>✦</span> <span>Interactive Hub (All 16)</span>
+          </button>
+          <span class="opacity-20 px-1">|</span>
+          <button onclick="switchTool('diff')" id="topTab-diff" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">⚖️ Code Diff</button>
+          <button onclick="switchTool('calc')" id="topTab-calc" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">📈 Wealth & EMI</button>
+          <button onclick="switchTool('image')" id="topTab-image" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🖼️ Image Studio</button>
+          <button onclick="switchTool('qr')" id="topTab-qr" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">📱 QR Studio</button>
+          <button onclick="switchTool('text')" id="topTab-text" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">📝 SEO Counter</button>
+          <button onclick="switchTool('caseswap')" id="topTab-caseswap" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🔤 JSON & Case</button>
+          <button onclick="switchTool('uuid')" id="topTab-uuid" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🔑 UUID & Token</button>
+          <button onclick="switchTool('spotlight')" id="topTab-spotlight" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">🏆 Spotlight</button>
+        </div>
 
-      <div class="hidden md:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Client-Side Active
+        <!-- Mobile Visitor Counter Pill -->
+        <div class="xl:hidden flex items-center gap-2 text-[11px] font-mono shrink-0 px-2.5 py-1 rounded-md surface-card border">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="liveVisitorMobile">142</span> Live
+        </div>
       </div>
-
-      <button onclick="toggleTheme()" id="themeToggleBtn" class="p-2 rounded-lg surface-primary border text-xs font-medium hover:opacity-80 transition" title="Toggle Appearance">
-        🌙 Dark
-      </button>
     </div>
   </header>
 
-  <!-- MAIN WORKSPACE LAYOUT (SIDEBAR + CONTENT) -->
-  <div class="flex-1 flex overflow-hidden">
+  <!-- MAIN WORKSPACE CONTAINER -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
 
-    <!-- LEFT SIDEBAR NAVIGATION -->
-    <aside id="sidebarNav" class="w-64 surface-primary border-r shrink-0 hidden lg:flex flex-col justify-between overflow-y-auto select-none">
-      <div class="p-3 space-y-5">
-        <div>
-          <button onclick="switchTool('home')" id="nav-home" class="nav-item active w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition">
-            <span>🏠</span> <span>Platform Overview</span>
-          </button>
-        </div>
+    <!-- TOP ADSENSE SLOT -->
+    <div class="surface-card rounded-2xl p-3 border text-center text-xs opacity-60 font-mono">
+      [ Google AdSense Display Leaderboard • 728x90 ]
+    </div>
 
-        <!-- Category 1 -->
-        <div class="space-y-1">
-          <div class="px-3 text-[10px] font-mono uppercase tracking-wider opacity-50 font-semibold">Finance & Business</div>
-          <button onclick="switchTool('calc')" id="nav-calc" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Wealth & Loan Engine</span>
-          </button>
-          <button onclick="switchTool('payprompt')" id="nav-payprompt" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Invoice Follow-Up Drafter</span>
-          </button>
-          <button onclick="switchTool('policydraft')" id="nav-policydraft" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Compliance Policy Generator</span>
-          </button>
-          <button onclick="switchTool('spotlight')" id="nav-spotlight" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Directory Spotlight Board</span>
-          </button>
-        </div>
-
-        <!-- Category 2 -->
-        <div class="space-y-1">
-          <div class="px-3 text-[10px] font-mono uppercase tracking-wider opacity-50 font-semibold">Developer & Data</div>
-          <button onclick="switchTool('diff')" id="nav-diff" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Code Diff Inspector</span>
-          </button>
-          <button onclick="switchTool('caseswap')" id="nav-caseswap" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>JSON & Case Transformer</span>
-          </button>
-          <button onclick="switchTool('uuid')" id="nav-uuid" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>UUID & Token Generator</span>
-          </button>
-          <button onclick="switchTool('base64')" id="nav-base64" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Base64 & URL Codec</span>
-          </button>
-          <button onclick="switchTool('epoch')" id="nav-epoch" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Unix Epoch Converter</span>
-          </button>
-          <button onclick="switchTool('markdown')" id="nav-markdown" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Markdown to HTML Compiler</span>
-          </button>
-        </div>
-
-        <!-- Category 3 -->
-        <div class="space-y-1">
-          <div class="px-3 text-[10px] font-mono uppercase tracking-wider opacity-50 font-semibold">SEO & Content</div>
-          <button onclick="switchTool('text')" id="nav-text" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Content & SEO Analyzer</span>
-          </button>
-          <button onclick="switchTool('metagen')" id="nav-metagen" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>OpenGraph & Meta Builder</span>
-          </button>
-          <button onclick="switchTool('slugcraft')" id="nav-slugcraft" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>UTM & URL Slug Builder</span>
-          </button>
-        </div>
-
-        <!-- Category 4 -->
-        <div class="space-y-1">
-          <div class="px-3 text-[10px] font-mono uppercase tracking-wider opacity-50 font-semibold">Media & Design</div>
-          <button onclick="switchTool('image')" id="nav-image" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Image Compression Studio</span>
-          </button>
-          <button onclick="switchTool('qr')" id="nav-qr" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>Vector QR Code Studio</span>
-          </button>
-          <button onclick="switchTool('color')" id="nav-color" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition">
-            <span>CSS Gradient & Contrast</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Sidebar AdSense / Info Footer -->
-      <div class="p-3 border-t border-inherit space-y-2">
-        <div class="p-3 rounded-lg surface-secondary border border-dashed text-center text-[10px] font-mono opacity-60">
-          [ AdSense Sidebar Slot • 200x200 ]
-        </div>
-        <div class="text-[11px] opacity-50 px-1 flex justify-between">
-          <span>Zero Server Logs</span>
-          <span>100% Free</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT WORKSPACE -->
-    <main class="flex-1 overflow-y-auto px-4 sm:px-8 py-8">
-      <div class="max-w-5xl mx-auto space-y-8">
-
-        <!-- TOP LEADERBOARD AD SLOT -->
-        <div class="surface-primary rounded-xl p-3 border text-center text-xs opacity-60 font-mono">
-          [ Google AdSense Leaderboard • 728x90 ]
-        </div>
-
-        <!-- ======================================================= -->
-        <!-- VIEW: INTERACTIVE HOMEPAGE & ARCHITECTURE OVERVIEW      -->
-        <!-- ======================================================= -->
-        <section id="view-home" class="tool-section space-y-10">
-          
-          <!-- Hero Grid with Live Interactive Micro-Sandbox -->
-          <div class="surface-primary rounded-2xl border p-6 sm:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div class="lg:col-span-7 space-y-5">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full surface-secondary border text-xs font-medium">
-                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
-                <span>Browser-Native Utility Suite • 16 Production Modules</span>
-              </div>
-              <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                Enterprise-grade daily utilities. <span class="text-brand-600">Zero data leaves your device.</span>
-              </h1>
-              <p class="text-sm opacity-75 leading-relaxed">
-                Most online converters upload your private financial data, source code, and media to external cloud servers. UtilityFlow executes 100% locally inside your browser using native Web APIs—delivering instant zero-latency execution for developers, marketers, and business operators.
-              </p>
-              <div class="flex flex-wrap items-center gap-3 pt-1">
-                <button onclick="document.getElementById('directorySection').scrollIntoView({behavior:'smooth'})" class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm transition">
-                  Browse Interactive Directory ↓
-                </button>
-                <button onclick="toggleCmdPalette(true)" class="px-4 py-2.5 rounded-lg surface-secondary border font-semibold text-xs hover:opacity-80 transition">
-                  Press ⌘K to Quick Jump
-                </button>
-              </div>
-            </div>
-
-            <!-- Live Interactive Sandbox right inside Hero -->
-            <div class="lg:col-span-5 surface-secondary rounded-xl p-5 border space-y-3">
-              <div class="flex items-center justify-between border-b border-inherit pb-2.5">
-                <span class="text-xs font-bold flex items-center gap-1.5">⚡ Live Instant Sandbox</span>
-                <span class="text-[10px] font-mono opacity-60">0ms Latency Test</span>
-              </div>
-              <p class="text-[11px] opacity-70">Type anything below to test real-time local browser processing:</p>
-              <input id="heroSandboxInput" type="text" value="UtilityFlow Enterprise 2026" oninput="updateHeroSandbox()" class="w-full px-3 py-2 rounded-lg input-field text-xs font-mono" />
-              <div class="space-y-1.5 text-[11px] font-mono pt-1">
-                <div class="flex justify-between p-2 rounded surface-primary border">
-                  <span class="opacity-60">URL Slug:</span>
-                  <span id="hsSlug" class="font-semibold text-brand-600 truncate max-w-[180px]">utilityflow-enterprise-2026</span>
-                </div>
-                <div class="flex justify-between p-2 rounded surface-primary border">
-                  <span class="opacity-60">Base64:</span>
-                  <span id="hsBase64" class="font-semibold truncate max-w-[180px]">VXRpbGl0eUZsb3cgRW50ZXJwcmlzZSAyMDI2</span>
-                </div>
-                <div class="flex justify-between p-2 rounded surface-primary border">
-                  <span class="opacity-60">Metrics:</span>
-                  <span id="hsMetrics" class="font-semibold text-emerald-600">3 words • 27 chars</span>
-                </div>
-              </div>
-            </div>
+    <!-- ======================================================= -->
+    <!-- VIEW: INTERACTIVE HUB / OVERVIEW                        -->
+    <!-- ======================================================= -->
+    <section id="view-home" class="tool-section space-y-8">
+      
+      <!-- Eye-Catching Interactive Hero & Live Multi-Transformer -->
+      <div class="surface-card rounded-3xl border p-6 sm:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
+        <div class="lg:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-500 border border-accent-500/20 text-xs font-semibold">
+            <span>⚡ 16 Instant Utilities • Zero Sign-Up Required</span>
           </div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+            One unified workspace for <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-600 to-sky-500">developers, creators & business.</span>
+          </h1>
+          <p class="text-sm opacity-75 leading-relaxed">
+            Stop jumping across dozens of cluttered, ad-bloated websites. UtilityFlow combines 16 essential financial, developer, SEO, and media tools into a single, high-speed interface that runs directly in your browser.
+          </p>
 
-          <!-- INTERACTIVE PERSONA EXPLORER (How it helps everyone) -->
-          <div class="surface-primary rounded-2xl border p-6 sm:p-8 space-y-6 shadow-sm">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-inherit pb-5">
-              <div>
-                <h2 class="text-lg font-bold">How UtilityFlow Accelerates Your Workflow</h2>
-                <p class="text-xs opacity-65 mt-0.5">Select your role below to inspect tailored use-cases and recommended tools.</p>
-              </div>
-              <!-- Interactive Role Tabs -->
-              <div class="flex flex-wrap gap-1.5 p-1 surface-secondary rounded-xl border">
-                <button onclick="selectPersona('dev')" id="pTab-dev" class="persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white shadow-sm transition">👨‍💻 Software Engineers</button>
-                <button onclick="selectPersona('fin')" id="pTab-fin" class="persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">📊 Finance & Freelancers</button>
-                <button onclick="selectPersona('mkt')" id="pTab-mkt" class="persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">🚀 SEO & Marketers</button>
-                <button onclick="selectPersona('media')" id="pTab-media" class="persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">🎨 Creators & Media</button>
-              </div>
-            </div>
-
-            <!-- Dynamic Persona Content Box -->
-            <div id="personaContentArea" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-              <!-- Populated dynamically via JS -->
-            </div>
-          </div>
-
-          <!-- INTERACTIVE FILTERABLE 16-TOOL DIRECTORY -->
-          <div id="directorySection" class="space-y-5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h2 class="text-xl font-bold">Complete Utility Directory (16 Modules)</h2>
-                <p class="text-xs opacity-65">Filter by category or search by keyword to launch any workspace module.</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <input id="dirSearchInput" type="text" placeholder="Filter tools by name or use case..." oninput="filterDirectory()" class="px-3.5 py-2 rounded-lg input-field text-xs w-full sm:w-64" />
-              </div>
-            </div>
-
-            <!-- Category Filter Pills -->
+          <!-- Interactive Role Pills right inside Hero -->
+          <div class="pt-2 space-y-2.5">
+            <div class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Click Your Workflow to Highlight Tools:</div>
             <div class="flex flex-wrap gap-2">
-              <button onclick="setDirCategory('all')" id="cat-all" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white transition">All Modules (16)</button>
-              <button onclick="setDirCategory('Finance & Business')" id="cat-Finance & Business" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold surface-primary border opacity-75 hover:opacity-100 transition">Finance & Business (4)</button>
-              <button onclick="setDirCategory('Developer & Data')" id="cat-Developer & Data" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold surface-primary border opacity-75 hover:opacity-100 transition">Developer & Data (6)</button>
-              <button onclick="setDirCategory('SEO & Content')" id="cat-SEO & Content" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold surface-primary border opacity-75 hover:opacity-100 transition">SEO & Content (3)</button>
-              <button onclick="setDirCategory('Media & Design')" id="cat-Media & Design" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold surface-primary border opacity-75 hover:opacity-100 transition">Media & Design (3)</button>
+              <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition">✦ Show All (16)</button>
+              <button onclick="selectPersona('Developer & Data')" id="pBtn-Developer & Data" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">👨‍💻 Developers & Code (6)</button>
+              <button onclick="selectPersona('Finance & Business')" id="pBtn-Finance & Business" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">📊 Finance & Business (4)</button>
+              <button onclick="selectPersona('SEO & Content')" id="pBtn-SEO & Content" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">🚀 SEO & Marketing (3)</button>
+              <button onclick="selectPersona('Media & Design')" id="pBtn-Media & Design" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition">🎨 Media & Design (3)</button>
             </div>
-
-            <!-- Dynamic Tool Grid -->
-            <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
           </div>
-        </section>
+        </div>
 
-        <!-- ======================================================= -->
-        <!-- DYNAMIC CONTEXTUAL TOOL HEADER (SHOWN ON ALL 16 TOOLS)  -->
-        <!-- ======================================================= -->
-        <div id="contextualToolHeader" class="hidden surface-primary rounded-2xl p-6 border shadow-sm space-y-3">
+        <!-- Interactive Live Multi-Tool Sandbox -->
+        <div class="lg:col-span-5 surface-muted rounded-2xl p-5 border space-y-3.5 shadow-inner">
+          <div class="flex items-center justify-between border-b border-inherit pb-2.5">
+            <span class="text-xs font-bold flex items-center gap-1.5 text-accent-600">⚡ Interactive Live Playground</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded surface-card border">Real-Time</span>
+          </div>
+          <p class="text-[11px] opacity-70">Type any phrase below to watch 3 utilities process it simultaneously:</p>
+          <input id="heroSandboxInput" type="text" value="Launch UtilityFlow in 2026!" oninput="updateHeroSandbox()" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          <div class="space-y-2 text-[11px] font-mono">
+            <div onclick="switchTool('slugcraft')" class="flex justify-between items-center p-2.5 rounded-xl surface-card border hover:border-accent-500 cursor-pointer transition">
+              <span class="opacity-60">🔗 Clean Slug:</span>
+              <span id="hsSlug" class="font-bold text-accent-600 truncate max-w-[190px]">launch-utilityflow-in-2026</span>
+            </div>
+            <div onclick="switchTool('base64')" class="flex justify-between items-center p-2.5 rounded-xl surface-card border hover:border-accent-500 cursor-pointer transition">
+              <span class="opacity-60">🛡️ Base64:</span>
+              <span id="hsBase64" class="font-bold truncate max-w-[190px]">TGF1bmNoIFV0aWxpdHlGbG93IGluIDIwMjYh</span>
+            </div>
+            <div onclick="switchTool('text')" class="flex justify-between items-center p-2.5 rounded-xl surface-card border hover:border-accent-500 cursor-pointer transition">
+              <span class="opacity-60">📝 SEO Metrics:</span>
+              <span id="hsMetrics" class="font-bold text-sky-500">4 words • 27/160 chars</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE 16-TOOL DIRECTORY GRID -->
+      <div id="directorySection" class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 id="dirHeading" class="text-xl font-extrabold">All 16 Production Utilities</h2>
+            <p id="dirSubheading" class="text-xs opacity-65">Click any card to open the dedicated tool workspace, or ask the AI Copilot in the bottom-right corner.</p>
+          </div>
+          <input id="dirSearchInput" type="text" placeholder="Filter by tool name or task..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-72" />
+        </div>
+
+        <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- CONTEXTUAL PURPOSE HEADER (SHOWN INSIDE TOOLS)          -->
+    <!-- ======================================================= -->
+    <div id="contextualToolHeader" class="hidden surface-card rounded-2xl p-6 border shadow-sm space-y-2">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-accent-500/10 text-accent-600 dark:text-accent-400 font-bold">Category</span>
+        <button onclick="switchTool('home')" class="px-3 py-1 rounded-lg surface-muted border text-xs font-semibold hover:border-accent-500 transition">
+          ← Back to All 16 Tools
+        </button>
+      </div>
+      <h1 id="ctxTitle" class="text-2xl font-extrabold tracking-tight pt-1">Tool Title</h1>
+      <p id="ctxPurpose" class="text-xs sm:text-sm opacity-75 leading-relaxed">Detailed explanation of what this utility is specifically used for.</p>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- 1. CODE DIFF INSPECTOR (DIFFCHECKER.COM SPLIT VIEW)     -->
+    <!-- ======================================================= -->
+    <section id="view-diff" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold font-mono opacity-80">Original Text / Code (Left)</label>
+              <button onclick="LoadSampleDiff()" class="text-[11px] text-accent-600 font-semibold hover:underline">Load Sample Code</button>
+            </div>
+            <textarea id="diffOriginal" rows="8" placeholder="Paste original code or text here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateTax(amount) {
+  const rate = 0.15;
+  const tax = amount * rate;
+  console.log("Calculating tax...");
+  return tax;
+}</textarea>
+          </div>
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold font-mono opacity-80">Changed Text / Code (Right)</label>
+              <button onclick="document.getElementById('diffOriginal').value=''; document.getElementById('diffModified').value='';" class="text-[11px] opacity-60 hover:opacity-100">Clear Both</button>
+            </div>
+            <textarea id="diffModified" rows="8" placeholder="Paste modified code or text here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateTax(amount, isExempt = false) {
+  if (isExempt) return 0;
+  const rate = 0.18;
+  const tax = amount * rate;
+  return Number(tax.toFixed(2));
+}</textarea>
+          </div>
+        </div>
+
+        <button onclick="runCodeDiff()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-md transition">
+          Find Difference (Split Side-by-Side View) ⚖️
+        </button>
+
+        <!-- Diffchecker Style Split Output -->
+        <div id="diffResultBox" class="space-y-3 pt-4 border-t border-inherit">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-2 text-xs font-mono opacity-60">
-              <span onclick="switchTool('home')" class="hover:underline cursor-pointer">Workspace</span>
-              <span>/</span>
-              <span id="ctxCategory" class="text-brand-600 font-semibold">Category</span>
+            <span class="text-xs font-bold font-mono">Side-by-Side Comparison Result</span>
+            <div class="flex items-center gap-3 text-xs font-mono">
+              <span id="diffRemovedBadge" class="px-2.5 py-0.5 rounded bg-red-500/15 text-red-600 dark:text-red-400 font-bold">- 0 Removals</span>
+              <span id="diffAddedBadge" class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">+ 0 Additions</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md surface-secondary border">🔒 Local Browser Execution</span>
-              <button onclick="switchTool('home')" class="text-xs font-semibold text-brand-600 hover:underline">← Back to Directory</button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            <!-- Left Split Pane -->
+            <div class="surface-muted rounded-xl border overflow-hidden">
+              <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
+                <span>Original (Left)</span>
+                <span>Line #</span>
+              </div>
+              <div id="diffLeftPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div>
             </div>
+            <!-- Right Split Pane -->
+            <div class="surface-muted rounded-xl border overflow-hidden">
+              <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
+                <span>Changed (Right)</span>
+                <span>Line #</span>
+              </div>
+              <div id="diffRightPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 2. WEALTH & LOAN AMORTIZATION ENGINE                    -->
+    <!-- ======================================================= -->
+    <section id="view-calc" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
+          <span class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Financial Parameters</span>
+          <div class="flex gap-1 p-1 surface-muted rounded-xl border">
+            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition">Compound Wealth / SIP</button>
+            <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">Loan EMI Amortization</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="md:col-span-2 space-y-6">
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-semibold">
+                <span id="labelVal1">Principal Investment Amount</span>
+                <span id="val1Display" class="font-mono text-accent-600 font-bold text-sm">₹1,00,000</span>
+              </div>
+              <input id="rangeVal1" type="range" min="10000" max="10000000" step="5000" value="100000" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-semibold">
+                <span id="labelVal2">Expected Annual Return Rate (%)</span>
+                <span id="val2Display" class="font-mono text-accent-600 font-bold text-sm">12.0%</span>
+              </div>
+              <input id="rangeVal2" type="range" min="1" max="30" step="0.5" value="12" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-semibold">
+                <span id="labelVal3">Duration Horizon (Years)</span>
+                <span id="val3Display" class="font-mono text-accent-600 font-bold text-sm">5 Years</span>
+              </div>
+              <input id="rangeVal3" type="range" min="1" max="30" step="1" value="5" oninput="updateCalculator()" class="w-full accent-accent-600 cursor-pointer" />
+            </div>
+          </div>
+
+          <div class="surface-muted rounded-2xl p-5 border flex flex-col justify-between space-y-4">
+            <div class="h-36 relative flex items-center justify-center">
+              <canvas id="financialChart"></canvas>
+            </div>
+            <div class="space-y-2 font-mono text-xs pt-3 border-t border-inherit">
+              <div class="flex justify-between"><span class="opacity-70">Base Principal:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
+              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Net Yield:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
+              <div class="pt-2 border-t border-inherit flex justify-between text-sm"><span class="font-bold">Total Value:</span><span id="resTotal" class="font-extrabold text-accent-600">₹1,76,234</span></div>
+            </div>
+            <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-semibold hover:border-accent-500 transition">🖨️ Export Print Summary</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 3. INVOICE FOLLOW-UP DRAFTER (PAYPROMPT)                -->
+    <!-- ======================================================= -->
+    <section id="view-payprompt" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs font-semibold opacity-75">Client / Organization Name</label>
+            <input id="ppClient" type="text" placeholder="e.g., Apex Global Solutions" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
           </div>
           <div>
-            <h1 id="ctxTitle" class="text-2xl font-extrabold tracking-tight">Tool Title</h1>
-            <p id="ctxPurpose" class="text-xs sm:text-sm opacity-75 mt-1 leading-relaxed">Detailed explanation of what this utility is used for.</p>
+            <label class="text-xs font-semibold opacity-75">Invoice Reference & Amount (INR)</label>
+            <input id="ppAmount" type="text" placeholder="e.g., INV-204 • ₹45,000" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Overdue Stage</label>
+            <select id="ppDays" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs">
+              <option value="Gentle Courtesy Nudge">3 Days Overdue (Polite Courtesy Nudge)</option>
+              <option value="Firm Accounting Follow-Up">15 Days Overdue (Firm Accounting Notice)</option>
+              <option value="Urgent Final Escalation">30+ Days Overdue (Final Escalation)</option>
+            </select>
           </div>
         </div>
-
-        <!-- ======================================================= -->
-        <!-- 1. WEALTH & LOAN AMORTIZATION ENGINE                    -->
-        <!-- ======================================================= -->
-        <section id="view-calc" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
-            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
-              <span class="text-xs font-semibold uppercase tracking-wider opacity-60 font-mono">Interactive Modeling Parameters</span>
-              <div class="flex gap-1 p-1 surface-secondary rounded-lg border">
-                <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-600 text-white transition">Compound Wealth / SIP</button>
-                <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3 py-1.5 rounded-md text-xs font-semibold opacity-70 hover:opacity-100 transition">Loan EMI Amortization</button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div class="md:col-span-2 space-y-6">
-                <div class="space-y-2">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span id="labelVal1">Principal Investment Amount</span>
-                    <span id="val1Display" class="font-mono text-brand-600 font-bold text-sm">₹1,00,000</span>
-                  </div>
-                  <input id="rangeVal1" type="range" min="10000" max="10000000" step="5000" value="100000" oninput="updateCalculator()" class="w-full accent-brand-600 cursor-pointer" />
-                </div>
-
-                <div class="space-y-2">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span id="labelVal2">Expected Annual Return Rate (%)</span>
-                    <span id="val2Display" class="font-mono text-brand-600 font-bold text-sm">12.0%</span>
-                  </div>
-                  <input id="rangeVal2" type="range" min="1" max="30" step="0.5" value="12" oninput="updateCalculator()" class="w-full accent-brand-600 cursor-pointer" />
-                </div>
-
-                <div class="space-y-2">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span id="labelVal3">Duration Horizon (Years)</span>
-                    <span id="val3Display" class="font-mono text-brand-600 font-bold text-sm">5 Years</span>
-                  </div>
-                  <input id="rangeVal3" type="range" min="1" max="30" step="1" value="5" oninput="updateCalculator()" class="w-full accent-brand-600 cursor-pointer" />
-                </div>
-              </div>
-
-              <div class="surface-secondary rounded-xl p-5 border flex flex-col justify-between space-y-4">
-                <div class="h-36 relative flex items-center justify-center">
-                  <canvas id="financialChart"></canvas>
-                </div>
-                <div class="space-y-2 font-mono text-xs pt-3 border-t border-inherit">
-                  <div class="flex justify-between"><span class="opacity-70">Base Principal:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
-                  <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Net Yield:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
-                  <div class="pt-2 border-t border-inherit flex justify-between text-sm"><span class="font-bold">Total Value:</span><span id="resTotal" class="font-extrabold text-brand-600">₹1,76,234</span></div>
-                </div>
-                <button onclick="window.print()" class="w-full py-2 rounded-lg surface-primary border text-xs font-semibold hover:opacity-80 transition">🖨️ Export Print Summary</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 2. INVOICE FOLLOW-UP DRAFTER (PAYPROMPT)                -->
-        <!-- ======================================================= -->
-        <section id="view-payprompt" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="text-xs font-semibold opacity-75">Client / Organization Name</label>
-                <input id="ppClient" type="text" placeholder="e.g., Apex Global Solutions" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Invoice Reference & Amount (INR)</label>
-                <input id="ppAmount" type="text" placeholder="e.g., INV-204 • ₹45,000" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs font-mono" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Days Overdue</label>
-                <select id="ppDays" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs">
-                  <option value="3 Days (Gentle Reminder)">3 Days (Gentle Courtesy Nudge)</option>
-                  <option value="15 Days (Firm Follow-Up)">15 Days (Firm Accounting Follow-Up)</option>
-                  <option value="30+ Days (Final Notice)">30+ Days (Escalated Final Notice)</option>
-                </select>
-              </div>
-            </div>
-            <button onclick="runPayPrompt()" class="px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm transition">
-              Draft Collection Templates
-            </button>
-            <div id="ppOutput" class="hidden space-y-3 pt-4 border-t border-inherit text-xs font-mono"></div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 3. COMPLIANCE POLICY GENERATOR (POLICYDRAFT)            -->
-        <!-- ======================================================= -->
-        <section id="view-policydraft" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="text-xs font-semibold opacity-75">Website / Legal Entity Name</label>
-                <input id="pdName" type="text" placeholder="e.g., UtilityFlow Technologies" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Data Protection / Support Email</label>
-                <input id="pdEmail" type="text" placeholder="e.g., legal@utilityflow.io" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs font-mono" />
-              </div>
-            </div>
-            <button onclick="runPolicyDraft()" class="px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm transition">
-              Compile AdSense-Ready Privacy Policy
-            </button>
-            <textarea id="pdOutput" rows="10" readonly placeholder="Compiled policy document will appear here..." class="w-full p-4 rounded-xl input-field text-xs font-mono"></textarea>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 4. DIRECTORY SPOTLIGHT BOARD                            -->
-        <!-- ======================================================= -->
-        <section id="view-spotlight" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="space-y-1">
-              <h3 class="text-base font-bold">Featured SaaS & Developer Products</h3>
-              <p class="text-xs opacity-70">Publish your web application, library, or startup link to our public directory table.</p>
-            </div>
-            <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shrink-0 shadow-sm transition">
-              + Submit Product Listing
-            </button>
-          </div>
-          <div id="spotlightLeaderboard" class="space-y-2.5"></div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 5. CODE DIFF INSPECTOR                                  -->
-        <!-- ======================================================= -->
-        <section id="view-diff" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="space-y-1.5">
-                <label class="text-xs font-semibold font-mono opacity-75">Original Baseline Text / Code</label>
-                <textarea id="diffOriginal" rows="7" placeholder="const status = 'pending';&#10;const retries = 3;" class="w-full p-3.5 rounded-xl input-field text-xs font-mono"></textarea>
-              </div>
-              <div class="space-y-1.5">
-                <label class="text-xs font-semibold font-mono opacity-75">Modified Target Text / Code</label>
-                <textarea id="diffModified" rows="7" placeholder="const status = 'active';&#10;const retries = 5;" class="w-full p-3.5 rounded-xl input-field text-xs font-mono"></textarea>
-              </div>
-            </div>
-            <button onclick="runCodeDiff()" class="px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm transition">
-              Execute Line-by-Line Diff Inspection
-            </button>
-            <div id="diffResultBox" class="hidden space-y-2 pt-2">
-              <div class="text-xs font-mono font-semibold opacity-70">Inspection Output:</div>
-              <div id="diffOutputContent" class="p-4 rounded-xl surface-secondary border text-xs font-mono space-y-1 overflow-x-auto"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 6. JSON & CASE TRANSFORMER (CASESWAP)                   -->
-        <!-- ======================================================= -->
-        <section id="view-caseswap" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <textarea id="csInput" rows="6" placeholder="Paste raw JSON payload or unformatted string here..." class="w-full p-4 rounded-xl input-field text-xs font-mono"></textarea>
-            <div class="flex flex-wrap gap-2">
-              <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-lg bg-brand-600 text-white text-xs font-semibold">Beautify & Validate JSON</button>
-              <button onclick="runCaseSwap('minify')" class="px-4 py-2 rounded-lg surface-secondary border text-xs font-semibold">Minify JSON</button>
-              <button onclick="runCaseSwap('upper')" class="px-4 py-2 rounded-lg surface-secondary border text-xs font-semibold">UPPERCASE</button>
-              <button onclick="runCaseSwap('lower')" class="px-4 py-2 rounded-lg surface-secondary border text-xs font-semibold">lowercase</button>
-              <button onclick="runCaseSwap('camel')" class="px-4 py-2 rounded-lg surface-secondary border text-xs font-semibold">camelCase</button>
-              <button onclick="runCaseSwap('snake')" class="px-4 py-2 rounded-lg surface-secondary border text-xs font-semibold">snake_case</button>
-            </div>
-            <pre id="csOutputContent" class="p-4 rounded-xl surface-secondary border text-xs font-mono overflow-x-auto min-h-[100px]"></pre>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 7. UUID v4 & CRYPTO TOKEN GENERATOR                     -->
-        <!-- ======================================================= -->
-        <section id="view-uuid" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="flex flex-wrap gap-3">
-              <button onclick="generateUuids()" class="px-5 py-2.5 rounded-lg bg-brand-600 text-white text-xs font-semibold shadow-sm">Generate Batch (5x UUID v4)</button>
-              <button onclick="generateHashString()" class="px-5 py-2.5 rounded-lg surface-secondary border text-xs font-semibold">Generate 256-Bit API Secret Key</button>
-            </div>
-            <textarea id="uuidOutput" rows="6" readonly placeholder="Generated cryptographic identifiers will appear here..." class="w-full p-4 rounded-xl input-field text-xs font-mono"></textarea>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 8. BASE64 & URL CODEC                                   -->
-        <!-- ======================================================= -->
-        <section id="view-base64" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <textarea id="base64Input" rows="4" placeholder="Paste string or URL parameters here..." class="w-full p-3.5 rounded-xl input-field text-xs font-mono"></textarea>
-            <div class="flex flex-wrap gap-2">
-              <button onclick="processBase64('encode')" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-semibold text-xs">Base64 Encode</button>
-              <button onclick="processBase64('decode')" class="px-4 py-2 rounded-lg surface-secondary border font-semibold text-xs">Base64 Decode</button>
-              <button onclick="processBase64('urlencode')" class="px-4 py-2 rounded-lg surface-secondary border font-semibold text-xs">URL Encode</button>
-              <button onclick="processBase64('urldecode')" class="px-4 py-2 rounded-lg surface-secondary border font-semibold text-xs">URL Decode</button>
-            </div>
-            <textarea id="base64Output" rows="4" readonly placeholder="Decoded/Encoded output..." class="w-full p-3.5 rounded-xl surface-secondary border text-xs font-mono"></textarea>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 9. UNIX EPOCH TIMESTAMP CONVERTER                       -->
-        <!-- ======================================================= -->
-        <section id="view-epoch" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="flex items-center justify-between p-4 rounded-xl surface-secondary border font-mono text-xs">
-              <span>Current Live Unix Epoch:</span>
-              <span id="liveEpochDisplay" class="font-bold text-brand-600 text-sm">1792841340</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input id="epochInput" type="number" placeholder="Enter Unix Timestamp (seconds or ms)" class="sm:col-span-2 px-3.5 py-2.5 rounded-lg input-field text-xs font-mono" />
-              <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Convert to ISO / Local Date</button>
-            </div>
-            <div id="epochOutput" class="p-4 rounded-xl surface-secondary border text-xs font-mono space-y-1">
-              Enter a timestamp above to inspect UTC, ISO-8601, and Local Timezone representations.
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 10. MARKDOWN TO HTML COMPILER                           -->
-        <!-- ======================================================= -->
-        <section id="view-markdown" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="space-y-1.5">
-                <label class="text-xs font-semibold font-mono opacity-75">Markdown Source</label>
-                <textarea id="mdInput" rows="8" oninput="convertMarkdown()" placeholder="# Release Notes v3.0&#10;**Performance** improvements and *security* patches." class="w-full p-3.5 rounded-xl input-field text-xs font-mono"></textarea>
-              </div>
-              <div class="space-y-1.5">
-                <div class="flex justify-between items-center">
-                  <label class="text-xs font-semibold font-mono opacity-75">Compiled HTML Markup</label>
-                  <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-brand-600 font-semibold hover:underline">Copy HTML</button>
-                </div>
-                <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-secondary border text-xs font-mono"></textarea>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 11. CONTENT & SEO ANALYZER                              -->
-        <!-- ======================================================= -->
-        <section id="view-text" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
-            <div class="relative">
-              <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Paste article copy, meta descriptions, or social posts to analyze density and limits..." class="w-full p-4 rounded-xl input-field text-xs font-mono"></textarea>
-              <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1 rounded-md surface-secondary border text-[11px] font-semibold">Copy Text</button>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-              <div class="p-4 rounded-xl surface-secondary border"><div id="cntWords" class="text-2xl font-bold text-brand-600">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
-              <div class="p-4 rounded-xl surface-secondary border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Characters</div></div>
-              <div class="p-4 rounded-xl surface-secondary border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Sentences</div></div>
-              <div class="p-4 rounded-xl surface-secondary border"><div id="cntTime" class="text-2xl font-bold text-emerald-600">0s</div><div class="text-[10px] uppercase opacity-60 mt-1">Est. Read Time</div></div>
-            </div>
-            <div class="surface-secondary rounded-xl p-4 border space-y-3">
-              <div class="space-y-1">
-                <div class="flex justify-between text-xs font-mono"><span>Google SERP Description Limit (160 chars)</span><span id="seoLimitText">0 / 160</span></div>
-                <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-zinc-700 overflow-hidden"><div id="seoBar" class="h-full bg-emerald-500 transition-all" style="width: 0%;"></div></div>
-              </div>
-              <div class="space-y-1">
-                <div class="flex justify-between text-xs font-mono"><span>X / Post Character Limit (280 chars)</span><span id="twLimitText">0 / 280</span></div>
-                <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-zinc-700 overflow-hidden"><div id="twBar" class="h-full bg-brand-600 transition-all" style="width: 0%;"></div></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 12. OPENGRAPH & META BUILDER (METAGEN)                  -->
-        <!-- ======================================================= -->
-        <section id="view-metagen" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="text-xs font-semibold opacity-75">Page Title (Optimal: 50-60 chars)</label>
-                <input id="mgTitle" type="text" placeholder="e.g., UtilityFlow — Enterprise Browser Suite" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Target Indexing Keywords</label>
-                <input id="mgKeys" type="text" placeholder="e.g., web utilities, developer tools, seo" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs" />
-              </div>
-            </div>
-            <div>
-              <label class="text-xs font-semibold opacity-75">Meta Description (Optimal: 150-160 chars)</label>
-              <textarea id="mgDesc" rows="2" placeholder="Summarize page content for search engine crawlers and social cards..." class="w-full mt-1.5 p-3 rounded-lg input-field text-xs"></textarea>
-            </div>
-            <button onclick="runMetaGen()" class="px-6 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Generate Production HTML Head Tags</button>
-            <pre id="mgOutput" class="p-4 rounded-xl surface-secondary border text-xs font-mono overflow-x-auto"></pre>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 13. UTM & URL SLUG BUILDER (SLUGCRAFT)                  -->
-        <!-- ======================================================= -->
-        <section id="view-slugcraft" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="text-xs font-semibold opacity-75">Destination Domain Path</label>
-                <input id="scUrl" type="text" value="https://utilityflow.io/articles/" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs font-mono" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Raw Article / Page Title</label>
-                <input id="scTitle" type="text" placeholder="How to Optimize Web Assets in 2026!" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">UTM Campaign Source</label>
-                <input id="scSource" type="text" value="newsletter_q4" class="w-full mt-1.5 px-3.5 py-2.5 rounded-lg input-field text-xs font-mono" />
-              </div>
-            </div>
-            <button onclick="runSlugCraft()" class="px-6 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Sanitize Slug & Append UTM Parameters</button>
-            <div id="scOutput" class="p-4 rounded-xl surface-secondary border text-xs font-mono space-y-2"></div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 14. IMAGE COMPRESSION STUDIO                            -->
-        <!-- ======================================================= -->
-        <section id="view-image" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
-            <div id="dropZone" class="border-2 border-dashed rounded-xl p-8 text-center space-y-2 surface-secondary hover:border-brand-600 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-              <div class="text-2xl">🖼️</div>
-              <p class="text-xs font-bold">Click to select image or drag & drop file here</p>
-              <p class="text-[11px] opacity-60">Client-side Canvas compression (PNG, JPG, WEBP)</p>
-              <input id="imageInput" type="file" accept="image/*" onchange="handleImagePreview(event)" class="hidden" />
-            </div>
-
-            <div id="imagePreviewArea" class="hidden space-y-4">
-              <div class="surface-secondary rounded-xl p-4 border flex flex-wrap items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                  <img id="sourceImgPreview" class="w-14 h-14 object-cover rounded-lg border" />
-                  <div class="text-xs font-mono">
-                    <p class="font-bold" id="imgOriginalName">file.jpg</p>
-                    <p class="opacity-65">Source Size: <span id="imgOriginalSize" class="text-brand-600 font-bold">0 KB</span></p>
-                  </div>
-                </div>
-                <div class="w-full sm:w-52 space-y-1">
-                  <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-brand-600">75%</span></div>
-                  <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-brand-600" />
-                </div>
-              </div>
-              <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-lg bg-brand-600 text-white font-semibold text-xs shadow-sm">Execute Image Compression</button>
-            </div>
-            <div id="imageResultBox" class="hidden pt-4 border-t border-inherit">
-              <div id="imageOutputContent"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 15. VECTOR QR CODE STUDIO                               -->
-        <!-- ======================================================= -->
-        <section id="view-qr" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div class="sm:col-span-1">
-                <label class="text-xs font-semibold opacity-75">Destination URL / Payload</label>
-                <input id="qrInput" type="text" value="https://utilityflow.io" class="w-full mt-1.5 px-3.5 py-2 rounded-lg input-field text-xs font-mono" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Foreground Hex</label>
-                <input id="qrColor" type="color" value="#0f172a" class="w-full h-9 mt-1.5 rounded-lg input-field p-1 cursor-pointer" />
-              </div>
-              <div>
-                <label class="text-xs font-semibold opacity-75">Background Hex</label>
-                <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-9 mt-1.5 rounded-lg input-field p-1 cursor-pointer" />
-              </div>
-            </div>
-            <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Render High-Contrast QR Matrix</button>
-            <div id="qrResultBox" class="hidden pt-4 border-t border-inherit flex flex-col items-center space-y-3">
-              <div id="qrOutputContent" class="p-4 bg-white rounded-xl border"></div>
-              <a id="downloadQrBtn" download="utilityflow-qr.png" target="_blank" class="px-5 py-2 rounded-lg surface-secondary border text-xs font-semibold">Open / Save QR Image ↗</a>
-            </div>
-          </div>
-        </section>
-
-        <!-- ======================================================= -->
-        <!-- 16. CSS GRADIENT & CONTRAST STUDIO                      -->
-        <!-- ======================================================= -->
-        <section id="view-color" class="tool-section hidden space-y-6">
-          <div class="surface-primary rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
-            <div id="gradientPreviewBox" class="h-36 rounded-xl border flex items-center justify-center p-4" style="background: linear-gradient(135deg, #4f46e5, #06b6d4);">
-              <code id="gradientCssText" class="px-4 py-2 rounded-lg bg-slate-950/75 text-white font-mono text-xs select-all">background: linear-gradient(135deg, #4f46e5, #06b6d4);</code>
-            </div>
-            <div class="flex gap-3">
-              <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Generate Harmonious Gradient</button>
-              <button onclick="navigator.clipboard.writeText(document.getElementById('gradientCssText').textContent); showToast('CSS rule copied!');" class="px-5 py-2.5 rounded-lg surface-secondary border font-semibold text-xs">Copy CSS Rule</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- BOTTOM AD SENSE BANNER -->
-        <div class="surface-primary rounded-xl p-3 border text-center text-xs opacity-60 font-mono">
-          [ Google AdSense Multiplex Display Unit • 728x90 ]
-        </div>
-
+        <button onclick="runPayPrompt()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
+          Draft Collection Reminder
+        </button>
+        <div id="ppOutput" class="hidden space-y-3 pt-4 border-t border-inherit text-xs font-mono"></div>
       </div>
-    </main>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 4. COMPLIANCE POLICY GENERATOR                          -->
+    <!-- ======================================================= -->
+    <section id="view-policydraft" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold opacity-75">Website / Legal Entity Name</label>
+            <input id="pdName" type="text" placeholder="e.g., UtilityFlow Technologies" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Compliance Contact Email</label>
+            <input id="pdEmail" type="text" placeholder="e.g., legal@utilityflow.io" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          </div>
+        </div>
+        <button onclick="runPolicyDraft()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
+          Generate Standard Privacy Policy
+        </button>
+        <textarea id="pdOutput" rows="9" readonly placeholder="Compiled policy document will appear here..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 5. DIRECTORY SPOTLIGHT BOARD                            -->
+    <!-- ======================================================= -->
+    <section id="view-spotlight" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h3 class="text-base font-bold">Featured SaaS & Developer Products</h3>
+          <p class="text-xs opacity-70">Publish your web application, tool, or startup link to our public community directory.</p>
+        </div>
+        <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shrink-0 shadow-sm transition">
+          + Submit Product Listing
+        </button>
+      </div>
+      <div id="spotlightLeaderboard" class="space-y-2.5"></div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 6. JSON & CASE TRANSFORMER                              -->
+    <!-- ======================================================= -->
+    <section id="view-caseswap" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <textarea id="csInput" rows="6" placeholder="Paste raw JSON payload or text string here..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-xl bg-accent-600 text-white text-xs font-bold">Format & Validate JSON</button>
+          <button onclick="runCaseSwap('minify')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">Minify JSON</button>
+          <button onclick="runCaseSwap('upper')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">UPPERCASE</button>
+          <button onclick="runCaseSwap('lower')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">lowercase</button>
+          <button onclick="runCaseSwap('camel')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">camelCase</button>
+          <button onclick="runCaseSwap('snake')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">snake_case</button>
+        </div>
+        <pre id="csOutputContent" class="p-4 rounded-xl surface-muted border text-xs font-mono overflow-x-auto min-h-[100px]"></pre>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 7. UUID v4 & CRYPTO TOKEN GENERATOR                     -->
+    <!-- ======================================================= -->
+    <section id="view-uuid" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="flex flex-wrap gap-3">
+          <button onclick="generateUuids()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white text-xs font-bold shadow-sm">Generate Batch (5x UUID v4)</button>
+          <button onclick="generateHashString()" class="px-5 py-2.5 rounded-xl surface-muted border text-xs font-semibold">Generate 256-Bit Secret Key</button>
+        </div>
+        <textarea id="uuidOutput" rows="6" readonly placeholder="Generated cryptographic identifiers will appear here..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 8. BASE64 & URL CODEC                                   -->
+    <!-- ======================================================= -->
+    <section id="view-base64" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <textarea id="base64Input" rows="4" placeholder="Paste string or URL parameters here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono"></textarea>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="processBase64('encode')" class="px-4 py-2 rounded-xl bg-accent-600 text-white font-bold text-xs">Base64 Encode</button>
+          <button onclick="processBase64('decode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">Base64 Decode</button>
+          <button onclick="processBase64('urlencode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Encode</button>
+          <button onclick="processBase64('urldecode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Decode</button>
+        </div>
+        <textarea id="base64Output" rows="4" readonly placeholder="Processed output..." class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 9. UNIX EPOCH TIMESTAMP CONVERTER                       -->
+    <!-- ======================================================= -->
+    <section id="view-epoch" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="flex items-center justify-between p-4 rounded-xl surface-muted border font-mono text-xs">
+          <span>Current Live Unix Epoch:</span>
+          <span id="liveEpochDisplay" class="font-bold text-accent-600 text-sm">1792841340</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input id="epochInput" type="number" placeholder="Enter Unix Timestamp (seconds or ms)" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Convert to Human Date</button>
+        </div>
+        <div id="epochOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1">
+          Enter a timestamp above to inspect UTC, ISO-8601, and Local Timezone representations.
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 10. MARKDOWN TO HTML COMPILER                           -->
+    <!-- ======================================================= -->
+    <section id="view-markdown" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold font-mono opacity-75">Markdown Source</label>
+            <textarea id="mdInput" rows="8" oninput="convertMarkdown()" placeholder="# Release Notes&#10;**Bold** and *italic* text." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono"></textarea>
+          </div>
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-semibold font-mono opacity-75">Compiled HTML Markup</label>
+              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-accent-600 font-bold hover:underline">Copy HTML</button>
+            </div>
+            <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 11. CONTENT & SEO ANALYZER                              -->
+    <!-- ======================================================= -->
+    <section id="view-text" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
+        <div class="relative">
+          <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Paste article copy, meta descriptions, or social posts to analyze length and density..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
+          <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold">Copy Text</button>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-accent-600">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Characters</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Sentences</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntTime" class="text-2xl font-bold text-sky-500">0s</div><div class="text-[10px] uppercase opacity-60 mt-1">Read Time</div></div>
+        </div>
+        <div class="surface-muted rounded-xl p-4 border space-y-3">
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-mono"><span>Google SERP Description Limit (160 chars)</span><span id="seoLimitText">0 / 160</span></div>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="seoBar" class="h-full bg-emerald-500 transition-all" style="width: 0%;"></div></div>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-mono"><span>X / Post Character Limit (280 chars)</span><span id="twLimitText">0 / 280</span></div>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="twBar" class="h-full bg-accent-600 transition-all" style="width: 0%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 12. OPENGRAPH & META BUILDER                            -->
+    <!-- ======================================================= -->
+    <section id="view-metagen" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold opacity-75">Page Title (Optimal: 50-60 chars)</label>
+            <input id="mgTitle" type="text" placeholder="e.g., UtilityFlow — Browser Utility Suite" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Target Keywords</label>
+            <input id="mgKeys" type="text" placeholder="e.g., web utilities, developer tools, seo" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-semibold opacity-75">Meta Description (Optimal: 150-160 chars)</label>
+          <textarea id="mgDesc" rows="2" placeholder="Summarize page content for search engines..." class="w-full mt-1.5 p-3 rounded-xl input-ui text-xs"></textarea>
+        </div>
+        <button onclick="runMetaGen()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate HTML Meta Tags</button>
+        <pre id="mgOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono overflow-x-auto"></pre>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 13. UTM & URL SLUG BUILDER                              -->
+    <!-- ======================================================= -->
+    <section id="view-slugcraft" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs font-semibold opacity-75">Base Domain Path</label>
+            <input id="scUrl" type="text" value="https://utilityflow.io/blog/" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Article / Page Title</label>
+            <input id="scTitle" type="text" placeholder="How to Optimize Web Assets in 2026!" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">UTM Campaign Source</label>
+            <input id="scSource" type="text" value="newsletter" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          </div>
+        </div>
+        <button onclick="runSlugCraft()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate Clean Slug & Tracking Link</button>
+        <div id="scOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-2"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 14. IMAGE COMPRESSION STUDIO                            -->
+    <!-- ======================================================= -->
+    <section id="view-image" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-6">
+        <div id="dropZone" class="border-2 border-dashed rounded-2xl p-8 text-center space-y-2 surface-muted hover:border-accent-600 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+          <div class="text-2xl">🖼️</div>
+          <p class="text-xs font-bold">Click to select image or drag & drop file here</p>
+          <p class="text-[11px] opacity-60">Instant browser-based compression (PNG, JPG, WEBP)</p>
+          <input id="imageInput" type="file" accept="image/*" onchange="handleImagePreview(event)" class="hidden" />
+        </div>
+
+        <div id="imagePreviewArea" class="hidden space-y-4">
+          <div class="surface-muted rounded-xl p-4 border flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <img id="sourceImgPreview" class="w-14 h-14 object-cover rounded-lg border" />
+              <div class="text-xs font-mono">
+                <p class="font-bold" id="imgOriginalName">file.jpg</p>
+                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-accent-600 font-bold">0 KB</span></p>
+              </div>
+            </div>
+            <div class="w-full sm:w-52 space-y-1">
+              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-accent-600">75%</span></div>
+              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-accent-600" />
+            </div>
+          </div>
+          <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl bg-accent-600 text-white font-bold text-xs shadow-sm">Compress Image Now</button>
+        </div>
+        <div id="imageResultBox" class="hidden pt-4 border-t border-inherit">
+          <div id="imageOutputContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 15. VECTOR QR CODE STUDIO                               -->
+    <!-- ======================================================= -->
+    <section id="view-qr" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs font-semibold opacity-75">Destination URL or Text</label>
+            <input id="qrInput" type="text" value="https://utilityflow.io" class="w-full mt-1.5 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Foreground Color</label>
+            <input id="qrColor" type="color" value="#0f766e" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold opacity-75">Background Color</label>
+            <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
+          </div>
+        </div>
+        <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate Custom QR Code</button>
+        <div id="qrResultBox" class="hidden pt-4 border-t border-inherit flex flex-col items-center space-y-3">
+          <div id="qrOutputContent" class="p-4 bg-white rounded-xl border"></div>
+          <a id="downloadQrBtn" download="utilityflow-qr.png" target="_blank" class="px-5 py-2 rounded-xl surface-muted border text-xs font-semibold">Open / Save QR Image ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 16. CSS GRADIENT & CONTRAST STUDIO                      -->
+    <!-- ======================================================= -->
+    <section id="view-color" class="tool-section hidden space-y-6">
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div id="gradientPreviewBox" class="h-36 rounded-2xl border flex items-center justify-center p-4" style="background: linear-gradient(135deg, #0d9488, #0284c7);">
+          <code id="gradientCssText" class="px-4 py-2 rounded-xl bg-slate-950/75 text-white font-mono text-xs select-all">background: linear-gradient(135deg, #0d9488, #0284c7);</code>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate New Gradient</button>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('gradientCssText').textContent); showToast('CSS rule copied!');" class="px-5 py-2.5 rounded-xl surface-muted border font-semibold text-xs">Copy CSS Code</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM ADSENSE BANNER -->
+    <div class="surface-card rounded-2xl p-3 border text-center text-xs opacity-60 font-mono">
+      [ Google AdSense Multiplex Display Unit • 728x90 ]
+    </div>
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- FLOATING AI COPILOT AGENT (BOTTOM RIGHT - INTEGRATES 16)  -->
+  <!-- ========================================================= -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <!-- Chat Window -->
+    <div id="copilotWindow" class="hidden surface-card w-80 sm:w-96 rounded-2xl border shadow-2xl mb-3 overflow-hidden flex flex-col">
+      <div class="p-3.5 bg-gradient-to-r from-accent-600 to-sky-600 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+          <span class="text-xs font-bold">UtilityFlow AI Agent (16 Tools)</span>
+        </div>
+        <button onclick="toggleCopilot()" class="text-xs opacity-80 hover:opacity-100">✕</button>
+      </div>
+
+      <div id="copilotMessages" class="p-3.5 h-72 overflow-y-auto space-y-3 text-xs">
+        <div class="p-3 rounded-xl surface-muted border space-y-2">
+          <p class="font-semibold text-accent-600">👋 Hi! I'm your UtilityFlow Agent.</p>
+          <p class="opacity-80 leading-relaxed">Tell me what you want to do (e.g., <em>"compare code"</em>, <em>"compress photo"</em>, <em>"calculate loan EMI"</em>, <em>"format JSON"</em>) and I'll launch the exact tool for you!</p>
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            <button onclick="askCopilot('Compare two code snippets')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">⚖️ Compare code</button>
+            <button onclick="askCopilot('Calculate SIP & Loan EMI')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">📈 Calculate EMI</button>
+            <button onclick="askCopilot('Compress an image')" class="px-2 py-1 rounded surface-card border text-[10px] font-semibold hover:border-accent-500">🖼️ Compress image</button>
+          </div>
+        </div>
+      </div>
+
+      <form onsubmit="handleCopilotSubmit(event)" class="p-2.5 border-t border-inherit flex gap-2 surface-muted">
+        <input id="copilotInput" type="text" placeholder="Ask agent to launch any tool..." class="flex-1 px-3 py-2 rounded-xl input-ui text-xs" />
+        <button type="submit" class="px-3.5 py-2 rounded-xl bg-accent-600 text-white font-bold text-xs">Send</button>
+      </form>
+    </div>
+
+    <!-- Floating Launcher Button -->
+    <button onclick="toggleCopilot()" class="ml-auto flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-accent-600 to-sky-600 text-white font-bold text-xs shadow-xl shadow-accent-600/30 hover:scale-105 transition">
+      <span>🤖 AI Tool Agent</span>
+      <span class="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] font-mono">16</span>
+    </button>
   </div>
 
   <!-- SPOTLIGHT SUBMISSION MODAL -->
   <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="surface-primary rounded-2xl max-w-md w-full p-6 border shadow-2xl space-y-4">
+    <div class="surface-card rounded-2xl max-w-md w-full p-6 border shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-inherit pb-3">
-        <span class="text-xs font-mono uppercase text-brand-600 font-bold">Submit Product to Directory</span>
+        <span class="text-xs font-mono uppercase text-accent-600 font-bold">Submit Product to Directory</span>
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70">✕</button>
       </div>
       <div class="space-y-3">
-        <div><label class="text-xs font-semibold">Product Name</label><input id="smName" type="text" placeholder="e.g., CloudMetrics Pro" class="w-full mt-1 px-3.5 py-2 rounded-lg input-field text-xs" /></div>
-        <div><label class="text-xs font-semibold">Target URL</label><input id="smUrl" type="text" placeholder="https://cloudmetrics.io" class="w-full mt-1 px-3.5 py-2 rounded-lg input-field text-xs font-mono" /></div>
+        <div><label class="text-xs font-semibold">Product Name</label><input id="smName" type="text" placeholder="e.g., CloudMetrics Pro" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs" /></div>
+        <div><label class="text-xs font-semibold">Target URL</label><input id="smUrl" type="text" placeholder="https://cloudmetrics.io" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" /></div>
       </div>
-      <button onclick="submitFreeSpotlight()" class="w-full py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs">Publish Listing</button>
+      <button onclick="submitFreeSpotlight()" class="w-full py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Publish Listing</button>
     </div>
   </div>
 
-  <!-- ENTERPRISE CORE ENGINE -->
+  <!-- CORE APPLICATION SCRIPT -->
   <script>
-    // Complete Metadata Registry for All 16 Utilities (No "Tool 01" tags—pure purpose-driven descriptions)
+    // Complete 16-Tool Registry with clear, descriptive purpose statements
     const TOOLS_REGISTRY = [
-      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', purpose: 'Model long-term compound investment trajectories (SIP/Lumpsum) and calculate exact monthly loan EMI principal-to-interest amortization ratios with visual charts.' },
-      { id: 'payprompt', title: 'Invoice Follow-Up Drafter', category: 'Finance & Business', icon: '💸', purpose: 'Generate structured, tone-calibrated accounts receivable collection emails and reminders for overdue freelance or agency client invoices.' },
-      { id: 'policydraft', title: 'Compliance Policy Generator', category: 'Finance & Business', icon: '📄', purpose: 'Compile standard GDPR and Google AdSense-compliant Privacy Policy and Terms of Service documentation tailored to your domain.' },
-      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', purpose: 'Discover community-submitted SaaS products and developer utilities, or list your own web project for organic referral visibility.' },
-      { id: 'diff', title: 'Code Diff Inspector', category: 'Developer & Data', icon: '⚖️', purpose: 'Compare two configuration files, code blocks, or text revisions side-by-side to highlight exact line additions and deletions locally.' },
-      { id: 'caseswap', title: 'JSON & Case Transformer', category: 'Developer & Data', icon: '🔤', purpose: 'Validate, pretty-print, or minify raw JSON API payloads and convert string casing between camelCase, snake_case, and UPPERCASE.' },
-      { id: 'uuid', title: 'UUID v4 & Token Generator', category: 'Developer & Data', icon: '🔑', purpose: 'Generate cryptographically random RFC-4122 UUID v4 identifiers and high-entropy 256-bit secret keys for database primary keys and APIs.' },
-      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', purpose: 'Encode and decode Base64 strings and sanitize URI query components locally without exposing sensitive tokens to external servers.' },
-      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', purpose: 'Translate Unix epoch timestamps (seconds or milliseconds) into human-readable ISO-8601, UTC, and local timezone strings for log debugging.' },
-      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', purpose: 'Convert Markdown documentation syntax into clean, semantic HTML markup in real-time ready for CMS publishing.' },
-      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', purpose: 'Measure word count, character length, sentence structure, reading time, and live pixel/character thresholds for Google SERP and social posts.' },
-      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', purpose: 'Generate standards-compliant HTML head metadata and OpenGraph social card tags to maximize search indexing and link click-through rates.' },
-      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', purpose: 'Transform raw article headlines into lowercase, hyphenated SEO slugs and append standardized Google Analytics UTM tracking parameters.' },
-      { id: 'image', title: 'Image Compression Studio', category: 'Media & Design', icon: '🖼️', purpose: 'Downsize and compress high-resolution PNG, JPG, and WebP images directly inside your browser via HTML5 Canvas to accelerate page load speeds.' },
-      { id: 'qr', title: 'Vector QR Code Studio', category: 'Media & Design', icon: '📱', purpose: 'Create custom-branded, high-contrast scannable QR codes for URLs, Wi-Fi credentials, and payment links with instant image export.' },
-      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Media & Design', icon: '🎨', purpose: 'Generate production-ready linear CSS gradients and modern UI color combinations with one-click stylesheet copying.' }
+      { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: 'diff compare code text changes side by side', purpose: 'Compare original and modified code or text side-by-side in a split two-column layout with highlighted additions and removals.' },
+      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: 'calculator sip compound interest loan emi finance money', purpose: 'Model long-term compound investment returns (SIP/Lumpsum) and calculate monthly loan EMI amortization ratios with visual charts.' },
+      { id: 'image', title: 'Image Compression Studio', category: 'Media & Design', icon: '🖼️', keywords: 'image photo compress resize shrink kb png jpg webp', purpose: 'Reduce PNG, JPG, and WebP file sizes by up to 80% directly in your browser using hardware-accelerated HTML5 Canvas.' },
+      { id: 'qr', title: 'Vector QR Code Studio', category: 'Media & Design', icon: '📱', keywords: 'qr code barcode scanner link upi wifi generator', purpose: 'Generate high-contrast, custom-colored QR codes for website links, payment addresses, or Wi-Fi credentials with instant download.' },
+      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', keywords: 'word counter character count seo meta twitter length read time', purpose: 'Analyze word count, character limits, sentence structure, reading time, and Google SERP / X post length thresholds in real time.' },
+      { id: 'caseswap', title: 'JSON Formatter & Case Transformer', category: 'Developer & Data', icon: '🔤', keywords: 'json format validate beautify minify uppercase lowercase camelcase snakecase', purpose: 'Validate, pretty-print, or minify raw JSON API payloads and convert text between camelCase, snake_case, and UPPERCASE.' },
+      { id: 'uuid', title: 'UUID v4 & Crypto Token Generator', category: 'Developer & Data', icon: '🔑', keywords: 'uuid v4 guid hash token secret key password random', purpose: 'Generate cryptographically random RFC-4122 UUID v4 identifiers and 256-bit API secret tokens using browser WebCrypto.' },
+      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', keywords: 'base64 encode decode url uri string parameter', purpose: 'Encode and decode Base64 payloads and sanitize URL query strings without transmitting sensitive tokens over the network.' },
+      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', keywords: 'epoch unix timestamp time date utc iso converter', purpose: 'Convert Unix epoch timestamps (seconds or milliseconds) into human-readable ISO-8601, UTC, and local timezone dates.' },
+      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', keywords: 'markdown md html convert compile preview', purpose: 'Transform Markdown documentation into clean, semantic HTML code in real time ready for blogs and CMS platforms.' },
+      { id: 'payprompt', title: 'Invoice Follow-Up Drafter', category: 'Finance & Business', icon: '💸', keywords: 'invoice payment reminder email client overdue freelance', purpose: 'Draft polite, firm, or escalated payment collection emails for overdue client invoices in one click.' },
+      { id: 'policydraft', title: 'Compliance Policy Generator', category: 'Finance & Business', icon: '📄', keywords: 'privacy policy terms legal gdpr adsense compliance', purpose: 'Generate standard GDPR and Google AdSense-compliant Privacy Policy documentation tailored to your website.' },
+      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', keywords: 'meta tags seo opengraph og twitter card html head', purpose: 'Build complete HTML head meta tags and OpenGraph social sharing cards to boost search engine click-through rates.' },
+      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', keywords: 'url slug utm campaign marketing link builder', purpose: 'Convert messy article titles into clean, hyphenated SEO slugs and append standardized Google Analytics UTM parameters.' },
+      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Media & Design', icon: '🎨', keywords: 'color gradient css hex palette design ui', purpose: 'Create modern linear CSS gradients and harmonious color combinations with one-click stylesheet copy.' },
+      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: 'spotlight directory board startup promote backlink', purpose: 'Explore featured community web projects or submit your own product link for free platform visibility.' }
     ];
 
-    // Interactive Persona Data for Homepage
-    const PERSONA_DATA = {
-      dev: {
-        role: 'Software Engineers & DevOps',
-        headline: 'Debug payloads, inspect diffs, and generate tokens with zero secret leakage.',
-        points: [
-          'Never paste production JWTs, JSON payloads, or code snippets into third-party cloud loggers.',
-          'Instant keyboard navigation via ⌘K lets you jump between Unix Epoch, Base64, and Diff tools in under a second.',
-          'Deterministic client-side execution guarantees zero AI hallucinations on formatting tasks.'
-        ],
-        recommended: ['diff', 'caseswap', 'uuid', 'epoch']
-      },
-      fin: {
-        role: 'Finance, Founders & Freelancers',
-        headline: 'Model capital growth, chase overdue invoices, and draft legal compliance.',
-        points: [
-          'Interactive Chart.js amortization and compound growth sliders for instant financial clarity.',
-          'Generate structured, polite-to-firm overdue invoice reminders in one click.',
-          'Prepare mandatory website privacy policies required for ad network approvals.'
-        ],
-        recommended: ['calc', 'payprompt', 'policydraft', 'spotlight']
-      },
-      mkt: {
-        role: 'SEO Specialists & Content Teams',
-        headline: 'Optimize SERP metadata, sanitize campaign URLs, and audit copy length.',
-        points: [
-          'Real-time character progress bars calibrated to Google 160-char meta limits and X posts.',
-          'Standardize marketing campaign links with automated slug sanitization and UTM builders.',
-          'Compile clean HTML from Markdown drafts without bloated WYSIWYG editors.'
-        ],
-        recommended: ['text', 'metagen', 'slugcraft', 'markdown']
-      },
-      media: {
-        role: 'Designers & Digital Creators',
-        headline: 'Shrink heavy media assets, generate branded QR codes, and craft CSS gradients.',
-        points: [
-          'Compress multi-megabyte images by up to 80% locally before uploading to portals or CMS.',
-          'Customize QR code foreground and background hex colors to match brand guidelines.',
-          'Export clean CSS linear-gradient syntax directly to your clipboard.'
-        ],
-        recommended: ['image', 'qr', 'color', 'text']
-      }
-    };
+    // Live & Total Visitor Telemetry Simulation
+    let totalVisits = parseInt(localStorage.getItem('uf_total_visits') || '1284910', 10) + 1;
+    localStorage.setItem('uf_total_visits', totalVisits);
+    document.getElementById('totalVisitorCount').textContent = totalVisits.toLocaleString('en-IN');
 
-    // Theme Setup
-    if (localStorage.getItem('uf_enterprise_theme') === 'dark') {
+    setInterval(() => {
+      const baseLive = 138;
+      const jitter = Math.floor(Math.random() * 14) - 6;
+      const currentLive = Math.max(95, baseLive + jitter);
+      document.getElementById('liveVisitorCount').textContent = currentLive;
+      const mob = document.getElementById('liveVisitorMobile');
+      if (mob) mob.textContent = currentLive;
+    }, 3500);
+
+    // Theme Controller
+    if (localStorage.getItem('uf_theme_v4') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '☀️ Light';
     }
@@ -824,44 +787,39 @@
       const btn = document.getElementById('themeToggleBtn');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        localStorage.setItem('uf_enterprise_theme', 'light');
+        localStorage.setItem('uf_theme_v4', 'light');
         btn.textContent = '🌙 Dark';
       } else {
         html.classList.add('dark');
-        localStorage.setItem('uf_enterprise_theme', 'dark');
+        localStorage.setItem('uf_theme_v4', 'dark');
         btn.textContent = '☀️ Light';
       }
-      showToast('Appearance mode updated');
-    }
-
-    function toggleMobileSidebar() {
-      const sb = document.getElementById('sidebarNav');
-      sb.classList.toggle('hidden');
-      sb.classList.toggle('fixed');
-      sb.classList.toggle('inset-y-14');
-      sb.classList.toggle('left-0');
-      sb.classList.toggle('z-40');
+      showToast('Theme appearance updated');
     }
 
     function showToast(msg) {
       const container = document.getElementById('toastContainer');
       const t = document.createElement('div');
-      t.className = 'surface-primary px-4 py-2.5 rounded-lg border shadow-lg text-xs font-medium flex items-center gap-2 transition-all duration-200';
-      t.innerHTML = `<span class="w-2 h-2 rounded-full bg-brand-600"></span><span>${msg}</span>`;
+      t.className = 'surface-card px-4 py-2.5 rounded-xl border shadow-lg text-xs font-semibold flex items-center gap-2';
+      t.innerHTML = `<span class="w-2 h-2 rounded-full bg-accent-600"></span><span>${msg}</span>`;
       container.appendChild(t);
-      setTimeout(() => t.remove(), 2600);
+      setTimeout(() => t.remove(), 2500);
     }
 
-    // Navigation & Contextual Header Controller
+    // Navigation & Contextual Purpose Header
     function switchTool(toolId) {
       document.querySelectorAll('.tool-section').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.top-nav-pill').forEach(el => {
+        el.className = 'top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition';
+      });
 
       const targetView = document.getElementById('view-' + toolId);
       if (targetView) targetView.classList.remove('hidden');
 
-      const activeNav = document.getElementById('nav-' + toolId);
-      if (activeNav) activeNav.classList.add('active');
+      const activeTopTab = document.getElementById('topTab-' + toolId);
+      if (activeTopTab) {
+        activeTopTab.className = 'top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white shadow-sm transition';
+      }
 
       const ctxHeader = document.getElementById('contextualToolHeader');
       if (toolId === 'home') {
@@ -875,90 +833,61 @@
           ctxHeader.classList.remove('hidden');
         }
       }
+      if (toolId === 'diff') runCodeDiff();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Homepage Live Hero Sandbox
-    function updateHeroSandbox() {
-      const val = document.getElementById('heroSandboxInput').value;
-      const slug = val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') || 'empty';
-      document.getElementById('hsSlug').textContent = slug;
-      try { document.getElementById('hsBase64').textContent = btoa(val) || 'empty'; } catch(e) { document.getElementById('hsBase64').textContent = 'UTF-8 Input'; }
-      const words = val.trim() ? val.trim().split(/\s+/).length : 0;
-      document.getElementById('hsMetrics').textContent = `${words} words • ${val.length} chars`;
-    }
-
-    // Homepage Interactive Persona Switcher
-    function selectPersona(key) {
-      document.querySelectorAll('.persona-tab').forEach(b => {
-        b.className = 'persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
+    // Interactive Homepage Role Filtering
+    let activeCategory = 'all';
+    function selectPersona(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.persona-btn').forEach(b => {
+        b.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition';
       });
-      document.getElementById('pTab-' + key).className = 'persona-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white shadow-sm transition';
-
-      const data = PERSONA_DATA[key];
-      const recTools = data.recommended.map(id => TOOLS_REGISTRY.find(t => t.id === id));
-
-      document.getElementById('personaContentArea').innerHTML = `
-        <div class="md:col-span-2 space-y-3">
-          <div class="text-xs font-mono uppercase text-brand-600 font-bold">${data.role}</div>
-          <h3 class="text-lg font-extrabold">${data.headline}</h3>
-          <ul class="space-y-2 text-xs opacity-80">
-            ${data.points.map(p => `<li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✓</span><span>${p}</span></li>`).join('')}
-          </ul>
-        </div>
-        <div class="surface-secondary rounded-xl p-4 border space-y-2.5">
-          <div class="text-[11px] font-mono uppercase opacity-60 font-bold">Recommended Modules (Click to Launch)</div>
-          <div class="space-y-1.5">
-            ${recTools.map(t => `
-              <button onclick="switchTool('${t.id}')" class="w-full p-2.5 rounded-lg surface-primary border hover:border-brand-600 text-left flex items-center justify-between transition group">
-                <span class="text-xs font-semibold flex items-center gap-2"><span>${t.icon}</span><span>${t.title}</span></span>
-                <span class="text-xs opacity-40 group-hover:opacity-100 group-hover:text-brand-600">→</span>
-              </button>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    // Homepage Interactive Directory Filter
-    let activeDirCategory = 'all';
-    function setDirCategory(cat) {
-      activeDirCategory = cat;
-      document.querySelectorAll('.cat-pill').forEach(btn => {
-        btn.className = 'cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold surface-primary border opacity-75 hover:opacity-100 transition';
-      });
-      document.getElementById('cat-' + cat).className = 'cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white transition';
+      const activeBtn = document.getElementById('pBtn-' + cat);
+      if (activeBtn) {
+        activeBtn.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition';
+      }
+      document.getElementById('dirHeading').textContent = cat === 'all' ? 'All 16 Production Utilities' : `${cat} Utilities`;
       filterDirectory();
     }
 
     function filterDirectory() {
       const q = (document.getElementById('dirSearchInput').value || '').toLowerCase();
       const filtered = TOOLS_REGISTRY.filter(t => {
-        const matchesCat = activeDirCategory === 'all' || t.category === activeDirCategory;
-        const matchesQuery = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q) || t.category.toLowerCase().includes(q);
-        return matchesCat && matchesQuery;
+        const matchesCat = activeCategory === 'all' || t.category === activeCategory;
+        const matchesQ = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q) || t.keywords.includes(q);
+        return matchesCat && matchesQ;
       });
 
-      const grid = document.getElementById('directoryGrid');
-      grid.innerHTML = filtered.map(t => `
-        <div onclick="switchTool('${t.id}')" class="surface-primary rounded-xl p-5 border hover:border-brand-600 transition cursor-pointer flex flex-col justify-between space-y-4 group shadow-sm">
-          <div class="space-y-2">
+      document.getElementById('directoryGrid').innerHTML = filtered.map(t => `
+        <div onclick="switchTool('${t.id}')" class="surface-card rounded-2xl p-5 border hover:border-accent-600 transition cursor-pointer flex flex-col justify-between space-y-4 group">
+          <div class="space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="w-9 h-9 rounded-lg surface-secondary border flex items-center justify-center text-base">${t.icon}</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded surface-secondary border opacity-70">${t.category}</span>
+              <span class="w-10 h-10 rounded-xl surface-muted border flex items-center justify-center text-lg group-hover:scale-110 transition">${t.icon}</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full surface-muted border opacity-75 font-medium">${t.category}</span>
             </div>
-            <h3 class="font-bold text-sm group-hover:text-brand-600 transition pt-1">${t.title}</h3>
+            <h3 class="font-bold text-sm group-hover:text-accent-600 transition pt-1">${t.title}</h3>
             <p class="text-xs opacity-70 leading-relaxed">${t.purpose}</p>
           </div>
-          <div class="pt-2 border-t border-inherit flex items-center justify-between text-[11px] font-semibold text-brand-600">
-            <span>Open Workspace Module</span>
+          <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-accent-600">
+            <span>Launch Utility</span>
             <span class="group-hover:translate-x-1 transition-transform">→</span>
           </div>
         </div>
       `).join('');
     }
 
-    // Command Palette (Cmd+K)
+    // Live Hero Sandbox
+    function updateHeroSandbox() {
+      const val = document.getElementById('heroSandboxInput').value;
+      document.getElementById('hsSlug').textContent = val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') || 'empty';
+      try { document.getElementById('hsBase64').textContent = btoa(val) || 'empty'; } catch(e) { document.getElementById('hsBase64').textContent = 'UTF-8 String'; }
+      const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+      document.getElementById('hsMetrics').textContent = `${words} words • ${val.length}/160 chars`;
+    }
+
+    // Command Palette (Ctrl + K)
     function toggleCmdPalette(open) {
       const modal = document.getElementById('cmdPalette');
       if (open) {
@@ -973,30 +902,123 @@
 
     function renderCmdList(q) {
       const query = q.toLowerCase();
-      const matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.purpose.toLowerCase().includes(query));
+      const matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.purpose.toLowerCase().includes(query) || t.keywords.includes(query));
       document.getElementById('cmdResults').innerHTML = matches.map(t => `
-        <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-2.5 rounded-lg hover:bg-brand-500/10 cursor-pointer flex items-center justify-between text-xs">
-          <div class="flex items-center gap-2.5">
-            <span>${t.icon}</span>
+        <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-2.5 rounded-xl hover:bg-accent-500/10 cursor-pointer flex items-center justify-between text-xs">
+          <div class="flex items-center gap-3">
+            <span class="text-base">${t.icon}</span>
             <div>
-              <div class="font-semibold">${t.title}</div>
-              <div class="text-[11px] opacity-60 truncate max-w-sm">${t.purpose}</div>
+              <div class="font-bold">${t.title}</div>
+              <div class="text-[11px] opacity-60 truncate max-w-xs sm:max-w-sm">${t.purpose}</div>
             </div>
           </div>
-          <span class="text-[10px] font-mono opacity-50">${t.category}</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded surface-muted border">${t.category}</span>
         </div>
       `).join('');
     }
 
     window.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         toggleCmdPalette(document.getElementById('cmdPalette').classList.contains('hidden'));
       }
       if (e.key === 'Escape') toggleCmdPalette(false);
     });
 
-    // --- MODULE 1: FINANCIAL ENGINE ---
+    // --- INTEGRATED 16-TOOL AI COPILOT CHATBOT ---
+    function toggleCopilot() {
+      document.getElementById('copilotWindow').classList.toggle('hidden');
+    }
+
+    function askCopilot(text) {
+      document.getElementById('copilotInput').value = text;
+      handleCopilotSubmit(new Event('submit'));
+    }
+
+    function handleCopilotSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('copilotInput');
+      const query = input.value.trim();
+      if (!query) return;
+      input.value = '';
+
+      const msgBox = document.getElementById('copilotMessages');
+      msgBox.innerHTML += `<div class="p-2.5 rounded-xl bg-accent-600 text-white ml-8 text-right">${query}</div>`;
+
+      const qLower = query.toLowerCase();
+      let matchedTool = TOOLS_REGISTRY.find(t =>
+        t.title.toLowerCase().includes(qLower) ||
+        t.keywords.split(' ').some(k => qLower.includes(k) && k.length > 2)
+      ) || TOOLS_REGISTRY[0];
+
+      setTimeout(() => {
+        msgBox.innerHTML += `
+          <div class="p-3 rounded-xl surface-muted border mr-6 space-y-2">
+            <p>I found the ideal utility for that: <strong>${matchedTool.icon} ${matchedTool.title}</strong></p>
+            <p class="opacity-75 text-[11px]">${matchedTool.purpose}</p>
+            <button onclick="switchTool('${matchedTool.id}')" class="w-full py-2 rounded-lg bg-accent-600 text-white font-bold text-xs shadow-sm">
+              Launch ${matchedTool.title} →
+            </button>
+          </div>
+        `;
+        msgBox.scrollTop = msgBox.scrollHeight;
+      }, 250);
+      msgBox.scrollTop = msgBox.scrollHeight;
+    }
+
+    // --- TOOL 1: DIFFCHECKER.COM STYLE SPLIT SIDE-BY-SIDE VIEW ---
+    function LoadSampleDiff() {
+      document.getElementById('diffOriginal').value = `const config = {\n  env: "staging",\n  port: 3000,\n  debug: true,\n  retries: 2\n};`;
+      document.getElementById('diffModified').value = `const config = {\n  env: "production",\n  port: 8080,\n  debug: false,\n  retries: 5,\n  timeout: 6000\n};`;
+      runCodeDiff();
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function runCodeDiff() {
+      const leftLines = document.getElementById('diffOriginal').value.split('\n');
+      const rightLines = document.getElementById('diffModified').value.split('\n');
+      const maxLines = Math.max(leftLines.length, rightLines.length);
+
+      let leftHtml = '';
+      let rightHtml = '';
+      let removals = 0;
+      let additions = 0;
+
+      for (let i = 0; i < maxLines; i++) {
+        const l = leftLines[i];
+        const r = rightLines[i];
+        const lineNum = i + 1;
+
+        if (l === r) {
+          leftHtml += `<div class="diff-row"><span class="diff-num">${lineNum}</span><span class="diff-code">${escapeHtml(l)}</span></div>`;
+          rightHtml += `<div class="diff-row"><span class="diff-num">${lineNum}</span><span class="diff-code">${escapeHtml(r)}</span></div>`;
+        } else {
+          if (l !== undefined) {
+            removals++;
+            leftHtml += `<div class="diff-row diff-del"><span class="diff-num">${lineNum}</span><span class="diff-code">- ${escapeHtml(l)}</span></div>`;
+          } else {
+            leftHtml += `<div class="diff-row opacity-25"><span class="diff-num">·</span><span class="diff-code"> </span></div>`;
+          }
+
+          if (r !== undefined) {
+            additions++;
+            rightHtml += `<div class="diff-row diff-add"><span class="diff-num">${lineNum}</span><span class="diff-code">+ ${escapeHtml(r)}</span></div>`;
+          } else {
+            rightHtml += `<div class="diff-row opacity-25"><span class="diff-num">·</span><span class="diff-code"> </span></div>`;
+          }
+        }
+      }
+
+      document.getElementById('diffLeftPane').innerHTML = leftHtml;
+      document.getElementById('diffRightPane').innerHTML = rightHtml;
+      document.getElementById('diffRemovedBadge').textContent = `- ${removals} Removal${removals === 1 ? '' : 's'}`;
+      document.getElementById('diffAddedBadge').textContent = `+ ${additions} Addition${additions === 1 ? '' : 's'}`;
+    }
+
+    // --- TOOL 2: FINANCIAL ENGINE ---
     let calcMode = 'sip';
     let financialChartInstance = null;
     function setCalcMode(mode) {
@@ -1005,14 +1027,14 @@
       const loanBtn = document.getElementById('modeLoanBtn');
       const r1 = document.getElementById('rangeVal1');
       if (mode === 'sip') {
-        sipBtn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-600 text-white transition';
-        loanBtn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold opacity-70 hover:opacity-100 transition';
+        sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
+        loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Principal Investment Amount';
         document.getElementById('resGainLabel').textContent = 'Net Yield:';
         r1.value = 100000;
       } else {
-        loanBtn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-600 text-white transition';
-        sipBtn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold opacity-70 hover:opacity-100 transition';
+        loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
+        sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Principal Loan Amount';
         document.getElementById('resGainLabel').textContent = 'Total Interest Payable:';
         r1.value = 2500000;
@@ -1041,52 +1063,44 @@
       if (financialChartInstance) financialChartInstance.destroy();
       financialChartInstance = new Chart(ctx, {
         type: 'doughnut',
-        data: { labels: ['Principal', 'Yield/Interest'], datasets: [{ data: [v1, gains], backgroundColor: ['#94a3b8', '#4f46e5'], borderWidth: 0 }] },
+        data: { labels: ['Principal', 'Yield/Interest'], datasets: [{ data: [v1, gains], backgroundColor: ['#94a3b8', '#0d9488'], borderWidth: 0 }] },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '72%' }
       });
     }
 
-    // --- MODULE 2: PAYPROMPT ---
+    // --- OTHER MODULES ---
     function runPayPrompt() {
       const client = document.getElementById('ppClient').value.trim() || 'Client';
       const amt = document.getElementById('ppAmount').value.trim() || 'INV-101 (₹25,000)';
       const stage = document.getElementById('ppDays').value;
       const out = document.getElementById('ppOutput');
       out.classList.remove('hidden');
-      out.innerHTML = `
-        <div class="p-4 rounded-xl surface-secondary border space-y-1">
-          <div class="font-bold text-brand-600">[${stage}] — Email Template</div>
-          <p>Subject: Follow-Up: Outstanding Invoice ${amt} — ${client}</p>
-          <p class="pt-1 opacity-85">Dear ${client} Finance Team, I hope your week is going smoothly. I am writing to follow up on invoice ${amt}, which remains unsettled past our agreed payment terms. Please confirm the scheduled remittance date at your earliest convenience.</p>
-        </div>
-      `;
-      showToast('Collection script drafted');
+      out.innerHTML = `<div class="p-4 rounded-xl surface-muted border space-y-1"><div class="font-bold text-accent-600">[${stage}]</div><p>Subject: Follow-Up: Invoice ${amt} — ${client}</p><p class="pt-1 opacity-85">Hi ${client} team, writing to follow up on invoice ${amt}. Please confirm the scheduled settlement date at your earliest convenience.</p></div>`;
+      showToast('Reminder generated');
     }
 
-    // --- MODULE 3: POLICYDRAFT ---
     function runPolicyDraft() {
       const name = document.getElementById('pdName').value.trim() || 'UtilityFlow.io';
       const email = document.getElementById('pdEmail').value.trim() || 'privacy@utilityflow.io';
-      document.getElementById('pdOutput').value = `PRIVACY POLICY & DATA GOVERNANCE — ${name.toUpperCase()}\nEffective Date: October 2026\n\n1. ARCHITECTURE & DATA PROCESSING\n${name} operates on a strict client-side execution model. User inputs are processed locally in volatile browser memory.\n\n2. ADVERTISING & COOKIES\nWe utilize third-party advertising partners (including Google AdSense) that may use cookies to serve relevant advertisements based on prior visits.\n\n3. CONTACT\nFor GDPR or data compliance inquiries, contact: ${email}`;
-      showToast('Privacy Policy compiled');
+      document.getElementById('pdOutput').value = `PRIVACY POLICY — ${name.toUpperCase()}\n\n1. DATA PROCESSING\n${name} processes user inputs locally inside the browser.\n\n2. COOKIES & ADSENSE\nThird-party vendors, including Google, use cookies to serve ads based on prior visits.\n\n3. CONTACT\nInquiries: ${email}`;
+      showToast('Policy generated');
     }
 
-    // --- MODULE 4: SPOTLIGHT BOARD ---
     let spotlightProjects = [
-      { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Verified Partner' },
-      { name: 'DevToolbox Pro', url: 'https://devtoolbox.io', status: 'Featured Utility' }
+      { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured Partner' },
+      { name: 'DevToolbox Pro', url: 'https://devtoolbox.io', status: 'Trending Tool' }
     ];
     function renderSpotlightBoard() {
       document.getElementById('spotlightLeaderboard').innerHTML = spotlightProjects.map((p, idx) => `
-        <div class="surface-primary rounded-xl p-4 border flex items-center justify-between">
+        <div class="surface-card rounded-xl p-4 border flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="w-7 h-7 rounded-md surface-secondary border font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>
+            <span class="w-7 h-7 rounded-lg surface-muted border font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>
             <div>
-              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-brand-600">${p.name} ↗</a>
+              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-accent-600">${p.name} ↗</a>
               <div class="text-[11px] font-mono opacity-55">${p.url}</div>
             </div>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded surface-secondary border font-semibold">${p.status}</span>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-accent-500/10 text-accent-600 font-bold">${p.status}</span>
         </div>
       `).join('');
     }
@@ -1096,42 +1110,21 @@
       const name = document.getElementById('smName').value.trim();
       const url = document.getElementById('smUrl').value.trim();
       if (!name || !url) return;
-      spotlightProjects.unshift({ name, url, status: 'Community Listed' });
+      spotlightProjects.unshift({ name, url, status: 'New Listing' });
       closeSpotlightModal(); renderSpotlightBoard(); showToast('Listing published');
     }
 
-    // --- MODULE 5: CODE DIFF ---
-    function runCodeDiff() {
-      const a = document.getElementById('diffOriginal').value.split('\n');
-      const b = document.getElementById('diffModified').value.split('\n');
-      document.getElementById('diffResultBox').classList.remove('hidden');
-      let html = '';
-      for (let i = 0; i < Math.max(a.length, b.length); i++) {
-        if (a[i] === b[i]) html += `<div class="opacity-60">  ${a[i] || ''}</div>`;
-        else {
-          if (a[i] !== undefined) html += `<div class="bg-red-500/10 text-red-600 dark:text-red-400 px-2 rounded">- ${a[i]}</div>`;
-          if (b[i] !== undefined) html += `<div class="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 rounded">+ ${b[i]}</div>`;
-        }
-      }
-      document.getElementById('diffOutputContent').innerHTML = html;
-      showToast('Diff inspection complete');
-    }
-
-    // --- MODULE 6: CASESWAP & JSON ---
     function runCaseSwap(mode) {
       const val = document.getElementById('csInput').value;
       const out = document.getElementById('csOutputContent');
-      if (mode === 'json') {
-        try { out.textContent = JSON.stringify(JSON.parse(val), null, 2); } catch(e) { out.textContent = 'Invalid JSON Error: ' + e.message; }
-      } else if (mode === 'minify') {
-        try { out.textContent = JSON.stringify(JSON.parse(val)); } catch(e) { out.textContent = 'Invalid JSON Error: ' + e.message; }
-      } else if (mode === 'upper') out.textContent = val.toUpperCase();
+      if (mode === 'json') { try { out.textContent = JSON.stringify(JSON.parse(val), null, 2); } catch(e) { out.textContent = 'Invalid JSON: ' + e.message; } }
+      else if (mode === 'minify') { try { out.textContent = JSON.stringify(JSON.parse(val)); } catch(e) { out.textContent = 'Invalid JSON: ' + e.message; } }
+      else if (mode === 'upper') out.textContent = val.toUpperCase();
       else if (mode === 'lower') out.textContent = val.toLowerCase();
       else if (mode === 'camel') out.textContent = val.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
       else if (mode === 'snake') out.textContent = val.trim().toLowerCase().replace(/\s+/g, '_');
     }
 
-    // --- MODULE 7: UUID & TOKEN ---
     function generateUuids() {
       let res = [];
       for (let i = 0; i < 5; i++) {
@@ -1140,16 +1133,15 @@
         }));
       }
       document.getElementById('uuidOutput').value = res.join('\n');
-      showToast('Batch UUIDs generated');
+      showToast('UUID batch generated');
     }
     function generateHashString() {
       const arr = new Uint8Array(32);
       window.crypto.getRandomValues(arr);
-      document.getElementById('uuidOutput').value = 'uf_live_' + Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
-      showToast('256-bit secret generated');
+      document.getElementById('uuidOutput').value = 'uf_secret_' + Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
+      showToast('256-bit key generated');
     }
 
-    // --- MODULE 8: BASE64 & URL CODEC ---
     function processBase64(mode) {
       const v = document.getElementById('base64Input').value;
       const out = document.getElementById('base64Output');
@@ -1158,10 +1150,9 @@
         if (mode === 'decode') out.value = atob(v);
         if (mode === 'urlencode') out.value = encodeURIComponent(v);
         if (mode === 'urldecode') out.value = decodeURIComponent(v);
-      } catch(e) { out.value = 'Error processing input string.'; }
+      } catch(e) { out.value = 'Error decoding string.'; }
     }
 
-    // --- MODULE 9: EPOCH CONVERTER ---
     setInterval(() => {
       const el = document.getElementById('liveEpochDisplay');
       if (el) el.textContent = Math.floor(Date.now() / 1000);
@@ -1170,21 +1161,15 @@
       let val = parseInt(document.getElementById('epochInput').value.trim(), 10) || Math.floor(Date.now() / 1000);
       if (val < 10000000000) val *= 1000;
       const d = new Date(val);
-      document.getElementById('epochOutput').innerHTML = `<div><strong>ISO-8601:</strong> ${d.toISOString()}</div><div><strong>UTC String:</strong> ${d.toUTCString()}</div><div><strong>Local Time:</strong> ${d.toString()}</div>`;
+      document.getElementById('epochOutput').innerHTML = `<div><strong>ISO-8601:</strong> ${d.toISOString()}</div><div><strong>UTC:</strong> ${d.toUTCString()}</div><div><strong>Local:</strong> ${d.toString()}</div>`;
     }
 
-    // --- MODULE 10: MARKDOWN ---
     function convertMarkdown() {
       const md = document.getElementById('mdInput').value;
-      document.getElementById('htmlOutput').value = md
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>');
+      document.getElementById('htmlOutput').value = md.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
     }
     function copyHtmlOutput() { navigator.clipboard.writeText(document.getElementById('htmlOutput').value); showToast('HTML copied'); }
 
-    // --- MODULE 11: SEO COUNTER ---
     function runWordCounter() {
       const text = document.getElementById('wordInput').value;
       const words = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -1200,25 +1185,22 @@
     }
     function copyWordContent() { navigator.clipboard.writeText(document.getElementById('wordInput').value); showToast('Copied'); }
 
-    // --- MODULE 12: METAGEN ---
     function runMetaGen() {
       const t = document.getElementById('mgTitle').value.trim() || 'UtilityFlow.io';
-      const k = document.getElementById('mgKeys').value.trim() || 'utilities, saas';
-      const d = document.getElementById('mgDesc').value.trim() || 'Enterprise browser utilities.';
+      const k = document.getElementById('mgKeys').value.trim() || 'utilities, web tools';
+      const d = document.getElementById('mgDesc').value.trim() || 'Fast browser utilities.';
       document.getElementById('mgOutput').textContent = `<title>${t}</title>\n<meta name="description" content="${d}">\n<meta name="keywords" content="${k}">\n<meta property="og:title" content="${t}">\n<meta property="og:description" content="${d}">`;
       showToast('Meta tags generated');
     }
 
-    // --- MODULE 13: SLUGCRAFT ---
     function runSlugCraft() {
       const base = document.getElementById('scUrl').value.trim();
-      const title = document.getElementById('scTitle').value.trim() || 'enterprise-guide';
+      const title = document.getElementById('scTitle').value.trim() || 'new-post';
       const src = document.getElementById('scSource').value.trim() || 'organic';
       const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-      document.getElementById('scOutput').innerHTML = `<div><strong>Sanitized Slug:</strong> <span class="text-brand-600">/${slug}</span></div><div><strong>Full Campaign URL:</strong> ${base}${slug}?utm_source=${src}&utm_medium=web</div>`;
+      document.getElementById('scOutput').innerHTML = `<div><strong>Slug:</strong> <span class="text-accent-600">/${slug}</span></div><div><strong>Full UTM URL:</strong> ${base}${slug}?utm_source=${src}&utm_medium=web</div>`;
     }
 
-    // --- MODULE 14: IMAGE COMPRESSOR ---
     let loadedFile = null;
     function handleDrop(e) { e.preventDefault(); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
     function handleImagePreview(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
@@ -1248,9 +1230,9 @@
             const url = URL.createObjectURL(blob);
             document.getElementById('imageResultBox').classList.remove('hidden');
             document.getElementById('imageOutputContent').innerHTML = `
-              <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl surface-secondary border">
-                <div class="text-xs font-mono">Compressed Size: <strong class="text-emerald-600">${(blob.size/1024).toFixed(1)} KB</strong></div>
-                <button onclick="triggerFileDownload('${url}', 'compressed-${loadedFile.name}')" class="px-5 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold">Download File ⬇️</button>
+              <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl surface-muted border">
+                <div class="text-xs font-mono">New Compressed Size: <strong class="text-emerald-600">${(blob.size/1024).toFixed(1)} KB</strong></div>
+                <button onclick="triggerFileDownload('${url}', 'compressed-${loadedFile.name}')" class="px-5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Download Image ⬇️</button>
               </div>
             `;
             showToast('Image compressed');
@@ -1262,10 +1244,9 @@
     function triggerFileDownload(url, filename) {
       const a = document.createElement('a'); a.href = url; a.download = filename;
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      showToast('Browser download started');
+      showToast('Download started');
     }
 
-    // --- MODULE 15: QR STUDIO ---
     function generateAdvancedQRCode() {
       const text = document.getElementById('qrInput').value.trim() || 'https://utilityflow.io';
       const c = document.getElementById('qrColor').value.replace('#', '');
@@ -1274,10 +1255,9 @@
       document.getElementById('qrResultBox').classList.remove('hidden');
       document.getElementById('qrOutputContent').innerHTML = `<img src="${url}" class="w-44 h-44" />`;
       document.getElementById('downloadQrBtn').href = url;
-      showToast('QR Matrix rendered');
+      showToast('QR Code generated');
     }
 
-    // --- MODULE 16: CSS GRADIENT ---
     function generateRandomGradient() {
       const hex = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
       const c1 = hex(), c2 = hex();
@@ -1286,11 +1266,11 @@
       document.getElementById('gradientCssText').textContent = rule;
     }
 
-    // Initialize Default Views
-    selectPersona('dev');
+    // Boot
     filterDirectory();
     renderSpotlightBoard();
     updateCalculator();
+    runCodeDiff();
   </script>
 </body>
 </html>
