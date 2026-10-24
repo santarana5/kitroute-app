@@ -42,17 +42,17 @@
           <div class="flex items-center gap-2">
             <span class="font-extrabold tracking-tight text-white text-lg">KitRoute<span class="text-cyan-400">.io</span></span>
             <span id="dbStatusBadge" class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span> LIVE: Supabase Mumbai
+              <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span> SECURE AUTH LIVE
             </span>
           </div>
-          <p class="text-xs text-zinc-400 hidden sm:block">Connected to Project: <code class="text-cyan-400 font-mono">baujahjqbkakkeemwxql</code> (ap-south-1)</p>
+          <p class="text-xs text-zinc-400 hidden sm:block">Connected to Supabase DB (ap-south-1)</p>
         </div>
       </div>
 
       <!-- Navigation Switcher -->
       <nav class="flex flex-wrap items-center gap-1.5 bg-zinc-900/90 p-1 rounded-xl border border-white/10">
         <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition">1. Public Profile (@SantaaR)</button>
-        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">2. Creator Dashboard 🔒</button>
+        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">2. Creator Studio 🔐</button>
         <button onclick="switchTab('calculator')" id="tab-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition">3. Free SEO Calculator</button>
       </nav>
     </div>
@@ -147,7 +147,7 @@
             <p class="text-sm font-bold text-white mt-3">⚡ Powered by KitRoute.io</p>
             <p class="text-xs text-zinc-400 mt-1">Are you a YouTuber, MotoVlogger, or Creator? Build your interactive Gear, Route & Priority Queue page in 60 seconds.</p>
             <button onclick="switchTab('dashboard')" class="mt-3 w-full py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/15 transition">
-              Creator Login (PIN: 1234) →
+              Creator Login →
             </button>
           </div>
         </div>
@@ -155,39 +155,53 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: CREATOR ADMIN DASHBOARD (PIN LOCKED)-->
+    <!-- TAB 2: CREATOR ADMIN DASHBOARD (AUTH SECURED)-->
     <!-- ========================================== -->
     <section id="view-dashboard" class="hidden space-y-8">
-      <div id="dashboardPinGate" class="glass rounded-3xl p-8 max-w-md mx-auto text-center space-y-4 border border-cyan-500/30 mt-12">
-        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔒</div>
-        <h3 class="text-xl font-bold text-white">Creator Studio Protected</h3>
-        <p class="text-xs text-zinc-400">Enter your 4-digit Creator PIN to manage your cloud database (Default PIN is <code class="text-cyan-400 font-mono">1234</code>).</p>
-        <input id="creatorPinInput" type="password" maxlength="4" placeholder="••••" class="w-36 text-center tracking-widest text-lg py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-white font-mono mx-auto block" />
-        <button onclick="verifyCreatorPin()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition">
-          Unlock Dashboard →
+      <!-- Supabase Auth Login Gate -->
+      <div id="dashboardAuthGate" class="glass rounded-3xl p-8 max-w-md mx-auto text-center space-y-4 border border-cyan-500/30 mt-12">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-xl font-black">🔐</div>
+        <h3 class="text-xl font-bold text-white">Creator Studio Login</h3>
+        <p class="text-xs text-zinc-400">Sign in with your Supabase creator email and password to manage your live database.</p>
+        <div class="space-y-3 pt-2 text-left">
+          <div>
+            <label class="text-xs text-zinc-400">Email Address</label>
+            <input id="authEmail" type="email" placeholder="santarana5@gmail.com" class="w-full mt-1 px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white" />
+          </div>
+          <div>
+            <label class="text-xs text-zinc-400">Password</label>
+            <input id="authPassword" type="password" placeholder="••••••••" class="w-full mt-1 px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white" />
+          </div>
+        </div>
+        <button onclick="loginCreator()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm transition mt-2">
+          Secure Login →
         </button>
+        <div id="authErrorMsg" class="text-xs text-rose-400 hidden"></div>
       </div>
 
+      <!-- Unlocked Authenticated Dashboard Workspace -->
       <div id="dashboardWorkspace" class="hidden space-y-8">
         <div class="flex flex-wrap items-center justify-between gap-4 glass p-6 rounded-2xl">
           <div>
-            <h2 class="text-2xl font-extrabold text-white">Creator Studio & Live Cloud Manager</h2>
-            <p class="text-xs text-zinc-400 mt-1">Connected to Mumbai Supabase database (`baujahjqbkakkeemwxql`)[cite: 1].</p>
+            <div class="flex items-center gap-2">
+              <h2 class="text-2xl font-extrabold text-white">Creator Studio & Cloud Manager</h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300">AUTHENTICATED</span>
+            </div>
+            <p id="loggedInUserEmail" class="text-xs text-zinc-400 mt-1">Logged in securely.</p>
           </div>
           <div class="flex items-center gap-3">
             <button onclick="seedCloudDatabase()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-cyan-300 border border-cyan-500/30 transition">
-              🔄 Sync Default Cloud Data
+              🔄 Sync Default Data
             </button>
-            <div class="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-right">
-              <div class="text-[10px] font-mono uppercase text-emerald-300">Platform 10% Cut Earned</div>
-              <div id="platformCutStat" class="text-lg font-extrabold text-emerald-400 font-mono">₹149</div>
-            </div>
+            <button onclick="logoutCreator()" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold text-rose-300 border border-rose-500/30 transition">
+              Sign Out ⎋
+            </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="text-lg font-bold text-white">➕ Add Gear Item to Cloud DB</h3>
+            <h3 class="text-lg font-bold text-white">➕ Add Gear Item (Secured to Your Account)</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="text-xs text-zinc-400">Gear Title</label>
@@ -214,14 +228,14 @@
               </div>
             </div>
             <button onclick="addGearItem()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm transition">
-              Save Gear to Supabase Cloud
+              Save Gear to Secure Cloud DB
             </button>
           </div>
 
           <div class="glass rounded-2xl p-6 space-y-4">
             <div class="flex items-center justify-between">
-              <h3 class="text-lg font-bold text-white">📬 Incoming Priority Inbox (90/10 Split)</h3>
-              <span class="text-xs font-mono text-zinc-400">10% Fee to KitRoute.io</span>
+              <h3 class="text-lg font-bold text-white">📬 Incoming Priority Inbox</h3>
+              <span class="text-xs font-mono text-emerald-400">Live RLS Active</span>
             </div>
             <div id="adminQueueList" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
           </div>
@@ -305,7 +319,6 @@
   </div>
 
   <script>
-    // Tab switching function defined first so it never fails
     function switchTab(tab) {
       ['profile', 'dashboard', 'calculator'].forEach(t => {
         const el = document.getElementById('view-' + t);
@@ -317,20 +330,13 @@
       if (targetView) targetView.classList.remove('hidden');
       const activeBtn = document.getElementById('tab-' + tab);
       if (activeBtn) activeBtn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black transition';
+      
+      if (tab === 'dashboard') checkAuthSession();
     }
 
-    function verifyCreatorPin() {
-      const pin = document.getElementById('creatorPinInput').value;
-      if (pin === '1234') {
-        document.getElementById('dashboardPinGate').classList.add('hidden');
-        document.getElementById('dashboardWorkspace').classList.remove('hidden');
-      } else {
-        alert('Incorrect PIN. Default is 1234');
-      }
-    }
-
-    // Safe Supabase Initialization with Fallback
     let sb = null;
+    let currentSessionUser = null;
+
     const DEFAULT_GEAR = [
       { title: '4K Action Camera + Chin Mount Setup', category: 'Camera & Audio', price_spec: '₹34,990 • 4K/60fps', affiliate_url: 'https://amazon.in' },
       { title: '125cc Commuter & Touring Motorcycle Setup', category: 'Moto & Riding Gear', price_spec: '65 kmpl • Highway Ready', affiliate_url: 'https://amazon.in' },
@@ -356,15 +362,56 @@
       if (window.supabase) {
         sb = window.supabase.createClient('https://baujahjqbkakkeemwxql.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhdWphaGpxYmtha2tlZW13eHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4MTcwMjYsImV4cCI6MjEwODM5MzAyNn0.LZhn262GJMEm_2CmPxG78EbWjHONzXJFx-q_SJeDaZ0');
       }
-    } catch(e) { console.log('Supabase init note:', e); }
+    } catch(e) { console.log('Supabase init:', e); }
+
+    async function checkAuthSession() {
+      if (!sb) return;
+      const { data: { session } } = await sb.auth.getSession();
+      if (session && session.user) {
+        currentSessionUser = session.user;
+        document.getElementById('dashboardAuthGate').classList.add('hidden');
+        document.getElementById('dashboardWorkspace').classList.remove('hidden');
+        document.getElementById('loggedInUserEmail').textContent = `Logged in as: ${session.user.email}`;
+      } else {
+        document.getElementById('dashboardAuthGate').classList.remove('hidden');
+        document.getElementById('dashboardWorkspace').classList.add('hidden');
+      }
+    }
+
+    async function loginCreator() {
+      const email = document.getElementById('authEmail').value.trim();
+      const password = document.getElementById('authPassword').value.trim();
+      const errBox = document.getElementById('authErrorMsg');
+      errBox.classList.add('hidden');
+
+      if (!email || !password) {
+        errBox.textContent = 'Please enter both email and password.';
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) {
+        errBox.textContent = error.message;
+        errBox.classList.remove('hidden');
+      } else {
+        checkAuthSession();
+        initCloudConnection();
+      }
+    }
+
+    async function logoutCreator() {
+      if (sb) await sb.auth.signOut();
+      currentSessionUser = null;
+      document.getElementById('dashboardAuthGate').classList.remove('hidden');
+      document.getElementById('dashboardWorkspace').classList.add('hidden');
+    }
 
     async function initCloudConnection() {
       if (!sb) { renderAll(); return; }
       try {
-        const { data: gearData, error: gearErr } = await sb.from('gear_items').select('*').order('id', { ascending: false });
-        if (gearErr || !gearData) { renderAll(); return; }
-        if (gearData.length === 0) { await seedCloudDatabase(true); return; }
-        stateGear = gearData;
+        const { data: gearData } = await sb.from('gear_items').select('*').order('id', { ascending: false });
+        if (gearData && gearData.length > 0) stateGear = gearData;
         
         const { data: routeData } = await sb.from('travel_routes').select('*').order('id', { ascending: true });
         if (routeData && routeData.length > 0) stateRoutes = routeData;
@@ -379,15 +426,20 @@
     }
 
     async function seedCloudDatabase(silent = false) {
-      if (!sb) return;
+      if (!sb || !currentSessionUser) return alert('Please log in first.');
       try {
-        await sb.from('gear_items').insert(DEFAULT_GEAR);
-        await sb.from('travel_routes').insert(DEFAULT_ROUTES);
-        await sb.from('priority_inbox').insert(DEFAULT_QUEUE);
-        if (!silent) alert('✅ Default Gear, Routes, and Priority Queue synced to your database!');
+        const uidData = { user_id: currentSessionUser.id };
+        const gearWithUser = DEFAULT_GEAR.map(g => ({ ...g, ...uidData }));
+        const routesWithUser = DEFAULT_ROUTES.map(r => ({ ...r, ...uidData }));
+        const queueWithUser = DEFAULT_QUEUE.map(q => ({ ...q, ...uidData }));
+
+        await sb.from('gear_items').insert(gearWithUser);
+        await sb.from('travel_routes').insert(routesWithUser);
+        await sb.from('priority_inbox').insert(queueWithUser);
+        if (!silent) alert('✅ Default data successfully synced with your account ID!');
         initCloudConnection();
       } catch (e) {
-        if (!silent) alert('Database sync error.');
+        alert('Sync error: ' + e.message);
       }
     }
 
@@ -448,11 +500,6 @@
         `).join('');
       }
 
-      let totalCut = 0;
-      stateQueue.forEach(q => { if (q.status === 'replied') totalCut += Math.round(q.amount_inr * 0.10); });
-      const cutStat = document.getElementById('platformCutStat');
-      if (cutStat) cutStat.textContent = `₹${totalCut + 149}`;
-
       const adminQueue = document.getElementById('adminQueueList');
       if (adminQueue) {
         adminQueue.innerHTML = stateQueue.map((q, i) => `
@@ -465,20 +512,21 @@
               </div>
               <p class="text-xs text-zinc-400 mt-1">${q.question_text}</p>
             </div>
-            ${q.status === 'pending' ? `<button onclick="markReplied(${q.id || i})" class="px-3 py-1.5 rounded-lg bg-emerald-400 text-black font-bold text-xs shrink-0 hover:bg-emerald-300">Reply & Capture ₹</button>` : ''}
+            ${q.status === 'pending' ? `<button onclick="markReplied(${q.id || i})" class="px-3 py-1.5 rounded-lg bg-emerald-400 text-black font-bold text-xs shrink-0 hover:bg-emerald-300">Reply</button>` : ''}
           </div>
         `).join('');
       }
     }
 
     async function addGearItem() {
+      if (!currentSessionUser) return alert('Please log in first.');
       const title = document.getElementById('gearTitleInput').value.trim();
       const category = document.getElementById('gearCatInput').value;
       const price_spec = document.getElementById('gearPriceInput').value.trim() || 'Verified Gear';
       const affiliate_url = document.getElementById('gearLinkInput').value.trim() || 'https://amazon.in';
       if (!title) return alert('Please enter a gear title');
 
-      const newItem = { title, category, price_spec, affiliate_url };
+      const newItem = { title, category, price_spec, affiliate_url, user_id: currentSessionUser.id };
       stateGear.unshift(newItem);
       renderAll();
 
@@ -532,7 +580,6 @@
       if (dedInr) dedInr.textContent = '₹' + Math.round(baseInr * 2.2).toLocaleString('en-IN');
     }
 
-    // Run initial startup
     initCloudConnection();
     runSeoCalculator();
   </script>
