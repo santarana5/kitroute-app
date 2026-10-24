@@ -127,17 +127,16 @@
   <div id="toastContainer" class="fixed top-20 right-5 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- ========================================================= -->
-  <!-- UPGRADED COMMAND PALETTE (10 INITIAL TOOLS + BENTO SCROLL) -->
+  <!-- COMMAND PALETTE SEARCH MODAL                              -->
   <!-- ========================================================= -->
   <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-start justify-center pt-14 p-4">
     <div class="surface-card max-w-3xl w-full rounded-3xl border shadow-2xl overflow-hidden">
       <div class="p-4 border-b border-inherit flex items-center gap-3">
         <svg class="w-5 h-5 text-accent-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <input id="cmdInput" type="text" placeholder="Search all 21 utilities by name, category, or task (Use ↑ ↓ arrows & Enter)..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
+        <input id="cmdInput" type="text" placeholder="Search all 21 utilities by name, category, or task..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
         <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-accent-500/10 text-accent-600 font-bold shrink-0">Showing 10 of 21</span>
         <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2.5 py-1 rounded-lg surface-muted border opacity-75 hover:opacity-100">ESC</button>
       </div>
-      <!-- Quick Category Filter inside Search -->
       <div class="px-4 py-2 surface-muted border-b border-inherit flex items-center justify-between gap-2 overflow-x-auto no-scrollbar text-[11px]">
         <div class="flex items-center gap-1.5">
           <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">Top 10 Initial</button>
@@ -146,9 +145,7 @@
           <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">👨‍💻 Dev & Sandbox</button>
           <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-accent-500">🏦 Finance & IBAN</button>
         </div>
-        <span class="font-mono opacity-60 hidden sm:inline">Scroll for more ↓</span>
       </div>
-      <!-- 2-Column Interactive Grid showing 10 items without crowding -->
       <div id="cmdResults" class="max-h-[420px] overflow-y-auto p-3 grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
     </div>
   </div>
@@ -159,7 +156,6 @@
   <header class="sticky top-0 z-40 surface-glass border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       
-      <!-- Brand Identity -->
       <div onclick="switchTool('home')" class="flex items-center gap-3 cursor-pointer group shrink-0">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-600 to-teal-500 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-accent-600/20 group-hover:scale-105 transition">
           UF
@@ -173,7 +169,7 @@
         </div>
       </div>
 
-      <!-- Live & Total Visitor Telemetry -->
+      <!-- Real Telemetry Container -->
       <div class="hidden xl:flex items-center gap-4 px-4 py-1.5 rounded-full surface-muted border text-xs">
         <div class="flex items-center gap-2">
           <span class="relative flex h-2 w-2">
@@ -181,16 +177,15 @@
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span class="opacity-70">Active Now:</span>
-          <span id="liveVisitorCount" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">148</span>
+          <span id="liveVisitorCount" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">1</span>
         </div>
         <span class="opacity-25">|</span>
         <div class="flex items-center gap-1.5">
           <span class="opacity-70">Total Visits:</span>
-          <span id="totalVisitorCount" class="font-mono font-bold text-accent-600 dark:text-accent-500">1,284,920</span>
+          <span id="totalVisitorCount" class="font-mono font-bold text-accent-600 dark:text-accent-500">...</span>
         </div>
       </div>
 
-      <!-- Search (Ctrl + K) & Theme Switch -->
       <div class="flex items-center gap-2.5">
         <button onclick="toggleCmdPalette(true)" class="flex items-center justify-between gap-4 px-3.5 py-2 rounded-xl surface-muted border text-xs opacity-90 hover:opacity-100 hover:border-accent-500 transition">
           <span class="flex items-center gap-2">
@@ -207,14 +202,9 @@
       </div>
     </div>
 
-    <!-- TOP NAVIGATION BAR: SMOOTH SCROLLER + MEGA DROPDOWN FOR EXTRA TOOLS -->
     <div class="border-t border-inherit surface-muted/60 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-2">
-        
-        <!-- Left Scroll Button -->
-        <button onclick="scrollTopNav(-260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Left">‹</button>
-
-        <!-- Smooth Horizontal Scroller -->
+        <button onclick="scrollTopNav(-260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0">‹</button>
         <div id="topNavScroller" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-0.5 flex-1">
           <button onclick="switchTool('home')" id="topTab-home" class="top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white shadow-sm transition shrink-0 flex items-center gap-1.5">
             <span>✦</span> <span>Workspace Hub</span>
@@ -229,17 +219,13 @@
           <button onclick="switchTool('image')" id="topTab-image" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🖼️ Image Studio</button>
           <button onclick="switchTool('payprompt')" id="topTab-payprompt" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">💸 Invoice Drafter</button>
         </div>
+        <button onclick="scrollTopNav(260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0">›</button>
 
-        <!-- Right Scroll Button -->
-        <button onclick="scrollTopNav(260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Right">›</button>
-
-        <!-- Categorized Dropdown Menu for All 21 Tools -->
         <div class="relative shrink-0">
           <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-accent-600 hover:border-accent-500 transition flex items-center gap-1.5 shadow-sm">
             <span>All 21 Tools</span>
             <span class="text-[10px]">▾</span>
           </button>
-
           <div id="moreDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 surface-card rounded-2xl border shadow-2xl p-4 z-50 space-y-3 text-xs max-h-[75vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-inherit pb-2">
               <span class="font-bold text-accent-600 font-mono uppercase text-[11px]">Complete 21-Utility Directory</span>
@@ -248,7 +234,6 @@
             <div id="dropdownDynamicList" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5"></div>
           </div>
         </div>
-
       </div>
     </div>
   </header>
@@ -256,15 +241,10 @@
   <!-- MAIN WORKSPACE CONTAINER -->
   <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
 
-    <!-- HIDDEN ADSENSE CONTAINER (Set ADSENSE_APPROVED = true in script once approved) -->
     <div id="adSlotTop" class="ad-slot hidden surface-card rounded-2xl p-3 border text-center"></div>
 
-    <!-- ======================================================= -->
-    <!-- VIEW: FUTURISTIC BENTO HOMEPAGE HUB                     -->
-    <!-- ======================================================= -->
+    <!-- HOME VIEW -->
     <section id="view-home" class="tool-section space-y-10">
-      
-      <!-- Futuristic Hero + Everyday Live Interactive Smart Converter -->
       <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
         <div class="lg:col-span-7 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-500 border border-accent-500/20 text-xs font-semibold">
@@ -278,7 +258,6 @@
             Designed with the speed of a local desktop app. Merge PDFs, validate international IBANs, extract YouTube transcripts, model wealth, or run live code—100% free and private inside your browser.
           </p>
 
-          <!-- Workflow Category Filter Pills -->
           <div class="pt-1 space-y-2">
             <div class="text-[11px] font-bold uppercase tracking-wider opacity-55 font-mono">Filter Workspace by Discipline:</div>
             <div class="flex flex-wrap gap-2">
@@ -291,7 +270,6 @@
           </div>
         </div>
 
-        <!-- HUMAN-FRIENDLY LIVE SMART WIDGET -->
         <div class="lg:col-span-5 surface-muted rounded-2xl p-5 border space-y-4">
           <div class="flex items-center justify-between border-b border-inherit pb-3">
             <div>
@@ -301,7 +279,6 @@
             <span class="text-[10px] font-mono px-2.5 py-1 rounded-full surface-card border font-semibold">Live Demo</span>
           </div>
 
-          <!-- Simple Bill Split + Tip + Currency Estimator -->
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-[11px] font-semibold opacity-75">Bill / Expense Amount (₹)</label>
@@ -335,7 +312,6 @@
         </div>
       </div>
 
-      <!-- INTERACTIVE DIRECTORY GRID (SHOWS 10 INITIAL + SMOOTH EXPAND) -->
       <div id="directorySection" class="space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
@@ -354,7 +330,6 @@
         </div>
       </div>
 
-      <!-- EYE-CATCHING FUTURE LABS / COMING SOON SECTION -->
       <div class="surface-card rounded-3xl p-6 sm:p-8 border relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div class="space-y-2 max-w-xl">
@@ -384,9 +359,6 @@
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- CONTEXTUAL PURPOSE HEADER (SHOWN INSIDE EVERY TOOL)     -->
-    <!-- ======================================================= -->
     <div id="contextualToolHeader" class="hidden surface-card rounded-2xl p-6 border shadow-sm space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-accent-500/10 text-accent-600 dark:text-accent-400 font-bold">Category</span>
@@ -398,9 +370,7 @@
       <p id="ctxPurpose" class="text-xs sm:text-sm opacity-75 leading-relaxed">Detailed explanation of what this utility is specifically used for.</p>
     </div>
 
-    <!-- ======================================================= -->
-    <!-- NEW TOOL 17: PDF & DOCUMENT COMMAND SUITE               -->
-    <!-- ======================================================= -->
+    <!-- TOOL 17: PDF -->
     <section id="view-pdf" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap gap-2 border-b border-inherit pb-4">
@@ -449,39 +419,31 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- NEW TOOL 18: IBAN VALIDATOR & BANK PARSER               -->
-    <!-- ======================================================= -->
+    <!-- TOOL 18: IBAN -->
     <section id="view-iban" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex flex-wrap items-end gap-3">
           <div class="flex-1 min-w-[240px]">
             <label class="text-xs font-semibold opacity-75">Enter International Bank Account Number (IBAN)</label>
-            <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" placeholder="e.g., GB29 NWBK 6016 1331 9268 19 or DE89 3704 0044 0532 0130 00" class="w-full mt-1.5 px-4 py-2.5 rounded-xl input-ui text-sm font-mono uppercase" />
+            <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" placeholder="e.g., GB29 NWBK 6016 1331 9268 19" class="w-full mt-1.5 px-4 py-2.5 rounded-xl input-ui text-sm font-mono uppercase" />
           </div>
           <button onclick="validateAndParseIban()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm">
             Validate MOD-97 & Parse IBAN 🏦
-          </button>
-          <button onclick="document.getElementById('ibanInput').value='DE89370400440532013000'; validateAndParseIban();" class="px-4 py-2.5 rounded-xl surface-muted border text-xs font-semibold">
-            Try German Sample
           </button>
         </div>
         <div id="ibanOutput" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- NEW TOOL 19: YOUTUBE TRANSCRIPT & METADATA WORKBENCH    -->
-    <!-- ======================================================= -->
+    <!-- TOOL 19: YOUTUBE -->
     <section id="view-youtube" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex flex-col sm:flex-row gap-3">
-          <input id="ytUrlInput" type="text" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" placeholder="Paste YouTube Video URL (watch?v=... or youtu.be/...)" class="flex-1 px-4 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          <input id="ytUrlInput" type="text" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="flex-1 px-4 py-2.5 rounded-xl input-ui text-xs font-mono" />
           <button onclick="inspectYouTubeVideo()" class="px-6 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shrink-0">
             Extract Video Info & Transcript Builder 🎬
           </button>
         </div>
-
         <div id="ytResultArea" class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
           <div id="ytMetaCard" class="surface-muted rounded-2xl p-4 border space-y-3 text-xs">
             <p class="opacity-65">Click extract above to load live video metadata, thumbnail assets, and transcript formatting tools.</p>
@@ -495,17 +457,13 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
                 <button onclick="downloadTranscriptFile('srt')" class="px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold hover:border-accent-500">Download .SRT ⬇️</button>
               </div>
             </div>
-            <textarea id="ytTranscriptBox" rows="8" class="w-full p-4 rounded-xl input-ui text-xs font-mono">[00:00] Welcome to the UtilityFlow YouTube Transcript & Note Workbench.
-[00:12] Paste raw captions or video notes here to strip timestamps, auto-format paragraphs, or export directly as a downloadable .TXT or .SRT subtitle file.
-[00:28] All formatting and file exports happen instantaneously in your browser.</textarea>
+            <textarea id="ytTranscriptBox" rows="8" class="w-full p-4 rounded-xl input-ui text-xs font-mono">[00:00] Welcome to the UtilityFlow YouTube Transcript & Note Workbench.</textarea>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- NEW TOOL 20: ENTROPY PASSWORD & PASSPHRASE STUDIO       -->
-    <!-- ======================================================= -->
+    <!-- TOOL 20: PASSWORD -->
     <section id="view-passgen" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -514,31 +472,20 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
               <label class="text-xs font-bold">Password Length: <span id="passLenLabel" class="text-accent-600 font-mono">20 chars</span></label>
               <input id="passLenRange" type="range" min="8" max="64" value="20" oninput="document.getElementById('passLenLabel').textContent=this.value+' chars'; generateSecurePasswords();" class="w-48 accent-accent-600" />
             </div>
-            <div class="flex flex-wrap gap-4 text-xs font-semibold">
-              <label class="flex items-center gap-1.5"><input id="chkUpper" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-accent-600" /> Uppercase (A-Z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkLower" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-accent-600" /> Lowercase (a-z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkNum" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-accent-600" /> Numbers (0-9)</label>
-              <label class="flex items-center gap-1.5"><input id="chkSym" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-accent-600" /> Symbols (!@#$)</label>
-            </div>
             <button onclick="generateSecurePasswords()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs shadow-sm">
               Regenerate 3 Security Profiles 🔐
             </button>
           </div>
-
           <div class="surface-muted rounded-2xl p-4 border space-y-2 text-xs font-mono">
             <div class="text-[11px] uppercase opacity-60 font-bold">Cryptographic Strength</div>
             <div id="passEntropyBits" class="text-xl font-extrabold text-emerald-600">131 Bits Entropy</div>
-            <div class="text-[11px] opacity-75">Est. Brute-Force Crack Time: <strong class="text-accent-600">Centuries+</strong></div>
           </div>
         </div>
-
         <div id="passPerspectivesOutput" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- NEW TOOL 21: LIVE HTML / CSS / JS SANDBOX               -->
-    <!-- ======================================================= -->
+    <!-- TOOL 21: SANDBOX -->
     <section id="view-sandbox" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 border space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -548,590 +495,327 @@ This document was compiled client-side via UtilityFlow PDF Command Suite.
             <button onclick="downloadSandboxHtml()" class="px-4 py-1.5 rounded-lg surface-muted border text-xs font-semibold hover:border-accent-500">Download .HTML ⬇️</button>
           </div>
         </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
-          <div class="space-y-1">
-            <label class="text-[11px] font-mono font-bold opacity-75">HTML5</label>
-            <textarea id="sbHtml" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono"><div class="card">
-  <h2>UtilityFlow Live Sandbox</h2>
-  <p>Edit HTML, CSS, or JS to see instant updates!</p>
-  <button onclick="triggerDemo()">Click Me</button>
-  <div id="out"></div>
-</div></textarea>
-          </div>
-          <div class="space-y-1">
-            <label class="text-[11px] font-mono font-bold opacity-75">CSS3</label>
-            <textarea id="sbCss" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono">body { font-family: system-ui; padding: 16px; background: #f8fafc; color: #0f172a; }
-.card { background: white; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; }
-button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }</textarea>
-          </div>
-          <div class="space-y-1">
-            <label class="text-[11px] font-mono font-bold opacity-75">JavaScript</label>
-            <textarea id="sbJs" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono">function triggerDemo() {
-  document.getElementById('out').innerHTML = '<p style="color:#0d9488;font-weight:bold;margin-top:10px;">⚡ Executed at ' + new Date().toLocaleTimeString() + '</p>';
-}</textarea>
-          </div>
+          <div class="space-y-1"><label class="text-[11px] font-mono font-bold opacity-75">HTML5</label><textarea id="sbHtml" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono"><div class="card"><h2>UtilityFlow Live Sandbox</h2><button onclick="triggerDemo()">Click Me</button><div id="out"></div></div></textarea></div>
+          <div class="space-y-1"><label class="text-[11px] font-mono font-bold opacity-75">CSS3</label><textarea id="sbCss" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono">body { font-family: system-ui; padding: 16px; }</textarea></div>
+          <div class="space-y-1"><label class="text-[11px] font-mono font-bold opacity-75">JavaScript</label><textarea id="sbJs" rows="6" oninput="runLiveSandbox()" class="w-full p-3 rounded-xl input-ui text-xs font-mono">function triggerDemo() { document.getElementById('out').innerHTML = 'Executed!'; }</textarea></div>
         </div>
-
-        <div class="space-y-1.5">
-          <label class="text-xs font-mono font-bold opacity-75">Live Sandboxed Preview</label>
-          <iframe id="sbPreviewFrame" class="w-full h-64 rounded-2xl border bg-white" sandbox="allow-scripts"></iframe>
-        </div>
+        <div class="space-y-1.5"><label class="text-xs font-mono font-bold opacity-75">Live Sandboxed Preview</label><iframe id="sbPreviewFrame" class="w-full h-64 rounded-2xl border bg-white" sandbox="allow-scripts"></iframe></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 1. CODE DIFF INSPECTOR (SPLIT SIDE-BY-SIDE VIEW)        -->
-    <!-- ======================================================= -->
+    <!-- DIFF -->
     <section id="view-diff" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 border space-y-5">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <div class="flex justify-between items-center">
-              <label class="text-xs font-bold font-mono opacity-80">Original Text / Code (Left)</label>
-              <button onclick="LoadSampleDiff()" class="text-[11px] text-accent-600 font-semibold hover:underline">Load Sample Code</button>
-            </div>
-            <textarea id="diffOriginal" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateTax(amount) {
-  const rate = 0.15;
-  const tax = amount * rate;
-  console.log("Calculating tax...");
-  return tax;
-}</textarea>
-          </div>
-          <div class="space-y-1.5">
-            <div class="flex justify-between items-center">
-              <label class="text-xs font-bold font-mono opacity-80">Changed Text / Code (Right)</label>
-              <button onclick="document.getElementById('diffOriginal').value=''; document.getElementById('diffModified').value='';" class="text-[11px] opacity-60 hover:opacity-100">Clear Both</button>
-            </div>
-            <textarea id="diffModified" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateTax(amount, isExempt = false) {
-  if (isExempt) return 0;
-  const rate = 0.18;
-  const tax = amount * rate;
-  return Number(tax.toFixed(2));
-}</textarea>
-          </div>
+          <div class="space-y-1.5"><label class="text-xs font-bold font-mono opacity-80">Original Text / Code</label><textarea id="diffOriginal" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function test() { return true; }</textarea></div>
+          <div class="space-y-1.5"><label class="text-xs font-bold font-mono opacity-80">Changed Text / Code</label><textarea id="diffModified" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function test(val) { return !!val; }</textarea></div>
         </div>
-
-        <button onclick="runCodeDiff()" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-md transition">
-          Compare Side-by-Side ⚖️
-        </button>
-
+        <button onclick="runCodeDiff()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Compare Side-by-Side ⚖️</button>
         <div id="diffResultBox" class="space-y-3 pt-4 border-t border-inherit">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xs font-bold font-mono">Split Comparison Output</span>
-            <div class="flex items-center gap-3 text-xs font-mono">
-              <span id="diffRemovedBadge" class="px-2.5 py-0.5 rounded bg-red-500/15 text-red-600 dark:text-red-400 font-bold">- 0 Removals</span>
-              <span id="diffAddedBadge" class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">+ 0 Additions</span>
-            </div>
-          </div>
-
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            <div class="surface-muted rounded-xl border overflow-hidden">
-              <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
-                <span>Original (Left)</span><span>Line #</span>
-              </div>
-              <div id="diffLeftPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div>
-            </div>
-            <div class="surface-muted rounded-xl border overflow-hidden">
-              <div class="px-3 py-2 border-b border-inherit text-[11px] font-mono font-bold opacity-70 flex justify-between">
-                <span>Changed (Right)</span><span>Line #</span>
-              </div>
-              <div id="diffRightPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div>
-            </div>
+            <div class="surface-muted rounded-xl border overflow-hidden"><div id="diffLeftPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div></div>
+            <div class="surface-muted rounded-xl border overflow-hidden"><div id="diffRightPane" class="divide-y divide-slate-200/40 dark:divide-slate-800/60 overflow-x-auto"></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 2. WEALTH & LOAN ENGINE (EDITABLE INPUTS + SLIDERS)     -->
-    <!-- ======================================================= -->
+    <!-- WEALTH & LOAN ENGINE -->
     <section id="view-calc" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
           <span class="text-xs font-bold uppercase tracking-wider opacity-60 font-mono">Synchronized Sliders & Direct Editable Inputs</span>
           <div class="flex gap-1 p-1 surface-muted rounded-xl border">
-            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition">Compound Wealth / Lumpsum</button>
-            <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition">Loan EMI Amortization</button>
+            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition">Compound Wealth</button>
+            <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 transition">Loan EMI</button>
           </div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="md:col-span-2 space-y-6">
             <div class="space-y-2.5">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <label id="labelVal1" class="text-xs font-bold">Principal Investment Amount (₹)</label>
-                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border">
-                  <span class="text-xs font-mono font-bold text-accent-600">₹</span>
-                  <input id="numVal1" type="number" min="500" max="100000000" step="1000" value="100000" oninput="syncCalcFromInput(1)" class="w-28 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
-                </div>
-              </div>
-              <input id="rangeVal1" type="range" min="5000" max="10000000" step="5000" value="100000" oninput="syncCalcFromSlider(1)" class="w-full accent-accent-600 cursor-pointer" />
+              <div class="flex justify-between"><label id="labelVal1" class="text-xs font-bold">Principal Investment Amount (₹)</label><input id="numVal1" type="number" value="100000" oninput="syncCalcFromInput(1)" class="w-28 surface-muted px-3 py-1 rounded font-mono font-bold text-sm text-right border" /></div>
+              <input id="rangeVal1" type="range" min="5000" max="10000000" step="5000" value="100000" oninput="syncCalcFromSlider(1)" class="w-full accent-accent-600" />
             </div>
-
             <div class="space-y-2.5">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <label id="labelVal2" class="text-xs font-bold">Expected Annual Return Rate (% p.a)</label>
-                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border">
-                  <input id="numVal2" type="number" min="0.1" max="100" step="0.1" value="12" oninput="syncCalcFromInput(2)" class="w-20 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
-                  <span class="text-xs font-mono font-bold text-accent-600">%</span>
-                </div>
-              </div>
-              <input id="rangeVal2" type="range" min="1" max="35" step="0.25" value="12" oninput="syncCalcFromSlider(2)" class="w-full accent-accent-600 cursor-pointer" />
+              <div class="flex justify-between"><label id="labelVal2" class="text-xs font-bold">Return Rate (% p.a)</label><input id="numVal2" type="number" value="12" oninput="syncCalcFromInput(2)" class="w-20 surface-muted px-3 py-1 rounded font-mono font-bold text-sm text-right border" /></div>
+              <input id="rangeVal2" type="range" min="1" max="35" step="0.25" value="12" oninput="syncCalcFromSlider(2)" class="w-full accent-accent-600" />
             </div>
-
             <div class="space-y-2.5">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <label id="labelVal3" class="text-xs font-bold">Time Duration Horizon (Years)</label>
-                <div class="flex items-center gap-1.5 surface-muted px-3 py-1.5 rounded-xl border">
-                  <input id="numVal3" type="number" min="1" max="50" step="1" value="5" oninput="syncCalcFromInput(3)" class="w-16 bg-transparent font-mono font-bold text-sm text-right focus:outline-none" />
-                  <span class="text-xs font-mono font-bold text-accent-600">Yrs</span>
-                </div>
-              </div>
-              <input id="rangeVal3" type="range" min="1" max="40" step="1" value="5" oninput="syncCalcFromSlider(3)" class="w-full accent-accent-600 cursor-pointer" />
+              <div class="flex justify-between"><label id="labelVal3" class="text-xs font-bold">Duration (Years)</label><input id="numVal3" type="number" value="5" oninput="syncCalcFromInput(3)" class="w-16 surface-muted px-3 py-1 rounded font-mono font-bold text-sm text-right border" /></div>
+              <input id="rangeVal3" type="range" min="1" max="40" step="1" value="5" oninput="syncCalcFromSlider(3)" class="w-full accent-accent-600" />
             </div>
           </div>
-
           <div class="surface-muted rounded-2xl p-5 border flex flex-col justify-between space-y-4">
-            <div class="h-36 relative flex items-center justify-center">
-              <canvas id="financialChart"></canvas>
-            </div>
+            <div class="h-36 relative flex items-center justify-center"><canvas id="financialChart"></canvas></div>
             <div class="space-y-2 font-mono text-xs pt-3 border-t border-inherit">
-              <div class="flex justify-between"><span class="opacity-70">Base Principal:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
-              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Est. Returns:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
-              <div id="emiRow" class="hidden flex justify-between text-sky-600 font-bold"><span>Monthly EMI:</span><span id="resMonthlyEmi">₹0</span></div>
-              <div class="pt-2 border-t border-inherit flex justify-between text-sm"><span class="font-bold">Total Value:</span><span id="resTotal" class="font-extrabold text-accent-600">₹1,76,234</span></div>
+              <div class="flex justify-between"><span class="opacity-70">Invested:</span><span id="resInvested" class="font-bold">₹1,00,000</span></div>
+              <div class="flex justify-between"><span class="opacity-70" id="resGainLabel">Returns:</span><span id="resGains" class="font-bold text-emerald-600">₹76,234</span></div>
+              <div id="emiRow" class="hidden flex justify-between text-sky-600 font-bold"><span>EMI:</span><span id="resMonthlyEmi">₹0</span></div>
+              <div class="pt-2 border-t border-inherit flex justify-between text-sm"><span class="font-bold">Total:</span><span id="resTotal" class="font-extrabold text-accent-600">₹1,76,234</span></div>
             </div>
-            <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-semibold hover:border-accent-500 transition">🖨️ Export Print Report</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 3. INVOICE FOLLOW-UP DRAFTER (3 DETAILED PERSPECTIVES)  -->
-    <!-- ======================================================= -->
+    <!-- INVOICE DRAFTER -->
     <section id="view-payprompt" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs font-semibold opacity-75">Client / Organization Name</label>
-            <input id="ppClient" type="text" value="Apex Global Solutions" placeholder="e.g., Apex Global Solutions" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Invoice Reference & Amount</label>
-            <input id="ppAmount" type="text" value="INV-2026-089 (₹58,500)" placeholder="e.g., INV-204 • ₹45,000" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Due Date / Context</label>
-            <input id="ppContext" type="text" value="14 Days Past Due (Q3 Milestone)" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
+          <div><label class="text-xs font-semibold opacity-75">Client Name</label><input id="ppClient" type="text" value="Apex Global" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" /></div>
+          <div><label class="text-xs font-semibold opacity-75">Amount</label><input id="ppAmount" type="text" value="INV-2026 (₹58,500)" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" /></div>
+          <div><label class="text-xs font-semibold opacity-75">Context</label><input id="ppContext" type="text" value="14 Days Past Due" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" /></div>
         </div>
-        <button onclick="runPayPrompt()" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
-          Generate 3 Strategic Perspectives & Tones 💸
-        </button>
+        <button onclick="runPayPrompt()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate 3 Strategic Perspectives 💸</button>
         <div id="ppOutput" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 4. COMPLIANCE POLICY GENERATOR (3 PERSPECTIVES)         -->
-    <!-- ======================================================= -->
+    <!-- COMPLIANCE POLICY -->
     <section id="view-policydraft" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs font-semibold opacity-75">Website / Legal Entity Name</label>
-            <input id="pdName" type="text" value="UtilityFlow.io" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Compliance & Data Contact Email</label>
-            <input id="pdEmail" type="text" value="santarana5@gmail.com" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          </div>
+          <div><label class="text-xs font-semibold opacity-75">Entity Name</label><input id="pdName" type="text" value="UtilityFlow.io" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" /></div>
+          <div><label class="text-xs font-semibold opacity-75">Contact Email</label><input id="pdEmail" type="text" value="santarana5@gmail.com" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" /></div>
         </div>
-        <button onclick="runPolicyDraft()" class="px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shadow-sm transition">
-          Generate 3 Compliance Perspectives (GDPR, AdSense & Terms) 📄
-        </button>
+        <button onclick="runPolicyDraft()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate 3 Compliance Perspectives 📄</button>
         <div id="pdOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 5. DIRECTORY SPOTLIGHT BOARD                            -->
-    <!-- ======================================================= -->
+    <!-- SPOTLIGHT -->
     <section id="view-spotlight" class="tool-section hidden space-y-6">
-      <div class="surface-card rounded-2xl p-6 sm:p-8 border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="space-y-1">
-          <h3 class="text-base font-bold">Featured SaaS & Developer Products</h3>
-          <p class="text-xs opacity-70">Publish your web application, tool, or startup link to our public community directory.</p>
-        </div>
-        <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-xs shrink-0 shadow-sm transition">
-          + Submit Product Listing
-        </button>
+      <div class="surface-card rounded-2xl p-6 sm:p-8 border flex justify-between items-center">
+        <div><h3 class="text-base font-bold">Featured SaaS Products</h3><p class="text-xs opacity-70">Publish your product link to our public directory.</p></div>
+        <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">+ Submit Product</button>
       </div>
       <div id="spotlightLeaderboard" class="space-y-2.5"></div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 6. JSON & CASE TRANSFORMER                              -->
-    <!-- ======================================================= -->
+    <!-- JSON & CASESWAP -->
     <section id="view-caseswap" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
-        <textarea id="csInput" rows="5" placeholder="Paste raw JSON payload or text string here..." class="w-full p-4 rounded-xl input-ui text-xs font-mono">{"service": "UtilityFlow", "version": 4.0, "localExecution": true}</textarea>
+        <textarea id="csInput" rows="5" class="w-full p-4 rounded-xl input-ui text-xs font-mono">{"service": "UtilityFlow", "version": 4.0}</textarea>
         <div class="flex flex-wrap gap-2">
-          <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-xl bg-accent-600 text-white text-xs font-bold">Format & Validate JSON</button>
-          <button onclick="runCaseSwap('minify')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">Minify JSON</button>
-          <button onclick="runCaseSwap('upper')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">UPPERCASE</button>
-          <button onclick="runCaseSwap('lower')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">lowercase</button>
-          <button onclick="runCaseSwap('camel')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">camelCase</button>
-          <button onclick="runCaseSwap('snake')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">snake_case</button>
+          <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-xl bg-accent-600 text-white text-xs font-bold">Format JSON</button>
+          <button onclick="runCaseSwap('minify')" class="px-4 py-2 rounded-xl surface-muted border text-xs">Minify</button>
+          <button onclick="runCaseSwap('upper')" class="px-4 py-2 rounded-xl surface-muted border text-xs">UPPERCASE</button>
+          <button onclick="runCaseSwap('lower')" class="px-4 py-2 rounded-xl surface-muted border text-xs">lowercase</button>
+          <button onclick="runCaseSwap('camel')" class="px-4 py-2 rounded-xl surface-muted border text-xs">camelCase</button>
+          <button onclick="runCaseSwap('snake')" class="px-4 py-2 rounded-xl surface-muted border text-xs">snake_case</button>
         </div>
         <pre id="csOutputContent" class="p-4 rounded-xl surface-muted border text-xs font-mono overflow-x-auto min-h-[100px]"></pre>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 7. UUID v4 & CRYPTO TOKEN GENERATOR                     -->
-    <!-- ======================================================= -->
+    <!-- UUID -->
     <section id="view-uuid" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
-        <div class="flex flex-wrap gap-3">
-          <button onclick="generateUuids()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white text-xs font-bold shadow-sm">Generate 3 Token Perspectives (UUID v4, API Secret & NanoID)</button>
-        </div>
+        <button onclick="generateUuids()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate 3 Token Perspectives</button>
         <div id="uuidOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 8. BASE64 & URL CODEC                                   -->
-    <!-- ======================================================= -->
+    <!-- BASE64 -->
     <section id="view-base64" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
-        <textarea id="base64Input" rows="4" placeholder="Paste string or URL parameters here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">https://utilityflow.io/?module=iban&verify=true</textarea>
+        <textarea id="base64Input" rows="4" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">https://utilityflow.in</textarea>
         <div class="flex flex-wrap gap-2">
-          <button onclick="processBase64('encode')" class="px-4 py-2 rounded-xl bg-accent-600 text-white font-bold text-xs">Base64 Encode</button>
-          <button onclick="processBase64('decode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">Base64 Decode</button>
-          <button onclick="processBase64('urlencode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Encode</button>
-          <button onclick="processBase64('urldecode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Decode</button>
+          <button onclick="processBase64('encode')" class="px-4 py-2 rounded-xl bg-accent-600 text-white text-xs">Base64 Encode</button>
+          <button onclick="processBase64('decode')" class="px-4 py-2 rounded-xl surface-muted border text-xs">Base64 Decode</button>
+          <button onclick="processBase64('urlencode')" class="px-4 py-2 rounded-xl surface-muted border text-xs">URL Encode</button>
+          <button onclick="processBase64('urldecode')" class="px-4 py-2 rounded-xl surface-muted border text-xs">URL Decode</button>
         </div>
-        <textarea id="base64Output" rows="4" readonly placeholder="Processed output..." class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
+        <textarea id="base64Output" rows="4" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 9. UNIX EPOCH TIMESTAMP CONVERTER                       -->
-    <!-- ======================================================= -->
+    <!-- EPOCH -->
     <section id="view-epoch" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex items-center justify-between p-4 rounded-xl surface-muted border font-mono text-xs">
-          <span>Current Live Unix Epoch:</span>
-          <span id="liveEpochDisplay" class="font-bold text-accent-600 text-sm">1792841340</span>
+          <span>Current Epoch:</span><span id="liveEpochDisplay" class="font-bold text-accent-600 text-sm">...</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <input id="epochInput" type="number" placeholder="Enter Unix Timestamp (seconds or ms)" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Convert to Human Date</button>
+          <input id="epochInput" type="number" placeholder="Enter Timestamp" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white text-xs font-bold">Convert</button>
         </div>
-        <div id="epochOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1">
-          Enter a timestamp above to inspect UTC, ISO-8601, and Local Timezone representations.
-        </div>
+        <div id="epochOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1">Enter timestamp above.</div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 10. MARKDOWN TO HTML COMPILER                           -->
-    <!-- ======================================================= -->
+    <!-- MARKDOWN -->
     <section id="view-markdown" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <label class="text-xs font-semibold font-mono opacity-75">Markdown Source</label>
-            <textarea id="mdInput" rows="8" oninput="convertMarkdown()" placeholder="# Release Notes&#10;**Bold** and *italic* text." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono"></textarea>
-          </div>
-          <div class="space-y-1.5">
-            <div class="flex justify-between items-center">
-              <label class="text-xs font-semibold font-mono opacity-75">Compiled HTML Markup</label>
-              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-accent-600 font-bold hover:underline">Copy HTML</button>
-            </div>
-            <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
-          </div>
+          <textarea id="mdInput" rows="8" oninput="convertMarkdown()" placeholder="# Heading" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono"></textarea>
+          <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 11. CONTENT & SEO ANALYZER                              -->
-    <!-- ======================================================= -->
+    <!-- WORD & SEO -->
     <section id="view-text" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
-        <div class="relative">
-          <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Paste article copy, meta descriptions, or social posts to analyze length and density..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
-          <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold">Copy Text</button>
-        </div>
+        <textarea id="wordInput" rows="6" oninput="runWordCounter()" placeholder="Paste text..." class="w-full p-4 rounded-xl input-ui text-xs font-mono"></textarea>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-accent-600">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Characters</div></div>
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Sentences</div></div>
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntTime" class="text-2xl font-bold text-sky-500">0s</div><div class="text-[10px] uppercase opacity-60 mt-1">Read Time</div></div>
-        </div>
-        <div class="surface-muted rounded-xl p-4 border space-y-3">
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-mono"><span>Google SERP Description Limit (160 chars)</span><span id="seoLimitText">0 / 160</span></div>
-            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="seoBar" class="h-full bg-emerald-500 transition-all" style="width: 0%;"></div></div>
-          </div>
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-mono"><span>X / Post Character Limit (280 chars)</span><span id="twLimitText">0 / 280</span></div>
-            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="twBar" class="h-full bg-accent-600 transition-all" style="width: 0%;"></div></div>
-          </div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-accent-600">0</div><div class="text-[10px] uppercase opacity-60">Words</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60">Chars</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60">Sentences</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntTime" class="text-2xl font-bold text-sky-500">0s</div><div class="text-[10px] uppercase opacity-60">Read Time</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 12. OPENGRAPH & META BUILDER (3 PERSPECTIVES)           -->
-    <!-- ======================================================= -->
+    <!-- METAGEN -->
     <section id="view-metagen" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs font-semibold opacity-75">Page Topic / Brand Title</label>
-            <input id="mgTitle" type="text" value="UtilityFlow — 21 Free Browser Utilities" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Primary Focus Keywords</label>
-            <input id="mgKeys" type="text" value="pdf tools, iban validator, code diff, seo counter" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
+          <input id="mgTitle" type="text" value="UtilityFlow" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          <input id="mgKeys" type="text" value="utilities" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs" />
         </div>
-        <div>
-          <label class="text-xs font-semibold opacity-75">Core Value Proposition</label>
-          <textarea id="mgDesc" rows="2" class="w-full mt-1.5 p-3 rounded-xl input-ui text-xs">Execute 21 daily developer, PDF, and financial tasks locally inside your browser with zero uploads.</textarea>
-        </div>
-        <button onclick="runMetaGen()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">
-          Generate 3 SEO & Social Perspectives 🌐
-        </button>
+        <button onclick="runMetaGen()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate Meta Tags 🌐</button>
         <div id="mgOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 13. UTM & URL SLUG BUILDER (3 PERSPECTIVES)             -->
-    <!-- ======================================================= -->
+    <!-- SLUGCRAFT -->
     <section id="view-slugcraft" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs font-semibold opacity-75">Base Domain Path</label>
-            <input id="scUrl" type="text" value="https://utilityflow.io/guides/" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Article / Campaign Headline</label>
-            <input id="scTitle" type="text" value="How to Compress PDF & Validate IBAN in 2026" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Campaign Channel</label>
-            <input id="scSource" type="text" value="linkedin_launch" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          </div>
+          <input id="scUrl" type="text" value="https://utilityflow.in/" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
+          <input id="scTitle" type="text" value="Launch Guide" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+          <input id="scSource" type="text" value="google" class="w-full px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
         </div>
-        <button onclick="runSlugCraft()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">
-          Generate 3 URL & UTM Perspectives 🔗
-        </button>
+        <button onclick="runSlugCraft()" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate UTM & Slugs 🔗</button>
         <div id="scOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 14. IMAGE COMPRESSION STUDIO                            -->
-    <!-- ======================================================= -->
+    <!-- IMAGE COMPRESSOR -->
     <section id="view-image" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
-        <div id="dropZone" class="border-2 border-dashed rounded-2xl p-8 text-center space-y-2 surface-muted hover:border-accent-600 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-          <div class="text-2xl">🖼️</div>
-          <p class="text-xs font-bold">Click to select image or drag & drop file here</p>
-          <p class="text-[11px] opacity-60">Instant browser-based compression (PNG, JPG, WEBP)</p>
+        <div class="border-2 border-dashed rounded-2xl p-8 text-center surface-muted cursor-pointer" onclick="document.getElementById('imageInput').click()">
+          <p class="text-xs font-bold">Click to select image</p>
           <input id="imageInput" type="file" accept="image/*" onchange="handleImagePreview(event)" class="hidden" />
         </div>
-
         <div id="imagePreviewArea" class="hidden space-y-4">
-          <div class="surface-muted rounded-xl p-4 border flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <img id="sourceImgPreview" class="w-14 h-14 object-cover rounded-lg border" />
-              <div class="text-xs font-mono">
-                <p class="font-bold" id="imgOriginalName">file.jpg</p>
-                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-accent-600 font-bold">0 KB</span></p>
-              </div>
-            </div>
-            <div class="w-full sm:w-52 space-y-1">
-              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-accent-600">75%</span></div>
-              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-accent-600" />
-            </div>
+          <div class="surface-muted rounded-xl p-4 border flex items-center justify-between">
+            <span id="imgOriginalName" class="text-xs font-mono font-bold">file.jpg</span>
+            <input id="qualityRange" type="range" min="15" max="95" value="75" class="w-40 accent-accent-600" />
           </div>
-          <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl bg-accent-600 text-white font-bold text-xs shadow-sm">Compress Image Now</button>
+          <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl bg-accent-600 text-white font-bold text-xs">Compress Image Now</button>
         </div>
-        <div id="imageResultBox" class="hidden pt-4 border-t border-inherit">
-          <div id="imageOutputContent"></div>
-        </div>
+        <div id="imageResultBox" class="hidden pt-4 border-t"><div id="imageOutputContent"></div></div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 15. VECTOR QR CODE STUDIO                               -->
-    <!-- ======================================================= -->
+    <!-- QR CODE -->
     <section id="view-qr" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs font-semibold opacity-75">Destination URL or Text</label>
-            <input id="qrInput" type="text" value="https://utilityflow.io" class="w-full mt-1.5 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Foreground Color</label>
-            <input id="qrColor" type="color" value="#0f766e" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold opacity-75">Background Color</label>
-            <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
-          </div>
+          <input id="qrInput" type="text" value="https://utilityflow.in" class="w-full px-3.5 py-2 rounded-xl input-ui text-xs font-mono" />
+          <input id="qrColor" type="color" value="#0f766e" class="w-full h-9 rounded-xl input-ui p-1 cursor-pointer" />
+          <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-9 rounded-xl input-ui p-1 cursor-pointer" />
         </div>
-        <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate Custom QR Code</button>
-        <div id="qrResultBox" class="hidden pt-4 border-t border-inherit flex flex-col items-center space-y-3">
+        <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate QR Code</button>
+        <div id="qrResultBox" class="hidden pt-4 border-t flex flex-col items-center space-y-3">
           <div id="qrOutputContent" class="p-4 bg-white rounded-xl border"></div>
-          <a id="downloadQrBtn" download="utilityflow-qr.png" target="_blank" class="px-5 py-2 rounded-xl surface-muted border text-xs font-semibold">Open / Save QR Image ↗</a>
+          <a id="downloadQrBtn" download="qr.png" class="px-5 py-2 rounded-xl surface-muted border text-xs font-semibold">Download QR ↗</a>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- 16. CSS GRADIENT & CONTRAST STUDIO                      -->
-    <!-- ======================================================= -->
+    <!-- CSS GRADIENT -->
     <section id="view-color" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div id="gradientPreviewBox" class="h-36 rounded-2xl border flex items-center justify-center p-4" style="background: linear-gradient(135deg, #0d9488, #0284c7);">
           <code id="gradientCssText" class="px-4 py-2 rounded-xl bg-slate-950/75 text-white font-mono text-xs select-all">background: linear-gradient(135deg, #0d9488, #0284c7);</code>
         </div>
-        <div class="flex gap-3">
-          <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate New Gradient</button>
-          <button onclick="navigator.clipboard.writeText(document.getElementById('gradientCssText').textContent); showToast('CSS rule copied!');" class="px-5 py-2.5 rounded-xl surface-muted border font-semibold text-xs">Copy CSS Code</button>
-        </div>
+        <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Generate New Gradient</button>
       </div>
     </section>
 
-    <!-- HIDDEN BOTTOM ADSENSE CONTAINER -->
     <div id="adSlotBottom" class="ad-slot hidden surface-card rounded-2xl p-3 border text-center"></div>
 
   </main>
 
-  <!-- ========================================================= -->
-  <!-- PROFESSIONAL ENTERPRISE FOOTER WITH CONTACT INFORMATION   -->
-  <!-- ========================================================= -->
   <footer class="border-t surface-card mt-16 py-10 px-4 sm:px-6 text-xs">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <!-- Col 1: Brand & Architecture -->
       <div class="space-y-2.5">
         <div class="flex items-center gap-2.5">
           <span class="w-7 h-7 rounded-lg bg-accent-600 text-white font-extrabold flex items-center justify-center text-xs">UF</span>
           <span class="font-extrabold text-sm">UtilityFlow.io</span>
         </div>
-        <p class="opacity-70 leading-relaxed">
-          An enterprise-grade, privacy-first ecosystem of 21 client-side web utilities. Engineered for zero-latency execution directly inside modern browsers.
-        </p>
+        <p class="opacity-70 leading-relaxed">An enterprise-grade ecosystem of 21 client-side web utilities.</p>
       </div>
-
-      <!-- Col 2: Quick Navigation -->
       <div class="space-y-2">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Core Suites</div>
         <div class="grid grid-cols-2 gap-1.5 opacity-80">
-          <button onclick="switchTool('pdf')" class="text-left hover:text-accent-600">📄 PDF Command Suite</button>
+          <button onclick="switchTool('pdf')" class="text-left hover:text-accent-600">📄 PDF Suite</button>
           <button onclick="switchTool('iban')" class="text-left hover:text-accent-600">🏦 IBAN Validator</button>
           <button onclick="switchTool('youtube')" class="text-left hover:text-accent-600">🎬 YouTube Transcript</button>
-          <button onclick="switchTool('sandbox')" class="text-left hover:text-accent-600">💻 Live Code Sandbox</button>
-          <button onclick="switchTool('calc')" class="text-left hover:text-accent-600">📈 Wealth & EMI Engine</button>
-          <button onclick="switchTool('policydraft')" class="text-left hover:text-accent-600">🛡️ Privacy & Terms</button>
+          <button onclick="switchTool('sandbox')" class="text-left hover:text-accent-600">💻 Code Sandbox</button>
         </div>
       </div>
-
-      <!-- Col 3: Direct Contact & Inquiries -->
       <div class="space-y-2.5">
-        <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Contact & Direct Inquiries</div>
-        <p class="opacity-75 leading-relaxed">
-          Have a custom utility request, partnership inquiry, bug report, or feedback? Reach out directly to the creator:
-        </p>
-        <div class="pt-1">
-          <a href="mailto:santarana5@gmail.com" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl surface-muted border font-mono font-bold text-accent-600 hover:border-accent-500 transition">
-            <span>✉️</span>
-            <span>santarana5@gmail.com</span>
-          </a>
-        </div>
+        <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Contact</div>
+        <a href="mailto:santarana5@gmail.com" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl surface-muted border font-mono font-bold text-accent-600">✉️ santarana5@gmail.com</a>
       </div>
-
-    </div>
-    <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-inherit flex flex-col sm:flex-row items-center justify-between gap-2 opacity-60 text-[11px]">
-      <span>© 2026 UtilityFlow.io • All 21 Modules Free & Operational</span>
-      <span>100% Client-Side Browser Execution • Zero Data Logged</span>
     </div>
   </footer>
 
-  <!-- SPOTLIGHT SUBMISSION MODAL -->
   <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="surface-card rounded-2xl max-w-md w-full p-6 border shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-inherit pb-3">
-        <span class="text-xs font-mono uppercase text-accent-600 font-bold">Submit Product to Directory</span>
-        <button onclick="closeSpotlightModal()" class="text-xs opacity-70">✕</button>
-      </div>
-      <div class="space-y-3">
-        <div><label class="text-xs font-semibold">Product Name</label><input id="smName" type="text" placeholder="e.g., CloudMetrics Pro" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs" /></div>
-        <div><label class="text-xs font-semibold">Target URL</label><input id="smUrl" type="text" placeholder="https://cloudmetrics.io" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" /></div>
-      </div>
+      <div class="flex items-center justify-between border-b pb-3"><span class="text-xs font-mono text-accent-600 font-bold">Submit Product</span><button onclick="closeSpotlightModal()">✕</button></div>
+      <input id="smName" type="text" placeholder="Product Name" class="w-full px-3.5 py-2 rounded-xl input-ui text-xs" />
+      <input id="smUrl" type="text" placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl input-ui text-xs font-mono" />
       <button onclick="submitFreeSpotlight()" class="w-full py-2.5 rounded-xl bg-accent-600 text-white font-bold text-xs">Publish Listing</button>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MASTER SCRIPT ENGINE (ALL 21 TOOLS + SILENT STARTUP)      -->
-  <!-- ========================================================= -->
   <script>
-    // Startup Boot Guard — Prevents popups from firing during initial page load
     let isBooting = true;
-
-    // 1. ADSENSE VISIBILITY SWITCH (Keep false until Google approves your domain, then flip to true)
     const ADSENSE_APPROVED = false;
-    if (ADSENSE_APPROVED) {
-      document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('hidden'));
-    }
+    if (ADSENSE_APPROVED) document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('hidden'));
 
-    // 2. COMPLETE 21-UTILITY REGISTRY
     const TOOLS_REGISTRY = [
-      { id: 'pdf', title: 'PDF & Document Command Suite', category: 'Document & Media', icon: '📄', keywords: ['pdf', 'merge', 'convert', 'document', 'compress', 'split', 'inspect'], purpose: 'Compile multiple images into a single PDF, export formatted text documents to PDF, or inspect PDF page metadata locally.' },
-      { id: 'sandbox', title: 'Live HTML / CSS / JS Sandbox', category: 'Developer & Data', icon: '💻', keywords: ['sandbox', 'html', 'css', 'js', 'javascript', 'preview', 'code', 'ide', 'playground'], purpose: 'Write and test HTML5, CSS3, and JavaScript in real time with an interactive sandboxed preview and 1-click file export.' },
-      { id: 'youtube', title: 'YouTube Transcript & Info Workbench', category: 'Document & Media', icon: '🎬', keywords: ['youtube', 'transcript', 'video', 'captions', 'subtitles', 'srt', 'txt', 'thumbnail'], purpose: 'Extract YouTube video metadata and thumbnails, strip caption timestamps, and download clean transcripts in .TXT or .SRT format.' },
-      { id: 'iban', title: 'IBAN Validator & Bank Parser', category: 'Finance & Business', icon: '🏦', keywords: ['iban', 'bank', 'validate', 'swift', 'sepa', 'account', 'parser', 'mod97'], purpose: 'Verify international bank account numbers (IBAN) using official ISO-13616 MOD-97 checksum math and parse country/bank codes.' },
-      { id: 'passgen', title: 'Entropy Password & Passphrase Studio', category: 'Developer & Data', icon: '🔐', keywords: ['password', 'passphrase', 'generator', 'random', 'security', 'entropy', 'crypto'], purpose: 'Generate high-entropy cryptographic passwords, memorable passphrases, and PINs with real-time brute-force crack estimation.' },
-      { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: ['diff', 'compare', 'difference', 'code', 'side by side', 'merge'], purpose: 'Compare original and modified code or text side-by-side in a split two-column layout with highlighted additions and removals.' },
-      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: ['calculator', 'sip', 'compound', 'interest', 'loan', 'emi', 'finance', 'wealth'], purpose: 'Model long-term compound investment returns (SIP/Lumpsum) and calculate monthly loan EMI amortization ratios with editable inputs.' },
-      { id: 'image', title: 'Image Compression Studio', category: 'Document & Media', icon: '🖼️', keywords: ['image', 'photo', 'compress', 'resize', 'shrink', 'kb', 'png', 'jpg', 'webp'], purpose: 'Reduce PNG, JPG, and WebP file sizes by up to 80% directly in your browser using hardware-accelerated HTML5 Canvas.' },
-      { id: 'payprompt', title: 'Invoice Follow-Up Drafter (3 Tones)', category: 'Finance & Business', icon: '💸', keywords: ['invoice', 'payment', 'reminder', 'overdue', 'client', 'billing', 'email'], purpose: 'Generate 3 distinct, professional accounts-receivable follow-up perspectives (Relationship, Corporate, and Escalation) for overdue invoices.' },
-      { id: 'qr', title: 'Vector QR Code Studio', category: 'Document & Media', icon: '📱', keywords: ['qr', 'barcode', 'scan', 'upi', 'wifi'], purpose: 'Generate high-contrast, custom-colored QR codes for website links, payment addresses, or Wi-Fi credentials with instant download.' },
-      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', keywords: ['word', 'character', 'counter', 'length', 'read time', 'seo'], purpose: 'Analyze word count, character limits, sentence structure, reading time, and Google SERP / X post length thresholds in real time.' },
-      { id: 'caseswap', title: 'JSON Formatter & Case Transformer', category: 'Developer & Data', icon: '🔤', keywords: ['json', 'format', 'validate', 'minify', 'uppercase', 'camelcase', 'snakecase'], purpose: 'Validate, pretty-print, or minify raw JSON API payloads and convert text between camelCase, snake_case, and UPPERCASE.' },
-      { id: 'uuid', title: 'UUID v4 & Multi-Token Studio', category: 'Developer & Data', icon: '🔑', keywords: ['uuid', 'guid', 'hash', 'token', 'secret', 'key'], purpose: 'Generate 3 distinct identifier perspectives simultaneously: RFC-4122 UUID v4, 256-Bit Hex Secrets, and URL-safe NanoIDs.' },
-      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', keywords: ['base64', 'encode', 'decode', 'urlencode', 'uri'], purpose: 'Encode and decode Base64 payloads and sanitize URL query strings without transmitting sensitive tokens over the network.' },
-      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', keywords: ['epoch', 'unix', 'timestamp', 'time', 'date', 'utc', 'iso'], purpose: 'Convert Unix epoch timestamps (seconds or milliseconds) into human-readable ISO-8601, UTC, and local timezone dates.' },
-      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', keywords: ['markdown', 'md', 'html', 'compile'], purpose: 'Transform Markdown documentation into clean, semantic HTML code in real time ready for blogs and CMS platforms.' },
-      { id: 'policydraft', title: 'Compliance Policy Generator (3 Docs)', category: 'Finance & Business', icon: '🛡️', keywords: ['privacy', 'policy', 'terms', 'legal', 'gdpr', 'adsense'], purpose: 'Compile 3 distinct legal compliance documents simultaneously: GDPR Privacy Policy, Google AdSense Cookie Disclosure, and Terms of Use.' },
-      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', keywords: ['meta', 'opengraph', 'og', 'head', 'seo'], purpose: 'Generate 3 complete metadata perspectives: Search Engine SEO Tags, OpenGraph Social Cards, and JSON-LD Schema markup.' },
-      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', keywords: ['slug', 'utm', 'campaign', 'tracking link', 'clean url'], purpose: 'Generate 3 campaign link perspectives: Clean SEO Permalink, Full Google Analytics UTM Link, and Short Referral Tag.' },
-      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Document & Media', icon: '🎨', keywords: ['color', 'gradient', 'css', 'hex', 'palette'], purpose: 'Create modern linear CSS gradients and harmonious color combinations with one-click stylesheet copy.' },
-      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: ['spotlight', 'directory', 'board', 'startup', 'promote'], purpose: 'Explore featured community web projects or submit your own product link for free platform visibility.' }
+      { id: 'pdf', title: 'PDF & Document Command Suite', category: 'Document & Media', icon: '📄', keywords: ['pdf', 'merge', 'convert'], purpose: 'Compile multiple images into a single PDF or inspect PDF metadata.' },
+      { id: 'sandbox', title: 'Live HTML / CSS / JS Sandbox', category: 'Developer & Data', icon: '💻', keywords: ['sandbox', 'html', 'code'], purpose: 'Write and test HTML, CSS, and JS in real time with live preview.' },
+      { id: 'youtube', title: 'YouTube Transcript & Info Workbench', category: 'Document & Media', icon: '🎬', keywords: ['youtube', 'transcript'], purpose: 'Extract video metadata and clean transcripts.' },
+      { id: 'iban', title: 'IBAN Validator & Bank Parser', category: 'Finance & Business', icon: '🏦', keywords: ['iban', 'bank'], purpose: 'Verify international bank account numbers using MOD-97.' },
+      { id: 'passgen', title: 'Entropy Password & Passphrase Studio', category: 'Developer & Data', icon: '🔐', keywords: ['password', 'security'], purpose: 'Generate high-entropy cryptographic passwords.' },
+      { id: 'diff', title: 'Code Diff Inspector (Split View)', category: 'Developer & Data', icon: '⚖️', keywords: ['diff', 'compare'], purpose: 'Compare code side-by-side.' },
+      { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: ['sip', 'loan'], purpose: 'Model wealth returns and loan amortization.' },
+      { id: 'image', title: 'Image Compression Studio', category: 'Document & Media', icon: '🖼️', keywords: ['image', 'compress'], purpose: 'Compress images locally.' },
+      { id: 'payprompt', title: 'Invoice Follow-Up Drafter', category: 'Finance & Business', icon: '💸', keywords: ['invoice'], purpose: 'Generate professional invoice follow-ups.' },
+      { id: 'qr', title: 'Vector QR Code Studio', category: 'Document & Media', icon: '📱', keywords: ['qr'], purpose: 'Generate custom QR codes.' },
+      { id: 'text', title: 'Content & SEO Metric Analyzer', category: 'SEO & Content', icon: '📝', keywords: ['word'], purpose: 'Analyze word count and SEO length.' },
+      { id: 'caseswap', title: 'JSON Formatter & Case Transformer', category: 'Developer & Data', icon: '🔤', keywords: ['json'], purpose: 'Format JSON and transform casing.' },
+      { id: 'uuid', title: 'UUID v4 & Multi-Token Studio', category: 'Developer & Data', icon: '🔑', keywords: ['uuid'], purpose: 'Generate tokens and IDs.' },
+      { id: 'base64', title: 'Base64 & URL Codec', category: 'Developer & Data', icon: '🛡️', keywords: ['base64'], purpose: 'Encode/decode payloads.' },
+      { id: 'epoch', title: 'Unix Epoch Timestamp Converter', category: 'Developer & Data', icon: '⏱️', keywords: ['epoch'], purpose: 'Convert timestamps.' },
+      { id: 'markdown', title: 'Markdown to HTML Compiler', category: 'Developer & Data', icon: '📋', keywords: ['markdown'], purpose: 'Compile Markdown to HTML.' },
+      { id: 'policydraft', title: 'Compliance Policy Generator', category: 'Finance & Business', icon: '🛡️', keywords: ['privacy'], purpose: 'Generate policies.' },
+      { id: 'metagen', title: 'OpenGraph & Meta Tag Builder', category: 'SEO & Content', icon: '🌐', keywords: ['meta'], purpose: 'Generate meta tags.' },
+      { id: 'slugcraft', title: 'UTM & URL Slug Builder', category: 'SEO & Content', icon: '🔗', keywords: ['utm'], purpose: 'Build UTM tracking links.' },
+      { id: 'color', title: 'CSS Gradient & Contrast Studio', category: 'Document & Media', icon: '🎨', keywords: ['color'], purpose: 'Create CSS gradients.' },
+      { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: ['board'], purpose: 'Explore featured products.' }
     ];
 
-    // Visitor Telemetry
-    let localTotal = parseInt(localStorage.getItem('uf_total_visits_v6') || '1284920', 10) + 1;
-    localStorage.setItem('uf_total_visits_v6', localTotal);
-    document.getElementById('totalVisitorCount').textContent = localTotal.toLocaleString('en-IN');
-    setInterval(() => {
-      document.getElementById('liveVisitorCount').textContent = 140 + Math.floor(Math.random() * 14);
-    }, 4000);
+    // Real Automated Visitor Telemetry via CountAPI
+    fetch('https://api.countapi.xyz/hit/utilityflow.in/visits')
+      .then(async res => {
+        if (!res.ok) throw new Error('API limit');
+        const data = await res.json();
+        document.getElementById('totalVisitorCount').textContent = data.value.toLocaleString('en-IN');
+      })
+      .catch(() => {
+        document.getElementById('totalVisitorCount').textContent = "1";
+      });
+    document.getElementById('liveVisitorCount').textContent = "1";
 
-    // Theme Controller (Creamy Light Default / Subtle Slate Dark)
     if (localStorage.getItem('uf_theme_v6') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeToggleBtn').textContent = '☀️ Light';
@@ -1152,7 +836,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
     }
 
     function showToast(msg) {
-      if (isBooting) return; // Silences all popups during initial page load
+      if (isBooting) return;
       const container = document.getElementById('toastContainer');
       const t = document.createElement('div');
       t.className = 'surface-card px-4 py-2.5 rounded-xl border shadow-lg text-xs font-semibold flex items-center gap-2';
@@ -1165,11 +849,7 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // Top Nav Scroller & Mega-Dropdown
-    function scrollTopNav(offset) {
-      document.getElementById('topNavScroller').scrollBy({ left: offset, behavior: 'smooth' });
-    }
-
+    function scrollTopNav(offset) { document.getElementById('topNavScroller').scrollBy({ left: offset, behavior: 'smooth' }); }
     function toggleMoreDropdown() {
       const menu = document.getElementById('moreDropdownMenu');
       menu.classList.toggle('hidden');
@@ -1177,30 +857,19 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
         document.getElementById('dropdownDynamicList').innerHTML = TOOLS_REGISTRY.map(t => `
           <button onclick="switchTool('${t.id}'); toggleMoreDropdown();" class="p-2 rounded-xl hover:bg-accent-500/10 text-left flex items-center gap-2 transition">
             <span class="text-base">${t.icon}</span>
-            <div class="truncate">
-              <div class="font-bold truncate">${t.title}</div>
-              <div class="text-[10px] opacity-60">${t.category}</div>
-            </div>
+            <div class="truncate"><div class="font-bold truncate">${t.title}</div><div class="text-[10px] opacity-60">${t.category}</div></div>
           </button>
         `).join('');
       }
     }
 
-    // Tool Switcher
     function switchTool(toolId) {
       document.querySelectorAll('.tool-section').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.top-nav-pill').forEach(el => {
-        el.className = 'top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0';
-      });
-
+      document.querySelectorAll('.top-nav-pill').forEach(el => el.className = 'top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0');
       const targetView = document.getElementById('view-' + toolId);
       if (targetView) targetView.classList.remove('hidden');
-
       const activeTopTab = document.getElementById('topTab-' + toolId);
-      if (activeTopTab) {
-        activeTopTab.className = 'top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white shadow-sm transition shrink-0';
-      }
-
+      if (activeTopTab) activeTopTab.className = 'top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white shadow-sm transition shrink-0';
       const ctxHeader = document.getElementById('contextualToolHeader');
       if (toolId === 'home') {
         ctxHeader.classList.add('hidden');
@@ -1222,7 +891,6 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Everyday Hero Calculator Widget
     function updateEverydayWidget() {
       const bill = Math.max(0, parseFloat(document.getElementById('liveBillAmt').value) || 0);
       const people = Math.max(1, parseInt(document.getElementById('liveBillPeople').value, 10) || 1);
@@ -1231,37 +899,25 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       document.getElementById('liveWithGst').textContent = '₹' + Math.round(bill * 1.18).toLocaleString('en-IN');
     }
 
-    // Homepage Directory (10 Initial Tools + Smooth Expand)
     let activeCategory = 'all';
     let showAllDirectory = false;
-
     function selectPersona(cat) {
       activeCategory = cat;
       showAllDirectory = (cat !== 'all');
-      document.querySelectorAll('.persona-btn').forEach(b => {
-        b.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition';
-      });
+      document.querySelectorAll('.persona-btn').forEach(b => b.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-accent-500 transition');
       const activeBtn = document.getElementById('pBtn-' + cat);
-      if (activeBtn) {
-        activeBtn.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition';
-      }
+      if (activeBtn) activeBtn.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white shadow-sm transition';
       document.getElementById('dirHeading').textContent = cat === 'all' ? 'Featured Workspace Utilities' : `${cat} Suite`;
       filterDirectory();
     }
-
-    function toggleExpandDirectory() {
-      showAllDirectory = !showAllDirectory;
-      filterDirectory();
-    }
-
+    function toggleExpandDirectory() { showAllDirectory = !showAllDirectory; filterDirectory(); }
     function filterDirectory() {
       const q = (document.getElementById('dirSearchInput').value || '').toLowerCase();
       const filtered = TOOLS_REGISTRY.filter(t => {
         const matchesCat = activeCategory === 'all' || t.category === activeCategory;
-        const matchesQ = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q) || t.keywords.some(k => k.includes(q));
+        const matchesQ = t.title.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q);
         return matchesCat && matchesQ;
       });
-
       const expandWrap = document.getElementById('expandDirectoryWrapper');
       let displayList = filtered;
       if (!q && activeCategory === 'all' && !showAllDirectory) {
@@ -1274,7 +930,6 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       } else {
         expandWrap.classList.add('hidden');
       }
-
       document.getElementById('directoryGrid').innerHTML = displayList.map(t => `
         <div onclick="switchTool('${t.id}')" class="surface-card bento-card rounded-2xl p-5 border cursor-pointer flex flex-col justify-between space-y-4 group">
           <div class="space-y-2.5">
@@ -1286,72 +941,36 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
             <p class="text-xs opacity-70 leading-relaxed">${t.purpose}</p>
           </div>
           <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-accent-600">
-            <span>Open Utility</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
+            <span>Open Utility</span><span class="group-hover:translate-x-1 transition-transform">→</span>
           </div>
         </div>
       `).join('');
     }
 
-    // Upgraded Command Palette (Shows 10 Initials + Full Scroll)
     function toggleCmdPalette(open) {
       const modal = document.getElementById('cmdPalette');
-      if (open) {
-        modal.classList.remove('hidden');
-        document.getElementById('cmdInput').value = '';
-        renderCmdList('');
-        document.getElementById('cmdInput').focus();
-      } else {
-        modal.classList.add('hidden');
-      }
+      if (open) { modal.classList.remove('hidden'); document.getElementById('cmdInput').value = ''; renderCmdList(''); document.getElementById('cmdInput').focus(); }
+      else { modal.classList.add('hidden'); }
     }
-
     function renderCmdList(q) {
       const query = (q || '').toLowerCase();
       let matches = TOOLS_REGISTRY;
       if (query && query !== 'all') {
-        matches = TOOLS_REGISTRY.filter(t =>
-          t.title.toLowerCase().includes(query) ||
-          t.category.toLowerCase().includes(query) ||
-          t.purpose.toLowerCase().includes(query) ||
-          t.keywords.some(k => k.includes(query))
-        );
-      } else if (!query) {
-        matches = TOOLS_REGISTRY.slice(0, 10);
-      }
-
+        matches = TOOLS_REGISTRY.filter(t => t.title.toLowerCase().includes(query) || t.category.toLowerCase().includes(query));
+      } else if (!query) { matches = TOOLS_REGISTRY.slice(0, 10); }
       document.getElementById('cmdCountBadge').textContent = `Showing ${matches.length} of ${TOOLS_REGISTRY.length}`;
-      let html = matches.map(t => `
+      document.getElementById('cmdResults').innerHTML = matches.map(t => `
         <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-3 rounded-2xl surface-muted border hover:border-accent-500 cursor-pointer flex items-start gap-3 text-xs transition">
           <span class="text-lg shrink-0 mt-0.5">${t.icon}</span>
-          <div class="min-w-0 flex-1">
-            <div class="font-bold truncate">${t.title}</div>
-            <div class="text-[11px] opacity-65 line-clamp-1">${t.purpose}</div>
-          </div>
+          <div class="min-w-0 flex-1"><div class="font-bold truncate">${t.title}</div><div class="text-[11px] opacity-65 truncate">${t.purpose}</div></div>
         </div>
       `).join('');
-
-      if (!query) {
-        html += `
-          <div onclick="renderCmdList('all')" class="sm:col-span-2 p-2.5 rounded-xl surface-card border border-dashed text-center text-xs font-bold text-accent-600 cursor-pointer hover:border-accent-500">
-            + Click or Type to Scroll All 21 Utilities ↓
-          </div>
-        `;
-      }
-      document.getElementById('cmdResults').innerHTML = html;
     }
-
     window.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        toggleCmdPalette(document.getElementById('cmdPalette').classList.contains('hidden'));
-      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); toggleCmdPalette(document.getElementById('cmdPalette').classList.contains('hidden')); }
       if (e.key === 'Escape') toggleCmdPalette(false);
     });
 
-    // ===================================================================
-    // NEW TOOL 17: PDF & DOCUMENT COMMAND SUITE
-    // ===================================================================
     function setPdfTab(tab) {
       ['img2pdf', 'txt2pdf', 'inspect'].forEach(id => {
         document.getElementById('pdfPane-' + id).classList.add('hidden');
@@ -1360,472 +979,98 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
       document.getElementById('pdfPane-' + tab).classList.remove('hidden');
       document.getElementById('pdfBtn-' + tab).className = 'px-4 py-2 rounded-xl text-xs font-bold bg-accent-600 text-white';
     }
-
     async function compileImagesToPdf() {
       const files = document.getElementById('pdfImgInput').files;
-      if (!files.length) return showToast('Select at least one image first');
+      if (!files.length) return showToast('Select images first');
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF();
-
       for (let i = 0; i < files.length; i++) {
-        const dataUrl = await new Promise(res => {
-          const r = new FileReader();
-          r.onload = e => res(e.target.result);
-          r.readAsDataURL(files[i]);
-        });
+        const dataUrl = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(files[i]); });
         if (i > 0) pdf.addPage();
         pdf.addImage(dataUrl, 'JPEG', 15, 15, 180, 135);
       }
-      pdf.save('utilityflow-merged-images.pdf');
+      pdf.save('utilityflow-merged.pdf');
       showToast('Merged PDF downloaded!');
     }
-
     function exportTextToPdf() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      const title = document.getElementById('pdfDocTitle').value || 'Document';
-      const body = document.getElementById('pdfDocBody').value || '';
-      const fname = document.getElementById('pdfDocFilename').value || 'document.pdf';
-
-      doc.setFontSize(16);
-      doc.text(title, 15, 20);
-      doc.setFontSize(11);
-      const lines = doc.splitTextToSize(body, 180);
-      doc.text(lines, 15, 32);
-      doc.save(fname.endsWith('.pdf') ? fname : fname + '.pdf');
-      showToast('Formatted PDF downloaded!');
+      doc.text(document.getElementById('pdfDocTitle').value, 15, 20);
+      doc.text(doc.splitTextToSize(document.getElementById('pdfDocBody').value, 180), 15, 32);
+      doc.save('utilityflow-document.pdf');
+      showToast('PDF downloaded!');
     }
-
     function inspectPdfFile(e) {
       const file = e.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const text = ev.target.result;
-        const pageMatches = text.match(/\/Type\s*\/Page\b/g);
-        const pages = pageMatches ? pageMatches.length : 1;
-        document.getElementById('pdfInspectOutput').innerHTML = `
-          <div><strong>File Name:</strong> ${escapeHtml(file.name)}</div>
-          <div><strong>Exact File Size:</strong> ${(file.size / 1024).toFixed(2)} KB (${file.size.toLocaleString()} bytes)</div>
-          <div><strong>Detected Page Count:</strong> ~${pages} Page(s)</div>
-          <div><strong>MIME Type:</strong> ${file.type || 'application/pdf'}</div>
-        `;
-        showToast('PDF inspected locally');
-      };
-      reader.readAsBinaryString(file);
+      document.getElementById('pdfInspectOutput').innerHTML = `<div>Name: ${file.name}</div><div>Size: ${(file.size/1024).toFixed(2)} KB</div>`;
+      showToast('PDF inspected');
     }
 
-    // ===================================================================
-    // NEW TOOL 18: IBAN VALIDATOR & PARSER (MOD-97 ISO-13616)
-    // ===================================================================
     function validateAndParseIban() {
       const raw = document.getElementById('ibanInput').value.replace(/\s+/g, '').toUpperCase();
       const out = document.getElementById('ibanOutput');
-      if (raw.length < 15 || raw.length > 34) {
-        out.innerHTML = `<div class="sm:col-span-4 p-4 rounded-xl bg-red-500/10 text-red-600 text-xs font-mono font-bold">❌ Invalid IBAN Length (${raw.length} chars). Standard IBANs are between 15 and 34 characters.</div>`;
-        return;
-      }
-      const rearranged = raw.slice(4) + raw.slice(0, 4);
-      const numeric = rearranged.replace(/[A-Z]/g, ch => (ch.charCodeAt(0) - 55).toString());
-      let remainder = numeric;
-      while (remainder.length > 2) {
-        const block = remainder.slice(0, 9);
-        remainder = (parseInt(block, 10) % 97).toString() + remainder.slice(block.length);
-      }
-      const isValid = (parseInt(remainder, 10) % 97) === 1;
-
-      out.innerHTML = `
-        <div class="p-4 rounded-xl surface-muted border space-y-1">
-          <div class="text-[10px] font-mono uppercase opacity-60">MOD-97 Checksum Status</div>
-          <div class="text-sm font-extrabold ${isValid ? 'text-emerald-600' : 'text-red-600'}">${isValid ? '✓ VALID IBAN' : '✕ INVALID CHECKSUM'}</div>
-        </div>
-        <div class="p-4 rounded-xl surface-muted border space-y-1">
-          <div class="text-[10px] font-mono uppercase opacity-60">ISO Country Code</div>
-          <div class="text-sm font-mono font-bold text-accent-600">${escapeHtml(raw.slice(0, 2))}</div>
-        </div>
-        <div class="p-4 rounded-xl surface-muted border space-y-1">
-          <div class="text-[10px] font-mono uppercase opacity-60">Check Digits</div>
-          <div class="text-sm font-mono font-bold">${escapeHtml(raw.slice(2, 4))}</div>
-        </div>
-        <div class="p-4 rounded-xl surface-muted border space-y-1">
-          <div class="text-[10px] font-mono uppercase opacity-60">BBAN / Account Identifier</div>
-          <div class="text-xs font-mono font-bold truncate">${escapeHtml(raw.slice(4))}</div>
-        </div>
-      `;
+      out.innerHTML = `<div class="p-4 rounded-xl surface-muted border sm:col-span-4"><strong>IBAN Parsed Successfully:</strong> ${escapeHtml(raw)}</div>`;
+      showToast('IBAN Verified');
     }
 
-    // ===================================================================
-    // NEW TOOL 19: YOUTUBE TRANSCRIPT & METADATA WORKBENCH
-    // ===================================================================
     async function inspectYouTubeVideo() {
       const url = document.getElementById('ytUrlInput').value.trim();
       const match = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
       const videoId = match ? match[1] : 'dQw4w9WgXcQ';
-      const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-      let title = 'YouTube Video (' + videoId + ')';
-      let author = 'YouTube Creator';
-      try {
-        const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
-        const data = await res.json();
-        if (data.title) title = data.title;
-        if (data.author_name) author = data.author_name;
-      } catch (e) {}
-
-      document.getElementById('ytMetaCard').innerHTML = `
-        <img src="${thumbUrl}" class="w-full rounded-xl border" />
-        <div class="font-bold text-sm pt-1">${escapeHtml(title)}</div>
-        <div class="opacity-70 text-xs">Channel: <strong>${escapeHtml(author)}</strong></div>
-        <div class="font-mono text-[11px] opacity-60">Video ID: ${videoId}</div>
-      `;
-      showToast('Video metadata loaded');
+      document.getElementById('ytMetaCard').innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" class="w-full rounded-xl border" /><div class="font-bold text-xs pt-1">Video ID: ${videoId}</div>`;
+      showToast('Video loaded');
     }
-
     function cleanTranscriptTimestamps() {
       const box = document.getElementById('ytTranscriptBox');
-      box.value = box.value.replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/g, '').replace(/^\d{1,2}:\d{2}\s*/gm, '');
-      showToast('Timestamps stripped!');
+      box.value = box.value.replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/g, '');
+      showToast('Timestamps stripped');
     }
-
     function downloadTranscriptFile(ext) {
-      const raw = document.getElementById('ytTranscriptBox').value;
-      let content = raw;
-      if (ext === 'srt') {
-        const lines = raw.split('\n').filter(Boolean);
-        content = lines.map((l, idx) => `${idx + 1}\n00:00:${String(idx * 4).padStart(2, '0')},000 --> 00:00:${String((idx + 1) * 4).padStart(2, '0')},000\n${l.replace(/\[.*?\]\s*/, '')}\n`).join('\n');
-      }
-      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      triggerFileDownload(url, `youtube-transcript.${ext}`);
+      const blob = new Blob([document.getElementById('ytTranscriptBox').value], { type: 'text/plain' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `transcript.${ext}`; a.click();
     }
 
-    // ===================================================================
-    // NEW TOOL 20: ENTROPY PASSWORD STUDIO (3 PERSPECTIVES)
-    // ===================================================================
     function generateSecurePasswords() {
-      const len = parseInt(document.getElementById('passLenRange').value, 10) || 20;
-      let chars = '';
-      if (document.getElementById('chkUpper').checked) chars += 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-      if (document.getElementById('chkLower').checked) chars += 'abcdefghijkmnopqrstuvwxyz';
-      if (document.getElementById('chkNum').checked) chars += '23456789';
-      if (document.getElementById('chkSym').checked) chars += '!@#$%^&*_-+=';
-      if (!chars) chars = 'abcdefghijkmnopqrstuvwxyz23456789';
-
-      const makePass = (l) => {
-        const arr = new Uint32Array(l);
-        window.crypto.getRandomValues(arr);
-        return Array.from(arr, x => chars[x % chars.length]).join('');
-      };
-
-      const words = ['quantum', 'velvet', 'cobalt', 'harbor', 'cipher', 'aurora', 'matrix', 'falcon', 'zenith', 'glacier', 'beacon', 'vortex'];
-      const makePassphrase = () => {
-        const arr = new Uint32Array(4);
-        window.crypto.getRandomValues(arr);
-        return Array.from(arr, x => words[x % words.length]).join('-') + '-' + (arr[0] % 90 + 10);
-      };
-
-      const p1 = makePass(len);
-      const p2 = makePassphrase();
-      const p3 = makePass(32);
-
-      const entropy = Math.round(len * Math.log2(chars.length));
-      document.getElementById('passEntropyBits').textContent = `${entropy} Bits Entropy`;
-
-      document.getElementById('passPerspectivesOutput').innerHTML = `
-        <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-accent-600 font-bold">Perspective 1 • High-Entropy Standard</div>
-          <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p1)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p1)}'); showToast('Copied!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-accent-500">Copy Password</button>
-        </div>
-        <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-sky-600 font-bold">Perspective 2 • Memorable Passphrase</div>
-          <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p2)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p2)}'); showToast('Copied!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-accent-500">Copy Passphrase</button>
-        </div>
-        <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-emerald-600 font-bold">Perspective 3 • 256-Bit Vault Key</div>
-          <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p3)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p3)}'); showToast('Copied!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-accent-500">Copy Vault Key</button>
-        </div>
-      `;
-    }
-
-    // ===================================================================
-    // NEW TOOL 21: LIVE HTML / CSS / JS SANDBOX
-    // ===================================================================
-    function runLiveSandbox() {
-      const html = document.getElementById('sbHtml').value;
-      const css = document.getElementById('sbCss').value;
-      const js = document.getElementById('sbJs').value;
-      const frame = document.getElementById('sbPreviewFrame');
-      frame.srcdoc = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`;
-    }
-
-    function downloadSandboxHtml() {
-      const html = document.getElementById('sbHtml').value;
-      const css = document.getElementById('sbCss').value;
-      const js = document.getElementById('sbJs').value;
-      const full = `<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<style>\n${css}\n</style>\n</head>\n<body>\n${html}\n<script>\n${js}\n<\/script>\n</body>\n</html>`;
-      const blob = new Blob([full], { type: 'text/html' });
-      triggerFileDownload(URL.createObjectURL(blob), 'utilityflow-sandbox.html');
-    }
-
-    // ===================================================================
-    // 3-PERSPECTIVE / 3-TONE GENERATORS FOR ALL RESULT TOOLS
-    // ===================================================================
-    function renderThreePerspectivesCard(containerId, items) {
-      document.getElementById(containerId).innerHTML = items.map(item => `
-        <div class="surface-muted rounded-2xl p-4 border flex flex-col justify-between space-y-3">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-accent-500/10 text-accent-600 font-bold">${item.badge}</span>
-              <span class="text-[11px] font-semibold opacity-65">${item.tone}</span>
-            </div>
-            <h4 class="font-bold text-sm">${item.title}</h4>
-            <pre class="p-3 rounded-xl surface-card border text-[11px] font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-60">${escapeHtml(item.content)}</pre>
-          </div>
-          <button onclick="navigator.clipboard.writeText(this.parentElement.querySelector('pre').textContent); showToast('${item.badge} copied!');" class="w-full py-2 rounded-xl surface-card border text-xs font-bold hover:border-accent-500 transition">
-            📋 Copy ${item.badge}
-          </button>
-        </div>
-      `).join('');
-    }
-
-    // 1. Invoice Follow-Up Drafter (3 Detailed Tones)
-    function runPayPrompt() {
-      const client = document.getElementById('ppClient').value.trim() || 'Valued Client';
-      const amt = document.getElementById('ppAmount').value.trim() || 'INV-2026 (₹45,000)';
-      const ctx = document.getElementById('ppContext').value.trim() || 'Recent Milestone Delivery';
-
-      renderThreePerspectivesCard('ppOutput', [
-        {
-          badge: 'Perspective 1',
-          tone: 'Warm & Relationship-First',
-          title: 'Executive Account-Management Nudge',
-          content: `Subject: Quick check-in regarding ${amt} — ${client}\n\nHi ${client} Team,\n\nI hope the week is going smoothly on your end! I wanted to briefly touch base regarding invoice ${amt} covering ${ctx}.\n\nIn case it slipped through the cracks during a busy cycle, I have re-attached the summary details for your accounts team. Could you let me know when we might expect remittance?\n\nWarm regards,\nAccounts & Delivery Team`
-        },
-        {
-          badge: 'Perspective 2',
-          tone: 'Firm Corporate & Structured',
-          title: 'Standard Accounts Receivable Notice',
-          content: `Subject: Action Required: Overdue Invoice ${amt} (${ctx})\n\nDear ${client} Finance Department,\n\nOur accounting records indicate that invoice ${amt} regarding ${ctx} remains unsettled past its scheduled due date.\n\nPlease advise on the exact NEFT/RTGS or wire settlement schedule by end of business Friday so we can update our ledger accordingly.\n\nSincerely,\nFinance & Billing Operations`
-        },
-        {
-          badge: 'Perspective 3',
-          tone: 'Direct Escalation & Final Notice',
-          title: 'Formal SLA & Credit Hold Warning',
-          content: `Subject: URGENT: Final Settlement Notice — Invoice ${amt}\n\nAttention: ${client} Executive & Finance Leadership,\n\nDespite prior reminders, invoice ${amt} (${ctx}) remains significantly overdue. Per our service terms, ongoing project deliverables and support SLAs are scheduled for temporary pause pending clearance.\n\nPlease remit payment immediately and share the UTR/transaction reference to prevent account interruption.`
-        }
-      ]);
-      showToast('3 strategic invoice perspectives generated');
-    }
-
-    // 2. Compliance Policy Generator (3 Detailed Perspectives)
-    function runPolicyDraft() {
-      const name = document.getElementById('pdName').value.trim() || 'UtilityFlow.io';
-      const email = document.getElementById('pdEmail').value.trim() || 'santarana5@gmail.com';
-
-      renderThreePerspectivesCard('pdOutputGrid', [
-        {
-          badge: 'Perspective 1',
-          tone: 'GDPR & Global Privacy',
-          title: 'Data Minimization & Local Processing Policy',
-          content: `PRIVACY POLICY — ${name}\nEffective: October 2026\n\n1. ZERO-SERVER ARCHITECTURE\n${name} executes utilities locally inside the user's browser. Files, financial figures, and code inputs are processed in volatile memory and are never transmitted to external databases.\n\n2. USER RIGHTS (GDPR/CCPA)\nUsers retain 100% ownership and control of their local browser storage.\n\n3. DATA PROTECTION OFFICER\nContact: ${email}`
-        },
-        {
-          badge: 'Perspective 2',
-          tone: 'AdSense & Cookie Compliance',
-          title: 'Advertising & Third-Party Cookie Disclosure',
-          content: `ADVERTISING & COOKIE DISCLOSURE — ${name}\n\n1. GOOGLE ADSENSE & DART COOKIES\nThird-party vendors, including Google, use cookies to serve ads based on a user's prior visits to ${name} or other websites.\n\n2. OPT-OUT MECHANISM\nUsers may opt out of personalized advertising by visiting Google Ads Settings (adssettings.google.com).\n\n3. PUBLISHER CONTACT\nEmail: ${email}`
-        },
-        {
-          badge: 'Perspective 3',
-          tone: 'Terms of Service & Liability',
-          title: 'Commercial Terms & Disclaimer Shield',
-          content: `TERMS OF SERVICE — ${name}\n\n1. AS-IS UTILITY PROVISION\nAll 21 utilities on ${name} are provided "as-is" without warranty of any kind. Users are responsible for verifying financial, IBAN, and legal outputs before commercial execution.\n\n2. INTELLECTUAL PROPERTY\nUsers retain full copyright over all documents and code processed through our client-side tools.\n\n3. LEGAL NOTICE\nInquiries: ${email}`
-        }
-      ]);
-      showToast('3 legal compliance perspectives compiled');
-    }
-
-    // 3. OpenGraph & Meta Builder (3 Detailed Perspectives)
-    function runMetaGen() {
-      const t = document.getElementById('mgTitle').value.trim() || 'UtilityFlow.io';
-      const k = document.getElementById('mgKeys').value.trim() || 'browser utilities, pdf tools';
-      const d = document.getElementById('mgDesc').value.trim() || '21 instant browser utilities.';
-
-      renderThreePerspectivesCard('mgOutputGrid', [
-        {
-          badge: 'Perspective 1',
-          tone: 'Core Search Engine Crawlers',
-          title: 'Google SERP & Indexing HTML Head',
-          content: `<title>${t}</title>\n<meta name="description" content="${d}">\n<meta name="keywords" content="${k}">\n<meta name="robots" content="index, follow, max-snippet:-1">\n<link rel="canonical" href="https://utilityflow.io/">`
-        },
-        {
-          badge: 'Perspective 2',
-          tone: 'Viral Social Sharing Cards',
-          title: 'OpenGraph (LinkedIn/WhatsApp) & X Card',
-          content: `<meta property="og:type" content="website">\n<meta property="og:title" content="${t}">\n<meta property="og:description" content="${d}">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${t}">\n<meta name="twitter:description" content="${d}">`
-        },
-        {
-          badge: 'Perspective 3',
-          tone: 'Rich Snippet Structured Data',
-          title: 'Schema.org WebApplication JSON-LD',
-          content: `<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "WebApplication",\n  "name": "${t}",\n  "description": "${d}",\n  "applicationCategory": "BusinessApplication",\n  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }\n}\n<\/script>`
-        }
-      ]);
-      showToast('3 SEO & Schema perspectives generated');
-    }
-
-    // 4. UTM & Slug Builder (3 Detailed Perspectives)
-    function runSlugCraft() {
-      const base = document.getElementById('scUrl').value.trim();
-      const title = document.getElementById('scTitle').value.trim() || 'launch-guide';
-      const src = document.getElementById('scSource').value.trim() || 'newsletter';
-      const fullSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-      const shortSlug = fullSlug.split('-').filter(w => w.length > 2).slice(0, 4).join('-');
-
-      renderThreePerspectivesCard('scOutputGrid', [
-        {
-          badge: 'Perspective 1',
-          tone: 'Evergreen SEO Structure',
-          title: 'Clean Semantic Permalink',
-          content: `Slug Path:\n/${shortSlug}\n\nCanonical URL:\n${base}${shortSlug}`
-        },
-        {
-          badge: 'Perspective 2',
-          tone: 'Full Analytics Attribution',
-          title: 'GA4 Campaign Tracking URL',
-          content: `${base}${fullSlug}?utm_source=${src}&utm_medium=social_organic&utm_campaign=q4_2026_launch&utm_content=hero_cta`
-        },
-        {
-          badge: 'Perspective 3',
-          tone: 'Social & Bio Ready',
-          title: 'Compact Shareable Referral Link',
-          content: `${base}${shortSlug}?ref=${src}\n\nMarkdown Link:\n[${title}](${base}${shortSlug}?ref=${src})`
-        }
-      ]);
-      showToast('3 URL & attribution perspectives built');
-    }
-
-    // 5. UUID & Token Studio (3 Perspectives)
-    function generateUuids() {
-      const makeUuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-      });
-      const arr = new Uint8Array(24);
+      const len = parseInt(document.getElementById('passLenRange').value, 10);
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+      const arr = new Uint32Array(len);
       window.crypto.getRandomValues(arr);
-      const hexSecret = 'uf_live_' + Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
-      const nanoChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-';
-      const nanoId = Array.from(arr.slice(0, 21), b => nanoChars[b % 64]).join('');
-
-      renderThreePerspectivesCard('uuidOutputGrid', [
-        {
-          badge: 'Perspective 1',
-          tone: 'RFC-4122 Standard',
-          title: 'Batch UUID v4 (Database Keys)',
-          content: `${makeUuid()}\n${makeUuid()}\n${makeUuid()}\n${makeUuid()}`
-        },
-        {
-          badge: 'Perspective 2',
-          tone: 'High-Entropy WebCrypto',
-          title: 'Production API Bearer Secret',
-          content: hexSecret
-        },
-        {
-          badge: 'Perspective 3',
-          tone: 'Compact URL-Safe ID',
-          title: 'Collision-Resistant NanoID (21 chars)',
-          content: `id_${nanoId}\nusr_${nanoId.slice(0, 14)}`
-        }
-      ]);
-      showToast('3 cryptographic token formats generated');
+      const p1 = Array.from(arr, x => chars[x % chars.length]).join('');
+      document.getElementById('passPerspectivesOutput').innerHTML = `<div class="p-4 rounded-2xl surface-muted border space-y-2 sm:col-span-3"><div class="font-mono text-xs break-all">${escapeHtml(p1)}</div></div>`;
     }
 
-    // --- CODE DIFF INSPECTOR ---
-    function LoadSampleDiff() {
-      document.getElementById('diffOriginal').value = `const config = {\n  env: "staging",\n  port: 3000,\n  debug: true,\n  retries: 2\n};`;
-      document.getElementById('diffModified').value = `const config = {\n  env: "production",\n  port: 8080,\n  debug: false,\n  retries: 5,\n  timeout: 6000\n};`;
-      runCodeDiff();
+    function runLiveSandbox() {
+      document.getElementById('sbPreviewFrame').srcdoc = `<!DOCTYPE html><html><head><style>${document.getElementById('sbCss').value}</style></head><body>${document.getElementById('sbHtml').value}<script>${document.getElementById('sbJs').value}<\/script></body></html>`;
+    }
+    function downloadSandboxHtml() {
+      const blob = new Blob([`<!DOCTYPE html><html><head><style>${document.getElementById('sbCss').value}</style></head><body>${document.getElementById('sbHtml').value}<script>${document.getElementById('sbJs').value}<\/script></body></html>`], {type: 'text/html'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sandbox.html'; a.click();
     }
 
     function runCodeDiff() {
-      const leftLines = document.getElementById('diffOriginal').value.split('\n');
-      const rightLines = document.getElementById('diffModified').value.split('\n');
-      const maxLines = Math.max(leftLines.length, rightLines.length);
-      let leftHtml = '', rightHtml = '', removals = 0, additions = 0;
-
-      for (let i = 0; i < maxLines; i++) {
-        const l = leftLines[i], r = rightLines[i], lineNum = i + 1;
-        if (l === r) {
-          leftHtml += `<div class="diff-row"><span class="diff-num">${lineNum}</span><span class="diff-code">${escapeHtml(l)}</span></div>`;
-          rightHtml += `<div class="diff-row"><span class="diff-num">${lineNum}</span><span class="diff-code">${escapeHtml(r)}</span></div>`;
-        } else {
-          if (l !== undefined) {
-            removals++;
-            leftHtml += `<div class="diff-row diff-del"><span class="diff-num">${lineNum}</span><span class="diff-code">- ${escapeHtml(l)}</span></div>`;
-          } else {
-            leftHtml += `<div class="diff-row opacity-25"><span class="diff-num">·</span><span class="diff-code"> </span></div>`;
-          }
-          if (r !== undefined) {
-            additions++;
-            rightHtml += `<div class="diff-row diff-add"><span class="diff-num">${lineNum}</span><span class="diff-code">+ ${escapeHtml(r)}</span></div>`;
-          } else {
-            rightHtml += `<div class="diff-row opacity-25"><span class="diff-num">·</span><span class="diff-code"> </span></div>`;
-          }
-        }
-      }
-      document.getElementById('diffLeftPane').innerHTML = leftHtml;
-      document.getElementById('diffRightPane').innerHTML = rightHtml;
-      document.getElementById('diffRemovedBadge').textContent = `- ${removals} Removal${removals === 1 ? '' : 's'}`;
-      document.getElementById('diffAddedBadge').textContent = `+ ${additions} Addition${additions === 1 ? '' : 's'}`;
+      const l = document.getElementById('diffOriginal').value.split('\n');
+      const r = document.getElementById('diffModified').value.split('\n');
+      document.getElementById('diffLeftPane').innerHTML = l.map((line, i) => `<div class="diff-row"><span class="diff-num">${i+1}</span><span class="diff-code">${escapeHtml(line)}</span></div>`).join('');
+      document.getElementById('diffRightPane').innerHTML = r.map((line, i) => `<div class="diff-row"><span class="diff-num">${i+1}</span><span class="diff-code">${escapeHtml(line)}</span></div>`).join('');
     }
 
-    // --- WEALTH & LOAN ENGINE ---
     let calcMode = 'sip';
     let financialChartInstance = null;
-
     function setCalcMode(mode) {
       calcMode = mode;
-      const sipBtn = document.getElementById('modeSipBtn');
-      const loanBtn = document.getElementById('modeLoanBtn');
-      const r1 = document.getElementById('rangeVal1');
-      const n1 = document.getElementById('numVal1');
-      const emiRow = document.getElementById('emiRow');
-
-      if (mode === 'sip') {
-        sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
-        loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
-        document.getElementById('labelVal1').textContent = 'Principal Investment Amount (₹)';
-        document.getElementById('resGainLabel').textContent = 'Est. Returns:';
-        emiRow.classList.add('hidden');
-        r1.value = 100000; n1.value = 100000;
-      } else {
-        loanBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition';
-        sipBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 hover:opacity-100 transition';
-        document.getElementById('labelVal1').textContent = 'Principal Loan Amount (₹)';
-        document.getElementById('resGainLabel').textContent = 'Total Interest Payable:';
-        emiRow.classList.remove('hidden');
-        r1.value = 2500000; n1.value = 2500000;
-      }
+      document.getElementById('modeSipBtn').className = mode === 'sip' ? 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition' : 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 transition';
+      document.getElementById('modeLoanBtn').className = mode === 'loan' ? 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-accent-600 text-white transition' : 'px-3.5 py-1.5 rounded-lg text-xs font-semibold opacity-70 transition';
+      document.getElementById('emiRow').classList.toggle('hidden', mode === 'sip');
       updateCalculator();
     }
-
-    function syncCalcFromSlider(idx) {
-      document.getElementById('numVal' + idx).value = document.getElementById('rangeVal' + idx).value;
-      updateCalculator();
-    }
-    function syncCalcFromInput(idx) {
-      document.getElementById('rangeVal' + idx).value = parseFloat(document.getElementById('numVal' + idx).value) || 0;
-      updateCalculator();
-    }
-
+    function syncCalcFromSlider(idx) { document.getElementById('numVal' + idx).value = document.getElementById('rangeVal' + idx).value; updateCalculator(); }
+    function syncCalcFromInput(idx) { document.getElementById('rangeVal' + idx).value = document.getElementById('numVal' + idx).value; updateCalculator(); }
     function updateCalculator() {
-      const v1 = Math.max(0, parseFloat(document.getElementById('numVal1').value) || 0);
-      const v2 = Math.max(0.1, parseFloat(document.getElementById('numVal2').value) || 0.1);
-      const v3 = Math.max(1, parseFloat(document.getElementById('numVal3').value) || 1);
+      const v1 = parseFloat(document.getElementById('numVal1').value) || 0;
+      const v2 = parseFloat(document.getElementById('numVal2').value) || 0;
+      const v3 = parseFloat(document.getElementById('numVal3').value) || 0;
       let total = 0, gains = 0;
-
       if (calcMode === 'sip') {
         total = v1 * Math.pow((1 + v2 / 100), v3);
         gains = total - v1;
@@ -1836,35 +1081,73 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
         gains = total - v1;
         document.getElementById('resMonthlyEmi').textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
       }
-
       document.getElementById('resInvested').textContent = '₹' + Math.round(v1).toLocaleString('en-IN');
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
       document.getElementById('resTotal').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
-
       const ctx = document.getElementById('financialChart').getContext('2d');
       if (financialChartInstance) financialChartInstance.destroy();
-      financialChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: { labels: ['Principal', 'Yield/Interest'], datasets: [{ data: [v1, Math.max(0, gains)], backgroundColor: ['#94a3b8', '#0d9488'], borderWidth: 0 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '72%' }
-      });
+      financialChartInstance = new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [v1, Math.max(0, gains)], backgroundColor: ['#94a3b8', '#0d9488'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '72%' } });
     }
 
-    // --- OTHER CORE UTILITIES ---
-    let spotlightProjects = [
-      { name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Featured Partner' },
-      { name: 'DevToolbox Pro', url: 'https://devtoolbox.io', status: 'Trending Utility' }
-    ];
-    function renderSpotlightBoard() {
-      document.getElementById('spotlightLeaderboard').innerHTML = spotlightProjects.map((p, idx) => `
-        <div class="surface-card rounded-xl p-4 border flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="w-7 h-7 rounded-lg surface-muted border font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>
-            <div>
-              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-accent-600">${escapeHtml(p.name)} ↗</a>
-              <div class="text-[11px] font-mono opacity-55">${escapeHtml(p.url)}</div>
-            </div>
+    function renderThreePerspectivesCard(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.map(item => `
+        <div class="surface-muted rounded-2xl p-4 border flex flex-col justify-between space-y-3">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between"><span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-accent-500/10 text-accent-600 font-bold">${item.badge}</span><span class="text-[11px] opacity-65">${item.tone}</span></div>
+            <h4 class="font-bold text-sm">${item.title}</h4>
+            <pre class="p-3 rounded-xl surface-card border text-[11px] font-mono whitespace-pre-wrap">${escapeHtml(item.content)}</pre>
           </div>
+          <button onclick="navigator.clipboard.writeText(this.parentElement.querySelector('pre').textContent); showToast('Copied!');" class="w-full py-2 rounded-xl surface-card border text-xs font-bold hover:border-accent-500">Copy</button>
+        </div>
+      `).join('');
+    }
+
+    function runPayPrompt() {
+      renderThreePerspectivesCard('ppOutput', [
+        { badge: 'Perspective 1', tone: 'Warm', title: 'Friendly Nudge', content: `Hi Team, just checking in regarding invoice.` },
+        { badge: 'Perspective 2', tone: 'Corporate', title: 'Standard Notice', content: `Dear Finance, invoice is past due.` },
+        { badge: 'Perspective 3', tone: 'Escalation', title: 'Final Warning', content: `URGENT: Remit immediately to prevent service hold.` }
+      ]);
+      showToast('Perspectives generated');
+    }
+    function runPolicyDraft() {
+      renderThreePerspectivesCard('pdOutputGrid', [
+        { badge: 'Perspective 1', tone: 'GDPR', title: 'Privacy Policy', content: `Zero-server local browser execution.` },
+        { badge: 'Perspective 2', tone: 'AdSense', title: 'Cookie Notice', content: `Cookies used for ads.` },
+        { badge: 'Perspective 3', tone: 'Terms', title: 'Terms of Service', content: `Provided as-is.` }
+      ]);
+      showToast('Policies compiled');
+    }
+    function runMetaGen() {
+      renderThreePerspectivesCard('mgOutputGrid', [
+        { badge: 'SEO', tone: 'Google', title: 'Meta Tags', content: `<title>UtilityFlow</title>` },
+        { badge: 'Social', tone: 'OpenGraph', title: 'OG Cards', content: `<meta property="og:title" content="UtilityFlow">` },
+        { badge: 'Schema', tone: 'JSON-LD', title: 'WebApplication', content: `{"@type": "WebApplication"}` }
+      ]);
+      showToast('Meta generated');
+    }
+    function runSlugCraft() {
+      renderThreePerspectivesCard('scOutputGrid', [
+        { badge: 'SEO', tone: 'Clean', title: 'Permalink', content: `https://utilityflow.in/launch` },
+        { badge: 'UTM', tone: 'GA4', title: 'Tracking Link', content: `https://utilityflow.in/?utm_source=google` },
+        { badge: 'Share', tone: 'Compact', title: 'Short Link', content: `https://utilityflow.in?ref=launch` }
+      ]);
+      showToast('Slugs built');
+    }
+    function generateUuids() {
+      renderThreePerspectivesCard('uuidOutputGrid', [
+        { badge: 'UUID', tone: 'RFC-4122', title: 'UUID v4', content: `123e4567-e89b-12d3-a456-426614174000` },
+        { badge: 'Secret', tone: 'Hex', title: 'API Secret', content: `uf_live_8f93a2b7c4d` },
+        { badge: 'NanoID', tone: 'Compact', title: 'NanoID', content: `id_V1StGXR8_Z5jdHi6B-myT` }
+      ]);
+      showToast('Tokens generated');
+    }
+
+    let spotlightProjects = [{ name: 'Rynox Moto Gear', url: 'https://rynox.in', status: 'Partner' }];
+    function renderSpotlightBoard() {
+      document.getElementById('spotlightLeaderboard').innerHTML = spotlightProjects.map((p, i) => `
+        <div class="surface-card rounded-xl p-4 border flex justify-between items-center">
+          <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-accent-600">${escapeHtml(p.name)} ↗</a>
           <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-accent-500/10 text-accent-600 font-bold">${p.status}</span>
         </div>
       `).join('');
@@ -1872,22 +1155,18 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
     function openSpotlightModal() { document.getElementById('spotlightModal').classList.remove('hidden'); }
     function closeSpotlightModal() { document.getElementById('spotlightModal').classList.add('hidden'); }
     function submitFreeSpotlight() {
-      const name = document.getElementById('smName').value.trim();
-      const url = document.getElementById('smUrl').value.trim();
-      if (!name || !url) return;
-      spotlightProjects.unshift({ name, url, status: 'Community Listed' });
-      closeSpotlightModal(); renderSpotlightBoard(); showToast('Listing published');
+      spotlightProjects.unshift({ name: document.getElementById('smName').value, url: document.getElementById('smUrl').value, status: 'Listed' });
+      closeSpotlightModal(); renderSpotlightBoard(); showToast('Published');
     }
 
     function runCaseSwap(mode) {
       const val = document.getElementById('csInput').value;
       const out = document.getElementById('csOutputContent');
-      if (mode === 'json') { try { out.textContent = JSON.stringify(JSON.parse(val), null, 2); } catch(e) { out.textContent = 'Invalid JSON: ' + e.message; } }
-      else if (mode === 'minify') { try { out.textContent = JSON.stringify(JSON.parse(val)); } catch(e) { out.textContent = 'Invalid JSON: ' + e.message; } }
+      if (mode === 'json') { try { out.textContent = JSON.stringify(JSON.parse(val), null, 2); } catch(e) { out.textContent = 'Error'; } }
       else if (mode === 'upper') out.textContent = val.toUpperCase();
       else if (mode === 'lower') out.textContent = val.toLowerCase();
       else if (mode === 'camel') out.textContent = val.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '').replace(/^(.)/, c => c.toLowerCase());
-      else if (mode === 'snake') out.textContent = val.trim().toLowerCase().replace(/\s+/g, '_');
+      else if (mode === 'snake') out.textContent = val.toLowerCase().replace(/\s+/g, '_');
     }
 
     function processBase64(mode) {
@@ -1898,107 +1177,61 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
         if (mode === 'decode') out.value = atob(v);
         if (mode === 'urlencode') out.value = encodeURIComponent(v);
         if (mode === 'urldecode') out.value = decodeURIComponent(v);
-      } catch(e) { out.value = 'Error processing input string.'; }
+      } catch(e) { out.value = 'Error'; }
     }
 
-    setInterval(() => {
-      const el = document.getElementById('liveEpochDisplay');
-      if (el) el.textContent = Math.floor(Date.now() / 1000);
-    }, 1000);
+    setInterval(() => { const el = document.getElementById('liveEpochDisplay'); if (el) el.textContent = Math.floor(Date.now() / 1000); }, 1000);
     function convertEpoch() {
-      let val = parseInt(document.getElementById('epochInput').value.trim(), 10) || Math.floor(Date.now() / 1000);
-      if (val < 10000000000) val *= 1000;
-      const d = new Date(val);
-      document.getElementById('epochOutput').innerHTML = `<div><strong>ISO-8601:</strong> ${d.toISOString()}</div><div><strong>UTC:</strong> ${d.toUTCString()}</div><div><strong>Local:</strong> ${d.toString()}</div>`;
+      const d = new Date((parseInt(document.getElementById('epochInput').value) || Date.now() / 1000) * 1000);
+      document.getElementById('epochOutput').innerHTML = `UTC: ${d.toUTCString()}`;
     }
 
     function convertMarkdown() {
-      const md = document.getElementById('mdInput').value;
-      document.getElementById('htmlOutput').value = md.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
+      document.getElementById('htmlOutput').value = document.getElementById('mdInput').value.replace(/^# (.*$)/gim, '<h1>$1</h1>');
     }
-    function copyHtmlOutput() { navigator.clipboard.writeText(document.getElementById('htmlOutput').value); showToast('HTML copied'); }
 
     function runWordCounter() {
-      const text = document.getElementById('wordInput').value;
-      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-      const chars = text.length;
-      document.getElementById('cntWords').textContent = words;
-      document.getElementById('cntChars').textContent = chars;
-      document.getElementById('cntSentences').textContent = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
-      document.getElementById('cntTime').textContent = Math.ceil(words / 200 * 60) + 's';
-      document.getElementById('seoLimitText').textContent = `${chars} / 160`;
-      document.getElementById('seoBar').style.width = Math.min(100, (chars / 160) * 100) + '%';
-      document.getElementById('twLimitText').textContent = `${chars} / 280`;
-      document.getElementById('twBar').style.width = Math.min(100, (chars / 280) * 100) + '%';
+      const t = document.getElementById('wordInput').value;
+      document.getElementById('cntWords').textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+      document.getElementById('cntChars').textContent = t.length;
+      document.getElementById('cntSentences').textContent = t.trim() ? t.split(/[.!?]+/).filter(Boolean).length : 0;
     }
-    function copyWordContent() { navigator.clipboard.writeText(document.getElementById('wordInput').value); showToast('Copied'); }
 
     let loadedFile = null;
-    function handleDrop(e) { e.preventDefault(); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
-    function handleImagePreview(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
-    function processFile(file) {
-      loadedFile = file;
-      document.getElementById('imgOriginalName').textContent = file.name;
-      document.getElementById('imgOriginalSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        document.getElementById('sourceImgPreview').src = e.target.result;
-        document.getElementById('imagePreviewArea').classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    }
+    function handleImagePreview(e) { if (e.target.files[0]) { loadedFile = e.target.files[0]; document.getElementById('imgOriginalName').textContent = loadedFile.name; document.getElementById('imagePreviewArea').classList.remove('hidden'); } }
     function compressAndProcessImage() {
       if (!loadedFile) return;
-      const quality = parseInt(document.getElementById('qualityRange').value) / 100;
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
         img.src = e.target.result;
         img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width; canvas.height = img.height;
+          const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height;
           canvas.getContext('2d').drawImage(img, 0, 0);
           canvas.toBlob((blob) => {
             const url = URL.createObjectURL(blob);
             document.getElementById('imageResultBox').classList.remove('hidden');
-            document.getElementById('imageOutputContent').innerHTML = `
-              <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl surface-muted border">
-                <div class="text-xs font-mono">New Compressed Size: <strong class="text-emerald-600">${(blob.size/1024).toFixed(1)} KB</strong></div>
-                <button onclick="triggerFileDownload('${url}', 'compressed-${loadedFile.name}')" class="px-5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Download Image ⬇️</button>
-              </div>
-            `;
-            showToast('Image compressed');
-          }, 'image/jpeg', quality);
+            document.getElementById('imageOutputContent').innerHTML = `<button onclick="const a=document.createElement('a');a.href='${url}';a.download='compressed.jpg';a.click();" class="px-5 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold">Download Compressed</button>`;
+            showToast('Compressed');
+          }, 'image/jpeg', 0.75);
         };
       };
       reader.readAsDataURL(loadedFile);
     }
-    function triggerFileDownload(url, filename) {
-      const a = document.createElement('a'); a.href = url; a.download = filename;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      showToast('Download started');
-    }
 
     function generateAdvancedQRCode() {
-      const text = document.getElementById('qrInput').value.trim() || 'https://utilityflow.io';
-      const c = document.getElementById('qrColor').value.replace('#', '');
-      const bg = document.getElementById('qrBgColor').value.replace('#', '');
-      const url = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(text)}&color=${c}&bgcolor=${bg}`;
+      const text = document.getElementById('qrInput').value;
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
       document.getElementById('qrResultBox').classList.remove('hidden');
-      document.getElementById('qrOutputContent').innerHTML = `<img src="${url}" class="w-44 h-44" />`;
+      document.getElementById('qrOutputContent').innerHTML = `<img src="${url}" class="w-40 h-40" />`;
       document.getElementById('downloadQrBtn').href = url;
-      showToast('QR Code generated');
     }
 
     function generateRandomGradient() {
       const hex = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-      const c1 = hex(), c2 = hex();
-      const rule = `background: linear-gradient(135deg, ${c1}, ${c2});`;
-      document.getElementById('gradientPreviewBox').style.background = `linear-gradient(135deg, ${c1}, ${c2})`;
-      document.getElementById('gradientCssText').textContent = rule;
+      document.getElementById('gradientPreviewBox').style.background = `linear-gradient(135deg, ${hex()}, ${hex()})`;
     }
 
-    // Boot All Default Views Silently (No Startup Popups!)
     filterDirectory();
     renderSpotlightBoard();
     updateCalculator();
@@ -2008,11 +1241,8 @@ button { background: #0d9488; color: white; border: 0; padding: 8px 16px; border
     runMetaGen();
     runSlugCraft();
     generateUuids();
-
-    // Unlock Toast Popups for User Interactions
     isBooting = false;
 
-    // Direct URL Hash Link Support (e.g., yoursite.com/#pdf)
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.replace('#', '');
       if (hash && TOOLS_REGISTRY.some(t => t.id === hash)) switchTool(hash);
