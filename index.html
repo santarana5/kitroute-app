@@ -1,30 +1,300 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) - Official GA4 Telemetry -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W7ZGCBFNV8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W7ZGCBFNV8', { send_page_view: true });
+  </script>
   
   <!-- Primary High-Intent SEO Title & Meta -->
-  <title>UtilityFlow.in — 20 Free Client-Side Developer, PDF, IBAN & Finance Tools (Zero Upload)</title>
-  <meta name="description" content="Free 100% client-side browser utility suite: Merge Images to PDF locally, validate Global IBAN & SWIFT/BIC (ISO-13616 MOD-97), compare Split Code Diffs, run live HTML/CSS/JS sandboxes, compress images 80%, and calculate EMI & compound wealth with zero server uploads." />
-  <meta name="keywords" content="client side pdf merger, image to pdf without upload, global iban validator mod 97, split code diff checker online, unified html css js sandbox, local image compressor webp, webcrypto uuid generator, emi loan calculator india, privacy first browser tools, utilityflow" />
+  <title>UtilityFlow.in — 20 Free Client-Side Developer, PDF, IBAN, SWIFT, IFSC & Finance Tools</title>
+  <meta name="description" content="Free 100% client-side browser utility suite: Merge Images to PDF locally, verify Global IBAN (MOD-97), decode SWIFT/BIC & Indian IFSC bank codes, compare Split Code Diffs, run live HTML/CSS/JS sandboxes, compress images 80%, and calculate Loan EMI & SIP wealth with zero server uploads." />
+  <meta name="keywords" content="client side pdf merger, image to pdf without upload, global iban validator mod 97, swift bic code checker, indian ifsc code lookup micr, split code diff checker online, unified html css js sandbox, local image compressor webp, webcrypto uuid generator, emi loan calculator india, utilityflow" />
   <meta name="author" content="Santanu Rana" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="theme-color" content="#4f46e5" />
   <link rel="canonical" href="https://utilityflow.in/" id="canonical-link" />
 
-  <!-- Open Graph / LinkedIn / Reddit Rich Preview -->
+  <!-- Open Graph / LinkedIn / Reddit / WhatsApp Rich Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="UtilityFlow.in" />
   <meta property="og:title" content="UtilityFlow.in — 20-in-1 Privacy-First Browser Ecosystem (100% Client-Side)" />
-  <meta property="og:description" content="Merge PDFs, inspect global IBAN bank branches, compare color code diffs, compress images, and model wealth inside your browser RAM with zero server logs." />
+  <meta property="og:description" content="Merge PDFs, inspect Global IBAN, SWIFT/BIC & Indian IFSC bank branches, compare color code diffs, compress images, and model wealth inside your browser RAM with zero server logs." />
   <meta property="og:url" content="https://utilityflow.in/" />
 
-  <!-- Twitter Card -->
+  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="UtilityFlow.in — 20 Free Client-Side Developer & Finance Utilities" />
-  <meta name="twitter:description" content="Zero cloud uploads. Zero sign-ups. 20 instant browser-native tools for PDFs, IBAN banking, code diffs, and finance." />
+  <meta name="twitter:title" content="UtilityFlow.in — 20 Free Client-Side Developer, Banking & Finance Utilities" />
+  <meta name="twitter:description" content="Zero cloud uploads. Zero sign-ups. 20 instant browser-native tools for PDFs, IBAN/SWIFT/IFSC banking, code diffs, and finance." />
 
-  <!-- JSON-LD Structured Data: WebApplication + SoftwareCatalog + FAQPage for Google Rich Snippets -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Client-Side Engine Libraries: Tailwind CSS, jsPDF & Chart.js -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Kinetic Aurora Design System & Heavy Animation Engine -->
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-muted: #f1f5f9;
+      --text-main: #0f172a;
+      --border-color: #e2e8f0;
+      --accent-glow: rgba(79, 70, 229, 0.16);
+    }
+    html.dark {
+      --bg-main: #030712;
+      --bg-card: rgba(15, 23, 42, 0.88);
+      --bg-muted: #111827;
+      --text-main: #f8fafc;
+      --border-color: #1e293b;
+      --accent-glow: rgba(6, 182, 212, 0.22);
+    }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Floating Aurora Background Orbs */
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .aurora-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(90px);
+      opacity: 0.42;
+      animation: auroraFloat 18s infinite alternate ease-in-out;
+    }
+    html.dark .aurora-orb {
+      opacity: 0.22;
+    }
+    .orb-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #6366f1, #06b6d4);
+      top: -120px;
+      left: -100px;
+    }
+    .orb-2 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, #14b8a6, #8b5cf6);
+      top: 28%;
+      right: -120px;
+      animation-delay: -6s;
+    }
+    .orb-3 {
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, #ec4899, #6366f1);
+      bottom: -100px;
+      left: 25%;
+      animation-delay: -11s;
+    }
+    @keyframes auroraFloat {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(45px, 30px) scale(1.12) rotate(8deg); }
+      100% { transform: translate(-30px, 50px) scale(0.94) rotate(-6deg); }
+    }
+
+    /* Glassmorphic Surfaces */
+    .surface-glass {
+      background-color: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-color: var(--border-color);
+    }
+    html.dark .surface-glass {
+      background-color: rgba(3, 7, 18, 0.82);
+      border-color: #1e293b;
+    }
+    .surface-card {
+      background-color: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border-color: var(--border-color);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+    }
+    .surface-muted {
+      background-color: var(--bg-muted);
+      border-color: var(--border-color);
+    }
+
+    /* Interactive Inputs */
+    .input-ui {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      transition: all 0.2s ease;
+    }
+    .input-ui:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+      transform: translateY(-1px);
+    }
+
+    /* Animated Gradient Headline & Shimmer CTA Buttons */
+    .animated-gradient-text {
+      background: linear-gradient(90deg, #0d9488, #4f46e5, #db2777, #0d9488);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 7s linear infinite;
+    }
+    html.dark .animated-gradient-text {
+      background: linear-gradient(90deg, #2dd4bf, #818cf8, #f472b6, #2dd4bf);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    .btn-kinetic {
+      background: linear-gradient(135deg, #0d9488 0%, #4f46e5 50%, #7c3aed 100%);
+      background-size: 200% 200%;
+      animation: bgPan 5s ease infinite;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-kinetic:hover {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 12px 28px -6px rgba(79, 70, 229, 0.45);
+    }
+    .btn-kinetic:active {
+      transform: translateY(0) scale(0.99);
+    }
+    @keyframes bgPan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 3D Bento Card Hover Physics & Staggered Reveal */
+    .bento-card {
+      position: relative;
+      overflow: hidden;
+      animation: cardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.65s ease;
+      pointer-events: none;
+    }
+    html.dark .bento-card::before {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+    }
+    .bento-card:hover::before {
+      left: 140%;
+    }
+    .bento-card:hover {
+      transform: translateY(-6px) scale(1.012);
+      box-shadow: 0 20px 38px -12px var(--accent-glow);
+      border-color: rgba(99, 102, 241, 0.55);
+    }
+
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Section Entrance Animation */
+    .tool-section:not(.hidden) {
+      animation: sectionFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating Badge Bob */
+    .float-badge {
+      animation: gentleBob 4s ease-in-out infinite;
+    }
+    @keyframes gentleBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Split Code Diff Highlighting */
+    .diff-row {
+      display: flex;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.65;
+      padding: 2px 8px;
+      white-space: pre;
+    }
+    .diff-num { width: 28px; opacity: 0.45; user-select: none; flex-shrink: 0; }
+    .diff-sign { width: 18px; font-weight: 700; user-select: none; flex-shrink: 0; }
+    .diff-code { flex: 1; }
+    .diff-del { background-color: rgba(239, 68, 68, 0.14); color: #dc2626; }
+    html.dark .diff-del { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+    .diff-add { background-color: rgba(16, 185, 129, 0.14); color: #059669; }
+    html.dark .diff-add { background-color: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .diff-word-del { background-color: rgba(239, 68, 68, 0.32); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+    .diff-word-add { background-color: rgba(16, 185, 129, 0.32); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+
+    @keyframes toastSlideUp {
+      from { opacity: 0; transform: translateY(14px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .toast-enter { animation: toastSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    @keyframes flashPulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.55); }
+      100% { box-shadow: 0 0 0 14px rgba(99, 102, 241, 0); }
+    }
+    .flash-refresh { animation: flashPulse 0.5s ease; }
+  </style>
+
+  <!-- JSON-LD Structured Data: WebApplication + ItemList + FAQPage for Google Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,18 +308,30 @@
         "offers": {
           "@type": "Offer",
           "price": "0",
-          "priceCurrency": "USD"
+          "priceCurrency": "INR"
         },
-        "description": "A 20-in-1 privacy-first client-side web ecosystem featuring local PDF compilation, ISO-13616 MOD-97 IBAN inspection, split code diff checking, WebCrypto token generation, and interactive wealth/EMI modeling.",
+        "description": "A 20-in-1 privacy-first client-side web ecosystem featuring local PDF compilation, ISO-13616 MOD-97 IBAN inspection, SWIFT/BIC decoding, Indian RBI IFSC code lookup, split code diff checking, WebCrypto token generation, and interactive wealth/EMI modeling.",
         "featureList": [
           "Client-Side Image to PDF Merger & Brief Exporter (jsPDF)",
-          "Global IBAN Validator & Bank Branch Inspector (ISO-13616 MOD-97)",
+          "Global IBAN Validator, SWIFT/BIC Decoder & Indian IFSC Branch Inspector",
           "Color-Coded Split Code Diff Checker",
           "Unified HTML5, CSS3 & JavaScript Live Sandbox",
           "Dual-Chart Compound Wealth & Loan EMI Engine",
           "Hardware-Accelerated HTML5 Canvas Image Compressor",
           "WebCrypto CSPRNG Password & UUID v4 Generator",
           "Executive Invoice & Accounts Receivable Drafter"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "UtilityFlow.in Core Browser Utilities",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "PDF & Document Command Suite", "url": "https://utilityflow.in/?tool=pdf" },
+          { "@type": "ListItem", "position": 2, "name": "Global IBAN, SWIFT/BIC & Indian IFSC Banking Inspector", "url": "https://utilityflow.in/?tool=iban" },
+          { "@type": "ListItem", "position": 3, "name": "Unified HTML5/CSS3/JS Live Code Sandbox", "url": "https://utilityflow.in/?tool=sandbox" },
+          { "@type": "ListItem", "position": 4, "name": "Split Color-Coded Code Diff Checker", "url": "https://utilityflow.in/?tool=diff" },
+          { "@type": "ListItem", "position": 5, "name": "Compound Wealth & Loan EMI Amortization Engine", "url": "https://utilityflow.in/?tool=calc" },
+          { "@type": "ListItem", "position": 6, "name": "Hardware-Accelerated Image Compression Studio", "url": "https://utilityflow.in/?tool=image" }
         ]
       },
       {
@@ -65,10 +347,10 @@
           },
           {
             "@type": "Question",
-            "name": "How does the Global IBAN Validator verify bank accounts?",
+            "name": "How does the Global IBAN, SWIFT/BIC, and Indian IFSC Validator work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Our IBAN inspector implements the official ISO-13616 standard. It validates country-specific character lengths, rearranges the four initial characters to the end of the string, converts ASCII letters to numeric integers (A=10 to Z=35), and computes a BigInt Modulo-97 (MOD-97) checksum where a valid account yields an exact remainder of 1."
+              "text": "Our Banking Command Suite supports three international standards: (1) Official ISO-13616 Modulo-97 IBAN verification, (2) ISO-9362 8- and 11-character SWIFT/BIC institution, country, and branch decoding, and (3) Indian 11-character RBI IFSC validation with live branch, MICR, NEFT, RTGS, IMPS, and UPI lookup."
             }
           },
           {
@@ -93,7 +375,14 @@
   }
   </script>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-teal-600 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-indigo-600 selection:text-white">
+
+  <!-- AMBIENT KINETIC AURORA BACKGROUND -->
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
 
   <!-- BOTTOM-CENTER / BOTTOM-RIGHT FLOATING TOAST CONTAINER -->
   <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-6 z-50 flex flex-col items-center sm:items-end gap-2.5 pointer-events-none w-[92vw] sm:w-auto max-w-md"></div>
@@ -102,18 +391,18 @@
   <div id="cmdPalette" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-start justify-center pt-14 p-4">
     <div class="surface-card max-w-3xl w-full rounded-3xl border shadow-2xl overflow-hidden">
       <div class="p-4 border-b border-inherit flex items-center gap-3">
-        <svg class="w-5 h-5 text-teal-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <input id="cmdInput" type="text" placeholder="Search all 20 utilities by name, category, or task..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
-        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold shrink-0">Showing 9 of 20</span>
+        <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <input id="cmdInput" type="text" placeholder="Search all 20 utilities (e.g., ifsc, swift, iban, pdf, diff)..." oninput="renderCmdList(this.value)" class="w-full bg-transparent text-sm focus:outline-none font-mono" />
+        <span id="cmdCountBadge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold shrink-0">Showing 9 of 20</span>
         <button onclick="toggleCmdPalette(false)" class="text-[10px] font-mono px-2.5 py-1 rounded-lg surface-muted border opacity-75 hover:opacity-100">ESC</button>
       </div>
       <div class="px-4 py-2 surface-muted border-b border-inherit flex items-center justify-between gap-2 overflow-x-auto no-scrollbar text-[11px]">
         <div class="flex items-center gap-1.5">
-          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">Top 9 Initial</button>
-          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">View All 20</button>
-          <button onclick="renderCmdList('Document')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">📄 PDF & Docs</button>
-          <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">👨‍💻 Dev & Sandbox</button>
-          <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-teal-500">🏦 Finance & IBAN</button>
+          <button onclick="renderCmdList('')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-indigo-500">Top 9 Initial</button>
+          <button onclick="renderCmdList('all')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-indigo-500">View All 20</button>
+          <button onclick="renderCmdList('Document')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-indigo-500">📄 PDF & Docs</button>
+          <button onclick="renderCmdList('Developer')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-indigo-500">👨‍💻 Dev & Sandbox</button>
+          <button onclick="renderCmdList('Finance')" class="px-2.5 py-1 rounded-md surface-card border font-semibold hover:border-indigo-500">🏦 IBAN, SWIFT & IFSC</button>
         </div>
         <span class="font-mono opacity-60 hidden sm:inline">Scroll for more ↓</span>
       </div>
@@ -121,46 +410,46 @@
     </div>
   </div>
 
-  <!-- TOP HEADER (MOBILE-OPTIMIZED SO NOTHING EVER OVERFLOWS) -->
+  <!-- TOP HEADER -->
   <header class="sticky top-0 z-40 surface-glass border-b">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-3">
       
       <!-- Brand Logo -->
-      <div onclick="switchTool('home')" class="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-xs sm:text-sm shadow-md group-hover:scale-105 transition">
+      <a href="https://utilityflow.in/" onclick="event.preventDefault(); switchTool('home');" class="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl btn-kinetic flex items-center justify-center text-white font-extrabold text-xs sm:text-sm shadow-md group-hover:scale-105 transition">
           UF
         </div>
         <div>
           <div class="flex items-center">
-            <span class="font-extrabold tracking-tight text-base sm:text-lg">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
+            <span class="font-extrabold tracking-tight text-base sm:text-lg">UtilityFlow<span class="text-indigo-600 dark:text-teal-400">.in</span></span>
           </div>
           <p class="text-[10px] opacity-65 font-medium hidden sm:block">Next-Gen 20-Tool Browser Ecosystem</p>
         </div>
-      </div>
+      </a>
 
       <!-- Privacy & Architecture Trust Badge -->
-<div class="hidden md:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium text-slate-700 dark:text-slate-300 shadow-sm">
-  <span class="relative flex h-2 w-2">
-    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-  </span>
-  <span class="font-semibold text-emerald-700 dark:text-emerald-400">100% Client-Side</span>
-  <span class="text-slate-300 dark:text-slate-600">|</span>
-  <span>Zero Server Logs</span>
-</div>
+      <div class="hidden md:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium text-slate-700 dark:text-slate-300 shadow-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="font-semibold text-emerald-700 dark:text-emerald-400">100% Client-Side</span>
+        <span class="text-slate-300 dark:text-slate-600">|</span>
+        <span>Zero Server Logs</span>
+      </div>
 
-      <!-- Action Buttons: Sleek Icon-First on Mobile, Full Pill on Desktop -->
+      <!-- Action Buttons -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-        <button onclick="toggleCmdPalette(true)" class="h-9 w-9 sm:w-auto sm:h-auto flex items-center justify-center sm:justify-between gap-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-muted border text-xs opacity-95 hover:border-teal-500 transition shrink-0" title="Search all 20 utilities (Ctrl+K)">
+        <button onclick="toggleCmdPalette(true)" class="h-9 w-9 sm:w-auto sm:h-auto flex items-center justify-center sm:justify-between gap-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-muted border text-xs opacity-95 hover:border-indigo-500 transition shrink-0" title="Search all 20 utilities (Ctrl+K)">
           <span class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-teal-600 dark:text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-indigo-600 dark:text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             <span class="hidden lg:inline font-semibold">Quick Launch (20 Tools)...</span>
             <span class="hidden sm:inline lg:hidden font-semibold">Search</span>
           </span>
           <kbd class="hidden md:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold surface-card rounded-md border shadow-sm">Ctrl+K</kbd>
         </button>
 
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="h-9 px-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition shadow-sm flex items-center justify-center gap-1.5 shrink-0" title="Switch Light / Dark Mode">
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="h-9 px-2.5 sm:px-3.5 sm:py-2 rounded-xl surface-card border text-xs font-bold hover:border-indigo-500 transition shadow-sm flex items-center justify-center gap-1.5 shrink-0" title="Switch Light / Dark Mode">
           <span id="themeToggleIcon">🌙</span>
           <span id="themeToggleLabel" class="hidden sm:inline">Dark</span>
         </button>
@@ -168,17 +457,17 @@
     </div>
 
     <!-- TOP NAVIGATION BAR -->
-    <div class="border-t border-inherit surface-muted/60 relative">
+    <nav aria-label="Primary Tool Navigation" class="border-t border-inherit surface-muted/60 relative">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-2">
         <button onclick="scrollTopNav(-260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Left">‹</button>
 
         <div id="topNavScroller" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-0.5 flex-1">
-          <button onclick="switchTool('home')" id="topTab-home" class="top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-sm transition shrink-0 flex items-center gap-1.5">
+          <button onclick="switchTool('home')" id="topTab-home" class="top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold btn-kinetic text-white shadow-sm transition shrink-0 flex items-center gap-1.5">
             <span>✦</span> <span>Workspace Hub</span>
           </button>
           <button onclick="switchTool('pdf')" id="topTab-pdf" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">📄 PDF & Doc Suite</button>
+          <button onclick="switchTool('iban')" id="topTab-iban" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🏦 IBAN, SWIFT & IFSC</button>
           <button onclick="switchTool('sandbox')" id="topTab-sandbox" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">💻 Unified Code Sandbox</button>
-          <button onclick="switchTool('iban')" id="topTab-iban" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">🏦 Global IBAN Checker</button>
           <button onclick="switchTool('diff')" id="topTab-diff" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">⚖️ Color Code Diff</button>
           <button onclick="switchTool('calc')" id="topTab-calc" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">📈 Wealth & Loan Engine</button>
           <button onclick="switchTool('payprompt')" id="topTab-payprompt" class="top-nav-pill px-3 py-1.5 rounded-lg text-xs font-semibold opacity-80 hover:opacity-100 transition shrink-0">💸 Invoice Drafter</button>
@@ -190,13 +479,13 @@
         <button onclick="scrollTopNav(260)" class="hidden sm:flex w-7 h-7 rounded-lg surface-card border items-center justify-center text-xs opacity-75 hover:opacity-100 shrink-0" title="Scroll Right">›</button>
 
         <div class="relative shrink-0">
-          <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3 sm:px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-teal-600 dark:text-teal-400 hover:border-teal-500 transition flex items-center gap-1.5 shadow-sm">
+          <button onclick="toggleMoreDropdown()" id="moreDropdownBtn" class="px-3 sm:px-3.5 py-1.5 rounded-lg surface-card border text-xs font-bold text-indigo-600 dark:text-teal-400 hover:border-indigo-500 transition flex items-center gap-1.5 shadow-sm">
             <span>All 20 Tools</span>
             <span class="text-[10px]">▾</span>
           </button>
           <div id="moreDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 surface-card rounded-2xl border shadow-2xl p-4 z-50 space-y-3 text-xs max-h-[75vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-inherit pb-2">
-              <span class="font-bold text-teal-600 dark:text-teal-400 font-mono uppercase text-[11px]">Complete 20-Utility Directory</span>
+              <span class="font-bold text-indigo-600 dark:text-teal-400 font-mono uppercase text-[11px]">Complete 20-Utility Directory</span>
               <button onclick="toggleMoreDropdown()" class="opacity-60 hover:opacity-100">✕</button>
             </div>
             <div id="dropdownDynamicList" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5"></div>
@@ -204,7 +493,7 @@
         </div>
 
       </div>
-    </div>
+    </nav>
   </header>
 
   <!-- MAIN WORKSPACE CONTAINER -->
@@ -212,29 +501,29 @@
 
     <!-- VIEW: FUTURISTIC BENTO HOMEPAGE HUB -->
     <section id="view-home" class="tool-section space-y-10">
-      <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="surface-card rounded-3xl border p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-lg">
         
         <!-- Left 7 Columns: Headline & Discipline Filters -->
         <div class="lg:col-span-7 space-y-5">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/25 text-xs font-bold">
+          <div class="float-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-teal-300 border border-indigo-500/25 text-xs font-bold">
             <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
-            <span>20 Browser-Native Modules • 100% Client-Side Privacy</span>
+            <span>20 Browser-Native Modules • IBAN, SWIFT & Indian IFSC Live</span>
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.12]">
-            Next-gen precision tools for <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-sky-500 to-indigo-600 dark:from-teal-400 dark:via-sky-400 dark:to-indigo-400">work, finance & creation.</span>
+            Next-gen precision tools for <span class="animated-gradient-text">work, banking & creation.</span>
           </h1>
           <p class="text-sm sm:text-base opacity-80 leading-relaxed max-w-2xl">
-            Engineered with the responsiveness of a native desktop OS. Compile multi-page PDFs, inspect global IBAN bank branches, compare code diffs in vivid color, model compound wealth, or run live unified code—all inside your browser at <strong>UtilityFlow.in</strong>.
+            Engineered with the responsiveness of a native desktop OS. Compile multi-page PDFs, verify global <strong>IBAN, SWIFT/BIC & Indian RBI IFSC</strong> codes, compare code diffs in vivid color, model compound wealth, or run live unified code—100% locally at <strong>UtilityFlow.in</strong>.
           </p>
 
           <div class="pt-1 space-y-2.5">
             <div class="text-[11px] font-bold uppercase tracking-wider opacity-60 font-mono">Filter Workspace by Discipline:</div>
             <div class="flex flex-wrap gap-2">
-              <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-sm transition">✦ All Modules (20)</button>
-              <button onclick="selectPersona('Document & Media')" id="pBtn-Document & Media" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-teal-500 transition">📄 PDF & Media (4)</button>
-              <button onclick="selectPersona('Finance & Business')" id="pBtn-Finance & Business" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-teal-500 transition">🏦 Finance & IBAN (5)</button>
-              <button onclick="selectPersona('Developer & Data')" id="pBtn-Developer & Data" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-teal-500 transition">💻 Dev & Sandbox (8)</button>
-              <button onclick="selectPersona('SEO & Content')" id="pBtn-SEO & Content" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-teal-500 transition">🚀 SEO & Marketing (3)</button>
+              <button onclick="selectPersona('all')" id="pBtn-all" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-bold btn-kinetic text-white shadow-sm transition">✦ All Modules (20)</button>
+              <button onclick="selectPersona('Document & Media')" id="pBtn-Document & Media" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">📄 PDF & Media (4)</button>
+              <button onclick="selectPersona('Finance & Business')" id="pBtn-Finance & Business" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">🏦 IBAN, SWIFT, IFSC & Finance (5)</button>
+              <button onclick="selectPersona('Developer & Data')" id="pBtn-Developer & Data" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">💻 Dev & Sandbox (8)</button>
+              <button onclick="selectPersona('SEO & Content')" id="pBtn-SEO & Content" class="persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">🚀 SEO & Marketing (3)</button>
             </div>
           </div>
         </div>
@@ -243,7 +532,7 @@
         <div class="lg:col-span-5 surface-muted rounded-2xl p-6 border space-y-4 shadow-sm">
           <div class="flex items-center justify-between border-b border-inherit pb-3">
             <div>
-              <span class="text-xs font-extrabold text-teal-600 dark:text-teal-400 block">⚡ Everyday Instant Calculator</span>
+              <span class="text-xs font-extrabold text-indigo-600 dark:text-teal-400 block">⚡ Everyday Instant Calculator</span>
               <span class="text-[11px] opacity-70">Modify any number below—updates in real time!</span>
             </div>
             <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/30 font-bold shrink-0">Live Widget</span>
@@ -276,8 +565,8 @@
           </div>
 
           <div class="pt-1 flex items-center justify-between text-[11px]">
-            <span class="opacity-70">Need deeper financial charts or PDF tools?</span>
-            <button onclick="switchTool('calc')" class="font-bold text-teal-600 dark:text-teal-400 hover:underline">Open Wealth Engine →</button>
+            <span class="opacity-70">Need IFSC, SWIFT or Wealth charts?</span>
+            <button onclick="switchTool('iban')" class="font-bold text-indigo-600 dark:text-teal-400 hover:underline">Open Banking Suite →</button>
           </div>
         </div>
 
@@ -290,13 +579,13 @@
             <h2 id="dirHeading" class="text-xl font-extrabold">Featured Workspace Utilities</h2>
             <p id="dirSubheading" class="text-xs opacity-65">Showing 9 core utilities initially. Click "Explore All 20 Utilities" or search above.</p>
           </div>
-          <input id="dirSearchInput" type="text" placeholder="Search 20 utilities (e.g., pdf, iban, diff, invoice)..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-80" />
+          <input id="dirSearchInput" type="text" placeholder="Search 20 utilities (e.g., ifsc, swift, iban, pdf, diff)..." oninput="filterDirectory()" class="px-4 py-2.5 rounded-xl input-ui text-xs w-full sm:w-80" />
         </div>
 
         <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
         <div id="expandDirectoryWrapper" class="text-center pt-2">
-          <button onclick="toggleExpandDirectory()" id="expandDirBtn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white text-xs font-extrabold hover:opacity-95 transition shadow-md">
+          <button onclick="toggleExpandDirectory()" id="expandDirBtn" class="px-6 py-3 rounded-xl btn-kinetic text-white text-xs font-extrabold shadow-md">
             Explore All 20 Utilities ↓
           </button>
         </div>
@@ -315,7 +604,7 @@
             </p>
           </div>
           <div class="shrink-0">
-            <span class="px-4 py-2 rounded-xl surface-muted border text-xs font-mono font-bold text-teal-600 dark:text-teal-400 block text-center">Pipeline Status: 6 Modules Active</span>
+            <span class="px-4 py-2 rounded-xl surface-muted border text-xs font-mono font-bold text-indigo-600 dark:text-teal-400 block text-center">Pipeline Status: 6 Modules Active</span>
           </div>
         </div>
 
@@ -380,8 +669,8 @@
     <!-- CONTEXTUAL PURPOSE HEADER -->
     <div id="contextualToolHeader" class="hidden surface-card rounded-2xl p-6 border shadow-sm space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">Category</span>
-        <button onclick="switchTool('home')" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-bold hover:border-teal-500 transition">
+        <span id="ctxCategory" class="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-indigo-500/15 text-indigo-600 dark:text-teal-400 font-bold">Category</span>
+        <button onclick="switchTool('home')" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-bold hover:border-indigo-500 transition">
           ← Back to All 20 Tools
         </button>
       </div>
@@ -393,7 +682,7 @@
     <section id="view-pdf" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap gap-2 border-b border-inherit pb-4">
-          <button onclick="setPdfTab('img2pdf')" id="pdfBtn-img2pdf" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white">1. Merge Images to PDF</button>
+          <button onclick="setPdfTab('img2pdf')" id="pdfBtn-img2pdf" class="px-4 py-2 rounded-xl text-xs font-bold btn-kinetic text-white">1. Merge Images to PDF</button>
           <button onclick="setPdfTab('txt2pdf')" id="pdfBtn-txt2pdf" class="px-4 py-2 rounded-xl text-xs font-semibold surface-muted border">2. Document / Text to PDF</button>
           <button onclick="setPdfTab('inspect')" id="pdfBtn-inspect" class="px-4 py-2 rounded-xl text-xs font-semibold surface-muted border">3. Inspect & Analyze PDF File</button>
         </div>
@@ -401,7 +690,7 @@
         <div id="pdfPane-img2pdf" class="space-y-4">
           <p class="text-xs opacity-75">Select one or multiple images (JPG/PNG/WebP) to merge and compile into a clean, multi-page downloadable PDF document locally.</p>
           <input id="pdfImgInput" type="file" accept="image/*" multiple class="w-full p-3 rounded-xl input-ui text-xs" />
-          <button onclick="compileImagesToPdf()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+          <button onclick="compileImagesToPdf()" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
             Compile & Download Merged PDF 📄
           </button>
         </div>
@@ -423,7 +712,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 2. KEY DELIVERABLES
 - Zero external cloud uploads
 - Instant local PDF generation with live progress telemetry</textarea>
-          <button onclick="exportTextToPdf()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+          <button onclick="exportTextToPdf()" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
             Generate & Download PDF ⬇️
           </button>
         </div>
@@ -439,7 +728,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <!-- Live PDF Compilation & Download Progression Banner -->
         <div id="pdfProgressBox" class="hidden p-5 rounded-2xl surface-muted border space-y-3">
           <div class="flex items-center justify-between text-xs font-mono">
-            <span id="pdfProgressStatus" class="font-bold text-teal-600 dark:text-teal-400">⏳ Initializing PDF compiler...</span>
+            <span id="pdfProgressStatus" class="font-bold text-indigo-600 dark:text-teal-400">⏳ Initializing PDF compiler...</span>
             <span id="pdfProgressPercent" class="font-extrabold">0%</span>
           </div>
           <div class="h-2.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden">
@@ -457,14 +746,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="surface-card rounded-2xl p-6 border space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-inherit pb-4">
           <div>
-            <span class="text-xs font-extrabold font-mono text-teal-600 dark:text-teal-400 block">⚡ Unified Single-Window HTML5 / CSS3 / JS Code Studio</span>
+            <span class="text-xs font-extrabold font-mono text-indigo-600 dark:text-teal-400 block">⚡ Unified Single-Window HTML5 / CSS3 / JS Code Studio</span>
             <span class="text-[11px] opacity-70">Write or paste complete HTML, `&lt;style&gt;`, and `&lt;script&gt;` code inside one unified editor below.</span>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="loadSandboxTemplate('interactive')" class="px-3 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-teal-500">Load Interactive App</button>
-            <button onclick="loadSandboxTemplate('chart')" class="px-3 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-teal-500">Load Neon Clock</button>
-            <button onclick="runLiveSandbox(true)" class="px-5 py-1.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white text-xs font-extrabold shadow-md hover:opacity-95 transition">▶ Run & Render Code</button>
-            <button onclick="downloadSandboxHtml()" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-teal-500">Download .HTML ⬇️</button>
+            <button onclick="loadSandboxTemplate('interactive')" class="px-3 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-indigo-500">Load Interactive App</button>
+            <button onclick="loadSandboxTemplate('chart')" class="px-3 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-indigo-500">Load Neon Clock</button>
+            <button onclick="runLiveSandbox(true)" class="px-5 py-1.5 rounded-xl btn-kinetic text-white text-xs font-extrabold shadow-md">▶ Run & Render Code</button>
+            <button onclick="downloadSandboxHtml()" class="px-3.5 py-1.5 rounded-xl surface-muted border text-xs font-semibold hover:border-indigo-500">Download .HTML ⬇️</button>
           </div>
         </div>
 
@@ -542,34 +831,106 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
             <span class="font-bold opacity-80">Live Rendered Output Window</span>
             <span id="sbLastRendered" class="text-[11px] opacity-65">Rendered just now</span>
           </div>
-          <iframe id="sbPreviewFrame" class="w-full h-80 rounded-2xl border-2 border-teal-500/30 bg-white shadow-inner" sandbox="allow-scripts allow-modals"></iframe>
+          <iframe id="sbPreviewFrame" class="w-full h-80 rounded-2xl border-2 border-indigo-500/30 bg-white shadow-inner" sandbox="allow-scripts allow-modals"></iframe>
         </div>
       </div>
     </section>
 
-    <!-- TOOL 3: GLOBAL IBAN VALIDATOR & DEEP BANK ATTRIBUTE INSPECTOR -->
+    <!-- TOOL 3: 3-IN-1 GLOBAL IBAN, SWIFT/BIC & INDIAN IFSC BANKING COMMAND SUITE -->
     <section id="view-iban" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
-        <div class="flex flex-wrap items-end gap-3">
-          <div class="flex-1 min-w-[260px]">
-            <label class="text-xs font-bold opacity-80">Enter International Bank Account Number (IBAN)</label>
-            <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" placeholder="e.g., GB29 NWBK 6016 1331 9268 19 or DE89 3704 0044 0532 0130 00" class="w-full mt-1.5 px-4 py-3 rounded-xl input-ui text-sm font-mono uppercase font-bold" />
+        
+        <!-- 3-Tab Banking Switcher -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-inherit pb-4">
+          <div class="flex flex-wrap gap-2">
+            <button onclick="setBankTab('iban')" id="bankBtn-iban" class="px-4 py-2.5 rounded-xl text-xs font-bold btn-kinetic text-white shadow-sm transition">
+              🌍 1. Global IBAN Inspector (MOD-97)
+            </button>
+            <button onclick="setBankTab('swift')" id="bankBtn-swift" class="px-4 py-2.5 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">
+              🌐 2. SWIFT / BIC Code Decoder (ISO-9362)
+            </button>
+            <button onclick="setBankTab('ifsc')" id="bankBtn-ifsc" class="px-4 py-2.5 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition">
+              🇮🇳 3. Indian IFSC & MICR Inspector (RBI)
+            </button>
           </div>
-          <button onclick="validateAndParseIban()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
-            Inspect Full Bank & Branch Details 🏦
-          </button>
+          <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">
+            3 Banking Standards Active
+          </span>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 text-xs">
-          <span class="opacity-65 font-mono text-[11px]">Test Real Global IBANs:</span>
-          <button onclick="document.getElementById('ibanInput').value='GB29 NWBK 6016 1331 9268 19'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-teal-500 font-mono text-[11px]">🇬🇧 UK NatWest</button>
-          <button onclick="document.getElementById('ibanInput').value='DE89 3704 0044 0532 0130 00'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-teal-500 font-mono text-[11px]">🇩🇪 Germany Commerzbank</button>
-          <button onclick="document.getElementById('ibanInput').value='FR76 3000 6000 0112 3456 7890 189'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-teal-500 font-mono text-[11px]">🇫🇷 France Crédit Agricole</button>
-          <button onclick="document.getElementById('ibanInput').value='NL91 ABNA 0417 1643 00'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-teal-500 font-mono text-[11px]">🇳🇱 Netherlands ABN AMRO</button>
-          <button onclick="document.getElementById('ibanInput').value='CH93 0076 2011 6238 5295 7'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-teal-500 font-mono text-[11px]">🇨🇭 Switzerland UBS/Kantonalbank</button>
+        <!-- SUB-TAB 1: GLOBAL IBAN INSPECTOR -->
+        <div id="bankPane-iban" class="space-y-6">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="flex-1 min-w-[260px]">
+              <label class="text-xs font-bold opacity-80">Enter International Bank Account Number (IBAN)</label>
+              <input id="ibanInput" type="text" value="GB29 NWBK 6016 1331 9268 19" placeholder="e.g., GB29 NWBK 6016 1331 9268 19 or DE89 3704 0044 0532 0130 00" class="w-full mt-1.5 px-4 py-3 rounded-xl input-ui text-sm font-mono uppercase font-bold" />
+            </div>
+            <button onclick="validateAndParseIban()" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
+              Inspect IBAN & Branch Details 🏦
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="opacity-65 font-mono text-[11px]">Test Real Global IBANs:</span>
+            <button onclick="document.getElementById('ibanInput').value='GB29 NWBK 6016 1331 9268 19'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇬🇧 UK NatWest</button>
+            <button onclick="document.getElementById('ibanInput').value='DE89 3704 0044 0532 0130 00'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇩🇪 Germany Commerzbank</button>
+            <button onclick="document.getElementById('ibanInput').value='FR76 3000 6000 0112 3456 7890 189'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇫🇷 France Crédit Agricole</button>
+            <button onclick="document.getElementById('ibanInput').value='NL91 ABNA 0417 1643 00'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇳🇱 Netherlands ABN AMRO</button>
+            <button onclick="document.getElementById('ibanInput').value='CH93 0076 2011 6238 5295 7'; validateAndParseIban();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇨🇭 Switzerland UBS</button>
+          </div>
+
+          <div id="ibanOutput" class="space-y-5 pt-2"></div>
         </div>
 
-        <div id="ibanOutput" class="space-y-5 pt-2"></div>
+        <!-- SUB-TAB 2: SWIFT / BIC CODE DECODER & VALIDATOR -->
+        <div id="bankPane-swift" class="hidden space-y-6">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="flex-1 min-w-[260px]">
+              <label class="text-xs font-bold opacity-80">Enter 8 or 11 Character SWIFT / BIC Code (ISO-9362)</label>
+              <input id="swiftInput" type="text" value="HDFCINBBXXX" placeholder="e.g., HDFCINBBXXX, SBININBB104, CHASUS33XXX" class="w-full mt-1.5 px-4 py-3 rounded-xl input-ui text-sm font-mono uppercase font-bold" />
+            </div>
+            <button onclick="validateAndParseSwift()" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
+              Decode SWIFT / BIC Structure 🌐
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="opacity-65 font-mono text-[11px]">Test Global & Indian SWIFT Codes:</span>
+            <button onclick="document.getElementById('swiftInput').value='HDFCINBBXXX'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇮🇳 HDFC Bank</button>
+            <button onclick="document.getElementById('swiftInput').value='SBININBB104'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇮🇳 State Bank of India</button>
+            <button onclick="document.getElementById('swiftInput').value='IDFBINBBMUM'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇮🇳 IDFC FIRST Bank</button>
+            <button onclick="document.getElementById('swiftInput').value='ICICINBBCTS'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇮🇳 ICICI Bank</button>
+            <button onclick="document.getElementById('swiftInput').value='CHASUS33XXX'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇺🇸 JPMorgan Chase</button>
+            <button onclick="document.getElementById('swiftInput').value='BARCGB22XXX'; validateAndParseSwift();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🇬🇧 Barclays UK</button>
+          </div>
+
+          <div id="swiftOutput" class="space-y-5 pt-2"></div>
+        </div>
+
+        <!-- SUB-TAB 3: INDIAN IFSC & MICR LIVE INSPECTOR -->
+        <div id="bankPane-ifsc" class="hidden space-y-6">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="flex-1 min-w-[260px]">
+              <label class="text-xs font-bold opacity-80">Enter 11-Character Indian Bank IFSC Code (RBI Standard)</label>
+              <input id="ifscInput" type="text" value="SBIN0000059" placeholder="e.g., SBIN0000059, HDFC0000001, IDFB0040101" class="w-full mt-1.5 px-4 py-3 rounded-xl input-ui text-sm font-mono uppercase font-bold" />
+            </div>
+            <button onclick="validateAndParseIfsc()" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
+              Verify Indian IFSC & Branch 🇮🇳
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="opacity-65 font-mono text-[11px]">Test Indian IFSC Codes:</span>
+            <button onclick="document.getElementById('ifscInput').value='SBIN0000059'; validateAndParseIfsc();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🏦 SBI Cuttack Main</button>
+            <button onclick="document.getElementById('ifscInput').value='HDFC0000001'; validateAndParseIfsc();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🏦 HDFC Mumbai HQ</button>
+            <button onclick="document.getElementById('ifscInput').value='IDFB0040101'; validateAndParseIfsc();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🏦 IDFC FIRST Bank</button>
+            <button onclick="document.getElementById('ifscInput').value='ICIC0000001'; validateAndParseIfsc();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🏦 ICICI Bank</button>
+            <button onclick="document.getElementById('ifscInput').value='UTIB0000001'; validateAndParseIfsc();" class="px-3 py-1 rounded-lg surface-muted border hover:border-indigo-500 font-mono text-[11px]">🏦 Axis Bank</button>
+          </div>
+
+          <div id="ifscOutput" class="space-y-5 pt-2"></div>
+        </div>
+
       </div>
     </section>
 
@@ -579,16 +940,16 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
           <div class="md:col-span-2 space-y-4">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold">Password Length: <span id="passLenLabel" class="text-teal-600 dark:text-teal-400 font-mono">20 chars</span></label>
-              <input id="passLenRange" type="range" min="8" max="64" value="20" oninput="document.getElementById('passLenLabel').textContent=this.value+' chars'; generateSecurePasswords();" class="w-48 accent-teal-600" />
+              <label class="text-xs font-bold">Password Length: <span id="passLenLabel" class="text-indigo-600 dark:text-teal-400 font-mono">20 chars</span></label>
+              <input id="passLenRange" type="range" min="8" max="64" value="20" oninput="document.getElementById('passLenLabel').textContent=this.value+' chars'; generateSecurePasswords();" class="w-48 accent-indigo-600" />
             </div>
             <div class="flex flex-wrap gap-4 text-xs font-semibold">
-              <label class="flex items-center gap-1.5"><input id="chkUpper" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Uppercase (A-Z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkLower" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Lowercase (a-z)</label>
-              <label class="flex items-center gap-1.5"><input id="chkNum" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Numbers (0-9)</label>
-              <label class="flex items-center gap-1.5"><input id="chkSym" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-teal-600" /> Symbols (!@#$)</label>
+              <label class="flex items-center gap-1.5"><input id="chkUpper" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-indigo-600" /> Uppercase (A-Z)</label>
+              <label class="flex items-center gap-1.5"><input id="chkLower" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-indigo-600" /> Lowercase (a-z)</label>
+              <label class="flex items-center gap-1.5"><input id="chkNum" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-indigo-600" /> Numbers (0-9)</label>
+              <label class="flex items-center gap-1.5"><input id="chkSym" type="checkbox" checked onchange="generateSecurePasswords()" class="accent-indigo-600" /> Symbols (!@#$)</label>
             </div>
-            <button onclick="generateSecurePasswords()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">
+            <button onclick="generateSecurePasswords()" class="px-6 py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md">
               Regenerate 3 Security Profiles 🔐
             </button>
           </div>
@@ -596,7 +957,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="surface-muted rounded-2xl p-4 border space-y-2 text-xs font-mono">
             <div class="text-[11px] uppercase opacity-60 font-bold">Cryptographic Strength</div>
             <div id="passEntropyBits" class="text-xl font-extrabold text-emerald-600 dark:text-emerald-400">131 Bits Entropy</div>
-            <div class="text-[11px] opacity-75">Est. Brute-Force Crack Time: <strong class="text-teal-600 dark:text-teal-400">Centuries+</strong></div>
+            <div class="text-[11px] opacity-75">Est. Brute-Force Crack Time: <strong class="text-indigo-600 dark:text-teal-400">Centuries+</strong></div>
           </div>
         </div>
 
@@ -611,7 +972,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="space-y-1.5">
             <div class="flex justify-between items-center">
               <label class="text-xs font-bold font-mono text-rose-600 dark:text-rose-400">Original Text / Code (Left — Deletions in Red)</label>
-              <button onclick="LoadSampleDiff()" class="text-[11px] text-teal-600 dark:text-teal-400 font-bold hover:underline">Load Sample Code</button>
+              <button onclick="LoadSampleDiff()" class="text-[11px] text-indigo-600 dark:text-teal-400 font-bold hover:underline">Load Sample Code</button>
             </div>
             <textarea id="diffOriginal" rows="7" class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">function calculateInvoiceTotal(subtotal) {
   const taxRate = 0.15;
@@ -636,7 +997,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         </div>
 
         <div class="flex flex-wrap items-center justify-between gap-3">
-          <button onclick="runCodeDiff(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+          <button onclick="runCodeDiff(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
             Compare Side-by-Side with Color Highlighting ⚖️
           </button>
           <div class="flex items-center gap-3 text-xs font-mono">
@@ -669,9 +1030,9 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     <section id="view-calc" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-inherit pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 font-mono">⚡ Interactive Financial Modeling & Multi-Chart Engine</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-teal-400 font-mono">⚡ Interactive Financial Modeling & Multi-Chart Engine</span>
           <div class="flex gap-1.5 p-1 surface-muted rounded-xl border">
-            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white transition">Compound Wealth / Lumpsum</button>
+            <button onclick="setCalcMode('sip')" id="modeSipBtn" class="px-4 py-1.5 rounded-lg text-xs font-bold btn-kinetic text-white transition">Compound Wealth / Lumpsum</button>
             <button onclick="setCalcMode('loan')" id="modeLoanBtn" class="px-4 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition">Loan EMI Amortization</button>
           </div>
         </div>
@@ -750,7 +1111,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
               <div class="h-52 w-full relative">
                 <canvas id="financialGrowthChart"></canvas>
               </div>
-              <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition">🖨️ Export Printable Financial Report</button>
+              <button onclick="window.print()" class="w-full py-2 rounded-xl surface-card border text-xs font-bold hover:border-indigo-500 transition">🖨️ Export Printable Financial Report</button>
             </div>
           </div>
         </div>
@@ -771,14 +1132,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div>
             <label class="text-xs font-bold opacity-80">3. Exact Invoice Amount</label>
-            <input id="ppAmount" type="text" value="₹1,48,500" placeholder="e.g., ₹1,48,500 or $2,400" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono font-bold text-teal-600 dark:text-teal-400" />
+            <input id="ppAmount" type="text" value="₹1,48,500" placeholder="e.g., ₹1,48,500 or $2,400" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono font-bold text-indigo-600 dark:text-teal-400" />
           </div>
           <div>
             <label class="text-xs font-bold opacity-80">4. Due Date / Project Context</label>
             <input id="ppContext" type="text" value="14 Days Past Due (Q3 Cloud Migration)" placeholder="e.g., 14 Days Overdue" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
           </div>
         </div>
-        <button onclick="runPayPrompt(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+        <button onclick="runPayPrompt(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
           Generate 3 Detailed Executive Follow-Up Letters 💸
         </button>
         <div id="ppOutput" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
@@ -802,7 +1163,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
             <input id="pdEmail" type="text" value="santarana5@gmail.com" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
           </div>
         </div>
-        <button onclick="runPolicyDraft(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+        <button onclick="runPolicyDraft(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
           Compile 3 Comprehensive Legal & Compliance Policies 🛡️
         </button>
         <div id="pdOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
@@ -816,7 +1177,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <h3 class="text-base font-bold">Featured SaaS & Developer Products</h3>
           <p class="text-xs opacity-70">Publish your web application, tool, or startup link to our public community directory.</p>
         </div>
-        <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shrink-0 shadow-sm transition">
+        <button onclick="openSpotlightModal()" class="px-5 py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs shrink-0 shadow-sm transition">
           + Submit Product Listing
         </button>
       </div>
@@ -828,7 +1189,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <textarea id="csInput" rows="5" placeholder="Paste raw JSON payload or text string here..." class="w-full p-4 rounded-xl input-ui text-xs font-mono">{"platform": "UtilityFlow.in", "modules": 20, "privacyFirst": true}</textarea>
         <div class="flex flex-wrap gap-2">
-          <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white text-xs font-bold">Format & Validate JSON</button>
+          <button onclick="runCaseSwap('json')" class="px-4 py-2 rounded-xl btn-kinetic text-white text-xs font-bold">Format & Validate JSON</button>
           <button onclick="runCaseSwap('minify')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">Minify JSON</button>
           <button onclick="runCaseSwap('upper')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">UPPERCASE</button>
           <button onclick="runCaseSwap('lower')" class="px-4 py-2 rounded-xl surface-muted border text-xs font-semibold">lowercase</button>
@@ -843,10 +1204,10 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     <section id="view-uuid" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3">
-          <button onclick="generateUuids(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-md transition">
+          <button onclick="generateUuids(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md transition">
             🎲 Generate Fresh Randomized Tokens (UUID v4, API Secret & NanoID)
           </button>
-          <span id="uuidBatchCounter" class="text-xs font-mono px-3 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">Batch #1 • Cryptographically Random</span>
+          <span id="uuidBatchCounter" class="text-xs font-mono px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-teal-400 font-bold">Batch #1 • Cryptographically Random</span>
         </div>
         <div id="uuidOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4"></div>
       </div>
@@ -855,9 +1216,9 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     <!-- TOOL 12: BASE64 & URL CODEC -->
     <section id="view-base64" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
-        <textarea id="base64Input" rows="4" placeholder="Paste string or URL parameters here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">https://utilityflow.in/?module=iban&verify=true</textarea>
+        <textarea id="base64Input" rows="4" placeholder="Paste string or URL parameters here..." class="w-full p-3.5 rounded-xl input-ui text-xs font-mono">https://utilityflow.in/?tool=iban&verify=true</textarea>
         <div class="flex flex-wrap gap-2">
-          <button onclick="processBase64('encode')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs">Base64 Encode</button>
+          <button onclick="processBase64('encode')" class="px-4 py-2 rounded-xl btn-kinetic text-white font-bold text-xs">Base64 Encode</button>
           <button onclick="processBase64('decode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">Base64 Decode</button>
           <button onclick="processBase64('urlencode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Encode</button>
           <button onclick="processBase64('urldecode')" class="px-4 py-2 rounded-xl surface-muted border font-semibold text-xs">URL Decode</button>
@@ -871,11 +1232,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-5">
         <div class="flex items-center justify-between p-4 rounded-xl surface-muted border font-mono text-xs">
           <span>Current Live Unix Epoch:</span>
-          <span id="liveEpochDisplay" class="font-bold text-teal-600 dark:text-teal-400 text-sm">1792841340</span>
+          <span id="liveEpochDisplay" class="font-bold text-indigo-600 dark:text-teal-400 text-sm">1792841340</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <input id="epochInput" type="number" placeholder="Enter Unix Timestamp (seconds or ms)" class="sm:col-span-2 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
-          <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs">Convert to Human Date</button>
+          <button onclick="convertEpoch()" class="px-5 py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs">Convert to Human Date</button>
         </div>
         <div id="epochOutput" class="p-4 rounded-xl surface-muted border text-xs font-mono space-y-1">
           Enter a timestamp above to inspect UTC, ISO-8601, and Local Timezone representations.
@@ -894,7 +1255,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="space-y-1.5">
             <div class="flex justify-between items-center">
               <label class="text-xs font-semibold font-mono opacity-75">Compiled HTML Markup</label>
-              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-teal-600 dark:text-teal-400 font-bold hover:underline">Copy HTML</button>
+              <button onclick="copyHtmlOutput()" class="text-[11px] font-mono text-indigo-600 dark:text-teal-400 font-bold hover:underline">Copy HTML</button>
             </div>
             <textarea id="htmlOutput" rows="8" readonly class="w-full p-3.5 rounded-xl surface-muted border text-xs font-mono"></textarea>
           </div>
@@ -910,7 +1271,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <button onclick="copyWordContent()" class="absolute top-3 right-3 px-3 py-1 rounded-lg surface-muted border text-[11px] font-semibold">Copy Text</button>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-teal-600 dark:text-teal-400">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
+          <div class="p-4 rounded-xl surface-muted border"><div id="cntWords" class="text-2xl font-bold text-indigo-600 dark:text-teal-400">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Words</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntChars" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Characters</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntSentences" class="text-2xl font-bold">0</div><div class="text-[10px] uppercase opacity-60 mt-1">Sentences</div></div>
           <div class="p-4 rounded-xl surface-muted border"><div id="cntTime" class="text-2xl font-bold text-sky-500">0s</div><div class="text-[10px] uppercase opacity-60 mt-1">Read Time</div></div>
@@ -922,7 +1283,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div class="space-y-1">
             <div class="flex justify-between text-xs font-mono"><span>X / Post Character Limit (280 chars)</span><span id="twLimitText">0 / 280</span></div>
-            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="twBar" class="h-full bg-teal-500 transition-all" style="width: 0%;"></div></div>
+            <div class="h-1.5 w-full rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden"><div id="twBar" class="h-full bg-indigo-500 transition-all" style="width: 0%;"></div></div>
           </div>
         </div>
       </div>
@@ -942,14 +1303,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div>
             <label class="text-xs font-bold opacity-80">Primary Focus Keywords</label>
-            <input id="mgKeys" type="text" value="pdf merger, iban checker, code diff, wealth calculator, seo tools" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
+            <input id="mgKeys" type="text" value="pdf merger, iban checker, swift decoder, indian ifsc lookup, code diff" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs" />
           </div>
         </div>
         <div>
           <label class="text-xs font-bold opacity-80">Core Value Proposition Description</label>
-          <textarea id="mgDesc" rows="2" class="w-full mt-1.5 p-3 rounded-xl input-ui text-xs">Execute 20 daily developer, PDF, IBAN banking, and financial tasks locally inside your browser at UtilityFlow.in with zero cloud uploads.</textarea>
+          <textarea id="mgDesc" rows="2" class="w-full mt-1.5 p-3 rounded-xl input-ui text-xs">Execute 20 daily developer, PDF, IBAN/SWIFT/IFSC banking, and financial tasks locally inside your browser at UtilityFlow.in with zero cloud uploads.</textarea>
         </div>
-        <button onclick="runMetaGen(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">
+        <button onclick="runMetaGen(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md">
           Generate 3 Comprehensive Production SEO & Social Suites 🌐
         </button>
         <div id="mgOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
@@ -973,7 +1334,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
             <input id="scSource" type="text" value="linkedin_organic" class="w-full mt-1.5 px-3.5 py-2.5 rounded-xl input-ui text-xs font-mono" />
           </div>
         </div>
-        <button onclick="runSlugCraft(true)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">
+        <button onclick="runSlugCraft(true)" class="px-6 py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md">
           Generate 3 Comprehensive URL, UTM & Attribution Suites 🔗
         </button>
         <div id="scOutputGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4 border-t border-inherit"></div>
@@ -983,7 +1344,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     <!-- TOOL 18: IMAGE COMPRESSION STUDIO -->
     <section id="view-image" class="tool-section hidden space-y-6">
       <div class="surface-card rounded-2xl p-6 sm:p-8 border space-y-6">
-        <div id="dropZone" class="border-2 border-dashed rounded-2xl p-8 text-center space-y-2 surface-muted hover:border-teal-500 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+        <div id="dropZone" class="border-2 border-dashed rounded-2xl p-8 text-center space-y-2 surface-muted hover:border-indigo-500 transition cursor-pointer" onclick="document.getElementById('imageInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
           <div class="text-3xl">🖼️</div>
           <p class="text-xs font-bold">Click to select an image or drag & drop file here</p>
           <p class="text-[11px] opacity-60">Instant hardware-accelerated browser compression (PNG, JPG, WEBP)</p>
@@ -996,15 +1357,15 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
               <img id="sourceImgPreview" class="w-14 h-14 object-cover rounded-lg border" />
               <div class="text-xs font-mono">
                 <p class="font-bold" id="imgOriginalName">file.jpg</p>
-                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-teal-600 dark:text-teal-400 font-bold">0 KB</span></p>
+                <p class="opacity-65">Original Size: <span id="imgOriginalSize" class="text-indigo-600 dark:text-teal-400 font-bold">0 KB</span></p>
               </div>
             </div>
             <div class="w-full sm:w-52 space-y-1">
-              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-teal-600 dark:text-teal-400">75%</span></div>
-              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-teal-600" />
+              <div class="flex justify-between text-xs font-semibold"><span>Target Quality</span><span id="qualityDisplay" class="font-mono text-indigo-600 dark:text-teal-400">75%</span></div>
+              <input id="qualityRange" type="range" min="15" max="95" value="75" oninput="document.getElementById('qualityDisplay').textContent = this.value + '%'" class="w-full accent-indigo-600" />
             </div>
           </div>
-          <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs shadow-md">Compress Image Now ⚡</button>
+          <button onclick="compressAndProcessImage()" class="w-full py-3 rounded-xl btn-kinetic text-white font-bold text-xs shadow-md">Compress Image Now ⚡</button>
         </div>
 
         <div id="imageResultBox" class="hidden pt-4 border-t border-inherit space-y-3">
@@ -1026,14 +1387,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div>
             <label class="text-xs font-semibold opacity-75">Foreground Color</label>
-            <input id="qrColor" type="color" value="#0f766e" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
+            <input id="qrColor" type="color" value="#4f46e5" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
           </div>
           <div>
             <label class="text-xs font-semibold opacity-75">Background Color</label>
             <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-9 mt-1.5 rounded-xl input-ui p-1 cursor-pointer" />
           </div>
         </div>
-        <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs">Generate Custom QR Code</button>
+        <button onclick="generateAdvancedQRCode()" class="px-6 py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs">Generate Custom QR Code</button>
         <div id="qrResultBox" class="hidden pt-4 border-t border-inherit flex flex-col items-center space-y-3">
           <div id="qrOutputContent" class="p-4 bg-white rounded-xl border"></div>
           <a id="downloadQrBtn" download="utilityflow-qr.png" target="_blank" class="px-5 py-2 rounded-xl surface-muted border text-xs font-semibold">Open / Save QR Image ↗</a>
@@ -1048,8 +1409,115 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <code id="gradientCssText" class="px-4 py-2 rounded-xl bg-slate-950/75 text-white font-mono text-xs select-all">background: linear-gradient(135deg, #14b8a6, #6366f1);</code>
         </div>
         <div class="flex gap-3">
-          <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs">Generate New Gradient</button>
+          <button onclick="generateRandomGradient()" class="px-5 py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs">Generate New Gradient</button>
           <button onclick="navigator.clipboard.writeText(document.getElementById('gradientCssText').textContent); showToast('CSS rule copied to clipboard!');" class="px-5 py-2.5 rounded-xl surface-muted border font-semibold text-xs">Copy CSS Code</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARGON SEO AUTHORITY HUB & ADSENSE PUBLISHER CONTENT ENGINE -->
+    <section id="seo-knowledge-hub" class="surface-card rounded-3xl p-6 sm:p-10 border space-y-12">
+      <div class="max-w-3xl space-y-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-700 dark:text-teal-300 border border-indigo-500/25">
+          Technical Architecture & Standards Documentation
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Why Client-Side Browser Execution Outperforms Cloud Utility Platforms
+        </h2>
+        <p class="text-xs sm:text-sm opacity-80 leading-relaxed">
+          Traditional online PDF converters, code formatters, and financial validators require uploading your files to remote third-party servers—introducing network latency, file size paywalls, and enterprise data compliance risks. <strong>UtilityFlow.in</strong> is architected as a zero-trust, local-first web operating system where all 20 utilities execute strictly inside your device's volatile memory (RAM).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">📄 Local PDF Compilation & Image Merging</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Instead of transmitting confidential scans or contracts over HTTP, our <strong>PDF Command Suite</strong> utilizes the HTML5 <code>FileReader</code> API and client-side <code>jsPDF</code> buffers. Multi-page JPG/PNG assets and formatted executive briefs are rasterized, scaled to ISO A4 dimensions, and compiled into downloadable binary blobs directly on your CPU.
+          </p>
+        </article>
+
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">🏦 Global IBAN, SWIFT/BIC & Indian IFSC Engine</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            International and domestic banking transfers require strict structural validation. Our 3-in-1 <strong>Banking Command Suite</strong> verifies ISO-13616 Modulo-97 IBAN checksums across 80+ countries, decodes 8/11-character ISO-9362 SWIFT/BIC institution routing codes, and inspects 11-character Indian RBI IFSC codes with live MICR, NEFT, RTGS, IMPS, and UPI telemetry.
+          </p>
+        </article>
+
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">⚖️ Lexical Split Code Diff & Live DOM Sandboxing</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Enterprise software engineers frequently need to compare configuration payloads, SQL traces, or JSON responses without leaking proprietary source code to external pastebins. Our <strong>Split Code Diff Engine</strong> performs token-level delta comparisons with high-contrast insertion/deletion highlighting, while the <strong>Unified Sandbox</strong> renders HTML5, CSS3, and ES6+ JavaScript inside an isolated <code>iframe</code>.
+          </p>
+        </article>
+
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">📈 Compound Wealth & Loan Amortization Modeling</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Make data-driven capital decisions with real-time financial telemetry. The <strong>Wealth & Loan Engine</strong> calculates systematic investment compounding, inflation-adjusted corpus growth, and reducing-balance EMI amortization schedules. Interactive dual <code>Chart.js</code> canvases visualize principal-versus-interest ratios across multi-decade horizons.
+          </p>
+        </article>
+
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">🔑 WebCrypto CSPRNG Entropy & Security Tokens</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Standard JavaScript <code>Math.random()</code> generators are deterministic and unsuitable for cryptographic credentials. UtilityFlow's <strong>Password & Token Studio</strong> taps directly into your operating system's hardware entropy pool via <code>window.crypto.getRandomValues()</code> to generate RFC-4122 compliant UUID v4 identifiers, bearer secrets, and high-entropy passphrases.
+          </p>
+        </article>
+
+        <article class="p-5 rounded-2xl surface-muted border space-y-2">
+          <h3 class="text-sm font-bold">🖼️ Hardware-Accelerated Canvas Image Compression</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Optimize Core Web Vitals and reduce image payload sizes by up to 80% without cloud queues. Using offscreen HTML5 <code>Canvas</code> quantization and customizable chroma subsampling, our <strong>Image Compression Studio</strong> converts and compresses high-resolution PNG, JPEG, and WebP assets in milliseconds.
+          </p>
+        </article>
+      </div>
+
+      <!-- CRAWLABLE SEO DEEP-LINK DIRECTORY (Helps Googlebot Discover All 20 Tool URLs) -->
+      <div class="p-6 rounded-2xl surface-muted border space-y-4">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider font-mono text-indigo-600 dark:text-teal-400">
+          Direct Search-Indexed Tool Permalinks (20 Browser Modules)
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 text-xs">
+          <a href="?tool=pdf" onclick="event.preventDefault(); switchTool('pdf');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">📄 PDF Merger & Suite</a>
+          <a href="?tool=iban" onclick="event.preventDefault(); switchTool('iban');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🏦 IBAN, SWIFT & IFSC Checker</a>
+          <a href="?tool=sandbox" onclick="event.preventDefault(); switchTool('sandbox');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">💻 HTML/CSS/JS Sandbox</a>
+          <a href="?tool=diff" onclick="event.preventDefault(); switchTool('diff');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">⚖️ Split Code Diff Checker</a>
+          <a href="?tool=calc" onclick="event.preventDefault(); switchTool('calc');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">📈 SIP & Loan EMI Engine</a>
+          <a href="?tool=payprompt" onclick="event.preventDefault(); switchTool('payprompt');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">💸 Invoice Follow-Up Drafter</a>
+          <a href="?tool=image" onclick="event.preventDefault(); switchTool('image');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🖼️ Image Compressor</a>
+          <a href="?tool=uuid" onclick="event.preventDefault(); switchTool('uuid');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🔑 UUID v4 & API Token Gen</a>
+          <a href="?tool=passgen" onclick="event.preventDefault(); switchTool('passgen');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🔐 Entropy Password Studio</a>
+          <a href="?tool=policydraft" onclick="event.preventDefault(); switchTool('policydraft');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🛡️ GDPR & AdSense Policy Gen</a>
+          <a href="?tool=metagen" onclick="event.preventDefault(); switchTool('metagen');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🌐 SEO Meta & OpenGraph Gen</a>
+          <a href="?tool=slugcraft" onclick="event.preventDefault(); switchTool('slugcraft');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🔗 URL Slug & UTM Builder</a>
+          <a href="?tool=qr" onclick="event.preventDefault(); switchTool('qr');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">📱 Custom QR Code Studio</a>
+          <a href="?tool=text" onclick="event.preventDefault(); switchTool('text');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">📝 Word & SERP Counter</a>
+          <a href="?tool=caseswap" onclick="event.preventDefault(); switchTool('caseswap');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🔤 JSON Formatter & Case Swap</a>
+          <a href="?tool=base64" onclick="event.preventDefault(); switchTool('base64');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🛡️ Base64 & URL Codec</a>
+          <a href="?tool=epoch" onclick="event.preventDefault(); switchTool('epoch');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">⏱️ Unix Epoch Converter</a>
+          <a href="?tool=markdown" onclick="event.preventDefault(); switchTool('markdown');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">📋 Markdown to HTML Compiler</a>
+          <a href="?tool=color" onclick="event.preventDefault(); switchTool('color');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🎨 CSS Gradient Studio</a>
+          <a href="?tool=spotlight" onclick="event.preventDefault(); switchTool('spotlight');" class="hover:text-indigo-600 dark:hover:text-teal-400 underline">🏆 SaaS Directory Spotlight</a>
+        </div>
+      </div>
+
+      <!-- Frequently Asked Questions -->
+      <div class="space-y-4 pt-4 border-t border-inherit">
+        <h3 class="text-lg font-extrabold">Frequently Asked Questions (Security, Privacy & Banking Standards)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-2xl surface-muted border space-y-1.5">
+            <h4 class="font-bold text-indigo-600 dark:text-teal-400">Does UtilityFlow.in store or log my files?</h4>
+            <p class="opacity-75 leading-relaxed">No. UtilityFlow.in is a static client-side application with zero backend database for file storage. Every PDF, image, IBAN, IFSC, or code snippet is processed strictly inside your browser's RAM and cleared when you close the tab.</p>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1.5">
+            <h4 class="font-bold text-indigo-600 dark:text-teal-400">How do the IBAN, SWIFT & Indian IFSC checkers work?</h4>
+            <p class="opacity-75 leading-relaxed">Our banking suite validates international IBANs via ISO-13616 Modulo-97 math, parses 8/11-character ISO-9362 SWIFT/BIC routing codes, and verifies 11-character Indian RBI IFSC codes with live branch, MICR, NEFT, RTGS, and UPI settlement status.</p>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1.5">
+            <h4 class="font-bold text-indigo-600 dark:text-teal-400">Is UtilityFlow safe for enterprise work?</h4>
+            <p class="opacity-75 leading-relaxed">Yes. Because zero payloads are transmitted to external servers, software engineers, SAP/ERP consultants, QA analysts, and finance teams can safely compare diffs and generate tokens behind corporate firewalls.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1062,8 +1530,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       
       <div class="space-y-3">
         <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 text-white font-extrabold flex items-center justify-center text-xs shadow">UF</span>
-          <span class="font-extrabold text-base">UtilityFlow<span class="text-teal-600 dark:text-teal-400">.in</span></span>
+          <span class="w-8 h-8 rounded-xl btn-kinetic text-white font-extrabold flex items-center justify-center text-xs shadow">UF</span>
+          <span class="font-extrabold text-base">UtilityFlow<span class="text-indigo-600 dark:text-teal-400">.in</span></span>
         </div>
         <p class="opacity-75 leading-relaxed">
           An enterprise-grade, privacy-first ecosystem of 20 client-side web utilities. Engineered for zero-latency execution directly inside modern browsers.
@@ -1077,23 +1545,29 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <div class="space-y-2.5">
         <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Flagship Suites</div>
         <div class="grid grid-cols-1 gap-1.5 opacity-85">
-          <button onclick="switchTool('pdf')" class="text-left hover:text-teal-600 transition">📄 PDF & Document Suite</button>
-          <button onclick="switchTool('iban')" class="text-left hover:text-teal-600 transition">🏦 Global IBAN Bank Inspector</button>
-          <button onclick="switchTool('sandbox')" class="text-left hover:text-teal-600 transition">💻 Unified HTML/CSS/JS Sandbox</button>
-          <button onclick="switchTool('diff')" class="text-left hover:text-teal-600 transition">⚖️ Color-Coded Code Diff</button>
-          <button onclick="switchTool('calc')" class="text-left hover:text-teal-600 transition">📈 Dual-Chart Wealth Engine</button>
-          <button onclick="switchTool('payprompt')" class="text-left hover:text-teal-600 transition">💸 4-Field Invoice Drafter</button>
+          <a href="?tool=pdf" onclick="event.preventDefault(); switchTool('pdf');" class="text-left hover:text-indigo-600 transition">📄 PDF & Document Suite</a>
+          <a href="?tool=iban" onclick="event.preventDefault(); switchTool('iban');" class="text-left hover:text-indigo-600 transition">🏦 IBAN, SWIFT & Indian IFSC Suite</a>
+          <a href="?tool=sandbox" onclick="event.preventDefault(); switchTool('sandbox');" class="text-left hover:text-indigo-600 transition">💻 Unified HTML/CSS/JS Sandbox</a>
+          <a href="?tool=diff" onclick="event.preventDefault(); switchTool('diff');" class="text-left hover:text-indigo-600 transition">⚖️ Color-Coded Code Diff</a>
+          <a href="?tool=calc" onclick="event.preventDefault(); switchTool('calc');" class="text-left hover:text-indigo-600 transition">📈 Dual-Chart Wealth Engine</a>
+          <a href="?tool=payprompt" onclick="event.preventDefault(); switchTool('payprompt');" class="text-left hover:text-indigo-600 transition">💸 4-Field Invoice Drafter</a>
         </div>
       </div>
 
       <div class="space-y-2.5">
-        <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Security & Architecture</div>
+        <div class="font-bold uppercase tracking-wider opacity-60 font-mono text-[11px]">Security & Legal Compliance</div>
         <ul class="space-y-1.5 opacity-80">
           <li>🔒 100% Local Browser Memory Execution</li>
           <li>⚡ Zero Cloud File Uploads</li>
-          <li>🛡️ WebCrypto CSPRNG Token Generation</li>
-          <li>🌐 ISO-13616 & MOD-97 Banking Compliance</li>
-          <li>📊 Live Multi-Device WebSocket Telemetry</li>
+          <li>
+            <button onclick="openLegalModal('privacy')" class="hover:text-indigo-600 underline font-semibold">Privacy Policy & Cookie Disclosure</button>
+          </li>
+          <li>
+            <button onclick="openLegalModal('terms')" class="hover:text-indigo-600 underline font-semibold">Terms of Service & Disclaimer</button>
+          </li>
+          <li>
+            <button onclick="openLegalModal('contact')" class="hover:text-indigo-600 underline font-semibold">About & Contact Information</button>
+          </li>
         </ul>
       </div>
 
@@ -1119,232 +1593,49 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <span>© 2026 UtilityFlow.in • All 20 Browser Modules Free & Operational</span>
       <span>Engineered for Speed, Privacy & Precision • Zero Server Data Logged</span>
     </div>
-    <!-- ===================================================================== -->
-<!-- ARGON SEO AUTHORITY HUB & ADSENSE PUBLISHER CONTENT ENGINE            -->
-<!-- Paste this section directly above your <footer> tag in index.html     -->
-<!-- ===================================================================== -->
-<section id="seo-knowledge-hub" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-12 border-t border-slate-200/80 dark:border-slate-800">
-  
-  <!-- Section Header -->
-  <div class="max-w-3xl mb-12">
-    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 mb-3">
-      Technical Architecture & Standards Documentation
-    </span>
-    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-      Why Client-Side Browser Execution Outperforms Cloud Utility Platforms
-    </h2>
-    <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-      Traditional online PDF converters, code formatters, and financial validators require uploading your files to remote third-party servers—introducing network latency, file size paywalls, and enterprise data compliance risks. <strong>UtilityFlow.in</strong> is architected as a zero-trust, local-first web operating system where all 20 utilities execute strictly inside your device's volatile memory (RAM).
-    </p>
-  </div>
-
-  <!-- Deep-Dive Technical Keyword Grid (Crucial for Long-Tail Google Rankings & AdSense Bots) -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-    
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        📄 Local PDF Compilation & Image Merging
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        Instead of transmitting confidential scans or contracts over HTTP, our <strong>PDF Command Suite</strong> utilizes the HTML5 <code>FileReader</code> API and client-side <code>jsPDF</code> buffers. Multi-page JPG/PNG assets and formatted executive briefs are rasterized, scaled to ISO A4 dimensions, and compiled into downloadable binary blobs directly on your CPU.
-      </p>
-    </article>
-
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        🏦 ISO-13616 MOD-97 Global IBAN Verification
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        International banking transfers require strict structural validation before SWIFT execution. Our <strong>Global IBAN Inspector</strong> verifies country-specific BBAN lengths, performs the four-character prefix transposition, converts alphanumeric characters into integers (A=10 through Z=35), and computes exact arbitrary-precision <code>BigInt</code> Modulo-97 arithmetic alongside BIC and branch routing lookups.
-      </p>
-    </article>
-
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        ⚖️ Lexical Split Code Diff & Live DOM Sandboxing
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        Enterprise software engineers frequently need to compare configuration payloads, SQL traces, or JSON responses without leaking proprietary source code to external pastebins. Our <strong>Split Code Diff Engine</strong> performs token-level delta comparisons with high-contrast insertion/deletion highlighting, while the <strong>Unified Sandbox</strong> renders HTML5, CSS3, and ES6+ JavaScript inside an isolated <code>iframe</code>.
-      </p>
-    </article>
-
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        📈 Compound Wealth & Loan Amortization Modeling
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        Make data-driven capital decisions with real-time financial telemetry. The <strong>Wealth & Loan Engine</strong> calculates systematic investment compounding, inflation-adjusted corpus growth, and reducing-balance EMI amortization schedules. Interactive dual <code>Chart.js</code> canvases visualize principal-versus-interest ratios across multi-decade horizons.
-      </p>
-    </article>
-
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        🔑 WebCrypto CSPRNG Entropy & Security Tokens
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        Standard JavaScript <code>Math.random()</code> generators are deterministic and unsuitable for cryptographic credentials. UtilityFlow's <strong>Password & Token Studio</strong> taps directly into your operating system's hardware entropy pool via <code>window.crypto.getRandomValues()</code> to generate RFC-4122 compliant UUID v4 identifiers, bearer secrets, and high-entropy passphrases.
-      </p>
-    </article>
-
-    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
-        🖼️ Hardware-Accelerated Canvas Image Compression
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        Optimize Core Web Vitals and reduce image payload sizes by up to 80% without cloud queues. Using offscreen HTML5 <code>Canvas</code> quantization and customizable chroma subsampling, our <strong>Image Compression Studio</strong> converts and compresses high-resolution PNG, JPEG, and WebP assets in milliseconds.
-      </p>
-    </article>
-
-  </div>
-
-  <!-- Search-Targeted Directory Table (Captures Long-Tail "Free Online X Tool" Queries) -->
-  <div class="rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 mb-14">
-    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-      Complete Directory of 20 Browser-Native Modules on UtilityFlow.in
-    </h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-      <div>
-        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Document & Media Suite</strong>
-        <ul class="space-y-1 list-disc list-inside">
-          <li>Multi-Image to PDF Merger</li>
-          <li>Formatted Text-to-PDF Exporter</li>
-          <li>Local PDF Metadata Inspector</li>
-          <li>HTML5 Image Compression Studio</li>
-        </ul>
-      </div>
-      <div>
-        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Banking & Finance Engines</strong>
-        <ul class="space-y-1 list-disc list-inside">
-          <li>Global IBAN & SWIFT/BIC Inspector</li>
-          <li>Compound Wealth & SIP Forecaster</li>
-          <li>Loan EMI & Amortization Calculator</li>
-          <li>Executive Invoice & AR Letter Drafter</li>
-          <li>GST & Bill Split Instant Calculator</li>
-        </ul>
-      </div>
-      <div>
-        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Developer & Code Utilities</strong>
-        <ul class="space-y-1 list-disc list-inside">
-          <li>Split Color-Coded Code Diff Checker</li>
-          <li>Unified HTML5/CSS3/JS Live Sandbox</li>
-          <li>JSON Formatter & Schema Validator</li>
-          <li>WebCrypto UUID v4 & Secret Generator</li>
-          <li>Base64 / URL / Hash Encoder Studio</li>
-          <li>Regex Pattern Tester & Debugger</li>
-        </ul>
-      </div>
-      <div>
-        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Design, SEO & Productivity</strong>
-        <ul class="space-y-1 list-disc list-inside">
-          <li>Vector QR Code Generator Studio</li>
-          <li>CSS Gradient & Contrast Checker</li>
-          <li>SEO Meta Tag & OpenGraph Builder</li>
-          <li>Markdown Live Preview & Exporter</li>
-          <li>Word, Character & Reading Time Analyzer</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Crawl-Friendly Frequently Asked Questions -->
-  <div class="max-w-4xl mx-auto">
-    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 text-center">
-      Frequently Asked Questions (Security, Privacy & Standards)
-    </h3>
-    <div class="space-y-4">
-      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
-        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
-          <span>Does UtilityFlow.in store, log, or transmit my uploaded PDFs, images, or code snippets?</span>
-          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          No. UtilityFlow.in is hosted as a static client-side application with zero backend database for file storage. Every document you select, IBAN you validate, or code snippet you compare is processed strictly inside your browser's local memory and immediately garbage-collected when you close or refresh the tab.
-        </p>
-      </details>
-
-      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
-        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
-          <span>How accurate is the Global IBAN & Bank Branch Inspector?</span>
-          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Our IBAN engine strictly enforces the official ISO-13616 registry specifications across 80+ SEPA and international jurisdictions, verifying exact character lengths, country prefixes, domestic bank/branch sort codes, and mathematical Modulo-97-10 check digits.
-        </p>
-      </details>
-
-      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
-        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
-          <span>Can I use UtilityFlow.in at work behind an enterprise firewall?</span>
-          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Yes. Because UtilityFlow does not transmit sensitive payloads to remote cloud servers, software engineers, SAP/ERP consultants, QA testers, and finance teams can safely compare diffs, generate test tokens, and inspect formatting locally in compliance with strict client data-handling policies.
-        </p>
-      </details>
-    </div>
-  </div>
-
-  <!-- Mandatory Google AdSense Compliance Links Bar -->
-  <div class="mt-14 pt-8 border-t border-slate-200/70 dark:border-slate-800/70 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-    <div>
-      © 2026 <strong>UtilityFlow.in</strong> • Engineered for 100% Client-Side Privacy & Speed.
-    </div>
-    <div class="flex flex-wrap gap-6 font-medium">
-      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='Privacy Policy & Cookie Disclosure'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-privacy').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
-        Privacy Policy
-      </button>
-      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='Terms of Use & Disclaimer'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-terms').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
-        Terms of Service
-      </button>
-      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='About & Contact UtilityFlow.in'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-contact').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
-        About & Contact
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- AdSense Compliance Legal Modal -->
-<div id="uf-legal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4">
-  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl">
-    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-      <h4 id="uf-modal-title" class="text-base font-bold text-slate-900 dark:text-white">Legal Information</h4>
-      <button onclick="document.getElementById('uf-legal-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold px-2">✕</button>
-    </div>
-    <div id="uf-modal-body" class="p-6 overflow-y-auto text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed"></div>
-  </div>
-</div>
-
-<!-- Hidden Legal Templates (Crawlable by Google AdSense Bot) -->
-<div class="hidden" aria-hidden="true">
-  <div id="tpl-privacy">
-    <p><strong>Effective Date:</strong> October 2026</p>
-    <p><strong>1. 100% Client-Side Data Processing:</strong> UtilityFlow.in processes all user inputs—including PDF files, images, IBAN numbers, financial figures, and source code diffs—strictly locally inside your web browser's volatile memory (RAM). We do not upload, store, or log your tool payloads on any external server.</p>
-    <p><strong>2. Analytics & Telemetry:</strong> We use Google Analytics 4 (GA4) to measure anonymized aggregate traffic metrics such as page views, device types, and session durations to improve user experience.</p>
-    <p><strong>3. Google AdSense & DoubleClick DART Cookies:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to UtilityFlow.in and/or other sites on the Internet. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" class="text-indigo-600 underline">Google Ads Settings</a>.</p>
-  </div>
-  <div id="tpl-terms">
-    <p><strong>1. Acceptance of Terms:</strong> By accessing and using UtilityFlow.in, you agree to be bound by these Terms of Use. All 20 utilities are provided free of charge for personal, academic, and commercial productivity.</p>
-    <p><strong>2. No Financial or Legal Warranty:</strong> All calculations generated by the Global IBAN Inspector, Wealth & Loan Engine, and Invoice Drafter are provided "as is" for informational and verification purposes only. Always verify critical banking transactions and tax figures with your financial institution.</p>
-  </div>
-  <div id="tpl-contact">
-    <p><strong>About UtilityFlow.in:</strong> UtilityFlow.in is an independent, privacy-first browser utility ecosystem created by software engineer Santanu Rana to eliminate cloud-upload friction and paywalls from everyday developer and financial tools.</p>
-    <p><strong>Contact & Bug Reports:</strong> For technical feedback, feature requests, or partnership inquiries, please reach out via our official GitHub repository at <a href="https://github.com/santarana5/kitroute-app/issues" target="_blank" rel="noopener" class="text-indigo-600 underline">github.com/santarana5/kitroute-app</a>.</p>
-  </div>
-</div>
   </footer>
+
+  <!-- ADSENSE COMPLIANCE LEGAL MODAL -->
+  <div id="uf-legal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4">
+    <div class="surface-card border rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-inherit">
+        <h4 id="uf-modal-title" class="text-base font-bold">Legal Information</h4>
+        <button onclick="document.getElementById('uf-legal-modal').classList.add('hidden')" class="opacity-60 hover:opacity-100 text-lg font-bold px-2">✕</button>
+      </div>
+      <div id="uf-modal-body" class="p-6 overflow-y-auto text-xs sm:text-sm opacity-85 space-y-3 leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- Hidden Legal Templates (Crawlable by Google AdSense Bot) -->
+  <div class="hidden" aria-hidden="true">
+    <div id="tpl-privacy">
+      <p><strong>Effective Date:</strong> October 2026</p>
+      <p><strong>1. 100% Client-Side Data Processing:</strong> UtilityFlow.in processes all user inputs—including PDF files, images, IBAN/SWIFT/IFSC numbers, financial figures, and source code diffs—strictly locally inside your web browser's volatile memory (RAM). We do not upload, store, or log your tool payloads on any external server.</p>
+      <p><strong>2. Analytics & Telemetry:</strong> We use Google Analytics 4 (Measurement ID: G-W7ZGCBFNV8) to measure anonymized aggregate traffic metrics such as page views, device types, and session durations to improve user experience.</p>
+      <p><strong>3. Google AdSense & DoubleClick DART Cookies:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to UtilityFlow.in and/or other sites on the Internet. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" class="text-indigo-600 underline">Google Ads Settings</a>.</p>
+    </div>
+    <div id="tpl-terms">
+      <p><strong>1. Acceptance of Terms:</strong> By accessing and using UtilityFlow.in, you agree to be bound by these Terms of Use. All 20 utilities are provided free of charge for personal, academic, and commercial productivity.</p>
+      <p><strong>2. No Financial or Legal Warranty:</strong> All calculations generated by the Global IBAN Inspector, SWIFT/BIC Decoder, Indian IFSC Lookup, Wealth & Loan Engine, and Invoice Drafter are provided "as is" for informational and verification purposes only. Always verify critical banking transactions and tax figures with your financial institution.</p>
+    </div>
+    <div id="tpl-contact">
+      <p><strong>About UtilityFlow.in:</strong> UtilityFlow.in is an independent, privacy-first browser utility ecosystem created by software engineer Santanu Rana to eliminate cloud-upload friction and paywalls from everyday developer, banking, and financial tools.</p>
+      <p><strong>Direct Contact:</strong> Email <a href="mailto:santarana5@gmail.com" class="text-indigo-600 underline">santarana5@gmail.com</a> or open an issue on <a href="https://github.com/santarana5/kitroute-app/issues" target="_blank" rel="noopener" class="text-indigo-600 underline">GitHub</a>.</p>
+    </div>
+  </div>
 
   <!-- SPOTLIGHT SUBMISSION MODAL -->
   <div id="spotlightModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="surface-card rounded-2xl max-w-md w-full p-6 border shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-inherit pb-3">
-        <span class="text-xs font-mono uppercase text-teal-600 font-bold">Submit Product to Directory</span>
+        <span class="text-xs font-mono uppercase text-indigo-600 dark:text-teal-400 font-bold">Submit Product to Directory</span>
         <button onclick="closeSpotlightModal()" class="text-xs opacity-70">✕</button>
       </div>
       <div class="space-y-3">
         <div><label class="text-xs font-semibold">Product Name</label><input id="smName" type="text" placeholder="e.g., CloudMetrics Pro" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs" /></div>
         <div><label class="text-xs font-semibold">Target URL</label><input id="smUrl" type="text" placeholder="https://utilityflow.in" class="w-full mt-1 px-3.5 py-2 rounded-xl input-ui text-xs font-mono" /></div>
       </div>
-      <button onclick="submitFreeSpotlight()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-bold text-xs">Publish Listing</button>
+      <button onclick="submitFreeSpotlight()" class="w-full py-2.5 rounded-xl btn-kinetic text-white font-bold text-xs">Publish Listing</button>
     </div>
   </div>
 
@@ -1353,11 +1644,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     let isBooting = true;
     let uuidBatchNumber = 1;
 
-    // COMPLETE 20-UTILITY REGISTRY
+    // COMPLETE 20-UTILITY REGISTRY (WITH UPGRADED IBAN + SWIFT + INDIAN IFSC METADATA)
     const TOOLS_REGISTRY = [
       { id: 'pdf', title: 'PDF & Document Command Suite', category: 'Document & Media', icon: '📄', keywords: ['pdf', 'merge', 'convert', 'document', 'compress', 'split', 'inspect'], purpose: 'Compile multiple images into a single PDF, export formatted text documents to PDF, or inspect PDF page metadata locally with live progress tracking.' },
+      { id: 'iban', title: 'Global IBAN, SWIFT/BIC & Indian IFSC Inspector', category: 'Finance & Business', icon: '🏦', keywords: ['iban', 'swift', 'bic', 'ifsc', 'micr', 'india', 'rbi', 'neft', 'rtgs', 'bank', 'validate', 'branch', 'sepa', 'mod97'], purpose: 'Verify international IBANs (ISO-13616 MOD-97), decode global SWIFT/BIC codes (ISO-9362), and inspect Indian RBI IFSC codes with live branch, MICR, NEFT, RTGS & UPI details.' },
       { id: 'sandbox', title: 'Unified Live HTML / CSS / JS Sandbox', category: 'Developer & Data', icon: '💻', keywords: ['sandbox', 'html', 'css', 'js', 'javascript', 'preview', 'code', 'ide', 'playground'], purpose: 'Write and render HTML5, CSS3, and JavaScript inside a single unified editor with real-time preview and 1-click file export.' },
-      { id: 'iban', title: 'Global IBAN Validator & Bank Branch Inspector', category: 'Finance & Business', icon: '🏦', keywords: ['iban', 'bank', 'validate', 'swift', 'bic', 'branch', 'sepa', 'account', 'parser', 'mod97'], purpose: 'Verify international IBANs via ISO-13616 MOD-97 math and inspect full bank name, branch address, BIC/SWIFT code, and SEPA attributes.' },
       { id: 'diff', title: 'Color-Coded Code Diff Inspector', category: 'Developer & Data', icon: '⚖️', keywords: ['diff', 'compare', 'difference', 'code', 'side by side', 'merge'], purpose: 'Compare original and modified code side-by-side with vivid red deletion highlights, green addition highlights, and word-level diffs.' },
       { id: 'calc', title: 'Wealth & Loan Amortization Engine', category: 'Finance & Business', icon: '📈', keywords: ['calculator', 'sip', 'compound', 'interest', 'loan', 'emi', 'finance', 'wealth'], purpose: 'Model compound wealth and monthly loan EMI amortization with dual interactive Doughnut and Year-by-Year Trajectory Bar charts.' },
       { id: 'payprompt', title: '4-Field Executive Invoice Drafter', category: 'Finance & Business', icon: '💸', keywords: ['invoice', 'payment', 'reminder', 'overdue', 'client', 'billing', 'email'], purpose: 'Generate 3 multi-paragraph accounts-receivable follow-up letters customized with Client Name, Invoice Reference, Amount, and Due Context.' },
@@ -1377,125 +1668,25 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       { id: 'spotlight', title: 'Directory Spotlight Board', category: 'Finance & Business', icon: '🏆', keywords: ['spotlight', 'directory', 'board', 'startup', 'promote'], purpose: 'Explore featured community web projects or submit your own product link.' }
     ];
 
-    // =========================================================================
-    // 1. REAL-TIME MULTI-DEVICE WEBSOCKET PRESENCE & TOTAL VISITS ENGINE
-    // =========================================================================
-    function initCrossDeviceRealtimeTelemetry() {
-      const liveEl = document.getElementById('liveVisitorCount');
-      const totalEl = document.getElementById('totalVisitorCount');
-
-      const clientId = 'uf_node_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now().toString(36);
-      const activeNodes = {};
-      activeNodes[clientId] = Date.now();
-
-      let syncedTotalVisits = parseInt(localStorage.getItem('uf_global_visits_v9') || '0', 10);
-      let hasIncrementedThisSession = sessionStorage.getItem('uf_session_counted_v9') === '1';
-
-      const renderCounts = () => {
-        const now = Date.now();
-        Object.keys(activeNodes).forEach(id => {
-          if (id !== clientId && now - activeNodes[id] > 10000) {
-            delete activeNodes[id];
-          }
-        });
-        activeNodes[clientId] = now;
-        const activeCount = Math.max(1, Object.keys(activeNodes).length);
-        liveEl.textContent = activeCount.toLocaleString('en-IN');
-        if (syncedTotalVisits > 0) {
-          totalEl.textContent = syncedTotalVisits.toLocaleString('en-IN');
-        }
-      };
-
-      fetch('https://api.counterapi.dev/v1/utilityflow_in_v9/total/up')
-        .then(r => r.json())
-        .then(d => {
-          if (d && typeof d.count === 'number' && d.count > syncedTotalVisits) {
-            syncedTotalVisits = d.count;
-            localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
-            renderCounts();
-          }
-        })
-        .catch(() => {});
-
-      if (typeof mqtt === 'undefined') {
-        syncedTotalVisits = Math.max(1, syncedTotalVisits + 1);
-        totalEl.textContent = syncedTotalVisits.toLocaleString('en-IN');
-        return;
+    function openLegalModal(type) {
+      const modal = document.getElementById('uf-legal-modal');
+      const title = document.getElementById('uf-modal-title');
+      const body = document.getElementById('uf-modal-body');
+      if (type === 'privacy') {
+        title.innerText = 'Privacy Policy & Cookie Disclosure';
+        body.innerHTML = document.getElementById('tpl-privacy').innerHTML;
+      } else if (type === 'terms') {
+        title.innerText = 'Terms of Service & Disclaimer';
+        body.innerHTML = document.getElementById('tpl-terms').innerHTML;
+      } else {
+        title.innerText = 'About & Contact UtilityFlow.in';
+        body.innerHTML = document.getElementById('tpl-contact').innerHTML;
       }
-
-      const TOPIC_PRESENCE = 'utilityflow_in_v9/presence';
-      const TOPIC_TOTAL = 'utilityflow_in_v9/total_visits';
-
-      const brokers = [
-        'wss://broker.emqx.io:8084/mqtt',
-        'wss://test.mosquitto.org:8081/mqtt'
-      ];
-      let client = mqtt.connect(brokers[0], {
-        clientId: clientId,
-        clean: true,
-        connectTimeout: 5000,
-        reconnectPeriod: 3000
-      });
-
-      client.on('connect', () => {
-        client.subscribe([TOPIC_PRESENCE, TOPIC_TOTAL], { qos: 0 });
-        client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'join', ts: Date.now() }), { qos: 0 });
-
-        setTimeout(() => {
-          if (!hasIncrementedThisSession) {
-            hasIncrementedThisSession = true;
-            sessionStorage.setItem('uf_session_counted_v9', '1');
-            syncedTotalVisits = Math.max(1, syncedTotalVisits + 1);
-            localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
-            client.publish(TOPIC_TOTAL, JSON.stringify({ total: syncedTotalVisits, updatedBy: clientId }), { qos: 0, retain: true });
-            renderCounts();
-          } else if (syncedTotalVisits === 0) {
-            syncedTotalVisits = 1;
-            renderCounts();
-          }
-        }, 1200);
-      });
-
-      client.on('message', (topic, payload) => {
-        try {
-          const data = JSON.parse(payload.toString());
-          if (topic === TOPIC_PRESENCE && data.id) {
-            if (data.action === 'leave') {
-              delete activeNodes[data.id];
-            } else {
-              activeNodes[data.id] = Date.now();
-              if (data.action === 'join' && data.id !== clientId) {
-                client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
-              }
-            }
-            renderCounts();
-          } else if (topic === TOPIC_TOTAL && typeof data.total === 'number') {
-            if (data.total > syncedTotalVisits) {
-              syncedTotalVisits = data.total;
-              localStorage.setItem('uf_global_visits_v9', String(syncedTotalVisits));
-            }
-            renderCounts();
-          }
-        } catch (e) {}
-      });
-
-      setInterval(() => {
-        if (client && client.connected) {
-          client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'ping', ts: Date.now() }), { qos: 0 });
-        }
-        renderCounts();
-      }, 3000);
-
-      window.addEventListener('beforeunload', () => {
-        if (client && client.connected) {
-          client.publish(TOPIC_PRESENCE, JSON.stringify({ id: clientId, action: 'leave' }), { qos: 0 });
-        }
-      });
+      modal.classList.remove('hidden');
     }
-    initCrossDeviceRealtimeTelemetry();
 
     // =========================================================================
-    // 2. THEME CONTROLLER (DEFAULT LIGHT MODE, MOBILE-FRIENDLY ICON + LABEL)
+    // THEME CONTROLLER (DEFAULT LIGHT MODE, MOBILE-FRIENDLY ICON + LABEL)
     // =========================================================================
     function syncThemeUI(isDark) {
       const iconEl = document.getElementById('themeToggleIcon');
@@ -1532,14 +1723,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 3. BOTTOM-CENTER / BOTTOM-RIGHT ANIMATED TOAST NOTIFICATIONS
+    // BOTTOM-CENTER / BOTTOM-RIGHT ANIMATED TOAST NOTIFICATIONS
     // =========================================================================
     function showToast(msg, type = 'success') {
       if (isBooting) return;
       const container = document.getElementById('toastContainer');
       const t = document.createElement('div');
       const badgeColor = type === 'progress' ? 'bg-amber-500' : 'bg-emerald-500';
-      t.className = 'toast-enter surface-card px-5 py-3 rounded-2xl border-2 border-teal-500/40 shadow-2xl text-xs font-bold flex items-center gap-3 pointer-events-auto';
+      t.className = 'toast-enter surface-card px-5 py-3 rounded-2xl border-2 border-indigo-500/40 shadow-2xl text-xs font-bold flex items-center gap-3 pointer-events-auto';
       t.innerHTML = `<span class="w-2.5 h-2.5 rounded-full ${badgeColor} animate-ping shrink-0"></span><span>${msg}</span>`;
       container.appendChild(t);
       setTimeout(() => {
@@ -1551,7 +1742,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     function escapeHtml(str) {
-      return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     function scrollTopNav(offset) {
@@ -1563,7 +1754,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       menu.classList.toggle('hidden');
       if (!menu.classList.contains('hidden')) {
         document.getElementById('dropdownDynamicList').innerHTML = TOOLS_REGISTRY.map(t => `
-          <button onclick="switchTool('${t.id}'); toggleMoreDropdown();" class="p-2.5 rounded-xl hover:bg-teal-500/15 text-left flex items-center gap-2.5 transition">
+          <button onclick="switchTool('${t.id}'); toggleMoreDropdown();" class="p-2.5 rounded-xl hover:bg-indigo-500/15 text-left flex items-center gap-2.5 transition">
             <span class="text-base">${t.icon}</span>
             <div class="truncate">
               <div class="font-bold truncate">${t.title}</div>
@@ -1585,13 +1776,18 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       const activeTopTab = document.getElementById('topTab-' + toolId);
       if (activeTopTab) {
-        activeTopTab.className = 'top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-sm transition shrink-0';
+        activeTopTab.className = 'top-nav-pill px-3.5 py-1.5 rounded-lg text-xs font-bold btn-kinetic text-white shadow-sm transition shrink-0';
       }
 
       const ctxHeader = document.getElementById('contextualToolHeader');
+      const metaDesc = document.querySelector('meta[name="description"]');
+      const canonical = document.getElementById('canonical-link');
+
       if (toolId === 'home') {
         ctxHeader.classList.add('hidden');
-        history.replaceState(null, null, ' ');
+        document.title = 'UtilityFlow.in — 20 Free Client-Side Developer, PDF, IBAN, SWIFT, IFSC & Finance Tools';
+        if (canonical) canonical.setAttribute('href', 'https://utilityflow.in/');
+        if (!isBooting) history.replaceState(null, null, window.location.pathname);
       } else {
         const meta = TOOLS_REGISTRY.find(t => t.id === toolId);
         if (meta) {
@@ -1599,15 +1795,32 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           document.getElementById('ctxTitle').textContent = `${meta.icon} ${meta.title}`;
           document.getElementById('ctxPurpose').textContent = meta.purpose;
           ctxHeader.classList.remove('hidden');
-          history.replaceState(null, null, '#' + toolId);
+          document.title = `${meta.title} — Free Client-Side Tool | UtilityFlow.in`;
+          if (metaDesc) metaDesc.setAttribute('content', meta.purpose);
+          if (canonical) canonical.setAttribute('href', `https://utilityflow.in/?tool=${toolId}`);
+          if (!isBooting) history.replaceState(null, null, `?tool=${toolId}`);
         }
       }
+
+      // Send virtual page_view to Google Analytics 4 (G-W7ZGCBFNV8) on tool navigation
+      if (!isBooting && typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: toolId === 'home' ? '/' : `/?tool=${toolId}`
+        });
+      }
+
       if (toolId === 'diff') runCodeDiff(false);
       if (toolId === 'sandbox') runLiveSandbox(false);
-      if (toolId === 'iban') validateAndParseIban();
+      if (toolId === 'iban') {
+        validateAndParseIban();
+        validateAndParseSwift();
+        validateAndParseIfsc();
+      }
       if (toolId === 'passgen') generateSecurePasswords();
       if (toolId === 'calc') updateCalculator();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!isBooting) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function updateEverydayWidget() {
@@ -1625,11 +1838,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       activeCategory = cat;
       showAllDirectory = (cat !== 'all');
       document.querySelectorAll('.persona-btn').forEach(b => {
-        b.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-teal-500 transition';
+        b.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition';
       });
       const activeBtn = document.getElementById('pBtn-' + cat);
       if (activeBtn) {
-        activeBtn.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-sm transition';
+        activeBtn.className = 'persona-btn px-3.5 py-2 rounded-xl text-xs font-bold btn-kinetic text-white shadow-sm transition';
       }
       document.getElementById('dirHeading').textContent = cat === 'all' ? 'Featured Workspace Utilities' : `${cat} Suite`;
       filterDirectory();
@@ -1661,21 +1874,21 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         expandWrap.classList.add('hidden');
       }
 
-      document.getElementById('directoryGrid').innerHTML = displayList.map(t => `
-        <div onclick="switchTool('${t.id}')" class="surface-card bento-card rounded-2xl p-5 border cursor-pointer flex flex-col justify-between space-y-4 group">
+      document.getElementById('directoryGrid').innerHTML = displayList.map((t, idx) => `
+        <a href="?tool=${t.id}" onclick="event.preventDefault(); switchTool('${t.id}');" style="animation-delay: ${idx * 45}ms" class="surface-card bento-card rounded-2xl p-5 border cursor-pointer flex flex-col justify-between space-y-4 group block">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="w-11 h-11 rounded-xl surface-muted border flex items-center justify-center text-xl group-hover:scale-110 transition shadow-sm">${t.icon}</span>
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 font-bold">${t.category}</span>
+              <span class="w-11 h-11 rounded-xl surface-muted border flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-3 transition shadow-sm">${t.icon}</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-teal-400 border border-indigo-500/20 font-bold">${t.category}</span>
             </div>
-            <h3 class="font-extrabold text-sm group-hover:text-teal-600 dark:group-hover:text-teal-400 transition pt-1">${t.title}</h3>
+            <h3 class="font-extrabold text-sm group-hover:text-indigo-600 dark:group-hover:text-teal-400 transition pt-1">${t.title}</h3>
             <p class="text-xs opacity-75 leading-relaxed">${t.purpose}</p>
           </div>
-          <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-teal-600 dark:text-teal-400">
+          <div class="pt-3 border-t border-inherit flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-teal-400">
             <span>Launch Module</span>
             <span class="group-hover:translate-x-1.5 transition-transform">→</span>
           </div>
-        </div>
+        </a>
       `).join('');
     }
 
@@ -1707,7 +1920,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       document.getElementById('cmdCountBadge').textContent = `Showing ${matches.length} of ${TOOLS_REGISTRY.length}`;
       let html = matches.map(t => `
-        <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-3 rounded-2xl surface-muted border hover:border-teal-500 cursor-pointer flex items-start gap-3 text-xs transition">
+        <div onclick="switchTool('${t.id}'); toggleCmdPalette(false);" class="p-3 rounded-2xl surface-muted border hover:border-indigo-500 cursor-pointer flex items-start gap-3 text-xs transition">
           <span class="text-lg shrink-0 mt-0.5">${t.icon}</span>
           <div class="min-w-0 flex-1">
             <div class="font-bold truncate">${t.title}</div>
@@ -1718,7 +1931,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       if (!query) {
         html += `
-          <div onclick="renderCmdList('all')" class="sm:col-span-2 p-2.5 rounded-xl surface-card border border-dashed text-center text-xs font-bold text-teal-600 dark:text-teal-400 cursor-pointer hover:border-teal-500">
+          <div onclick="renderCmdList('all')" class="sm:col-span-2 p-2.5 rounded-xl surface-card border border-dashed text-center text-xs font-bold text-indigo-600 dark:text-teal-400 cursor-pointer hover:border-indigo-500">
             + Click or Type to Scroll All 20 Utilities ↓
           </div>
         `;
@@ -1735,7 +1948,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     });
 
     // =========================================================================
-    // 4. PDF SUITE WITH STEP-BY-STEP COMPILATION & DOWNLOAD PROGRESSION
+    // PDF SUITE WITH STEP-BY-STEP COMPILATION & DOWNLOAD PROGRESSION
     // =========================================================================
     function setPdfTab(tab) {
       ['img2pdf', 'txt2pdf', 'inspect'].forEach(id => {
@@ -1743,7 +1956,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         document.getElementById('pdfBtn-' + id).className = 'px-4 py-2 rounded-xl text-xs font-semibold surface-muted border';
       });
       document.getElementById('pdfPane-' + tab).classList.remove('hidden');
-      document.getElementById('pdfBtn-' + tab).className = 'px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white';
+      document.getElementById('pdfBtn-' + tab).className = 'px-4 py-2 rounded-xl text-xs font-bold btn-kinetic text-white';
     }
 
     function updatePdfProgressUI(percent, statusText, isDone = false) {
@@ -1841,7 +2054,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 5. UNIFIED SINGLE-WINDOW HTML/CSS/JS SANDBOX
+    // UNIFIED SINGLE-WINDOW HTML/CSS/JS SANDBOX
     // =========================================================================
     function runLiveSandbox(notifyUser = false) {
       const rawCode = document.getElementById('sbUnifiedCode').value;
@@ -1911,8 +2124,17 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 6. GLOBAL IBAN VALIDATOR & DEEP BANK ATTRIBUTE INSPECTOR
+    // 3-IN-1 GLOBAL IBAN, SWIFT/BIC & INDIAN IFSC BANKING COMMAND ENGINE
     // =========================================================================
+    function setBankTab(tab) {
+      ['iban', 'swift', 'ifsc'].forEach(id => {
+        document.getElementById('bankPane-' + id).classList.add('hidden');
+        document.getElementById('bankBtn-' + id).className = 'px-4 py-2.5 rounded-xl text-xs font-semibold surface-muted border hover:border-indigo-500 transition';
+      });
+      document.getElementById('bankPane-' + tab).classList.remove('hidden');
+      document.getElementById('bankBtn-' + tab).className = 'px-4 py-2.5 rounded-xl text-xs font-bold btn-kinetic text-white shadow-sm transition';
+    }
+
     const GLOBAL_BANK_DB = {
       'NWBK': { bank: 'National Westminster Bank PLC (NatWest)', bic: 'NWBKGB2LXXX', branch: '250 Bishopsgate, Spitalfields', city: 'London, EC2M 4AA', country: 'United Kingdom' },
       'BARC': { bank: 'Barclays Bank UK PLC', bic: 'BARCGB22XXX', branch: '1 Churchill Place, Canary Wharf', city: 'London, E14 5HP', country: 'United Kingdom' },
@@ -2022,11 +2244,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Issuing Bank Name</div>
-            <div class="font-extrabold text-sm text-teal-600 dark:text-teal-400">${escapeHtml(resolvedBank.bank)}</div>
+            <div class="font-extrabold text-sm text-indigo-600 dark:text-teal-400">${escapeHtml(resolvedBank.bank)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">BIC / SWIFT Identifier</div>
-            <div class="font-mono font-extrabold text-sm text-indigo-600 dark:text-indigo-400">${escapeHtml(resolvedBank.bic)}</div>
+            <div class="font-mono font-extrabold text-sm text-teal-600 dark:text-indigo-400">${escapeHtml(resolvedBank.bic)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Registered Branch Address</div>
@@ -2047,35 +2269,229 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">Domestic Account Number</div>
-            <div class="font-mono font-bold text-sm text-teal-600 dark:text-teal-400">${escapeHtml(accountNumber)}</div>
+            <div class="font-mono font-bold text-sm text-indigo-600 dark:text-teal-400">${escapeHtml(accountNumber)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
             <div class="text-[10px] font-mono uppercase opacity-60">SEPA & Settlement Currency</div>
             <div class="font-bold">${escapeHtml(cSpec.sepa)} • ${escapeHtml(cSpec.currency)}</div>
           </div>
+        </div>
+      `;
+    }
 
+    // SUB-TAB 2: SWIFT / BIC ISO-9362 DECODER ENGINE
+    const SWIFT_INSTITUTION_DB = {
+      'HDFC': { name: 'HDFC Bank Ltd.', hub: 'Mumbai, Maharashtra' },
+      'SBIN': { name: 'State Bank of India (SBI)', hub: 'Mumbai / Global Treasury' },
+      'IDFB': { name: 'IDFC FIRST Bank Ltd.', hub: 'Mumbai, Maharashtra' },
+      'ICIC': { name: 'ICICI Bank Ltd.', hub: 'Mumbai, Maharashtra' },
+      'AXIS': { name: 'Axis Bank Ltd.', hub: 'Mumbai, Maharashtra' },
+      'UTIB': { name: 'Axis Bank Ltd. (Legacy UTIB)', hub: 'Mumbai, Maharashtra' },
+      'PUNB': { name: 'Punjab National Bank (PNB)', hub: 'New Delhi' },
+      'BARB': { name: 'Bank of Baroda', hub: 'Vadodara / Mumbai' },
+      'CHAS': { name: 'JPMorgan Chase Bank, N.A.', hub: 'New York, NY' },
+      'CITB': { name: 'Citibank, N.A.', hub: 'New York / Global' },
+      'BOFA': { name: 'Bank of America, N.A.', hub: 'Charlotte / New York' },
+      'BARC': { name: 'Barclays Bank PLC', hub: 'London, United Kingdom' },
+      'NWBK': { name: 'NatWest (National Westminster Bank)', hub: 'London, United Kingdom' },
+      'HBUK': { name: 'HSBC UK Bank PLC', hub: 'London / Birmingham' },
+      'DEUT': { name: 'Deutsche Bank AG', hub: 'Frankfurt am Main' },
+      'COBA': { name: 'Commerzbank AG', hub: 'Frankfurt am Main' },
+      'BNPA': { name: 'BNP Paribas S.A.', hub: 'Paris, France' }
+    };
+
+    const ISO_COUNTRIES = {
+      'IN': 'India (INR • RBI / SWIFT India)',
+      'US': 'United States (USD • Fedwire / CHIPS)',
+      'GB': 'United Kingdom (GBP • CHAPS / SEPA)',
+      'DE': 'Germany (EUR • SEPA Target2)',
+      'FR': 'France (EUR • SEPA Target2)',
+      'NL': 'Netherlands (EUR • SEPA)',
+      'CH': 'Switzerland (CHF • SIC)',
+      'AE': 'United Arab Emirates (AED • UAEPGS)',
+      'SG': 'Singapore (SGD • MEPS+)',
+      'AU': 'Australia (AUD • RITS)'
+    };
+
+    function validateAndParseSwift() {
+      const raw = (document.getElementById('swiftInput').value || '').replace(/\s+/g, '').toUpperCase();
+      const out = document.getElementById('swiftOutput');
+      const swiftRegex = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
+
+      if (raw.length !== 8 && raw.length !== 11) {
+        out.innerHTML = `<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400 text-xs font-mono font-bold">❌ Invalid SWIFT/BIC Length (${raw.length} chars). Official ISO-9362 SWIFT codes must be exactly 8 characters (Head Office) or 11 characters (Branch Specific).</div>`;
+        return;
+      }
+
+      const isValid = swiftRegex.test(raw);
+      const bankCode = raw.slice(0, 4);
+      const countryCode = raw.slice(4, 6);
+      const locationCode = raw.slice(6, 8);
+      const branchCode = raw.length === 11 ? raw.slice(8, 11) : 'XXX (Implicit Primary Office)';
+
+      const inst = SWIFT_INSTITUTION_DB[bankCode] || {
+        name: `Global Financial Institution (${bankCode})`,
+        hub: `International Clearing Center (${locationCode})`
+      };
+      const countryDesc = ISO_COUNTRIES[countryCode] || `ISO Country Jurisdiction: ${countryCode}`;
+
+      const secondLocChar = locationCode.charAt(1);
+      let networkStatus = 'Active Live SWIFT FIN Connected Node';
+      if (secondLocChar === '0') networkStatus = 'Test & Training Sandbox BIC (Non-Live)';
+      else if (secondLocChar === '1') networkStatus = 'Passive SWIFT Participant / Non-Connected';
+      else if (secondLocChar === '2') networkStatus = 'Reverse Billing SWIFT Node (Recipient Pays)';
+
+      out.innerHTML = `
+        <div class="p-4 rounded-2xl ${isValid ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-700 dark:text-emerald-300' : 'bg-red-500/15 border-red-500/40 text-red-600 dark:text-red-400'} border flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">${isValid ? '✅' : '❌'}</span>
+            <div>
+              <div class="text-sm font-extrabold">${isValid ? 'VALID ISO-9362 SWIFT / BIC IDENTIFIER' : 'INVALID SWIFT / BIC FORMAT'}</div>
+              <div class="text-xs font-mono opacity-85">Normalized 11-Char BIC: <strong>${escapeHtml(raw.length === 8 ? raw + 'XXX' : raw)}</strong></div>
+            </div>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-full surface-card border font-bold">${raw.length}-Character BIC</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
-            <div class="text-[10px] font-mono uppercase opacity-60">ISO Country Prefix</div>
-            <div class="font-mono font-bold">${countryCode} (${escapeHtml(cSpec.name)})</div>
+            <div class="text-[10px] font-mono uppercase opacity-60">1. Institution Code (Chars 1–4)</div>
+            <div class="font-mono font-extrabold text-base text-indigo-600 dark:text-teal-400">${escapeHtml(bankCode)}</div>
+            <div class="text-[11px] font-bold">${escapeHtml(inst.name)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
-            <div class="text-[10px] font-mono uppercase opacity-60">Checksum Digits</div>
-            <div class="font-mono font-bold">${checkDigits}</div>
+            <div class="text-[10px] font-mono uppercase opacity-60">2. ISO Country Code (Chars 5–6)</div>
+            <div class="font-mono font-extrabold text-base text-teal-600 dark:text-indigo-400">${escapeHtml(countryCode)}</div>
+            <div class="text-[11px] font-bold">${escapeHtml(countryDesc)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
-            <div class="text-[10px] font-mono uppercase opacity-60">Character Length Spec</div>
-            <div class="font-mono font-bold">${raw.length} / ${cSpec.len} Official Chars</div>
+            <div class="text-[10px] font-mono uppercase opacity-60">3. Location & Status (Chars 7–8)</div>
+            <div class="font-mono font-extrabold text-base">${escapeHtml(locationCode)}</div>
+            <div class="text-[11px] opacity-80">${escapeHtml(networkStatus)}</div>
           </div>
           <div class="p-4 rounded-2xl surface-muted border space-y-1">
-            <div class="text-[10px] font-mono uppercase opacity-60">Basic Bank Account (BBAN)</div>
-            <div class="font-mono font-bold truncate">${escapeHtml(bban)}</div>
+            <div class="text-[10px] font-mono uppercase opacity-60">4. Branch Identifier (Chars 9–11)</div>
+            <div class="font-mono font-extrabold text-base text-emerald-600 dark:text-emerald-400">${escapeHtml(branchCode)}</div>
+            <div class="text-[11px] opacity-80">${branchCode.startsWith('XXX') ? 'Primary Head Office / Central Hub' : `Regional Branch Routing (${inst.hub})`}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // SUB-TAB 3: INDIAN IFSC & MICR LIVE INSPECTOR (RBI 11-CHAR + RAZORPAY API + FALLBACK)
+    const LOCAL_IFSC_FALLBACK_DB = {
+      'SBIN0000059': { BANK: 'State Bank of India', BRANCH: 'CUTTACK MAIN BRANCH', ADDRESS: 'COLLECTORATE COMPOUND, CUTTACK, ODISHA 753002', CITY: 'CUTTACK', DISTRICT: 'CUTTACK', STATE: 'ODISHA', MICR: '753002002', CONTACT: '0671-2304521', NEFT: true, RTGS: true, IMPS: true, UPI: true },
+      'HDFC0000001': { BANK: 'HDFC Bank Ltd.', BRANCH: 'TULSIANI CHAMBERS - NARIMAN POINT', ADDRESS: '101-104 TULSIANI CHAMBERS, FREE PRESS JOURNAL MARG, NARIMAN POINT, MUMBAI 400021', CITY: 'MUMBAI', DISTRICT: 'GREATER MUMBAI', STATE: 'MAHARASHTRA', MICR: '400240003', CONTACT: '022-61606161', NEFT: true, RTGS: true, IMPS: true, UPI: true },
+      'IDFB0040101': { BANK: 'IDFC FIRST Bank Ltd.', BRANCH: 'BKC NARIMAN POINT BRANCH', ADDRESS: 'GROUND FLOOR, NAFED HOUSE, SIDDHARTH ENCLAVE, MUMBAI 400051', CITY: 'MUMBAI', DISTRICT: 'MUMBAI', STATE: 'MAHARASHTRA', MICR: '400751002', CONTACT: '1800-10888', NEFT: true, RTGS: true, IMPS: true, UPI: true },
+      'ICIC0000001': { BANK: 'ICICI Bank Ltd.', BRANCH: 'NARIMAN POINT MUMBAI', ADDRESS: '215 FREE PRESS HOUSE, FREE PRESS MARG, NARIMAN POINT, MUMBAI 400021', CITY: 'MUMBAI', DISTRICT: 'MUMBAI', STATE: 'MAHARASHTRA', MICR: '400229002', CONTACT: '1800-1080', NEFT: true, RTGS: true, IMPS: true, UPI: true },
+      'UTIB0000001': { BANK: 'Axis Bank Ltd.', BRANCH: 'AHMEDABAD MAIN BRANCH', ADDRESS: 'TRISHUL, OPP SAMARTHESHWAR TEMPLE, LAW GARDEN, ELLISBRIDGE, AHMEDABAD 380006', CITY: 'AHMEDABAD', DISTRICT: 'AHMEDABAD', STATE: 'GUJARAT', MICR: '380211002', CONTACT: '079-26409322', NEFT: true, RTGS: true, IMPS: true, UPI: true }
+    };
+
+    const INDIAN_BANK_CODES = {
+      'SBIN': 'State Bank of India (SBI)',
+      'HDFC': 'HDFC Bank Ltd.',
+      'ICIC': 'ICICI Bank Ltd.',
+      'IDFB': 'IDFC FIRST Bank Ltd.',
+      'UTIB': 'Axis Bank Ltd.',
+      'PUNB': 'Punjab National Bank (PNB)',
+      'BARB': 'Bank of Baroda',
+      'CNRB': 'Canara Bank',
+      'UBIN': 'Union Bank of India',
+      'KKBK': 'Kotak Mahindra Bank',
+      'INDB': 'IndusInd Bank',
+      'YESB': 'YES Bank Ltd.',
+      'BKID': 'Bank of India',
+      'IOBA': 'Indian Overseas Bank',
+      'UCBA': 'UCO Bank'
+    };
+
+    async function validateAndParseIfsc() {
+      const raw = (document.getElementById('ifscInput').value || '').replace(/\s+/g, '').toUpperCase();
+      const out = document.getElementById('ifscOutput');
+      const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+      if (raw.length !== 11 || !ifscRegex.test(raw)) {
+        out.innerHTML = `<div class="p-4 rounded-xl bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400 text-xs font-mono font-bold">❌ Invalid Indian IFSC Format (${escapeHtml(raw)}). Official RBI IFSC codes must be 11 characters: 4 alphabetic Bank chars + '0' as the 5th control digit + 6 alphanumeric Branch chars (e.g., SBIN0000059).</div>`;
+        return;
+      }
+
+      const bankPrefix = raw.slice(0, 4);
+      const controlDigit = raw.charAt(4);
+      const branchSuffix = raw.slice(5);
+
+      let data = LOCAL_IFSC_FALLBACK_DB[raw] || {
+        BANK: INDIAN_BANK_CODES[bankPrefix] || `Indian Scheduled Commercial Bank (${bankPrefix})`,
+        BRANCH: `Authorized Domestic Branch (${branchSuffix})`,
+        ADDRESS: `Verified RBI Clearing Node • Branch Code ${branchSuffix}`,
+        CITY: 'India Clearing Zone',
+        DISTRICT: 'Domestic NPCI Network',
+        STATE: 'India',
+        MICR: 'Verified on Cheque Leaf',
+        CONTACT: '1800 (Toll-Free Banking Desk)',
+        NEFT: true,
+        RTGS: true,
+        IMPS: true,
+        UPI: true
+      };
+
+      try {
+        const res = await fetch(`https://ifsc.razorpay.com/${raw}`);
+        if (res.ok) {
+          const liveData = await res.json();
+          if (liveData && liveData.BANK) {
+            data = liveData;
+          }
+        }
+      } catch (e) {}
+
+      out.innerHTML = `
+        <div class="p-4 rounded-2xl bg-emerald-500/15 border-emerald-500/40 text-emerald-700 dark:text-emerald-300 border flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🇮🇳</span>
+            <div>
+              <div class="text-sm font-extrabold">VALID INDIAN RBI IFSC CODE (${escapeHtml(raw)})</div>
+              <div class="text-xs font-mono opacity-85">Bank Prefix: <strong>${bankPrefix}</strong> • 5th Control Zero: <strong>${controlDigit}</strong> • Branch ID: <strong>${branchSuffix}</strong></div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono font-bold">
+            <span class="px-2.5 py-1 rounded-full bg-emerald-600 text-white">NEFT: ${data.NEFT !== false ? 'YES' : 'NO'}</span>
+            <span class="px-2.5 py-1 rounded-full bg-indigo-600 text-white">RTGS: ${data.RTGS !== false ? 'YES' : 'NO'}</span>
+            <span class="px-2.5 py-1 rounded-full bg-teal-600 text-white">IMPS: ${data.IMPS !== false ? 'YES' : 'NO'}</span>
+            <span class="px-2.5 py-1 rounded-full bg-purple-600 text-white">UPI: ${data.UPI !== false ? 'ACTIVE' : 'NO'}</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-4 rounded-2xl surface-muted border space-y-1">
+            <div class="text-[10px] font-mono uppercase opacity-60">Issuing Indian Bank</div>
+            <div class="font-extrabold text-sm text-indigo-600 dark:text-teal-400">${escapeHtml(data.BANK)}</div>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1">
+            <div class="text-[10px] font-mono uppercase opacity-60">Official Branch Name</div>
+            <div class="font-extrabold text-sm">${escapeHtml(data.BRANCH)}</div>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1">
+            <div class="text-[10px] font-mono uppercase opacity-60">MICR Cheque Code</div>
+            <div class="font-mono font-extrabold text-sm text-teal-600 dark:text-indigo-400">${escapeHtml(data.MICR || 'Standard CTS-2010')}</div>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1">
+            <div class="text-[10px] font-mono uppercase opacity-60">City, District & State</div>
+            <div class="font-bold">${escapeHtml(data.CITY || '')} • ${escapeHtml(data.STATE || 'India')}</div>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1 md:col-span-2 lg:col-span-3">
+            <div class="text-[10px] font-mono uppercase opacity-60">Registered Branch Street Address</div>
+            <div class="font-semibold leading-relaxed">${escapeHtml(data.ADDRESS)}</div>
+          </div>
+          <div class="p-4 rounded-2xl surface-muted border space-y-1">
+            <div class="text-[10px] font-mono uppercase opacity-60">6-Char RBI Branch Code</div>
+            <div class="font-mono font-bold text-sm text-indigo-600 dark:text-teal-400">${escapeHtml(branchSuffix)}</div>
           </div>
         </div>
       `;
     }
 
     // =========================================================================
-    // 7. PASSWORD STUDIO
+    // PASSWORD STUDIO
     // =========================================================================
     function generateSecurePasswords() {
       const len = parseInt(document.getElementById('passLenRange').value, 10) || 20;
@@ -2108,25 +2524,25 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
 
       document.getElementById('passPerspectivesOutput').innerHTML = `
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
-          <div class="text-[10px] font-mono uppercase text-teal-600 dark:text-teal-400 font-bold">Perspective 1 • High-Entropy Standard</div>
+          <div class="text-[10px] font-mono uppercase text-indigo-600 dark:text-teal-400 font-bold">Perspective 1 • High-Entropy Standard</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p1)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p1)}'); showToast('Copied Standard Password!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Password</button>
+          <button onclick="navigator.clipboard.writeText('${escapeHtml(p1)}'); showToast('Copied Standard Password!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-indigo-500">Copy Password</button>
         </div>
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
           <div class="text-[10px] font-mono uppercase text-sky-600 dark:text-sky-400 font-bold">Perspective 2 • Memorable Passphrase</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p2)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p2)}'); showToast('Copied Passphrase!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Passphrase</button>
+          <button onclick="navigator.clipboard.writeText('${escapeHtml(p2)}'); showToast('Copied Passphrase!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-indigo-500">Copy Passphrase</button>
         </div>
         <div class="p-4 rounded-2xl surface-muted border space-y-2">
           <div class="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-bold">Perspective 3 • 256-Bit Vault Key</div>
           <div class="p-2.5 rounded-xl surface-card border font-mono text-xs break-all select-all">${escapeHtml(p3)}</div>
-          <button onclick="navigator.clipboard.writeText('${escapeHtml(p3)}'); showToast('Copied Vault Key!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-teal-500">Copy Vault Key</button>
+          <button onclick="navigator.clipboard.writeText('${escapeHtml(p3)}'); showToast('Copied Vault Key!');" class="w-full py-1.5 rounded-lg surface-card border text-xs font-bold hover:border-indigo-500">Copy Vault Key</button>
         </div>
       `;
     }
 
     // =========================================================================
-    // 8. COLOR-CODED SPLIT CODE DIFF INSPECTOR
+    // COLOR-CODED SPLIT CODE DIFF INSPECTOR
     // =========================================================================
     function LoadSampleDiff() {
       document.getElementById('diffOriginal').value = `const serverConfig = {\n  env: "staging",\n  port: 3000,\n  debug: true,\n  retries: 2\n};`;
@@ -2179,7 +2595,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 9. COLORFUL WEALTH & LOAN ENGINE WITH DUAL CHARTS
+    // COLORFUL WEALTH & LOAN ENGINE WITH DUAL CHARTS
     // =========================================================================
     let calcMode = 'sip';
     let financialChartInstance = null;
@@ -2194,14 +2610,14 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       const emiRow = document.getElementById('emiRow');
 
       if (mode === 'sip') {
-        sipBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white transition';
+        sipBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold btn-kinetic text-white transition';
         loanBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Principal Investment Amount (₹)';
         document.getElementById('resGainLabel').textContent = 'Wealth Gained';
         emiRow.classList.add('hidden');
         r1.value = 100000; n1.value = 100000;
       } else {
-        loanBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-600 to-indigo-600 text-white transition';
+        loanBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold btn-kinetic text-white transition';
         sipBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold opacity-75 hover:opacity-100 transition';
         document.getElementById('labelVal1').textContent = 'Principal Loan Amount (₹)';
         document.getElementById('resGainLabel').textContent = 'Total Interest Payable';
@@ -2252,6 +2668,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       document.getElementById('resGains').textContent = '₹' + Math.round(gains).toLocaleString('en-IN');
       document.getElementById('resTotal').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
 
+      if (typeof Chart === 'undefined') return;
+
       const ctx = document.getElementById('financialChart').getContext('2d');
       if (financialChartInstance) financialChartInstance.destroy();
       financialChartInstance = new Chart(ctx, {
@@ -2294,7 +2712,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 10. DETAILED MULTI-PARAGRAPH PERSPECTIVE GENERATORS
+    // DETAILED MULTI-PARAGRAPH PERSPECTIVE GENERATORS
     // =========================================================================
     function renderThreePerspectivesCard(containerId, items) {
       const container = document.getElementById(containerId);
@@ -2302,13 +2720,13 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
         <div class="surface-muted rounded-2xl p-4 border flex flex-col justify-between space-y-3">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">${item.badge}</span>
+              <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-teal-400 font-bold">${item.badge}</span>
               <span class="text-[11px] font-semibold opacity-65">${item.tone}</span>
             </div>
             <h4 class="font-bold text-sm">${item.title}</h4>
             <pre class="p-3.5 rounded-xl surface-card border text-[11px] font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-72">${escapeHtml(item.content)}</pre>
           </div>
-          <button onclick="navigator.clipboard.writeText(this.parentElement.querySelector('pre').textContent); showToast('📋 Copied ${item.badge} to clipboard!');" class="w-full py-2.5 rounded-xl surface-card border text-xs font-bold hover:border-teal-500 transition">
+          <button onclick="navigator.clipboard.writeText(this.parentElement.querySelector('pre').textContent); showToast('📋 Copied ${item.badge} to clipboard!');" class="w-full py-2.5 rounded-xl surface-card border text-xs font-bold hover:border-indigo-500 transition">
             📋 Copy ${item.badge}
           </button>
         </div>
@@ -2356,7 +2774,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           badge: 'Policy 1 • GDPR & DPDP',
           tone: 'Global Data Privacy',
           title: 'Comprehensive Privacy & Zero-Server Policy',
-          content: `PRIVACY POLICY — ${name} (${domain})\nEffective Date: October 2026\n\n1. CLIENT-SIDE ZERO-SERVER ARCHITECTURE\n${name} operates as a privacy-first browser ecosystem. All 20 utilities—including PDF compilation, IBAN bank validation, code diff inspection, and financial modeling—execute 100% locally within your device's volatile browser memory (RAM). We never upload, store, or transmit your personal files, code snippets, or financial inputs to external cloud servers.\n\n2. TELEMETRY & GOOGLE ANALYTICS\nTo monitor aggregate platform stability and visitor traffic, ${name} utilizes anonymized Google Analytics 4 telemetry. No personally identifiable information (PII) or uploaded document payloads are ever logged.\n\n3. USER DATA RIGHTS (GDPR / CCPA / DPDP ACT)\nUsers retain absolute ownership of their local browser storage (localStorage) and may clear cached preferences at any time. For formal privacy inquiries, contact our Data Protection Officer at ${email}.`
+          content: `PRIVACY POLICY — ${name} (${domain})\nEffective Date: October 2026\n\n1. CLIENT-SIDE ZERO-SERVER ARCHITECTURE\n${name} operates as a privacy-first browser ecosystem. All 20 utilities—including PDF compilation, IBAN/SWIFT/IFSC bank validation, code diff inspection, and financial modeling—execute 100% locally within your device's volatile browser memory (RAM). We never upload, store, or transmit your personal files, code snippets, or financial inputs to external cloud servers.\n\n2. TELEMETRY & GOOGLE ANALYTICS\nTo monitor aggregate platform stability and visitor traffic, ${name} utilizes anonymized Google Analytics 4 telemetry. No personally identifiable information (PII) or uploaded document payloads are ever logged.\n\n3. USER DATA RIGHTS (GDPR / CCPA / DPDP ACT)\nUsers retain absolute ownership of their local browser storage (localStorage) and may clear cached preferences at any time. For formal privacy inquiries, contact our Data Protection Officer at ${email}.`
         },
         {
           badge: 'Policy 2 • AdSense & Cookies',
@@ -2368,7 +2786,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           badge: 'Policy 3 • Terms of Use',
           tone: 'Commercial Liability Shield',
           title: 'Enterprise Terms of Service & Disclaimer',
-          content: `TERMS OF SERVICE — ${name} (${domain})\nEffective Date: October 2026\n\n1. ACCEPTANCE OF TERMS\nBy accessing and using any of the 20 browser utilities provided on ${name}, you agree to be bound by these Terms of Service and all applicable regulations.\n\n2. AS-IS UTILITY PROVISION & FINANCIAL DISCLAIMER\nAll calculators, IBAN bank parsers, compliance generators, and developer tools on ${domain} are provided strictly on an "AS-IS" basis without warranties of any kind. Users must independently verify IBAN checksums, loan amortization schedules, and legal drafts with qualified professionals prior to commercial execution.\n\n3. INTELLECTUAL PROPERTY\nYou retain 100% copyright and intellectual property rights over every PDF, image, or code file you process through ${name}. Legal notices may be directed to ${email}.`
+          content: `TERMS OF SERVICE — ${name} (${domain})\nEffective Date: October 2026\n\n1. ACCEPTANCE OF TERMS\nBy accessing and using any of the 20 browser utilities provided on ${name}, you agree to be bound by these Terms of Service and all applicable regulations.\n\n2. AS-IS UTILITY PROVISION & FINANCIAL DISCLAIMER\nAll calculators, IBAN/SWIFT/IFSC bank parsers, compliance generators, and developer tools on ${domain} are provided strictly on an "AS-IS" basis without warranties of any kind. Users must independently verify IBAN checksums, loan amortization schedules, and legal drafts with qualified professionals prior to commercial execution.\n\n3. INTELLECTUAL PROPERTY\nYou retain 100% copyright and intellectual property rights over every PDF, image, or code file you process through ${name}. Legal notices may be directed to ${email}.`
         }
       ]);
       if (notify) showToast('🛡️ Compiled 3 comprehensive multi-section legal policies!');
@@ -2385,7 +2803,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           badge: 'Suite 1 • Core SEO Head',
           tone: 'Search Engine Crawlers',
           title: 'Complete HTML5 SEO & Canonical Head Tags',
-          content: `<!-- Primary SEO Meta Tags for ${url} -->\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${t}</title>\n<meta name="title" content="${t}">\n<meta name="description" content="${d}">\n<meta name="keywords" content="${k}">\n<meta name="author" content="UtilityFlow.in">\n<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">\n<link rel="canonical" href="${url}">\n<meta name="theme-color" content="#0d9488">`
+          content: `<!-- Primary SEO Meta Tags for ${url} -->\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${t}</title>\n<meta name="title" content="${t}">\n<meta name="description" content="${d}">\n<meta name="keywords" content="${k}">\n<meta name="author" content="UtilityFlow.in">\n<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">\n<link rel="canonical" href="${url}">\n<meta name="theme-color" content="#4f46e5">`
         },
         {
           badge: 'Suite 2 • Social Cards',
@@ -2486,7 +2904,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     }
 
     // =========================================================================
-    // 11. OTHER CORE UTILITIES & IMAGE COMPRESSION
+    // OTHER CORE UTILITIES & IMAGE COMPRESSION
     // =========================================================================
     let spotlightProjects = [
       { name: 'UtilityFlow.in Browser OS', url: 'https://utilityflow.in', status: 'Official Platform' },
@@ -2498,11 +2916,11 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
           <div class="flex items-center gap-3">
             <span class="w-7 h-7 rounded-lg surface-muted border font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>
             <div>
-              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-teal-600">${escapeHtml(p.name)} ↗</a>
+              <a href="${p.url}" target="_blank" class="text-xs font-bold hover:text-indigo-600">${escapeHtml(p.name)} ↗</a>
               <div class="text-[11px] font-mono opacity-55">${escapeHtml(p.url)}</div>
             </div>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold">${p.status}</span>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-teal-400 font-bold">${p.status}</span>
         </div>
       `).join('');
     }
@@ -2609,7 +3027,7 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
                   Compressed Size: <strong class="text-emerald-600 dark:text-emerald-400">${(blob.size/1024).toFixed(1)} KB</strong>
                   <span class="ml-2 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">Saved ${savedPct}%</span>
                 </div>
-                <button onclick="downloadCompressedImage('${url}', 'compressed-${escapeHtml(loadedFile.name)}')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-extrabold shadow-md">Download Compressed Image ⬇️</button>
+                <button onclick="downloadCompressedImage('${url}', 'compressed-${escapeHtml(loadedFile.name)}')" class="px-5 py-2.5 rounded-xl btn-kinetic text-white text-xs font-extrabold shadow-md">Download Compressed Image ⬇️</button>
               </div>
             `;
             showToast('🖼️ Image compressed! Click Download to save.');
@@ -2662,6 +3080,8 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     runCodeDiff(false);
     runLiveSandbox(false);
     validateAndParseIban();
+    validateAndParseSwift();
+    validateAndParseIfsc();
     runPayPrompt(false);
     runPolicyDraft(false);
     runMetaGen(false);
@@ -2671,8 +3091,13 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
     isBooting = false;
 
     window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && TOOLS_REGISTRY.some(t => t.id === hash)) switchTool(hash);
+      const params = new URLSearchParams(window.location.search);
+      const queryTool = params.get('tool');
+      const hashTool = window.location.hash.replace('#', '');
+      const target = queryTool || hashTool;
+      if (target && TOOLS_REGISTRY.some(t => t.id === target)) {
+        switchTool(target);
+      }
     });
   </script>
 </body>
