@@ -3,225 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UtilityFlow.in — Next-Gen 20-Tool Browser Ecosystem</title>
-  <meta name="description" content="20 instant, privacy-first browser utilities across Finance, PDF Documents, Developer Code, SEO, and Media. Zero sign-up required at UtilityFlow.in." />
-  <link rel="canonical" href="https://utilityflow.in/" />
+  
+  <!-- Primary High-Intent SEO Title & Meta -->
+  <title>UtilityFlow.in — 20 Free Client-Side Developer, PDF, IBAN & Finance Tools (Zero Upload)</title>
+  <meta name="description" content="Free 100% client-side browser utility suite: Merge Images to PDF locally, validate Global IBAN & SWIFT/BIC (ISO-13616 MOD-97), compare Split Code Diffs, run live HTML/CSS/JS sandboxes, compress images 80%, and calculate EMI & compound wealth with zero server uploads." />
+  <meta name="keywords" content="client side pdf merger, image to pdf without upload, global iban validator mod 97, split code diff checker online, unified html css js sandbox, local image compressor webp, webcrypto uuid generator, emi loan calculator india, privacy first browser tools, utilityflow" />
+  <meta name="author" content="Santanu Rana" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://utilityflow.in/" id="canonical-link" />
 
-  <!-- Google tag (gtag.js) - Live Measurement ID G-W7ZGCBFNV8 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W7ZGCBFNV8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-W7ZGCBFNV8');
-  </script>
+  <!-- Open Graph / LinkedIn / Reddit Rich Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="UtilityFlow.in" />
+  <meta property="og:title" content="UtilityFlow.in — 20-in-1 Privacy-First Browser Ecosystem (100% Client-Side)" />
+  <meta property="og:description" content="Merge PDFs, inspect global IBAN bank branches, compare color code diffs, compress images, and model wealth inside your browser RAM with zero server logs." />
+  <meta property="og:url" content="https://utilityflow.in/" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- Real-Time Cross-Device WebSocket Sync Engine (MQTT over WebSockets) -->
-  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="UtilityFlow.in — 20 Free Client-Side Developer & Finance Utilities" />
+  <meta name="twitter:description" content="Zero cloud uploads. Zero sign-ups. 20 instant browser-native tools for PDFs, IBAN banking, code diffs, and finance." />
+
+  <!-- JSON-LD Structured Data: WebApplication + SoftwareCatalog + FAQPage for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "UtilityFlow.in",
+        "url": "https://utilityflow.in/",
+        "applicationCategory": "DeveloperApplication, FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All (Browser-Native Client-Side Execution)",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "A 20-in-1 privacy-first client-side web ecosystem featuring local PDF compilation, ISO-13616 MOD-97 IBAN inspection, split code diff checking, WebCrypto token generation, and interactive wealth/EMI modeling.",
+        "featureList": [
+          "Client-Side Image to PDF Merger & Brief Exporter (jsPDF)",
+          "Global IBAN Validator & Bank Branch Inspector (ISO-13616 MOD-97)",
+          "Color-Coded Split Code Diff Checker",
+          "Unified HTML5, CSS3 & JavaScript Live Sandbox",
+          "Dual-Chart Compound Wealth & Loan EMI Engine",
+          "Hardware-Accelerated HTML5 Canvas Image Compressor",
+          "WebCrypto CSPRNG Password & UUID v4 Generator",
+          "Executive Invoice & Accounts Receivable Drafter"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does UtilityFlow.in merge PDFs and compress images without uploading files to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "UtilityFlow.in executes all file processing 100% locally inside your browser's volatile memory (RAM) using the HTML5 FileReader API, Canvas 2D rendering context, and client-side jsPDF compilation. Your sensitive documents and images never leave your device."
+            }
           },
-          colors: {
-            accent: {
-              50: '#f0fdfa',
-              100: '#ccfbf1',
-              400: '#2dd4bf',
-              500: '#14b8a6',
-              600: '#0d9488',
-              700: '#0f766e',
+          {
+            "@type": "Question",
+            "name": "How does the Global IBAN Validator verify bank accounts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our IBAN inspector implements the official ISO-13616 standard. It validates country-specific character lengths, rearranges the four initial characters to the end of the string, converts ASCII letters to numeric integers (A=10 to Z=35), and computes a BigInt Modulo-97 (MOD-97) checksum where a valid account yields an exact remainder of 1."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the passwords and cryptographic tokens generated on UtilityFlow truly random?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Unlike standard Math.random() functions which are pseudo-random and predictable, UtilityFlow uses the browser's native WebCrypto API (window.crypto.getRandomValues) backed by OS-level hardware entropy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is UtilityFlow.in completely free for commercial and enterprise use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, all 20 utilities on UtilityFlow.in are 100% free with zero login walls, zero rate limits, and zero server-side data logging, making it safe for enterprise software engineers, financial analysts, and students."
             }
           }
-        }
+        ]
       }
-    }
+    ]
+  }
   </script>
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      overflow-x: hidden;
-    }
-
-    /* Default Crisp Executive Light Mode */
-    body {
-      background-color: #f4f7fb;
-      color: #0f172a;
-      background-image:
-        radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.10) 0px, transparent 45%),
-        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.10) 0px, transparent 45%),
-        radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.06) 0px, transparent 50%);
-      background-attachment: fixed;
-    }
-    .surface-card {
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 30px -6px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-    }
-    .surface-muted {
-      background-color: #f1f5f9;
-      border: 1px solid #e2e8f0;
-    }
-    .surface-glass {
-      background-color: rgba(255, 255, 255, 0.90);
-      backdrop-filter: blur(16px);
-      border-color: #e2e8f0;
-    }
-    .input-ui {
-      background-color: #ffffff;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-      transition: all 0.2s ease;
-    }
-    .input-ui:focus {
-      border-color: #0d9488;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.16);
-    }
-
-    /* Optional Deep Cyber-Aurora Dark Mode */
-    html.dark body {
-      background-color: #090d16;
-      color: #f1f5f9;
-      background-image:
-        radial-gradient(at 5% 5%, rgba(20, 184, 166, 0.15) 0px, transparent 45%),
-        radial-gradient(at 95% 10%, rgba(139, 92, 246, 0.15) 0px, transparent 45%);
-    }
-    html.dark .surface-card {
-      background-color: #111827;
-      border: 1px solid #1e293b;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.55);
-    }
-    html.dark .surface-muted {
-      background-color: #1e293b;
-      border: 1px solid #334155;
-    }
-    html.dark .surface-glass {
-      background-color: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(16px);
-      border-color: #1e293b;
-    }
-    html.dark .input-ui {
-      background-color: #0b111e;
-      color: #f8fafc;
-      border: 1px solid #334155;
-    }
-    html.dark .input-ui:focus {
-      border-color: #2dd4bf;
-      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.22);
-    }
-
-    /* Smooth App View Animations */
-    @keyframes viewSlideUp {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .tool-section:not(.hidden) {
-      animation: viewSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes toastRiseIn {
-      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .toast-enter {
-      animation: toastRiseIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes pulseFlash {
-      0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.6); }
-      50% { box-shadow: 0 0 0 8px rgba(20, 184, 166, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
-    }
-    .flash-refresh {
-      animation: pulseFlash 0.45s ease-out;
-    }
-
-    .bento-card {
-      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
-    }
-    .bento-card:hover {
-      transform: translateY(-3px);
-      border-color: #0d9488;
-      box-shadow: 0 16px 32px -10px rgba(13, 148, 136, 0.18);
-    }
-
-    /* Color-Coded Diff Checker */
-    .diff-row {
-      display: grid;
-      grid-template-columns: 44px 26px 1fr;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      line-height: 1.7;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
-    }
-    .diff-num {
-      user-select: none;
-      text-align: right;
-      padding-right: 8px;
-      opacity: 0.55;
-      border-right: 1px solid rgba(148, 163, 184, 0.2);
-    }
-    .diff-sign {
-      user-select: none;
-      text-align: center;
-      font-weight: 800;
-    }
-    .diff-code {
-      padding-left: 8px;
-      padding-right: 10px;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-    .diff-del {
-      background-color: rgba(239, 68, 68, 0.15) !important;
-      color: #b91c1c !important;
-      border-left: 4px solid #ef4444;
-    }
-    html.dark .diff-del {
-      background-color: rgba(239, 68, 68, 0.25) !important;
-      color: #fca5a5 !important;
-      border-left: 4px solid #f87171;
-    }
-    .diff-add {
-      background-color: rgba(16, 185, 129, 0.15) !important;
-      color: #047857 !important;
-      border-left: 4px solid #10b981;
-    }
-    html.dark .diff-add {
-      background-color: rgba(16, 185, 129, 0.25) !important;
-      color: #6ee7b7 !important;
-      border-left: 4px solid #34d399;
-    }
-    .diff-word-del {
-      background-color: rgba(239, 68, 68, 0.32);
-      border-radius: 4px;
-      padding: 1px 4px;
-      font-weight: 700;
-    }
-    .diff-word-add {
-      background-color: rgba(16, 185, 129, 0.32);
-      border-radius: 4px;
-      padding: 1px 4px;
-      font-weight: 700;
-    }
-
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-    html.dark ::-webkit-scrollbar-thumb { background: #334155; }
-  </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-teal-600 selection:text-white">
 
@@ -1249,6 +1119,218 @@ This document was compiled client-side via UtilityFlow.in PDF Command Suite.
       <span>© 2026 UtilityFlow.in • All 20 Browser Modules Free & Operational</span>
       <span>Engineered for Speed, Privacy & Precision • Zero Server Data Logged</span>
     </div>
+    <!-- ===================================================================== -->
+<!-- ARGON SEO AUTHORITY HUB & ADSENSE PUBLISHER CONTENT ENGINE            -->
+<!-- Paste this section directly above your <footer> tag in index.html     -->
+<!-- ===================================================================== -->
+<section id="seo-knowledge-hub" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-12 border-t border-slate-200/80 dark:border-slate-800">
+  
+  <!-- Section Header -->
+  <div class="max-w-3xl mb-12">
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 mb-3">
+      Technical Architecture & Standards Documentation
+    </span>
+    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+      Why Client-Side Browser Execution Outperforms Cloud Utility Platforms
+    </h2>
+    <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+      Traditional online PDF converters, code formatters, and financial validators require uploading your files to remote third-party servers—introducing network latency, file size paywalls, and enterprise data compliance risks. <strong>UtilityFlow.in</strong> is architected as a zero-trust, local-first web operating system where all 20 utilities execute strictly inside your device's volatile memory (RAM).
+    </p>
+  </div>
+
+  <!-- Deep-Dive Technical Keyword Grid (Crucial for Long-Tail Google Rankings & AdSense Bots) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+    
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        📄 Local PDF Compilation & Image Merging
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        Instead of transmitting confidential scans or contracts over HTTP, our <strong>PDF Command Suite</strong> utilizes the HTML5 <code>FileReader</code> API and client-side <code>jsPDF</code> buffers. Multi-page JPG/PNG assets and formatted executive briefs are rasterized, scaled to ISO A4 dimensions, and compiled into downloadable binary blobs directly on your CPU.
+      </p>
+    </article>
+
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        🏦 ISO-13616 MOD-97 Global IBAN Verification
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        International banking transfers require strict structural validation before SWIFT execution. Our <strong>Global IBAN Inspector</strong> verifies country-specific BBAN lengths, performs the four-character prefix transposition, converts alphanumeric characters into integers (A=10 through Z=35), and computes exact arbitrary-precision <code>BigInt</code> Modulo-97 arithmetic alongside BIC and branch routing lookups.
+      </p>
+    </article>
+
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        ⚖️ Lexical Split Code Diff & Live DOM Sandboxing
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        Enterprise software engineers frequently need to compare configuration payloads, SQL traces, or JSON responses without leaking proprietary source code to external pastebins. Our <strong>Split Code Diff Engine</strong> performs token-level delta comparisons with high-contrast insertion/deletion highlighting, while the <strong>Unified Sandbox</strong> renders HTML5, CSS3, and ES6+ JavaScript inside an isolated <code>iframe</code>.
+      </p>
+    </article>
+
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        📈 Compound Wealth & Loan Amortization Modeling
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        Make data-driven capital decisions with real-time financial telemetry. The <strong>Wealth & Loan Engine</strong> calculates systematic investment compounding, inflation-adjusted corpus growth, and reducing-balance EMI amortization schedules. Interactive dual <code>Chart.js</code> canvases visualize principal-versus-interest ratios across multi-decade horizons.
+      </p>
+    </article>
+
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        🔑 WebCrypto CSPRNG Entropy & Security Tokens
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        Standard JavaScript <code>Math.random()</code> generators are deterministic and unsuitable for cryptographic credentials. UtilityFlow's <strong>Password & Token Studio</strong> taps directly into your operating system's hardware entropy pool via <code>window.crypto.getRandomValues()</code> to generate RFC-4122 compliant UUID v4 identifiers, bearer secrets, and high-entropy passphrases.
+      </p>
+    </article>
+
+    <article class="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        🖼️ Hardware-Accelerated Canvas Image Compression
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        Optimize Core Web Vitals and reduce image payload sizes by up to 80% without cloud queues. Using offscreen HTML5 <code>Canvas</code> quantization and customizable chroma subsampling, our <strong>Image Compression Studio</strong> converts and compresses high-resolution PNG, JPEG, and WebP assets in milliseconds.
+      </p>
+    </article>
+
+  </div>
+
+  <!-- Search-Targeted Directory Table (Captures Long-Tail "Free Online X Tool" Queries) -->
+  <div class="rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 mb-14">
+    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+      Complete Directory of 20 Browser-Native Modules on UtilityFlow.in
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+      <div>
+        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Document & Media Suite</strong>
+        <ul class="space-y-1 list-disc list-inside">
+          <li>Multi-Image to PDF Merger</li>
+          <li>Formatted Text-to-PDF Exporter</li>
+          <li>Local PDF Metadata Inspector</li>
+          <li>HTML5 Image Compression Studio</li>
+        </ul>
+      </div>
+      <div>
+        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Banking & Finance Engines</strong>
+        <ul class="space-y-1 list-disc list-inside">
+          <li>Global IBAN & SWIFT/BIC Inspector</li>
+          <li>Compound Wealth & SIP Forecaster</li>
+          <li>Loan EMI & Amortization Calculator</li>
+          <li>Executive Invoice & AR Letter Drafter</li>
+          <li>GST & Bill Split Instant Calculator</li>
+        </ul>
+      </div>
+      <div>
+        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Developer & Code Utilities</strong>
+        <ul class="space-y-1 list-disc list-inside">
+          <li>Split Color-Coded Code Diff Checker</li>
+          <li>Unified HTML5/CSS3/JS Live Sandbox</li>
+          <li>JSON Formatter & Schema Validator</li>
+          <li>WebCrypto UUID v4 & Secret Generator</li>
+          <li>Base64 / URL / Hash Encoder Studio</li>
+          <li>Regex Pattern Tester & Debugger</li>
+        </ul>
+      </div>
+      <div>
+        <strong class="block text-slate-900 dark:text-slate-200 mb-1">Design, SEO & Productivity</strong>
+        <ul class="space-y-1 list-disc list-inside">
+          <li>Vector QR Code Generator Studio</li>
+          <li>CSS Gradient & Contrast Checker</li>
+          <li>SEO Meta Tag & OpenGraph Builder</li>
+          <li>Markdown Live Preview & Exporter</li>
+          <li>Word, Character & Reading Time Analyzer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crawl-Friendly Frequently Asked Questions -->
+  <div class="max-w-4xl mx-auto">
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+      Frequently Asked Questions (Security, Privacy & Standards)
+    </h3>
+    <div class="space-y-4">
+      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
+        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
+          <span>Does UtilityFlow.in store, log, or transmit my uploaded PDFs, images, or code snippets?</span>
+          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          No. UtilityFlow.in is hosted as a static client-side application with zero backend database for file storage. Every document you select, IBAN you validate, or code snippet you compare is processed strictly inside your browser's local memory and immediately garbage-collected when you close or refresh the tab.
+        </p>
+      </details>
+
+      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
+        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
+          <span>How accurate is the Global IBAN & Bank Branch Inspector?</span>
+          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Our IBAN engine strictly enforces the official ISO-13616 registry specifications across 80+ SEPA and international jurisdictions, verifying exact character lengths, country prefixes, domestic bank/branch sort codes, and mathematical Modulo-97-10 check digits.
+        </p>
+      </details>
+
+      <details class="group rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5">
+        <summary class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer list-none flex justify-between items-center">
+          <span>Can I use UtilityFlow.in at work behind an enterprise firewall?</span>
+          <span class="text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Yes. Because UtilityFlow does not transmit sensitive payloads to remote cloud servers, software engineers, SAP/ERP consultants, QA testers, and finance teams can safely compare diffs, generate test tokens, and inspect formatting locally in compliance with strict client data-handling policies.
+        </p>
+      </details>
+    </div>
+  </div>
+
+  <!-- Mandatory Google AdSense Compliance Links Bar -->
+  <div class="mt-14 pt-8 border-t border-slate-200/70 dark:border-slate-800/70 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+    <div>
+      © 2026 <strong>UtilityFlow.in</strong> • Engineered for 100% Client-Side Privacy & Speed.
+    </div>
+    <div class="flex flex-wrap gap-6 font-medium">
+      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='Privacy Policy & Cookie Disclosure'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-privacy').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
+        Privacy Policy
+      </button>
+      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='Terms of Use & Disclaimer'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-terms').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
+        Terms of Service
+      </button>
+      <button onclick="document.getElementById('uf-legal-modal').classList.remove('hidden'); document.getElementById('uf-modal-title').innerText='About & Contact UtilityFlow.in'; document.getElementById('uf-modal-body').innerHTML=document.getElementById('tpl-contact').innerHTML;" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
+        About & Contact
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- AdSense Compliance Legal Modal -->
+<div id="uf-legal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4">
+  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+      <h4 id="uf-modal-title" class="text-base font-bold text-slate-900 dark:text-white">Legal Information</h4>
+      <button onclick="document.getElementById('uf-legal-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl font-bold px-2">✕</button>
+    </div>
+    <div id="uf-modal-body" class="p-6 overflow-y-auto text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed"></div>
+  </div>
+</div>
+
+<!-- Hidden Legal Templates (Crawlable by Google AdSense Bot) -->
+<div class="hidden" aria-hidden="true">
+  <div id="tpl-privacy">
+    <p><strong>Effective Date:</strong> October 2026</p>
+    <p><strong>1. 100% Client-Side Data Processing:</strong> UtilityFlow.in processes all user inputs—including PDF files, images, IBAN numbers, financial figures, and source code diffs—strictly locally inside your web browser's volatile memory (RAM). We do not upload, store, or log your tool payloads on any external server.</p>
+    <p><strong>2. Analytics & Telemetry:</strong> We use Google Analytics 4 (GA4) to measure anonymized aggregate traffic metrics such as page views, device types, and session durations to improve user experience.</p>
+    <p><strong>3. Google AdSense & DoubleClick DART Cookies:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to UtilityFlow.in and/or other sites on the Internet. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" class="text-indigo-600 underline">Google Ads Settings</a>.</p>
+  </div>
+  <div id="tpl-terms">
+    <p><strong>1. Acceptance of Terms:</strong> By accessing and using UtilityFlow.in, you agree to be bound by these Terms of Use. All 20 utilities are provided free of charge for personal, academic, and commercial productivity.</p>
+    <p><strong>2. No Financial or Legal Warranty:</strong> All calculations generated by the Global IBAN Inspector, Wealth & Loan Engine, and Invoice Drafter are provided "as is" for informational and verification purposes only. Always verify critical banking transactions and tax figures with your financial institution.</p>
+  </div>
+  <div id="tpl-contact">
+    <p><strong>About UtilityFlow.in:</strong> UtilityFlow.in is an independent, privacy-first browser utility ecosystem created by software engineer Santanu Rana to eliminate cloud-upload friction and paywalls from everyday developer and financial tools.</p>
+    <p><strong>Contact & Bug Reports:</strong> For technical feedback, feature requests, or partnership inquiries, please reach out via our official GitHub repository at <a href="https://github.com/santarana5/kitroute-app/issues" target="_blank" rel="noopener" class="text-indigo-600 underline">github.com/santarana5/kitroute-app</a>.</p>
+  </div>
+</div>
   </footer>
 
   <!-- SPOTLIGHT SUBMISSION MODAL -->
